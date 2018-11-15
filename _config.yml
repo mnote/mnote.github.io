@@ -23,4 +23,5 @@ kramdown:
   syntax_highlighter: rouge
 
 gems: [jekyll-paginate]
+
 theme: jekyll-theme-cayman
