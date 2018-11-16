@@ -1,27 +1,20 @@
+github: [metadata]
+
 title: "mnote"
-email: ""
-description: ""
+lang: "en_US"
+encoding: UTF-8
 
-url: "https://mnote.github.io"
-#url: "http://localhost:4000"
-
-github_username:  "mnote"
-language: en_US
-
-paginate: 10
-#paginate_path: "/page/:num/"
-paginate_path: ":num"
-#baseurl: ""
-
-#permalink: none
-permalink: /:year-:month-:day-:title
-
-highlighter: rouge
 markdown: kramdown
 kramdown:
   input:  GFM
-  syntax_highlighter: rouge
-
-gems: [jekyll-paginate]
+  hard_wrap: false
+future: true
+jailed: false
+gfm_quirks: paragraph_end
 
 theme: jekyll-theme-cayman
+
+paginate: 10
+paginate_path: ":num"
+
+plugins: [github-pages, jekyll-paginate]
