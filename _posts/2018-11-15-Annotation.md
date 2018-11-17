@@ -4,22 +4,21 @@ title: Annotation
 category: aspectj
 ---
 
-### 代码与配置同步
+Annotation其实是一种接口。通过Java的反射机制相关的API来访问Annotation信息
 
-跟踪代码依赖性，实现替代配置文件功能
-
-原则
+>代码与配置同步，跟踪代码依赖性，实现替代配置文件功能
 
 >与具体场景相关的配置应该使用注解的方式与数据关联，与具体场景无关的配置放于配置文件中。
->通过设置注解的@Retention级别在运行时使用反射对不同的注解进行处理
 
->生成文档
+>通过设置注解的@Retention级别在运行时使用反射对不同的注解进行处理
 
 >编译时格式检查
 
-Annotation其实是一种接口。通过Java的反射机制相关的API来访问Annotation信息
+>生成文档
 
-###元注解
+
+### 元注解
+
 元注解的作用就是负责注解其他注解。Java5.0定义了4个标准的meta-annotation类型，它们被用来提供对其它 annotation类型作说明。
 
 * @Target
@@ -29,7 +28,8 @@ Annotation其实是一种接口。通过Java的反射机制相关的API来访问
 
 @Documented 表示含有该注解类型的元素(带有注释的)会通过javadoc或类似工具进行文档化,类型声明是用@Documented 来注解的，这种类型的注解被作为被标注的程序成员的公共API
 
-###自定义注解
+### 自定义注解
+
 使用@interface自定义注解时，自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。@interface用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型（返回值类型只能是基本类型、Class、String、enum）。可以通过default来声明参数的默认值。
 
 注解在只有一个元素且该元素的名称是`value`的情况下，在使用注解的时候可以省略“value=”，直接写需要的值即可。
@@ -44,7 +44,7 @@ public @interface FruitColor {
 }
 ```
 
-###注解处理
+### 注解处理
 
 如果没有用来读取注解的方法和工作，那么注解也就不会比注释更有用处了。Java SE 5扩展了反射机制的API，使用`java.lang.reflect.AnnotatedElement`快速的构造自定义注解处理器。
 
@@ -57,7 +57,7 @@ for(Field field :fields){
 }
 ```
 
-###APT
+### APT
 APT（Annotation Processing Tool）是一个命令行工具，它对源代码文件进行检测找出其中的annotation后，使用annotation processors来处理annotation。
 
 在程序中添加的注解，可以在编译时刻或是运行时刻来进行处理。在编译时刻处理的时候，是分成多趟来进行的。如果在某趟处理中产生了新的Java源文件，那么就需要另外一趟处理来处理新生成的源文件。如此往复，直到没有新文件被生成为止。在完成处理之后，再对Java代码进行编译。
@@ -76,9 +76,9 @@ JDK 6中通过元注解@SupportedAnnotationTypes来声明所支持的注解类�
 
 [Getting Started with the Annotation Processing Tool](https://docs.oracle.com/javase/7/docs/technotes/guides/apt/GettingStarted.html)
 
-### annotation process cycle
+### Annotation Process Flow
 
-The way the annotation processor API design solves this problem is that the flow should be either:
+The way the annotation processor API design flow should be either:
 
 1. javac parses
 1. javac fires a round
@@ -106,4 +106,4 @@ Or, alternatively, if the order is reversed:
 1. lombok picks this up, does nothing.
 1. the final round is done without error and thus javac moves on to bytecode generation.
 
-[annotation process loop](https://github.com/mapstruct/mapstruct/issues/510)
+[Annotation Process Flow](https://github.com/mapstruct/mapstruct/issues/510)
