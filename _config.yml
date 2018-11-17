@@ -1,9 +1,9 @@
-github: [metadata]
-
-title: Mnote
-description:
+title: mnote
+description: I tried to change the world, but I couldn't find the source code
 lang: en_US
 encoding: UTF-8
+
+github: [metadata]
 
 markdown: kramdown
 kramdown:
