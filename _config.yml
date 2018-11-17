@@ -16,5 +16,7 @@ theme: jekyll-theme-cayman
 
 paginate: 10
 paginate_path: ":num"
+#permalink: none
+permalink: /:year-:month-:day-:title.html
 
 plugins: [github-pages, jekyll-paginate]
