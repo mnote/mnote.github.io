@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+
+    
+
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>REST | mnote</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="REST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="HTTP is the Platform" />
+<meta property="og:description" content="HTTP is the Platform" />
+<link rel="canonical" href="http://localhost:4000/java/2016/07/01/REST.html" />
+<meta property="og:url" content="http://localhost:4000/java/2016/07/01/REST.html" />
+<meta property="og:site_name" content="mnote" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-07-01T00:00:00+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/java/2016/07/01/REST.html","headline":"REST","dateModified":"2016-07-01T00:00:00+08:00","datePublished":"2016-07-01T00:00:00+08:00","description":"HTTP is the Platform","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/java/2016/07/01/REST.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">mnote</h1>
+      <h2 class="project-tagline"></h2>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<time class="post-date" datetime="2016-07-01T00:00:00+08:00">Jul 01, 2016</time>
+		<h1 class="post-title">REST</h1>
+	</header>
+	<h2 id="http-is-the-platform">HTTP is the Platform</h2>
+
+<p>REST has quickly become the de-facto standard for building web services on the web because they’re easy to build and easy to consume.</p>
+
+<p>REST embraces the precepts of the web itself, and embraces its architecture, benefits and all:</p>
+
+<blockquote>
+  <p>the notion that the web is an existence proof of a massively scalable distributed system that works really well, and we can take ideas from that to build integrated systems more easily.</p>
+</blockquote>
+
+<p>Principally all those that come for free with HTTP as a platform itself. Application <strong>security</strong> (encryption and authentication) are known quantities today for which there are known solutions. <strong>Caching</strong> is built into the protocol. Service <strong>routing</strong>, through DNS, is a resilient and well-known system already ubiquitously support.</p>
+
+<h2 id="maturity-model">Maturity Model</h2>
+
+<p>REST, however ubiquitous, is not a standard, <em><abbr title="本身">per se</abbr></em>, but an approach, a style, a constraint on the HTTP protocol. Its implementation may vary in style, approach. As an API consumer this can be a frustrating experience. The quality of REST services varies wildly.</p>
+
+<h3 id="level-0-transport">Level 0: Transport</h3>
+
+<p>At this level, we’re just using HTTP as a transport. You could call SOAP a Level 0 technology. It uses HTTP, but as a transport.</p>
+
+<h3 id="level-1-resources">Level 1: Resources</h3>
+
+<p>At this level, a service might use HTTP URIs to distinguish between nouns, or entities, in the system. For example, you might route requests to /customers, /users, etc. XML-RPC is an example of a Level 1 technology: it uses HTTP, and it can use URIs to distinguish endpoints. Ultimately, though, XML-RPC is not RESTful: it’s using HTTP as a transport for something else (remote procedure calls).</p>
+
+<h3 id="level-2-http-verbs">Level 2: HTTP Verbs</h3>
+
+<p>At this level, services take advantage of native HTTP qualities like headers, status codes, distinct URIs, and more. This is the level you want to be at.</p>
+
+<h3 id="level-3-hypermedia">Level 3: Hypermedia</h3>
+
+<p>Hypermedia, as practiced using the <a href="https://en.wikipedia.org/wiki/HATEOAS" title="Hypermedia as the Engine of Application State">HATEOAS</a> (“HATEOAS” is a truly welcome acronym for the mouthful, “Hypermedia as the Engine of Application State”) design pattern. Hypermedia promotes service longevity by decoupling the consumer of a service from intimate knowledge of that service’s surface area and topology. It describes REST services. The service can answer questions about what to call, and when.</p>
+
+<hr />
+
+<p>REST does not prescribe a representation or encoding. REST, short for Representational STate Transfer, defers to HTTP’s content-negotiation mechanism to let clients and services agree upon a mutually understood representation of data coming from a service, if possible. There are many ways to handle content negotiation, but in the simplest case, a client sends a request with an Accept header that specifies a comma-delimited list of acceptable mime types (for example: Accept: application/json, application/xml, /). If the service can produce any of those mime types, it responds with a representation in the first understood mime type.</p>
+
+
+</article>
+      <footer class="site-footer">
+        
+        <span class="site-footer-credits"><a id="go-top" href="#" onclick="scrollToTop();return false">This Page</a> was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+
+    </main>
+  </body>
+</html>

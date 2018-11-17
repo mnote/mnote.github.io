@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+
+    
+
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>JMX | mnote</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="JMX" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="JMX runs on top of RMI, and as such, there are two ports that JMX utilizes:" />
+<meta property="og:description" content="JMX runs on top of RMI, and as such, there are two ports that JMX utilizes:" />
+<link rel="canonical" href="http://localhost:4000/java/2015/12/25/JXM.html" />
+<meta property="og:url" content="http://localhost:4000/java/2015/12/25/JXM.html" />
+<meta property="og:site_name" content="mnote" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-12-25T00:00:00+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/java/2015/12/25/JXM.html","headline":"JMX","dateModified":"2015-12-25T00:00:00+08:00","datePublished":"2015-12-25T00:00:00+08:00","description":"JMX runs on top of RMI, and as such, there are two ports that JMX utilizes:","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/java/2015/12/25/JXM.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">mnote</h1>
+      <h2 class="project-tagline"></h2>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<time class="post-date" datetime="2015-12-25T00:00:00+08:00">Dec 25, 2015</time>
+		<h1 class="post-title">JMX</h1>
+	</header>
+	<p>JMX runs on top of RMI, and as such, there are two ports that JMX utilizes:</p>
+
+<blockquote>
+  <p>The JMX connect port.
+The (infamously) roaming RMI data port.</p>
+</blockquote>
+
+<h3 id="jmx">JMX</h3>
+
+<p>JMX is quite commonly used by various Java tools, such as Java Mission Control, JConsole and JVisualVM, 
+to provide monitoring and management capabilities of the Java runtime and applications running in the JVM. 
+The protocol most commonly used behind the scenes is JMX over RMI. It requires an RMI registry to be running, 
+from which a stub for communicating with the RMI server can be looked up by the client. The RMI registry is running on well known port. 
+For JRockit it was 7091 by default. For Hotspot it must be specified using a system property. 
+The port for the RMI server, which is returned in the stub retrieved from the registry, is however anonymous by default. 
+This makes tunneling traffic pretty cumbersome.</p>
+
+<p>Now, one handy but often overlooked feature that entered the 7u4 JDK as part of the JRockit convergence, 
+was the ability to specify the port of the RMI server. By setting the port used by the RMI registry and the RMI server to the same port, 
+tunneling will be much easier. Now, the name of the property for setting the port of the RMI Server was slightly changed from the JRockit implementation, 
+and is now called com.sun.management.jmxremote.rmi.port, instead of com.sun.management.rmiserver.port. 
+Here is an example of how to enable the external management agent with the same RMI registry and RMI server port on the command line, in JDK 7u4 and later:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-Dcom.sun.management.jmxremote.port=7091 
+-Dcom.sun.management.jmxremote.rmi.port=7091 
+-Dcom.sun.management.jmxremote.authenticate=false 
+-Dcom.sun.management.jmxremote.ssl=false
+</code></pre></div></div>
+
+<p><a href="http://realjenius.com/2012/11/21/java7-jmx-tunneling-freedom/">The Madness of Tunneling JMX</a></p>
+
+<p><a href="http://hirt.se/blog/?p=289">Tunneling JMX in the 7u4 JDK</a></p>
+
+<p><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html">Java Management Agent</a></p>
+
+<p><a href="https://bugs.openjdk.java.net/browse/JDK-8129948">Java Management Agent Document Bug</a></p>
+
+<h3 id="thread-parking">Thread parking</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"pool-1-thread-22" prio=5 tid=101b4b000 nid=0x127122000 waiting on condition [127121000]
+java.lang.Thread.State: WAITING (parking)
+at sun.misc.Unsafe.park(Native Method)
+- parking to wait for  &lt;6c340cee0&gt; (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+at java.util.concurrent.locks.LockSupport.park(LockSupport.java:156)
+</code></pre></div></div>
+
+<p>You will see same kind of pool threads with status waiting (parking). These are basically request worker threads on a tomcat sever. These are waiting on a blocking queue until a request comes. When a request comes, one thread will get permit and will run to execute the request.
+Same thing will happen when you use your own Java ThreadPoolExecutor. It will create a pool of threads and those threads will wait on a blocking queue provided to the executor. Task executor uses this queue to push and pop tasks as and when they are submitted. So if no tasks are available these threads will wait (park) on the queue. When a task is available, one worker thread will get permit and become a running thread. It will execute the task.
+So don’t get overwhelmed with waiting (parking) threads. These threads still can cause issue if you have created too many threads in your thread pool and they are eating up your resource. Otherwise you are fine. Your threads are not locked on some object.</p>
+
+<h3 id="identifying-which-java-thread-is-consuming-most-cpu">Identifying which Java Thread is consuming most CPU</h3>
+
+<blockquote>
+  <p>run top to get PID of the java process with highest CPU
+press Shift-H to enable Threads View
+get PID of the thread with highest CPU
+convert PID to HEX
+get stack dump of java process : jstack pid
+in stack dump look for thread with the matching HEX PID : nid=0x0000</p>
+</blockquote>
+
+<p><a href="http://code.nomad-labs.com/2010/11/18/identifying-which-java-thread-is-consuming-most-cpu/">Identifying which Java Thread is consuming most CPU</a></p>
+
+<h3 id="fix-a-locale-warning-from-perl">fix a locale warning from perl</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># on mac bash_profile
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+</code></pre></div></div>
+
+<p><a href="http://stackoverflow.com/questions/2499794/how-can-i-fix-a-locale-warning-from-perl">fix a locale warning from perl</a></p>
+
+<h3 id="which-java-thread-consumes-my-cpu">Which Java Thread Consumes my CPU</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nv">PID</span><span class="o">=</span><span class="k">$(</span>top <span class="nt">-n1</span> | <span class="nb">grep</span> <span class="nt">-m1</span> java | perl <span class="nt">-pe</span> <span class="s1">'s/\e\[?.*?[\@-~] ?//g'</span> | cut <span class="nt">-f1</span> <span class="nt">-d</span><span class="s1">' '</span><span class="k">)</span>
+<span class="nv">NID</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span> <span class="s2">"%x"</span> <span class="k">$(</span>top <span class="nt">-n1</span> <span class="nt">-H</span> | <span class="nb">grep</span> <span class="nt">-m1</span> java | perl <span class="nt">-pe</span> <span class="s1">'s/\e\[?.*?[\@-~] ?//g'</span> | cut <span class="nt">-f1</span> <span class="nt">-d</span><span class="s1">' '</span><span class="k">))</span>
+jstack <span class="nv">$PID</span> | <span class="nb">grep</span> <span class="nt">-A500</span> <span class="nv">$NID</span> | <span class="nb">grep</span> <span class="nt">-m1</span> <span class="s2">"^$"</span> <span class="nt">-B</span> 500
+</code></pre></div></div>
+
+<p><a href="https://dzone.com/articles/which-java-thread-consumes-my">Which Java Thread Consumes my CPU</a></p>
+
+<h3 id="how-to-analyze-java-thread-dumps">How to Analyze Java Thread Dumps</h3>
+
+<p>A thread can be processed with other threads at the same time. In order to ensure compatibility when multiple threads are trying to use shared resources, one thread at a time should be allowed to access the shared resources by using thread synchronization.</p>
+
+<p>Thread synchronization on Java can be done using <strong>monitor</strong>. Every Java object has a single monitor. The monitor can be owned by only one thread. For a thread to own a monitor that is owned by a different thread, it needs to wait in the wait queue until the other thread releases its monitor.</p>
+
+<p>NEW: The thread is created but has not been processed yet.
+RUNNABLE: The thread is occupying the CPU and processing a task. (It may be in WAITING status due to the OS’s resource distribution.)
+BLOCKED: The thread is waiting for a different thread to release its lock in order to get the monitor lock.
+WAITING: The thread is waiting by using a wait, join or park method.
+TIMED_WAITING: The thread is waiting by using a sleep, wait, join or park method. (The difference from WAITING is that the maximum waiting time is specified by the method parameter, and WAITING can be relieved by time as well as external changes.)</p>
+
+<p><a href="https://dzone.com/articles/how-analyze-java-thread-dumps">How to Analyze Java Thread Dumps</a></p>
+
+<h3 id="tid-nid">tid nid</h3>
+
+<p>In HotSpot, a Java thread may have a couple of different IDs, depending on the context.</p>
+
+<p>Java-level thread ID</p>
+
+<p>This ID could be fetched from java.lang.Thread.getId() or java.lang.management.ThreadMXBean.getAllThreadIds(). It’s platform independent.</p>
+
+<p>In Oracle/Sun’s JDK implementation, this ID is simply a auto-incrementing long, starting from 1, assigned to each Java-level java.lang.Thread object when they’re initialized.</p>
+
+<p>Quote from java.lang.management.ThreadMXBean’s JavaDoc:</p>
+
+<p>Thread ID</p>
+
+<p>Thread ID is a positive long value returned by calling the Thread.getId() method for a thread. The thread ID is unique during its lifetime. When a thread is terminated, this thread ID may be reused.</p>
+
+<p>Some methods in this interface take a thread ID or an array of thread IDs as the input parameter and return per-thread information.</p>
+
+<p><a href="https://gist.github.com/rednaxelafx/843622">tid nid</a></p>
+
+<p>Native thread ID</p>
+
+<p>This ID is highly platform dependent. It’s the nid in jstack thread dumps.</p>
+
+<p>On Windows, it’s simply the OS-level thread ID within a process.</p>
+
+<p>On Linux, it’s the pid of the thread (which in turn is a light-weight process).</p>
+
+<p>On Solaris, it’s the thread as returned by thr_self().</p>
+
+<p>On Mac OS X, it is said to be the native pthread_t value.</p>
+
+<h3 id="java-concurrency-hidden-thread-deadlocks">java concurrency hidden thread deadlocks</h3>
+
+<p><a href="https://dzone.com/articles/java-concurrency-hidden-thread">java-concurrency-hidden-thread deadlocks</a></p>
+
+<h3 id="flight-record">Flight Record</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-XX:+UnlockCommercialFeatures 
+-XX:+FlightRecorder
+
+-XX:+UnlockDiagnosticVMOptions 
+-XX:+DebugNonSafepoints
+</code></pre></div></div>
+
+<p><a href="http://java-performance.info/">Java Performance Tuning Guide</a>
+<a href="http://hirt.se/blog/?p=364">Low Overhead Method Profiling with Java Mission Control</a>
+<a href="http://blog.takipi.com/oracle-java-mission-control-the-ultimate-guide/">Oracle Java Mission Control: The Ultimate Guide</a>
+<a href="http://hirt.se/blog/?p=609">Improving the Fidelity of the JFR Method Profiler</a>
+<a href="https://www.takipi.com/product">Takipi</a></p>
+
+<h3 id="jmc">JMC</h3>
+
+<p>Java Mission Control</p>
+
+<p>Java Flight Recorder</p>
+
+<p>Apart from Java Mission Control being a desktop application, the main difference is that with Takipi, you’re getting an always-on error analysis down to the variable values and actual code that caused each error.</p>
+
+<p>So where JMC gives great value in profiling, but stops at the stack trace level, Takipi dives into the actual code to help you reproduce and solve production bugs.</p>
+
+<p>Another difference is working with distributed systems, JMC works on single machines, while Takipi’s dashboard displays multiple JVMs across different machines.</p>
+
+<p>So if you’re looking to monitor large scale production systems, give Takipi a try. However, if you’re looking for a great desktop profiling tool, JMC just might be your best option.</p>
+
+<p>Oracle JMC could be used for 2 main purposes:</p>
+
+<p>Monitoring the state of multiple running Oracle JVMs</p>
+
+<p>Java Flight Recorder dump file analysis</p>
+
+<p>Java Flight Recorder is a JMC feature. From the user point of view, you run the JFR with a fixed recording time / maximum recording file size / maximum recording length (your app can finish before that) and wait until recording is complete. After that you analyze it in the JMC.</p>
+
+<p>Finally, if you want as much file I/O, Java exceptions and CPU profiling info available, ensure that you have selected parameters enabled and their thresholds set to “1 ms”.</p>
+
+<p><a href="http://www.javacodegeeks.com/2015/03/oracle-java-mission-control-the-ultimate-guide.html">Oracle Java Mission Control: The Ultimate Guide</a></p>
+
+<p><a href="http://hirt.se/blog/">Java Mission Control Articles</a></p>
+
+<p><a href="http://www.javacodegeeks.com/2014/12/15-tools-java-developers-should-use-after-a-major-release.html">Java Tools</a></p>
+
+</article>
+      <footer class="site-footer">
+        
+        <span class="site-footer-credits"><a id="go-top" href="#" onclick="scrollToTop();return false">This Page</a> was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+
+    </main>
+  </body>
+</html>

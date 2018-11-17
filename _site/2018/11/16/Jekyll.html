@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+
+    
+
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Jekyll | mnote</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Jekyll" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="GitHub Pages" />
+<meta property="og:description" content="GitHub Pages" />
+<link rel="canonical" href="http://localhost:4000/2018/11/16/Jekyll.html" />
+<meta property="og:url" content="http://localhost:4000/2018/11/16/Jekyll.html" />
+<meta property="og:site_name" content="mnote" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-16T00:00:00+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2018/11/16/Jekyll.html","headline":"Jekyll","dateModified":"2018-11-16T00:00:00+08:00","datePublished":"2018-11-16T00:00:00+08:00","description":"GitHub Pages","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/11/16/Jekyll.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">mnote</h1>
+      <h2 class="project-tagline"></h2>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<time class="post-date" datetime="2018-11-16T00:00:00+08:00">Nov 16, 2018</time>
+		<h1 class="post-title">Jekyll</h1>
+	</header>
+	<h2 id="github-pages">GitHub Pages</h2>
+
+<ul>
+  <li>
+    <p>Free, reliable static site hosting</p>
+  </li>
+  <li>
+    <p>Fully contained within git repository and integrated with GitHub</p>
+  </li>
+  <li>
+    <p>Perfect for documentation and microsites</p>
+  </li>
+</ul>
+
+<h3 id="how-does-it-work">How Does it Work?</h3>
+
+<ul>
+  <li>
+    <p>GitHub Pages is triggered automagically™ by pushing to specially named branches of GitHub repositories</p>
+  </li>
+  <li>
+    <p>For most repositories, the <strong>branch</strong> should be named <code class="highlighter-rouge">gh-pages</code> or <code class="highlighter-rouge">docs</code> in <code class="highlighter-rouge">master</code> branch</p>
+  </li>
+  <li>
+    <p>All files in your repository will be transparently published each time you push to GitHub</p>
+  </li>
+  <li>
+    <p>If your repository is normally available at <code class="highlighter-rouge">github.com/[username]/[reponame]</code>, it will become available as a website hosted at <code class="highlighter-rouge">[username].github.com/[reponame]</code></p>
+  </li>
+  <li>
+    <p>If you want to have a “vanity” site that appears at <code class="highlighter-rouge">[username].github.io</code>, simply create a <strong>repository</strong> named <code class="highlighter-rouge">[username].github.io</code> and use the <code class="highlighter-rouge">master</code> branch, instead of the <code class="highlighter-rouge">gh-pages</code> <strong>branch</strong></p>
+  </li>
+  <li>
+    <p>Certain files are treated in a special way</p>
+  </li>
+</ul>
+
+<h2 id="jekyll">Jekyll</h2>
+
+<ul>
+  <li>
+    <p>Jekyll is written in Ruby. Jekyll itself is a gem as well as many Jekyll plugins.</p>
+
+    <p>A <em>gem</em> is code you can include in Ruby projects. It allows you to package up functionality and share it across other projects or with other people.</p>
+
+    <p>A <em>Gemfile</em> is a list of gems required for your site.</p>
+
+    <p><em>Bundler</em> installs the gems in your Gemfile. It’s not a requirement for you to use a Gemfile and bundler however it’s highly recommended as it ensures you’re running the same version of Jekyll and Jekyll plugins across different environments.</p>
+  </li>
+  <li>
+    <p>In addition to static file hosting, every push to GitHub Pages is transparently run through a powerful yet simple <em>templating engine</em> called <code class="highlighter-rouge">Jekyll</code></p>
+  </li>
+  <li>
+    <p>Since Jekyll sites are stored as static files, they are the fastest sites around and scale beautifully</p>
+  </li>
+  <li>
+    <p>Jekyll allows you to organize pages by common, reused templates, and helps you to build larger sites in a more manageable way</p>
+  </li>
+</ul>
+
+<h3 id="jekyll-basics">Jekyll Basics</h3>
+
+<ul>
+  <li>
+    <p>As a reminder, any file in the <em>gh-pages</em> branch of your repository will be transparently served via GitHub Pages including CSS, HTML, images, javascript, etc.</p>
+  </li>
+  <li>
+    <p>If you don’t want a file or folder to be accessible via the web, simply start the filename with an underscore (_).Otherwise, all files are run through Jekyll by default</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">jekyll build</code> - Builds the site and outputs a static site to a directory called <em>_site</em></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">jekyll serve</code> - Does the same thing except it rebuilds any time you make a change and runs a local web server at <em>http://localhost:4000</em></p>
+  </li>
+</ul>
+
+<h4 id="setting-up-your-github-pages-site-locally-with-jekyll"><a href="https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/">Setting up your GitHub Pages site locally with Jekyll</a></h4>
+
+<p>install ruby:<br />
+<code class="highlighter-rouge">curl -L https://get.rvm.io | bash -s stable --auto-dotfiles --autolibs=enable --ruby</code></p>
+
+<p>add to ~/.bash_profile:<br />
+<code class="highlighter-rouge">[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"</code></p>
+
+<p><code class="highlighter-rouge">source ~/.bash_profile</code></p>
+
+<p><code class="highlighter-rouge">rvm list</code><br />
+<code class="highlighter-rouge">ruby -v</code><br />
+<code class="highlighter-rouge">gem list</code><br />
+<code class="highlighter-rouge">gem env</code></p>
+
+<p><code class="highlighter-rouge">gem install bundler</code></p>
+
+<p><code class="highlighter-rouge">gem update --system</code><br />
+<code class="highlighter-rouge">gem update jekyll</code></p>
+
+<p>Gemfile and <a href="https://github.com/github/pages-gem">GitHub Pages gem</a>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source 'https://rubygems.org'
+
+gem 'jekyll'
+
+group :jekyll_plugins do
+  gem 'github-pages'
+  gem 'jekyll-paginate'
+end
+</code></pre></div></div>
+
+<p>Install Jekyll and other dependencies from the GitHub Pages gem:
+<code class="highlighter-rouge">bundle install</code></p>
+
+<p>List dependency versions: 
+<code class="highlighter-rouge">bundle exec github-pages versions</code></p>
+
+<p><code class="highlighter-rouge">bundle exec jekyll serve</code></p>
+
+<p><code class="highlighter-rouge">gem update github-pages</code>
+<code class="highlighter-rouge">bundle update github-pages</code></p>
+
+<h3 id="yaml">Yaml</h3>
+
+<ul>
+  <li>
+    <p>Jekyll uses a a simple format called YAML to organize <strong>file properties</strong></p>
+  </li>
+  <li>
+    <p>YAML (or YML front matteras it is also called) often <strong>lives at the top of a file surrounded by three - characters</strong> on the lines above and below</p>
+  </li>
+  <li>
+    <p>At its most basic level, YAML is simply a set of properties and values separated by a colon (:), e.g.:</p>
+
+    <hr />
+    <p>title: Hello world!
+   layout: page
+   —-</p>
+  </li>
+  <li>
+    <p>Any text-bassed file, regardless of the filetype can be given YML</p>
+  </li>
+  <li>
+    <p>Jekyll will strip the YML front matter (前页) before serving the file via GitHub pages</p>
+  </li>
+  <li>
+    <p>YML front matter can control the file’s presentation and is available within the template (more to come)</p>
+  </li>
+  <li>
+    <p>If your file is within the <code class="highlighter-rouge">_posts</code> directory, you can omit the dashes entirely.</p>
+  </li>
+</ul>
+
+<h3 id="layouts">Layouts</h3>
+
+<ul>
+  <li>
+    <p>Jekyll’s most powerful (and simplest) feature is called “layouts”</p>
+  </li>
+  <li>
+    <p>A layout is simply a predefined HTML (or anything really) template which helps Jekyll render content more beautifullyer</p>
+  </li>
+  <li>
+    <p>Layouts live in the <code class="highlighter-rouge">_layouts</code> folder (you may have to create this initially)</p>
+  </li>
+</ul>
+
+<h3 id="template-data">Template Data</h3>
+
+<ul>
+  <li>
+    <p>In addition to layouts, Jekyll also provides some more advanced template features</p>
+  </li>
+  <li>
+    <p>Any field in the YML front matter can be displayed in the page using the format of `` where property is the value before the colon</p>
+  </li>
+  <li>
+    <p>This helps to further separate the page’s layout from information about the page</p>
+  </li>
+  <li>
+    <p>You can also add YAML to a file named <code class="highlighter-rouge">_config.yml</code>, and it will be available to all templates as `` using the same format</p>
+  </li>
+</ul>
+
+<h3 id="includes">Includes</h3>
+
+<ul>
+  <li>
+    <p>Includes allow you to reuse common elements</p>
+  </li>
+  <li>
+    <p>Includes live in the <code class="highlighter-rouge">_includes</code> folder, and can be in any format</p>
+  </li>
+  <li>
+    <p>Includes can be dropped into a file using the format <code class="highlighter-rouge">\{\% include [file] %\}</code>, where <code class="highlighter-rouge">[file]</code> is the file you want to include</p>
+  </li>
+  <li>
+    <p>To include <code class="highlighter-rouge">_includes/sidebar.html</code> for example, simply add <code class="highlighter-rouge">\{\% include sidebar.html %\}</code> to the <strong>layout</strong></p>
+  </li>
+  <li>
+    <p>Note includes use the <code class="highlighter-rouge">\{\% ... %\}</code> format, while printing template data uses the { { … } } format</p>
+  </li>
+</ul>
+
+<h3 id="more-links">more links</h3>
+
+<p><a href="https://github.com/jekyll/jekyll/wiki">jekyll wiki</a></p>
+
+<p><a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">template commands and filters</a></p>
+
+<p><a href="https://pages.github.com">Github Pages</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/YAML">YAML</a>
+(/ˈjæməl/, rhymes with camel) is a human-readable data serialization format</p>
+
+<p><a href="http://ben.balter.com/teach.github.com/presentations/github-pages-jekyll-you.html#/">GitHub Pages</a></p>
+
+<p><a href="http://jekyllrb.com">Jekyll</a></p>
+
+<p><a href="http://jekyllrb.com/docs/pagination/">pagination</a></p>
+
+<p><a href="http://jekyllrb.com/docs/variables/">variables</a></p>
+
+<p><a href="http://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/">Build A Blog With Jekyll</a></p>
+
+
+</article>
+      <footer class="site-footer">
+        
+        <span class="site-footer-credits"><a id="go-top" href="#" onclick="scrollToTop();return false">This Page</a> was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+
+    </main>
+  </body>
+</html>

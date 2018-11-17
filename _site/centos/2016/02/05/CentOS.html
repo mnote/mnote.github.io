@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+
+    
+
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>CentOS | mnote</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="CentOS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Install CentOS" />
+<meta property="og:description" content="Install CentOS" />
+<link rel="canonical" href="http://localhost:4000/centos/2016/02/05/CentOS.html" />
+<meta property="og:url" content="http://localhost:4000/centos/2016/02/05/CentOS.html" />
+<meta property="og:site_name" content="mnote" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-02-05T00:00:00+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/centos/2016/02/05/CentOS.html","headline":"CentOS","dateModified":"2016-02-05T00:00:00+08:00","datePublished":"2016-02-05T00:00:00+08:00","description":"Install CentOS","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/centos/2016/02/05/CentOS.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">mnote</h1>
+      <h2 class="project-tagline"></h2>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<time class="post-date" datetime="2016-02-05T00:00:00+08:00">Feb 05, 2016</time>
+		<h1 class="post-title">CentOS</h1>
+	</header>
+	<h3 id="install-centos">Install CentOS</h3>
+
+<p><a href="http://www.tecmint.com/centos-6-4-installation-guide-with-screenshots/">install centos</a></p>
+
+<h3 id="config-centos">Config CentOS</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nb">cat</span> /etc/<span class="k">*</span>release
+
+yum update
+</code></pre></div></div>
+
+<h4 id="hosts">hosts</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/hosts
+#127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4 tbase
+#::1         localhost localhost.localdomain localhost6 localhost6.localdomain6 tbase
+127.0.0.1   localhost tbase
+# 10.24.23.150 tbase localhost
+</code></pre></div></div>
+
+<h4 id="network">network</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/sysconfig/network
+HOSTNAME=tbase
+</code></pre></div></div>
+
+<h4 id="resolv">resolv</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/resolv.conf
+nameserver 8.8.8.8
+</code></pre></div></div>
+
+<h3 id="ipv6">ipv6</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sysctl -w net.ipv6.conf.all.disable_ipv6=1
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim /etc/sysctl.conf
+
+</code></pre></div></div>
+
+<h4 id="i18n">i18n</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo $LANG $LANGUAGE
+
+/etc/sysconfig/i18n
+#LANG="zh_CN.UTF-8"
+LANG="en_US.UTF-8"
+
+source /etc/sysconfig/i18n
+
+</code></pre></div></div>
+
+<h4 id="ulimit">ulimit</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ulimit -n  
+#1000000
+
+/etc/sysctl.conf
+fs.file-max=1000000
+
+/etc/security/limits.conf
+*                 -      nofile         1000000
+
+</code></pre></div></div>
+
+<h4 id="iptables">iptables</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#reboot or init 6
+
+service iptables stop
+
+chkconfig --level 345 iptables off
+
+chkconfig --list iptables
+sudo chkconfig iptables off
+chkconfig --list iptables
+
+</code></pre></div></div>
+
+<h4 id="ssh-key">ssh-key</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ssh-keygen <span class="nt">-t</span> rsa
+
+<span class="c">#The key pair is generated and written to a directory called .ssh in your home directory. The public key is stored in ~/.ssh/id_rsa.pub</span>
+
+ssh centos mkdir <span class="nt">-p</span> .ssh
+
+<span class="c">#ssh-copy-id -i ~/.ssh/id_rsa.pub 127.0.0.1</span>
+
+</code></pre></div></div>
+
+<h4 id="sublime">sublime</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nb">tar </span>vxjf Sublime<span class="se">\ </span>Text<span class="se">\ </span>2.0.2<span class="se">\ </span>x64.tar.bz2
+<span class="nb">sudo </span>mv Sublime<span class="se">\ </span>Text<span class="se">\ </span>2 /opt/
+<span class="nb">sudo </span>ln <span class="nt">-s</span> /opt/Sublime<span class="se">\ </span>Text<span class="se">\ </span>2/sublime_text /usr/bin/subl
+
+</code></pre></div></div>
+
+<p><a href="http://www.cs.nyu.edu/~mohri/unix08/">Unix Tools</a></p>
+
+<h4 id="epel">epel</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+yum repolist
+
+<span class="nb">cat</span> /etc/redhat-release
+
+<span class="nb">sudo </span>rpm <span class="nt">-Uvh</span> http://mirrors.kernel.org/fedora-epel/6/i386/epel-release-6-8.noarch.rpm
+
+<span class="nb">sudo sudo </span>rpm <span class="nt">--import</span> /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+</code></pre></div></div>
+
+<p><a href="http://xmodulo.com/how-to-set-up-epel-repository-on-centos.html">EPEL</a></p>
+
+<h4 id="htop">htop</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo yum install htop
+
+sudo yum install htop
+
+</code></pre></div></div>
+
+<h3 id="monitor-centos">Monitor CentOS</h3>
+
+<h3 id="install-jdk">Install JDK</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nb">tar </span>xzf jdk-7u80-linux-x64.tar.gz
+
+mv jdk1.7.0_80 jdk
+
+mv jdk /opt/
+
+</code></pre></div></div>
+
+<h3 id="install-hbase">Install HBase</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nb">tar </span>xzf hbase-1.1.3-bin.tar.gz
+
+mv hbase-1.1.3 hbase
+
+mv hbase /opt/
+
+</code></pre></div></div>
+
+<h3 id="config-hbase">Config HBase</h3>
+
+<p>hbase/conf/hbase-env.sh</p>
+
+<p>hbase/conf/hbase-site.xml</p>
+
+<p>hbase/conf/log4j.properties</p>
+
+<p>hbase/bin/hbase-config.sh:
+HBASE_REGIONSERVER_MLOCK agent</p>
+
+<p>hbase/bin/local-master-backup.sh
+hbase/bin/local-regionservers.sh
+    # sanity check: make sure your master opts don’t use ports [i.e. JMX/DBG]
+    export HBASE_MASTER_OPTS=” “</p>
+
+<h3 id="startup-hbase">Startup HBase</h3>
+
+<p>chmod -R +x hbase/bin/<em>.sh
+chmod -R +x hbase/conf/</em>.sh</p>
+
+<h3 id="install-native">Install Native</h3>
+
+<p>hbase/lib/native/Linux-amd64-64</p>
+
+<p>hbase/build/native/Windows_NT-amd64-64</p>
+
+<h3 id="install-wrapper">Install Wrapper</h3>
+
+<h3 id="install-tbase">Install TBase</h3>
+
+<h3 id="code-upgrade">Code Upgrade</h3>
+
+<h4 id="hbase">hbase</h4>
+<h4 id="wrapper">wrapper</h4>
+
+<h4 id="tomcat">tomcat</h4>
+<h4 id="spring-data">spring-data</h4>
+<h4 id="spring">spring</h4>
+<h4 id="hazelcast">hazelcast</h4>
+<h4 id="native-lib">native lib</h4>
+<h4 id="windows">windows</h4>
+<h4 id="ice-to-thrift">ice to thrift</h4>
+
+<h3 id="build-native">build native</h3>
+
+<p>Hadoop has native implementations of certain components for reasons of both performance and non-availability of Java implementations. 
+These components are available in a single, dynamically-linked, native library. On the *nix platform it is libhadoop.so.</p>
+
+<h4 id="jdk">JDK</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#remove openjdk
+yum -y remove *jdk*
+yum -y remove *java*
+
+wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-linux-x64.tar.gz
+
+#cp -ar /usr/java/jdk1.8.0_74 /opt
+
+
+tar xzf jdk-8u74-linux-x64.tar.gz 
+
+mv jdk1.8.0_74 jdk
+mv jdk /opt/
+
+update-alternatives --install /usr/bin/java java /root/jdk/bin/java 1
+#update-alternatives --install /usr/bin/javac javac /root/jdk/bin/javac 1
+
+vim /etc/profile
+
+export JAVA_HOME=/opt/jdk
+export JRE_HOME=/opt/jdk/jre
+export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+
+source /etc/profile
+
+echo $JAVA_HOME
+echo $JRE_HOME
+echo $CLASSPATH
+echo $PATH
+
+java -version
+#javac -version
+</code></pre></div></div>
+
+<p><a href="http://stackoverflow.com/questions/10268583/downloading-java-jdk-on-linux-via-wget-is-shown-license-page-instead">wget jdk</a></p>
+
+<h4 id="maven">Maven</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+wget http://mirrors.hust.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+
+tar xzf apache-maven-3.3.9-bin.tar.gz
+
+mv apache-maven-3.3.9 maven
+mv maven /opt/
+
+vim /etc/profile
+
+export M2_HOME=/opt/maven
+export PATH=$PATH:$M2_HOME/bin
+
+export MAVEN_OPTS="-Xms256m -Xmx512m"
+
+source /etc/profile
+
+
+mvn --version
+
+#copy settings.xml to ~/.m2
+
+</code></pre></div></div>
+
+<h4 id="ant">Ant</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://mirrors.noc.im/apache//ant/binaries/apache-ant-1.9.6-bin.tar.gz
+
+tar xzf apache-ant-1.9.6-bin.tar.gz
+
+mv apache-ant-1.9.6 ant
+mv ant /opt/
+
+vim /etc/profile
+
+export ANT_HOME=/opt/ant
+export PATH=$PATH:$ANT_HOME/bin
+
+source /etc/profile
+
+ant -version
+
+</code></pre></div></div>
+
+<h4 id="dev">dev</h4>
+
+<p>yum -y install gcc-c++.x86_64
+yum -y install make.x86_64
+yum -y install openssl.x86_64 openssl-devel.x86_64 openssh.x86_64
+yum -y install libtool.x86_64
+yum -y install autoconf.noarch automake.noarch
+yum -y install cmake.x86_64
+yum -y install xz.x86_64 xz-devel.x86_64
+yum -y install zlib.x86_64 zlib-devel.x86_64
+yum -y install git.x86_64</p>
+
+<h4 id="protobuf">protobuf</h4>
+
+<p>https://github.com/google/protobuf/tree/v2.5.0
+http://stackoverflow.com/questions/29797763/how-do-i-install-protobuf-2-5-on-arch-linux-for-compiling-hadoop-2-6-0-using-mav</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+wget https://github.com/google/protobuf/archive/v2.5.0.zip
+
+yum remove protobuf
+yum remove protobuf-compiler
+
+mv v2.5.0.zip protobuf-2.5.0.zip
+
+#yum install zip
+#yum install unzip
+
+unzip protobuf-2.5.0.zip
+
+#tar xzf protobuf-2.5.0.tar.gz
+
+cd protobuf-2.5.0
+
+./autogen.sh
+
+./configure
+make
+sudo make install
+
+
+sudo vim /etc/profile
+
+export HADOOP_PROTOC_PATH=/usr/local/bin/protoc
+
+source /etc/profile
+
+protoc --version
+
+lib dir:
+/usr/local/lib
+
+
+</code></pre></div></div>
+
+<p>####snappy</p>
+
+<p>http://google.github.io/snappy/</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#yum -y install snappy-devel.x86_64
+
+#scp &lt;localfile&gt;username@tohostname:&lt;remotefile&gt;
+#scp username@tohostname:&lt;remotefile&gt;&lt;newlocalfile&gt;
+
+wget https://github.com/google/snappy/releases/download/1.1.3/snappy-1.1.3.tar.gz
+
+scp ~/Downloads/snappy-1.1.3.tar.gz centos:snappy-1.1.3.tar.gz
+
+tar zxvf snappy-1.1.3.tar.gz
+cd snappy-1.1.3
+./configure
+make
+sudo make install
+ls /usr/local/lib/libsn*
+
+</code></pre></div></div>
+
+<h4 id="hadoop">hadoop</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.7.2/hadoop-2.7.2-src.tar.gz
+#scp ~/Downloads/hadoop-2.7.2-src.tar.gz centos:hadoop-2.7.2-src.tar.gz
+
+tar xzf hadoop-2.7.2-src.tar.gz 
+
+brew install cmake
+
+cd hadoop-2.7.2-src
+
+#mvn package -Pdist,native -DskipTests -Dtar
+
+#mvn package -Pdist,native -DskipTests -Dtar &gt; hadoop.txt &amp;
+
+mvn package -Drequire.snappy -Pdist,native -DskipTests -Dmaven.javadoc.skip=true -Dmaven.source.skip=true -Dtar -rf :hadoop-common  &gt; hadoop.txt &amp;
+
+scp ~/hadoop-2.7.2-src/hadoop-hdfs-project/hadoop-hdfs-httpfs/downloads/apache-tomcat-6.0.44.tar.gz centos:~/hadoop-2.7.2-src/hadoop-hdfs-project/hadoop-hdfs-httpfs/downloads/apache-tomcat-6.0.44.tar.gz
+
+scp -r centos:~/hadoop-2.7.2-src/hadoop-common-project/hadoop-common/target/native/target/usr/local/lib/* ~/hadoop-2.7.2/lib/native/Linux-amd64-64/
+
+scp -r centos:~/hadoop-2.7.2-src/hadoop-hdfs-project/hadoop-hdfs/target/native/target/usr/local/lib/* ~/hadoop-2.7.2/lib/native/Linux-amd64-64/
+
+
+#mvn release:perform -Darguments="-Dmaven.javadoc.skip=true"
+
+
+scp -r centos:/usr/local/lib/* ~/hadoop-2.7.2/lib/native/Linux-amd64-64/
+
+
+</code></pre></div></div>
+
+<p>http://stackoverflow.com/questions/7412016/how-can-i-disable-the-maven-javadoc-plugin-from-the-command-line</p>
+
+<p>#mvn package [-Dsnappy.prefix=SNAPPY_INSTALLATION_DIR]</p>
+
+<p>‘snappy.prefix’ by default is ‘/usr/local’. If Snappy is installed in other location than user local set ‘snappy.prefix’ to the right location.</p>
+
+<p>https://code.google.com/p/hadoop-snappy/</p>
+
+<p>hadoop natives:</p>
+
+<p>hadoop-2.7.2-src/hadoop-common-project/hadoop-common/target/native/target/usr/local/lib
+libhadoop.a
+libhadoop.so
+libhadoop.so.1.0.0</p>
+
+<p>hdfs natives:</p>
+
+<p>hadoop-2.7.2-src/hadoop-hdfs-project/hadoop-hdfs/target/native/target/usr/local/lib
+libhdfs.a
+libhdfs.so
+libhdfs.so.0.0.0</p>
+
+<h4 id="windows-1">windows</h4>
+
+<p>https://github.com/karthikj1/Hadoop-2.7.1-Windows-64-binaries</p>
+
+<hr />
+<p>from zookeeper log:
+hbase/lib/native/Mac_OS_X-x86_64-64
+hbase/lib/native/Linux-amd64-64
+hbase/lib/native/Windows_NT-amd64-64</p>
+
+<hr />
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./bin/hbase shell
+create 't1', { NAME =&gt; 'cf1', COMPRESSION =&gt; 'SNAPPY' }
+describe 't1'
+</code></pre></div></div>
+
+<hr />
+<p>tomcat:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/root/hadoop-2.7.2-src/hadoop-hdfs-project/hadoop-hdfs-httpfs/target/antrun/build-main.xml
+
+&lt;get dest="downloads/apache-tomcat-6.0.36.tar.gz" skipexisting="true" verbose="true" src="http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.36/bin/apache-tomcat-6.0.36.tar.gz"/&gt;
+</code></pre></div></div>
+
+<p>main:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[get] Getting: http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.36/bin/apache-tomcat-6.0.36.tar.gz
+[get] To: /root/hadoop-2.5.1-src/hadoop-hdfs-project/hadoop-hdfs-httpfs/downloads/apache-tomcat-6.0.36.tar.gz
+</code></pre></div></div>
+
+<hr />
+<p>Build Hadoop from Trunk</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git://git.apache.org/hadoop-common.git hadoop
+
+mvn clean install -DskipTests -Pdist
+</code></pre></div></div>
+
+<hr />
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -zcvf archive_name.tar.gz directory_to_compress
+
+tar -zcvf m2.tar.gz .m2
+</code></pre></div></div>
+
+<hr />
+
+
+</article>
+      <footer class="site-footer">
+        
+        <span class="site-footer-credits"><a id="go-top" href="#" onclick="scrollToTop();return false">This Page</a> was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+
+    </main>
+  </body>
+</html>

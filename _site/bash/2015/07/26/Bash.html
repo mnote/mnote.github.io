@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+
+    
+
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Bash | mnote</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Bash" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How can I fix a locale warning from perl" />
+<meta property="og:description" content="How can I fix a locale warning from perl" />
+<link rel="canonical" href="http://localhost:4000/bash/2015/07/26/Bash.html" />
+<meta property="og:url" content="http://localhost:4000/bash/2015/07/26/Bash.html" />
+<meta property="og:site_name" content="mnote" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-07-26T00:00:00+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/bash/2015/07/26/Bash.html","headline":"Bash","dateModified":"2015-07-26T00:00:00+08:00","datePublished":"2015-07-26T00:00:00+08:00","description":"How can I fix a locale warning from perl","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/bash/2015/07/26/Bash.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">mnote</h1>
+      <h2 class="project-tagline"></h2>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<time class="post-date" datetime="2015-07-26T00:00:00+08:00">Jul 26, 2015</time>
+		<h1 class="post-title">Bash</h1>
+	</header>
+	<h3 id="how-can-i-fix-a-locale-warning-from-perl">How can I fix a locale warning from perl</h3>
+
+<p>Add the following lines to your bashrc or bash_profile on the host machine:</p>
+
+<blockquote>
+  <p>perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+   LANGUAGE = (unset),
+   LC_ALL = (unset),
+   LANG = “en_US.UTF-8”
+are supported and installed on your system.
+perl: warning: Falling back to the standard locale (“C”).</p>
+</blockquote>
+
+<p>If you are using bash, edit .bash_profile:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+</code></pre></div></div>
+
+<p>If you are using zsh, edit zshrc:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LC_CTYPE=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+</code></pre></div></div>
+
+<p><a href="http://stackoverflow.com/questions/2499794/how-can-i-fix-a-locale-warning-from-perl">How can I fix a locale warning from perl</a></p>
+
+<h3 id="bash_profile">.bash_profile</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	export JAVA_HOME=$(/usr/libexec/java_home)
+	export ANT_HOME=/Users/xxx/ant
+	export MVN_HOME=/Users/xxx/maven
+	export PATH=$PATH:$JAVA_HOME/bin
+	export PATH=$PATH:$ANT_HOME/bin
+	export PATH=$PATH:$MVN_HOME/bin
+	export PATH=$PATH:/usr/local/mysql/bin
+
+
+	alias sublime="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+	function parse_git_branch {
+	    git branch --no-color 2&gt; /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' -e 's/((/(/' -e 's/))/)/'
+	}
+	export PS1="\u$white $yellow\w"$red'$(parse_git_branch)'"\[\e[1;30m\] $normal\$ "
+</code></pre></div></div>
+
+<h3 id="copy-to-clipboard">copy to clipboard</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	pbcopy &lt; ~/.ssh/id_rsa.pub
+</code></pre></div></div>
+
+<h3 id="set">set</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set -e
+
+set +e
+</code></pre></div></div>
+
+<p>Exit immediately if a simple command exits with a non-zero status.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Unless the command that fails is part of an until or while loop, part of an if statement, part of a &amp;&amp; or</td>
+      <td> </td>
+      <td>list, or if the command’s return status is being inverted using !.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A trap on ERR, if set, is executed before the shell exits.</p>
+
+<p><a href="http://www.faqs.org/docs/bashman/bashref_56.html">The Set Builtin</a></p>
+
+<h3 id="umask">umask</h3>
+
+<p>To view your current umask setting, open a terminal and run the command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>umask
+</code></pre></div></div>
+
+<p>To change the umask setting of the current shell to something else, say 077, run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>umask 077
+</code></pre></div></div>
+
+<p>A umask of 000 will make newly created directories readable, writable and descendible for everyone (the permissions will be 777). Such a umask is highly insecure and you should never set the umask to 000.</p>
+
+<p>The default umask on Ubuntu is 022 which means that newly created files are readable by everyone, but only writable by the owner:</p>
+
+<p><a href="http://askubuntu.com/questions/44542/what-is-umask-and-how-does-it-work">umask</a></p>
+
+<h3 id="pstree">pstree</h3>
+
+<p>For group of threads, pstree use n*[{name}]:</p>
+
+<p>Child threads of a process are found under the parent process and are shown with the process name in curly braces, e.g.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   icecast2---13*[{icecast2}]
+</code></pre></div></div>
+
+<p>The mistake was to presume those numbers were PIDS, when in fact they are TIDS (thread IDs). See Linux function gettid(2). Reading up on clone(2) gives a lot of extra (and interesting) details.</p>
+
+<p>use command “pstree -a” to see the different.</p>
+
+<p>pstree 27108</p>
+
+<p>Script.sh—java—15*[{java}]</p>
+
+<p>the process 27108 was started by the script Script.sh. The Script.sh created a java process which spawned another 15 java threads.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>A ps -eLf</td>
+      <td>grep java</td>
+      <td>wc -l</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="http://unix.stackexchange.com/questions/166207/the-program-pstree-and-htop-showing-threads-with-unique-pids-how-is-this-possib"></a>
+<a href="http://www.cyberciti.biz/faq/unix-linux-pstree-command-examples-shows-running-processestree/">pstree Command Examples</a></p>
+
+<h3 id="trash">trash</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install trash
+</code></pre></div></div>
+
+
+</article>
+      <footer class="site-footer">
+        
+        <span class="site-footer-credits"><a id="go-top" href="#" onclick="scrollToTop();return false">This Page</a> was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+
+    </main>
+  </body>
+</html>
