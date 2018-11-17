@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Spring Boot
 category: spring
 ---

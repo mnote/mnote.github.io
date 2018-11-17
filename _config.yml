@@ -1,7 +1,8 @@
 github: [metadata]
 
-title: "mnote"
-lang: "en_US"
+title: Mnote
+description:
+lang: en_US
 encoding: UTF-8
 
 markdown: kramdown
@@ -16,7 +17,6 @@ theme: jekyll-theme-cayman
 
 paginate: 10
 paginate_path: ":num"
-#permalink: none
 permalink: /:year-:month-:day-:title.html
 
 plugins: [github-pages, jekyll-paginate]
