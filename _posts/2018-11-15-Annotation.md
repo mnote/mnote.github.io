@@ -107,3 +107,45 @@ Or, alternatively, if the order is reversed:
 1. the final round is done without error and thus javac moves on to bytecode generation.
 
 [Annotation Process Flow](https://github.com/mapstruct/mapstruct/issues/510)
+
+### Java Proxy and CGLib
+
+[Java Proxy 和 CGLIB 动态代理原理](http://www.importnew.com/27772.html)
+
+### AOP
+
+编织（Weaving）：将切面应用到目标对象从而创建一个新的代理对象的过程。这个过程可以发生在编译期、类装载期及运行期，当然不同的发生点有着不同的前提条件。譬如发生在编译期的话，就要求有一个支持这种AOP实现的特殊编译器（如AspectJ编译器）；发生在类装载期，就要求有一个支持AOP实现的特殊类装载器；只有发生在运行期，则可直接通过Java语言的反射机制与动态代理机制来动态实现（如Spring）。
+
+AOP代理（AOP Proxy）：将通知（Advice）应用到目标对象（Target Object）之后被动态创建的对象。可以简单地理解为，代理对象的功能等于目标对象的核心业务逻辑功能加上共有功能。代理对象对于使用者而言是透明的，是程序运行过程中的产物。
+
+引入（Introduction）：添加方法或字段到被通知的类。
+
+
+#### Method Signature
+
+> @注解 访问权限 返回值类型 包名.函数名(参数) 
+> 
+> * @注解和访问权限（public/private/protect，以及static/final）属于可选项。如果不设置它们，则默认都会选择。以访问权限为例，如果没有设置访问权限作为条件，那么public，private，protect及static、final的函数都会进行搜索。  
+> 
+> * 返回值类型就是函数的返回值类型。如果不限定类型的话，就用*通配符表示  
+> * 包名.函数名用于查找匹配的函数。可以使用通配符，包括`*`和`..`以及`+`号。其中`*`号用于匹配除`.`号之外的任意字符，而`..`则表示任意子package，`+`号表示子类。比如：
+> 	* java.*.Date：可以表示java.sql.Date，也可以表示java.util.Date  
+>   * Test*：可以表示TestBase，也可以表示TestDervied  
+>   * java..*：表示java任意子类  
+>   * java..*Model+：表示Java任意package中名字以Model结尾的子类，比如TabelModel，TreeModel 等  
+> * 最后来看函数的参数。参数匹配比较简单，主要是参数类型，比如：  
+>     * (int, char)：表示参数只有两个，并且第一个参数类型是int，第二个参数类型是char  
+>     * (String, ..)：表示至少有一个参数。并且第一个参数类型是String，后面参数类型不限。  
+>     * `..`代表任意参数个数和类型  
+>     * (Object ...)：表示不定个数的参数，且类型都是Object，这里的`...`不是通配符，而是Java中代表不定参数的意思  
+> 
+
+往advice传参数比较简单，就是利用前面提到的this(),target(),args()等方法
+
+
+### jcabi-aspects
+
+[Java Method Logging with AOP and Annotations](https://www.yegor256.com/2014/06/01/aop-aspectj-java-method-logging.html)
+
+[AspectJ切入点匹配语法](https://github.com/doc-spring/AspectJ)
+[AspectJ切入点语法详解](https://www.mekau.com/4880.html)
