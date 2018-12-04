@@ -16,6 +16,7 @@ Annotation其实是一种接口。通过Java的反射机制相关的API来访问
 
 >生成文档
 
+[Annotations](https://docs.oracle.com/javase/tutorial/java/annotations/)
 
 ### 元注解
 
@@ -149,3 +150,142 @@ AOP代理（AOP Proxy）：将通知（Advice）应用到目标对象（Target O
 
 [AspectJ切入点匹配语法](https://github.com/doc-spring/AspectJ)
 [AspectJ切入点语法详解](https://www.mekau.com/4880.html)
+[ajc](http://www.eclipse.org/aspectj/doc/next/devguide/ajc-ref.html)
+[aspectj-maven-plugin](https://www.mojohaus.org/aspectj-maven-plugin/compile-mojo.html)
+
+
+### Validation
+
+Constraints in Bean Validation are expressed via Java annotations. There are four types of bean constraints to enhance an object model:
+
+field constraints
+
+property constraints
+
+container element constraints
+
+class constraints
+
+None of the default constraints defined by Bean Validation can be placed at class level.
+
+When using field-level constraints field access strategy is used to access the value to be validated. This means the validation engine directly accesses the instance variable and does not invoke the property accessor method even if such an accessor exists.
+Constraints can be applied to fields of any access type (public, private etc.). Constraints on static fields are not supported, though.
+
+>When validating byte code enhanced objects, property level constraints should be used, because the byte code enhancing library won’t be able to determine a field access via reflection.
+>When using property level constraints property access strategy is used to access the value to be validated, i.e. the validation engine accesses the state via the property accessor method.
+>It is recommended to stick either to field or property annotations within one class. It is not recommended to annotate a field and the accompanying getter method as this would cause the field to be validated twice.
+>When a class implements an interface or extends another class, all constraint annotations declared on the super-type apply in the same manner as the constraints specified on the class itself.
+>The Bean Validation API does not only allow to validate single class instances but also complete object graphs (cascaded validation). To do so, just annotate a field or property representing a reference to another object with @Valid
+
+
+As of Bean Validation 1.1, constraints can not only be applied to JavaBeans and their properties, but also to the parameters and return values of the methods and constructors of any Java type. That way Bean Validation constraints can be used to specify
+
+the preconditions that must be satisfied by the caller before a method or constructor may be invoked (by applying constraints to the parameters of an executable)
+
+the postconditions that are guaranteed to the caller after a method or constructor invocation returns (by applying constraints to the return value of an executable)
+
+This approach has several advantages over traditional ways of checking the correctness of parameters and return values:
+
+the checks don’t have to be performed manually (e.g. by throwing IllegalArgumentException or similar), resulting in less code to write and maintain
+
+an executable’s pre- and postconditions don’t have to be expressed again in its documentation, since the constraint annotations will automatically be included in the generated JavaDoc. This avoids redundancies and reduces the chance of inconsistencies between implementation and documentation
+
+>Note that declaring method or constructor constraints itself does not automatically cause their validation upon invocation of the executable. Instead, the ExecutableValidator API (see Section 3.2, “Validating method constraints”) must be used to perform the validation, which is often done using a method interception facility such as AOP, proxy objects etc.
+
+Constraints may only be applied to instance methods, i.e. declaring constraints on static methods is not supported. Depending on the interception facility you use for triggering method validation, additional restrictions may apply, e.g. with respect to the visibility of methods supported as target of interception. 
+
+>In addition to the built-in bean and property-level constraints discussed in Section 2.3, “Built-in constraints”, Hibernate Validator currently provides one method-level constraint, @ParameterScriptAssert. This is a generic cross-parameter constraint which allows to implement validation routines using any JSR 223 compatible ("Scripting for the JavaTM Platform") scripting language, provided an engine for this language is available on the classpath.
+
+
+
+### Lombok
+
+Lombok does indeed code against internal API, as Sean Patrick Floyd said. However, as lombok is ONLY involved in the compilation phase, its misleading to claim Lombok will only run on a sun VM. It'll only compile on ecj or sun's javac. However, the vast majority of VMs out there, if they ship a compiler at all, are one of those two. For example, the Apple VM ships with stock sun javac, and as such lombok works just fine on macs. Same goes for the soylatte VM, for example.
+
+While for javac we really do have to stick with their updates, partly because of a lot of ongoing work on their compiler right now, we've had to make just 1 minor adjustment to our eclipse support over many many versions of eclipse. So, while we do code against internal API, they are relatively stable bits.
+
+If what lombok does could be done without resorting to internal API, we'd have done something else, but it can't be done, so we resort to internal API usage.
+
+NB: I'm one of the lead developers of lombok, so, I'm probably a little biased :P
+
+http://notatube.blogspot.com/2010/11/project-lombok-trick-explained.html
+
+https://stackoverflow.com/questions/6107197/how-does-lombok-work
+
+
+
+[Java Compilation](http://openjdk.java.net/groups/compiler/doc/compilation-overview/index.html)
+
+
+
+### Project Lombok - Trick Explained
+
+[Trick Explained](http://notatube.blogspot.com/2010/11/project-lombok-trick-explained.html)
+[Creating Custom Transformations](http://notatube.blogspot.com/2010/12/project-lombok-creating-custom.html)
+[Don’t use Lombok](https://medium.com/@vgonzalo/dont-use-lombok-672418daa819)
+[lombok intro](https://www.baeldung.com/intro-to-project-lombok)
+
+#### Java Compilation
+
+To understand how Project Lombok works, one must first understand how Java compilation works. OpenJDK provides an excellent overview of the compilation process. To paraphrase, compilation has 3 stages: 
+1. Parse and Enter
+2. Annotation Processing
+3. Analyse and Generate
+
+![javac-flow](../assets/image/javac-flow.png)
+
+In the Parse and Enter phase, the compiler parses source files into an Abstract Syntax Tree (AST). Think of the AST as the DOM-equivalent for Java code. Parsing will only throw errors if the syntax is invalid. Compilation errors such as invalid class or method usage are checked in phase 3.
+
+In the Annotation Processing phase, custom annotation processors are invoked. This is considered a pre-compilation phase. Annotation processors can do things like validate classes or generate new resources, including source files. Annotation processors can generate errors that will cause the compilation process to fail. If new source files are generated as a result of annotation processing, then compilation loops back to the Parse and Enter phase and the process is repeated until no new source files are generated.
+
+In the last phase, Analyse and Generate, the compiler generates class files (byte code) from the Abstract Syntax Trees generated in phase 1. As part of this process, the AST is analyzed for broken references (e.g. class not found, method not found), valid flow is checked (e.g. no unreachable statements), type erasure is performed, syntactic sugar is desugared (e.g. enhanced for loops become iterator loops) and finally, if everything is successful, class files are written out.
+
+#### Project Lombok and Compilation
+
+Project Lombok hooks itself into the compilation process as an annotation processor. But Lombok is not your normal annotation processor. Normally, annotation processors only generate new source files whereas Lombok modifies existing classes. 
+
+The trick is that Lombok modifies the AST. It turns out that changes made to the AST in the Annotation Processing phase will be visible to the Analyse and Generate phase. Thus, changing the AST will change the generated class file. For example, if a method node is added to the AST, then the class file will contain that new method. By modifying the AST, Lombok can do things like generate new methods (getter, setter, equals, etc) or inject code into an existing method (e.g. cleaning up resources). 
+
+#### Trick or Hack?
+
+Some people call Lombok's trick a hack, and I'd agree. But don't pass judgement yet. Like any hack, you should examine the risk/reward and alternatives before determining if you are comfortable with it.
+
+The "hack" in Lombok is that, strictly speaking, the annotation processing spec doesn't allow you to modify existing classes. The annotation processing API doesn't provide a mechanism for changing the AST of a class. The clever people at Project Lombok got around this through some unpublished APIs of javac. Since Eclipse uses an internal compiler, Lombok also needs access to internal APIs of the Eclipse compiler.
+
+If Java officially supported compile-time AST transformations then Lombok wouldn't need to rely on backdoor APIs. This makes Project Lombok vulnerable to future changes in the JDK. There is no guarantee the private APIs won't change in a later JDK and break Project Lombok. If that happens, then you're left hoping that the guys at Lombok will be responsive about patching their library to work with the new JDK. Same thing goes for the new Eclipse compilers. Given how often we get a new version of Java, this may not be that big of an issue.
+
+
+#### Alternatives in Java
+
+There are other alternatives for modifying the behavior of classes. One approach is to use byte-code manipulation at runtime via a library like CGLib or ASM. This is how Hibernate is able to do things like lazily initialize a persistent Collection the first time it is accessed. In general, this can be used to enhance the behavior of existing methods. This trick could possibly be used to implement the @Cleanup behavior in Lombok, so that a resource is closed when it goes out of scope. Runtime byte-code manipulation is no help for generating getters and setters which you intend to reference in source code.
+
+Another approach is to use byte-code manipulation on the class files. For example, Kohsuke Kawaguchi of Hudson fame created a library called Bridge Method Injector, that helps perserve binary compatibility when changing a method's return type in a way that is source compatible but not binary compatible. Kohsuke implements this by using ASM to modify the byte-code in a class file after compilation. This trick could be used to mimic the behavior of the Getter/Setter/ToString/EqualsHashCode annotations of Lombok with one caveat: generated methods would only be visible to classes external to your library but not to classes within your library. In other words, projects that depended on classes in your library as a jar would see your getters and setters, but classes within your library would not see these getters and setters at compile time.
+
+The trick that makes Lombok special is that the code it generates is weaved in before Analyze and Generate phase of compilation. This allows classes within the same compilation unit to have visibility to the generated methods. It appears another library called Juast may be using a similar trick (modifying the AST) to do things like operator overloading. For some developers, the immediate benefits of Lombok's approach may outweigh the potential risks.
+
+
+#### Alternatives outside Java
+
+If you're willing to switch to Scala, Lombok becomes a moot point. Scala has Case classes that eliminate the getter/setter/toString/hashCode/equals boiler-plate. Scala also has Automatic Resource Management that covers Lombok's @Cleanup behavior.
+
+Another option is Groovy if you don't care about static typing. Groovy has similar support for Scala-like Case classes. Groovy also officially supports compile-time, AST transformations.
+
+#### Final thoughts
+
+Project Lombok can do tricks that are impossible via other dynamic code generation methods in Java but you should be aware the it uses some back-door APIs to accomplish it.
+
+
+
+
+
+### Immutables
+
+https://immutables.github.io/immutable.html
+
+
+### AutoValue
+
+https://www.baeldung.com/introduction-to-autovalue
+
+
+Eclipse Compiler for Java (ECJ)
