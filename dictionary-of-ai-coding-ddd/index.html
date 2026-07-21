@@ -1,0 +1,1330 @@
+---
+layout: null
+title: AI Coding Dictionary — DDD 领域建模
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<style>
+  .mnote-back { position: sticky; top: 0; z-index: 9999; background: rgba(31,111,235,0.95); backdrop-filter: blur(8px); color: #fff; padding: 10px 14px; font-family: -apple-system, "PingFang SC", "Heiti SC", sans-serif; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .mnote-back a { color: #fff; text-decoration: none; font-weight: 600; }
+  .mnote-back a:hover { text-decoration: underline; }
+  .mnote-back .sep { margin: 0 12px; opacity: 0.5; }
+</style>
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'default',
+    themeVariables: {
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
+      fontSize: '14px',
+      primaryColor: '#ffffff',
+      primaryTextColor: '#1f2328',
+      primaryBorderColor: '#d0d7de',
+      lineColor: '#57606a',
+      secondaryColor: '#f6f8fa',
+      tertiaryColor: '#ffffff'
+    },
+    flowchart: { htmlLabels: true, curve: 'basis' },
+    sequence: { diagramMarginX: 50, diagramMarginY: 20, actorMargin: 60, boxMargin: 12, boxTextMargin: 5, noteMargin: 12, messageMargin: 40, mirrorActors: true, bottomMarginAdj: 2, useMaxWidth: true, rightAngles: false, showSequenceNumbers: true, wrap: true, wrapPadding: 12 },
+    classDiagram: { useMaxWidth: true, defaultRenderer: 'dagre' }
+  });
+  // Sequential per-block render — works around a Mermaid 10.x race when
+  // startOnLoad runs 6+ blocks in parallel. Must run after DOM is ready.
+  function renderAll() {
+    const blocks = Array.from(document.querySelectorAll('div.mermaid'));
+    (async () => {
+      for (const block of blocks) {
+        const source = block.textContent;
+        try {
+          const { svg } = await mermaid.render('mmd-' + Math.random().toString(36).slice(2, 8), source);
+          block.innerHTML = svg;
+        } catch (e) {
+          console.error('Mermaid render failed:', e);
+          block.innerHTML = '<pre style="color:#cf222e;background:#fff8f8;padding:12px;border:1px solid #cf222e;border-radius:6px;white-space:pre-wrap;font-size:12px;font-family:monospace">Mermaid 渲染失败：\n' + (e.message || String(e)) + '\n\n' + (e.str || source.substring(0, 2000)) + '</pre>';
+        }
+      }
+    })();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderAll);
+  } else {
+    renderAll();
+  }
+</script>
+<style>
+  :root { --bg:#ffffff; --fg:#1f2328; --muted:#57606a; --line:#d0d7de; --soft:#f6f8fa; --accent:#0969da; --accent2:#1f883d; --warn:#bf8700; --err:#cf222e; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;font-size:15px}
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 32px 96px}
+  h1{font-size:30px;margin:0 0 8px;letter-spacing:-.5px}
+  h2{font-size:24px;margin:48px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:19px;margin:28px 0 10px;color:#0a3069}
+  h4{font-size:16px;margin:18px 0 6px;color:#0a3069}
+  p{margin:8px 0}
+  .lede{font-size:16px;color:var(--muted);margin:0 0 24px}
+  .meta{font-size:13px;color:var(--muted);margin-bottom:32px;padding:12px 16px;background:var(--soft);border-left:3px solid var(--accent);border-radius:4px}
+  .toc{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:18px 24px;margin:24px 0 40px}
+  .toc ol{margin:6px 0 0 0;padding-left:22px}
+  .toc li{margin:3px 0}
+  .toc a{color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .mermaid{background:#ffffff;border:1px solid var(--line);border-radius:8px;padding:24px;margin:18px 0 28px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:600}
+  tr:nth-child(even) td{background:#fafbfc}
+  .badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;font-weight:500;line-height:1.6}
+  .b-agg{background:#ddf4ff;color:#0969da}
+  .b-ent{background:#dafbe1;color:#1a7f37}
+  .b-vo{background:#fff8c5;color:#9a6700}
+  .b-evt{background:#ffebe9;color:#cf222e}
+  .b-svc{background:#fbefff;color:#8250df}
+  .b-rep{background:#eaeef2;color:#57606a}
+  .b-ctx{background:#ddf4ff;color:#0969da;font-weight:600}
+  .legend{margin:8px 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+  .note{background:#fff8c5;border:1px solid #d4a72c;border-radius:6px;padding:10px 14px;margin:12px 0;font-size:14px}
+  code{background:var(--soft);padding:1px 6px;border-radius:4px;font-size:13px;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+  ul,ol{padding-left:22px}
+  li{margin:3px 0}
+  .entity-card{border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:10px 0;background:#fff}
+  .entity-card h4{margin:0 0 6px;display:flex;align-items:center;gap:8px}
+  .entity-card .props{font-size:13px;color:var(--muted);margin-top:6px}
+  .entity-card .rel{font-size:13px;margin-top:4px}
+  .rel-line{color:var(--muted);font-size:13px;margin:2px 0}
+  hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+  .footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="mnote-back">
+  <a href="/">← 返回 mnote 首页</a>
+  <span class="sep">|</span>
+  <span>📖 AI Coding Dictionary — DDD 领域建模</span>
+</div>
+<div class="wrap">
+
+<h1>AI Coding Dictionary — DDD 领域建模</h1>
+<p class="lede">基于 <a href="https://github.com/mattpocock/dictionary-of-ai-coding">mattpocock/dictionary-of-ai-coding</a>（69 个词条 · 7 个章节）提炼的领域驱动设计视图。</p>
+
+<div class="meta">
+  <strong>源数据</strong>：<code>internal/Curriculum.md</code>（7 个 Section）+ <code>dictionary/*.md</code>（69 个词条）<br>
+  <strong>建模方法</strong>：以 <code>Curriculum.md</code> 的 Section 划分作为 Bounded Context 的初稿 → 用词条间互相引用关系修正边界 → 提炼聚合根、实体、值对象、领域事件、领域服务、仓储<br>
+  <strong>核心抽象</strong>：<em>Agent = Model + Harness</em>（Matt 原话："the model in motion"）<br>
+  <strong>特殊实体</strong>：<em>Harness</em> 是 S3 定义的 AR，但职责横跨 S1/S2/S3/S6/S7——在 ER 图中标注为 <code>&lt;&lt;AR · cross-Section orchestrator&gt;&gt;</code>
+</div>
+
+<div class="toc">
+  <strong>目录</strong>
+  <ol>
+    <li><a href="#entities">领域实体提炼（按 7 个 Bounded Context 分组）</a></li>
+    <li><a href="#context-map">上下文映射图（Context Map）</a></li>
+    <li><a href="#er">领域实体关系图（ER / Class Diagram）</a></li>
+    <li><a href="#seq">主要交互时序图（4 个关键场景）</a></li>
+    <li><a href="#glossary">速查：聚合根 × 上下文对照表</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="entities">1. 领域实体提炼</h2>
+<p>Matt 的 <code>Curriculum.md</code> 已经做了 7 个 Section 的切分，这与 DDD 的 Bounded Context 高度同构。每个 Section 的核心词条，就是该 Context 的 <strong>Aggregate Root</strong> 候选。我把 Section 标题直接用作 Context 名（沿用 Matt 的命名），不擅自重命名——<code>domain.md</code> 里明确说"用 glossary 定义的词，不要自己造同义词"。</p>
+
+<div class="legend">
+  <span class="badge b-agg">聚合根 AR</span>
+  <span class="badge b-ent">实体</span>
+  <span class="badge b-vo">值对象 VO</span>
+  <span class="badge b-evt">领域事件</span>
+  <span class="badge b-svc">领域服务</span>
+  <span class="badge b-rep">仓储</span>
+  <span class="badge b-ctx">Bounded Context</span>
+</div>
+
+<!-- ============ Section 1: The Model ============ -->
+<h3>1.1 <span class="badge b-ctx">Section 1 — The Model</span>（基础设施层）</h3>
+<p>这是字典里<strong>最底层</strong>的 Context——所有上层概念（Agent、Session、Tool）都要"踩"在它上面。它不依赖任何其他 Context，是整个领域模型的"宪法"。</p>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Model</h4>
+  <div>参数的集合体，由 Training 设定、Inference 读取。被 Harness 调用以生成 token。</div>
+  <div class="props"><strong>关键属性</strong>：<code>parameters</code> · <code>capability profile</code> · <code>knowledge cutoff</code></div>
+  <div class="rel"><strong>强引用</strong>：Training → Model；Inference → Model；Harness → Model</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> Model Provider</h4>
+  <div>承载 Model 的服务（Anthropic / OpenAI / Ollama / Bedrock…）。Model 的"宿主"，也是计费点。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> Model Provider Request</h4>
+  <div>一次 Harness → Provider 的往返。是 Section 6 "Memory and Steering" 和 Section 5 "Handoffs" 的共同单位。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Token · Input Tokens · Output Tokens · Cache Tokens</h4>
+  <div>计费与上下文的最小单位。<code>Cache tokens</code> 依赖 <code>Prefix cache</code>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Effort（reasoning effort）</h4>
+  <div>每条 Provider Request 的"思考时间"旋钮。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Next-token Prediction</h4>
+  <div>不是状态，是机制——但它在所有上层实体的描述里反复出现，作为 Model 的"能力签名"。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Property</span> Non-determinism</h4>
+  <div>跨 Section 的<strong>横切关注点</strong>：Model 在 Section 4 "Failure Modes" 里再次出现，是 Hallucination / Sycophancy 的根因。</div>
+</div>
+
+<!-- ============ Section 2: Sessions, Context & Turns ============ -->
+<h3>1.2 <span class="badge b-ctx">Section 2 — Sessions, Context Windows &amp; Turns</span>（运行时核心）</h3>
+<p>这是整个系统的<strong>运行时状态机</strong>。Session 是生命周期边界，Turn 是用户感知粒度，Context 是物理载体。三者的关系是字典里最反复强调的："Session 填满 Context Window，Turn 装一个或多个 Provider Request"。</p>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Session</h4>
+  <div>一次 bounded run。<strong>整个字典里最核心的聚合根</strong>——Clearing / Compaction / Handoff 都在操纵它。</div>
+  <div class="props"><strong>内部实体</strong>：<code>Turn[]</code> · <code>Message[]</code> · <code>ProviderRequest[]</code> · <code>ToolCall[]/ToolResult[]</code></div>
+  <div class="rel"><strong>生命周期</strong>：启动 → 累积 → 触发 Compaction/Autocompact | 用户触发 Clearing | 升级为 Handoff</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Context Window</h4>
+  <div>物理容器，模型感知的唯一表面。和 Session 是<strong>容器-内容</strong>关系（"if the context window is the box, the session is the stuff slowly filling it up"）。</div>
+  <div class="props"><strong>内容</strong>：<code>SystemPrompt</code> + <code>conversation</code> + <code>ToolResult[]</code></div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> Turn</h4>
+  <div>Session 内的一次用户-代理往返。<strong>大小由 Agent 决定，不由用户决定</strong>——是 AFK 模式的基础。</div>
+  <div class="props"><strong>层级</strong>：Session &gt; Turn &gt; ProviderRequest</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Context</h4>
+  <div>"agent 此刻知道什么"——抽象名词，区别于 Context Window（物理容器）和 Session（历史）。三者在原文被明确区分：<em>context = 任务相关信息；context window = 模型看到的所有 token；session = 累积历史</em>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> System Prompt</h4>
+  <div>Harness 在每条 Request 上预置的指令。Prefix cache 的起点。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Stateless / Stateful（属性）</h4>
+  <div>Section 2 的<strong>横切属性</strong>：Model 永远 stateless；Session 跨 Turn 是 stateful；Agent 跨 Session 默认 stateless，<em>除非</em>叠加 Memory System。Memory System 的整个存在意义就是"把 stateless 的 agent 伪装成 stateful"。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Agent（组合根 / DTO 性质）</h4>
+  <div>Matt 原话："doesn't name a mechanical part"。它是 Model + Harness 的运行时组合，<strong>不是独立实体</strong>，而是 Section 1（Model）和 Section 3（Harness）的<strong>协作产物</strong>。</div>
+</div>
+
+<!-- ============ Section 3: Tools & Environment ============ -->
+<h3>1.3 <span class="badge b-ctx">Section 3 — Tools &amp; Environment</span>（执行层）</h3>
+<p>Agent 唯一能"看"和"动"世界的方式。Tool 是函数接口，Environment 是数据后端，Sandbox 是安全壳，Permission 是治理层。</p>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Harness <span style="font-size:12px;color:#8250df;font-weight:normal">（跨 Section 协调者 · S3 定义，S1/S2/S6 协作）</span></h4>
+  <div><strong>身份</strong>：把 stateless Model 包装成可交互 Agent 的那层<strong>软件</strong>——本身不是数据、不是参数，是"指给模型就能跑"的程序（Matt 原话：<em>"the harness is software you can point at"</em>）。</div>
+  <div style="margin-top:8px"><strong>归属</strong>：Section 3 自己定义的聚合根 AR；同时是 Section 1（Provider 调用方）、Section 2（Session 持有者）、Section 6（Memory/AGENTS.md 装载者）的<strong>协作方</strong>。不是任何单个 Section 的内部成员，是跨 Section 协调者。</div>
+  <div style="margin-top:8px"><strong>职责（按 Section 归类）</strong>：</div>
+  <ul style="margin:4px 0 4px 22px;font-size:14px">
+    <li><strong>S1</strong>：调 Model Provider 跑 Inference（不关心 provider 内部）</li>
+    <li><strong>S2</strong>：持有 Session 历史；为每条 Provider Request 装配 Context；决定何时 Compact / Autocompact；决定何时拒绝继续（context window 满）</li>
+    <li><strong>S3</strong>：暴露 Tool 集合给 Model；解析并执行 Tool Call；返回 Tool Result；处理 Permission Request；通过 MCP 集成外部 Tool；挂载 Filesystem 作为默认 Environment</li>
+    <li><strong>S6</strong>：Session 启动时载入 AGENTS.md 和 Memory System；维护 Skill 注册表（Progressive Disclosure）</li>
+    <li><strong>横切</strong>：提供 Effort 旋钮；维护 Prefix Cache 稳定性；处理 user 中断/注入；让 user 自定义 System Prompt 片段</li>
+  </ul>
+  <div style="margin-top:8px"><strong>它不是什么（Matt 原文边界）</strong>：</div>
+  <ul style="margin:4px 0 0 22px;font-size:14px">
+    <li>不是 Model（Model 是 parameters/数据；Harness 是软件）</li>
+    <li>不是 Environment（"the harness is the wrapper, the environment is the workspace"）</li>
+    <li>不是 Agent（Agent 是 Model + Harness 的运行时组合视图；Harness 是其中"软件"那一半）</li>
+    <li>不持久化它管理的 Session（Session 历史大多在用户机器上，不在 harness 进程内）</li>
+  </ul>
+  <div class="props"><strong>实例</strong>：Claude Code · Cursor · Codex CLI · Claude.ai（chat harness，不是 coding harness）<br><strong>诊断价值</strong>：相同 Model + 不同 Harness = 行为可能完全不同；AI 表现不对时，<strong>先怀疑 Harness（配置、context 装配、permission），再怀疑 Model</strong>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Environment</h4>
+  <div>Agent 工作于其中的世界。Filesystem 是它的最常见形态，Database / API / Browser 是其他形态。</div>
+  <div class="props"><strong>感知方式</strong>：仅通过 ToolResult 快照</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> Tool</h4>
+  <div>Harness 暴露给 Agent 调用的函数。由三部分定义：name / description / parameter schema。</div>
+  <div class="rel"><strong>实现</strong>：Built-in (Read/Write/Bash/Search) | MCP Server 提供 | 用户自注册</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Tool Call</h4>
+  <div>Model 输出的结构化文本，<strong>本身不执行任何东西</strong>——必须有 Harness 解析并执行。这是 Matt 反复强调的反直觉点。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Tool Result</h4>
+  <div>Harness 执行 Tool Call 后回传给 Model 的结果。<strong>是 Model 感知 Environment 的唯一渠道</strong>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> MCP Server（外部 Context）</h4>
+  <div>通过 MCP 协议向 Harness 提供 Tool 的外部进程。解决"Harness 各自集成一遍"的集成爆炸问题。</div>
+  <div class="rel"><strong>副作用</strong>：大量 Tool schema 进 Context → 必须用 Context Pointer 渐进式披露</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Permission Mode</h4>
+  <div>Agent Mode 的"闸门"切片——哪些 Tool Call 自动放行、哪些触发 Permission Request。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Agent Mode</h4>
+  <div>Permission Mode + 注入 System Prompt 的行为指令。plan mode / accept-edits / YOLO mode 都是它的实例。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Permission Request</h4>
+  <div>Harness 在执行非预授权 Tool Call 前向用户发的请求。可附消息 → 变成 Steering 点。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> Sandbox</h4>
+  <div>Environment 的隔离形态（container / VM / restricted shell）。<strong>是 AFK 模式的安全前提</strong>。</div>
+</div>
+
+<!-- ============ Section 4: Failure Modes ============ -->
+<h3>1.4 <span class="badge b-ctx">Section 4 — Failure Modes</span>（横切关注点）</h3>
+<p>这个 Section 是<strong>横切关注点集合</strong>，不是独立的运行时 Context。它解释为什么 Agent 会出错、出什么错。所有词条都把根因指向 Section 1（Model 的训练 / 推理特性）。</p>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Hallucination</h4>
+  <div>两种 flavor：factuality（凭空捏造）和 faithfulness（偏离载入的 context）。根因是 next-token prediction 不验证真伪。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Sycophancy</h4>
+  <div>训练 RLHF 副作用——Model 学会"用户爱听的话"，包括附和。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Parametric Knowledge</h4>
+  <div>Model 训练时"压进参数"的知识。Knowledge Cutoff 是它的<strong>时间戳</strong>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Contextual Knowledge</h4>
+  <div>通过 Tool / Memory / AGENTS.md 等外部源提供的信息。和 Parametric Knowledge 形成 Context 的<strong>内外两源</strong>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Property</span> Attention Budget / Degradation / Relationship</h4>
+  <div>三个一组的<strong>横切属性</strong>：Context 里的 token 越多，每个 token 分到的 attention 越少。这就是 Smart Zone 现象的物理基础。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Smart Zone</h4>
+  <div>Session 早期的高质量区间，超过约 125K–150K tokens 进入 "Dumb Zone"。<strong>规划任务的实际预算不是 context window limit，是 smart zone</strong>。</div>
+</div>
+
+<!-- ============ Section 5: Handoffs ============ -->
+<h3>1.5 <span class="badge b-ctx">Section 5 — Handoffs</span>（生命周期管理）</h3>
+<p>这个 Section 处理<strong>Session 怎么结束、状态怎么移交</strong>。它是 Section 2（运行时）的"出口"。</p>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Handoff</h4>
+  <div>把 agent context 从一个 Session 搬到另一个 Session，<strong>无返回路径</strong>。和 Subagent 的关键区别就在这里。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Clearing</h4>
+  <div>无 transfer 的 Session 切换——新 Session 看到的是空 Context Window。Session 的"硬重启"。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Compaction</h4>
+  <div>内存内做的 handoff：原 Session 历史被 summarize，新 Session 拿着 summary 起步。<strong>lossy by design</strong>——是 primary→secondary source 的转换。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-evt">Event</span> Autocompact</h4>
+  <div>Harness 在 Context Window 接近满时自动触发的 Compaction（典型阈值 80%）。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> Handoff Artifact</h4>
+  <div>被作为 carry mechanism 写出来的文档。Spec / Ticket / Plan Doc 都是它的形态。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Spec</h4>
+  <div>多 Session 工作的根 artifact。包含多个 Ticket，有 status。会随工作进展 mutate。</div>
+  <div class="rel"><strong>宿主</strong>：repo 文件 / GitHub issue / issue tracker</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Ticket</h4>
+  <div>一个 Session 工作量的 handoff artifact。可独立存在，也可挂在 Spec 下。有依赖关系（block / blocked by），形成 DAG。</div>
+  <div class="rel"><strong>大小约束</strong>：能在 Session 离开 Smart Zone 前完成 → 可测试</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Primary Source / Secondary Source</h4>
+  <div>这两个 VO 在 Section 4 (Hallucination) 和 Section 5 (Handoff) 都被引用——是字典里的<strong>认知论双胞胎</strong>：原数据 vs 派生物。</div>
+</div>
+
+<!-- ============ Section 6: Memory and Steering ============ -->
+<h3>1.6 <span class="badge b-ctx">Section 6 — Memory and Steering</span>（跨 Session 状态）</h3>
+<p>这是解决"Model + Agent 双重 Stateless"的 Context——通过 Harness 把 Environment 当外存来用。</p>
+
+<div class="entity-card">
+  <h4><span class="badge b-agg">AR</span> Memory System</h4>
+  <div>把 agent 跨 Session 伪装成 stateful 的系统。Write 路径（在 Session 中把信息落到 Environment）+ Read 路径（Session 启动时载入）。</div>
+  <div class="props"><strong>持久层</strong>：Filesystem (e.g. Claude Code /memory 目录)</div>
+  <div class="rel"><strong>注意</strong>：Memories 自己是 secondary source，会过时，需要 prune</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> AGENTS.md</h4>
+  <div>Environment 里 Harness 在 Session 启动时自动载入的"项目对 agent 的常驻 brief"。和 Skill 的区别：<strong>每个 Session 都读</strong>，不管任务是什么。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Skill</h4>
+  <div>可教学的 capability bundle。默认只在 Context 里放 name + description（一行），用 Progressive Disclosure 模式按需载入全文。</div>
+  <div class="rel"><strong>标准</strong>：agentskills.io；包含 SKILL.md + 可选 scripts/templates</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Context Pointer</h4>
+  <div>指向 Context 外资源的轻量引用。SKill / MCP / handoff 链回原 Session 都用它实现<strong>渐进式披露</strong>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Progressive Disclosure</h4>
+  <div>Section 6 的<strong>设计原则</strong>：Context 是预算，资源按需载入而不是预先全量装入。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-ent">Entity</span> Subagent</h4>
+  <div>通过 Tool Call 被 parent agent 启动的子 agent。运行在独立 Session + Context Window 里，回报<strong>单条</strong> Tool Result。**不能继续 spawn subagent**（树深度 1）。</div>
+  <div class="rel"><strong>vs Handoff</strong>：Subagent 有返回路径；Handoff 无。Subagent 是"隔离噪声"，Handoff 是"转移阵地"</div>
+</div>
+
+<!-- ============ Section 7: Patterns of Work ============ -->
+<h3>1.7 <span class="badge b-ctx">Section 7 — Patterns of Work</span>（协作模式）</h3>
+<p>这一章是<strong>人-代理协作的工作模式目录</strong>。所有词条都在回答"人在哪里、agent 怎么工作、信心怎么保证"。</p>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Human-in-the-loop（HITL）</h4>
+  <div>人在 Session 中实时参与的模式。Permission Request 是它在工具层的具体实现。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> AFK（away from keyboard）</h4>
+  <div>人启动 Session 后离开的批量模式。是"AI 编程的吞吐量倍增器"。需要 <strong>Permission Mode 宽松 + Sandbox 隔离</strong> 配合。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-svc">Service</span> Automated Check</h4>
+  <div>Environment 里跑的确定性验证（test / type / lint / build / pre-commit）。<strong>确定性 by design</strong>，是 agent 能自纠错的信号源。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-svc">Service</span> Automated Review</h4>
+  <div>另一个 agent 审第一个 agent 的工作（经常换 model 或 system prompt）。<strong>non-deterministic</strong>。和 Automated Check 是两种不同的 verification layer。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-svc">Service</span> Human Review</h4>
+  <div>用户读 diff 形成判断。"读 diff 算，看 summary 不算"——summary 是 secondary source。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Vibe Coding</h4>
+  <div>用户跳过 Human Review 的工作模式。<strong>风险随代码生命周期和 stakes 上升</strong>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> Design Concept（Brooks 用语）</h4>
+  <div>用户和 agent 共同持有的"在建什么"的理解。Spec / 代码 / 对话都是试图<strong>捕获或抵达</strong>它的资产，<strong>都不是它本身</strong>。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-svc">Service</span> Grilling</h4>
+  <div>通过 Socratic 对话开发 Design Concept 的技巧——agent 一次只问一个决策，并提出推荐答案。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-svc">Service</span> Prototyping</h4>
+  <div>让 agent 造一个粗糙实物以提高 Design Concept 讨论保真度的技巧。当对话在某些问题上"转圈"时启用。</div>
+</div>
+
+<div class="entity-card">
+  <h4><span class="badge b-vo">VO</span> DX / AX</h4>
+  <div>DX = 人类开发体验；AX = 代理开发体验。<strong>部分重叠，部分分歧</strong>。Tribal knowledge 帮助人类但对 agent 没用；漂亮 dashboard 帮人不帮 agent。</div>
+</div>
+
+<!-- ============ Section: Filesystem ============ -->
+<div class="entity-card">
+  <h4><span class="badge b-rep">Repo</span> Filesystem（横切存储）</h4>
+  <div>最常见的 Environment。AGENTS.md / Skills / 源码 / 工具配置都住在这里。Harness "starts in your project" 就是把 agent 指向一个 Filesystem。</div>
+  <div class="rel"><strong>特性</strong>：只有 tool call 能触碰；不在 Context Window 里直到被读</div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="context-map">2. 上下文映射图（Context Map）</h2>
+<p>下图展示 7 个 Bounded Context 之间的关系。映射符号沿用 DDD 惯例：</p>
+<ul>
+  <li><strong>U</strong> = Upstream（上游，被依赖方）</li>
+  <li><strong>D</strong> = Downstream（下游，依赖方）</li>
+  <li><strong>Conformist（顺应）</strong>：下游完全接受上游模型，不翻译</li>
+  <li><strong>Customer-Supplier（客户-供应）</strong>：下游需求能影响上游</li>
+  <li><strong>Anti-Corruption Layer（防腐层）</strong>：下游翻译上游模型以保护自己</li>
+  <li><strong>Shared Kernel（共享内核）</strong>：两个 Context 共享一部分模型</li>
+  <li><strong>Open Host Service（开放主机）</strong>：上游提供协议化接口供多个下游消费</li>
+</ul>
+
+<div class="mermaid">
+flowchart LR
+  subgraph S1["Section 1 — The Model"]
+    M[Model]
+    MP[Model Provider]
+    MPR[Model Provider Request]
+    TK[Token / Input/Output/Cache]
+    EF[Effort]
+    TR[Training]
+    INF[Inference]
+    NTP[Next-token Prediction]
+    PAR[Parameters]
+    ND[Non-determinism]
+  end
+
+  subgraph S2["Section 2 — Sessions, Context & Turns"]
+    SE[Session]
+    CW[Context Window]
+    TU[Turn]
+    CT[Context]
+    SP[System Prompt]
+    ST[Stateless/Stateful]
+    AG[Agent]
+  end
+
+  subgraph S3["Section 3 — Tools & Environment"]
+    HA[Harness]
+    ENV[Environment]
+    TO[Tool]
+    TC[Tool Call]
+    TRs[Tool Result]
+    MCP[MCP Server]
+    PM[Permission Mode]
+    AM[Agent Mode]
+    PR[Permission Request]
+    SB[Sandbox]
+    FS[Filesystem]
+  end
+
+  subgraph S4["Section 4 — Failure Modes"]
+    HA2[Hallucination]
+    SY[Sycophancy]
+    PK[Parametric Knowledge]
+    KC[Knowledge Cutoff]
+    CK[Contextual Knowledge]
+    AB[Attention Budget / Degradation]
+    SZ[Smart Zone]
+  end
+
+  subgraph S5["Section 5 — Handoffs"]
+    HO[Handoff]
+    CL[Clearing]
+    CMP[Compaction]
+    AC[Autocompact]
+    HA3[Handoff Artifact]
+    SPC[Spec]
+    TKT[Ticket]
+    PS[Primary/Secondary Source]
+  end
+
+  subgraph S6["Section 6 — Memory & Steering"]
+    MS[Memory System]
+    AGMD[AGENTS.md]
+    SK[Skill]
+    CP[Context Pointer]
+    PD[Progressive Disclosure]
+    SA[Subagent]
+  end
+
+  subgraph S7["Section 7 — Patterns of Work"]
+    HITL[Human-in-the-loop]
+    AFK2[AFK]
+    ACHK[Automated Check]
+    AREV[Automated Review]
+    HREV[Human Review]
+    VC[Vibe Coding]
+    DC[Design Concept]
+    GR[Grilling]
+    PRT[Prototyping]
+    DXA[DX / AX]
+  end
+
+  %% Section 1 → Section 2
+  M -- "Conformist<br/>U→D" --> AG
+  MPR -- "Customer-Supplier<br/>U→D" --> AG
+  NTP -- "Conformist" --> M
+
+  %% Section 1 → Section 3
+  M -- "Conformist" --> HA
+  MPR -- "Shared Kernel" --> HA
+  ND -. "横切关注点" .-> HA2
+
+  %% Section 2 → Section 3
+  SE -- "Customer-Supplier" --> HA
+  CW -- "Conformist" --> HA
+  SP -- "Conformist" --> HA
+  AG -- "Shared Kernel<br/>跨 S2/S3" --> HA
+
+  %% Section 2 → Section 4
+  CW -- "Conformist" --> AB
+  AB --> SZ
+  SZ -.-> SE
+
+  %% Section 2 → Section 5
+  SE -- "Customer-Supplier<br/>提供生命周期" --> HO
+  CW -- "Conformist" --> CMP
+  CW -- "Conformist" --> AC
+
+  %% Section 3 → Section 4
+  TC -. "执行失败是 Hallucination<br/>的一种 trigger" .-> HA2
+
+  %% Section 3 → Section 6
+  ENV -- "Conformist" --> AGMD
+  ENV -- "Conformist" --> MS
+  TO -- "Conformist" --> SA
+  HA -- "Customer-Supplier" --> MS
+
+  %% Section 5 → Section 6
+  PS -- "Shared Kernel<br/>S5+S6 共用" --> MS
+  PS -- "Shared Kernel" --> HREV
+  HO -- "Conformist" --> MS
+
+  %% Section 2 → Section 6
+  ST -- "Shared Kernel<br/>S2+S6" --> MS
+  AG -- "Conformist" --> SA
+
+  %% Section 7 → 其他
+  PR -- "Conformist<br/>S3" --> HITL
+  SB -- "Conformist" --> AFK2
+  ACHK -- "Conformist" --> ENV
+  AREV -. "消耗 token" .-> CW
+  HREV -. "需要人参与" .-> HITL
+  VC -- "Conformist" --> HREV
+  DC -- "Customer-Supplier" --> GR
+  DC -- "Customer-Supplier" --> PRT
+  DXA -. "度量 S3 表现" .-> HA
+
+  classDef ctx fill:#ddf4ff,stroke:#0969da,color:#0a3069,font-weight:600
+  classDef upstream fill:#fff8c5,stroke:#9a6700,color:#5a4500
+  classDef crosscut fill:#ffebe9,stroke:#cf222e,color:#82071e,stroke-dasharray:4 2
+  class S1,S2,S3,S4,S5,S6,S7 ctx
+  class ND,AB,SZ,PS,ST,PD crosscut
+</div>
+
+<p><strong>关键观察</strong>：</p>
+<ol>
+  <li><strong>Section 1 是宪法</strong>：所有 Section 都 Conformist 依赖它，无任何反向依赖。它是真正的 Upstream Kernel。</li>
+  <li><strong>Section 2 ↔ Section 3 互相纠缠</strong>：Agent 和 Harness 其实是同一概念的两种切面（"model in motion" vs "what turns it into an agent"），所以我把 Agent 标为跨 S2/S3 的 Shared Kernel。</li>
+  <li><strong>Harness 是跨 Section 协调者</strong>：它由 S3 自己定义（AR），但职责横跨 S1（调 Provider）、S2（持有 Session、决策 Compact/Autocompact、拒绝继续）、S6（启动时装载 AGENTS.md / Memory / 维护 Skill registry）、S7（spawn Subagent）。在 ER 图中加注 <code>&lt;&lt;AR · cross-Section orchestrator&gt;&gt;</code>，并新增 4 条从 Harness 出发的依赖关系（→ MemorySystem / AGENTSmd / Skill / Subagent）。</li>
+  <li><strong>Section 4 是横切层</strong>：失败模式不是独立运行时，而是对其他层的解释。虚线 + 红框标识。</li>
+  <li><strong>Section 5 是 Section 2 的出口</strong>：所有 Handoff/Clearing/Compaction 操作对象都是 Session。</li>
+  <li><strong>Section 6 = Section 2 + Section 3 的反 stateless 解决方案</strong>：Memory System 的存在完全是为了补 S2 里"Model 永远 stateless"那条规则。</li>
+  <li><strong>Primary/Secondary Source</strong> 是 S4 / S5 / S6 共享的认知论基类（标红虚线 = 横切）。</li>
+</ol>
+
+<!-- ============================================================ -->
+<h2 id="er">3. 领域实体关系图</h2>
+<p>下图是 Class Diagram 形态的 ER 图。把每个聚合根展开为 Class，标注属性（仅放 Matt 原文明确提到的）和关系（<code>1</code>/<code>*</code>/关联/组合/依赖）。<strong>部分跨 Context 的耦合用虚线</strong>——表示这是 Context Map 里的 Conformist / Anti-Corruption 边界。</p>
+
+<div class="mermaid">
+classDiagram
+  direction LR
+
+  class Model {
+    +Parameters parameters
+    +KnowledgeCutoff knowledgeCutoff
+    +Effort defaultEffort
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class ModelProvider {
+    +string endpoint
+    +Pricing pricing
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class ModelProviderRequest {
+    +TokenCount inputTokens
+    +TokenCount outputTokens
+    +TokenCount cacheTokens
+    +Context payload
+    +Effort effort
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class Training {
+    &lt;&lt;service&gt;&gt;
+  }
+
+  class Inference {
+    &lt;&lt;service&gt;&gt;
+  }
+
+  class NextTokenPrediction {
+    &lt;&lt;mechanism&gt;&gt;
+  }
+
+  class Harness {
+    +Tool[] tools
+    +SystemPrompt systemPrompt
+    +PermissionMode permissionMode
+    +Hook[] hooks
+    +ContextManager contextManager
+    &lt;&lt;AR · cross-Section orchestrator&gt;&gt;
+  }
+
+  class Agent {
+    &lt;&lt;composite role&gt;&gt;
+  }
+
+  class Environment {
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class Filesystem {
+    +string root
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class Sandbox {
+    +Scope restrictions
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class Tool {
+    +string name
+    +string description
+    +Schema parameterSchema
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class ToolCall {
+    +string toolName
+    +Json args
+    +PermissionDecision decision
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class ToolResult {
+    +string output
+    +Error error
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class MCPServer {
+    +Tool[] advertisedTools
+    &lt;&lt;external aggregate&gt;&gt;
+  }
+
+  class Session {
+    +Turn[] turns
+    +Message[] messages
+    +TokenCount tokensUsed
+    +SessionState state
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class ContextWindow {
+    +TokenCount capacity
+    +TokenCount used
+    +SystemPrompt systemPrompt
+    +Context content
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class Turn {
+    +ModelProviderRequest[] requests
+    +Timestamp openedAt
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class SystemPrompt {
+    +string vendorText
+    +string userAppended
+    +AgentMode modeInjection
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class Context {
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class PermissionMode {
+    +ModeKind kind
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class AgentMode {
+    +PermissionMode gate
+    +SystemPrompt injection
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class PermissionRequest {
+    +ToolCall call
+    +UserDecision decision
+    +string userMessage
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class Handoff {
+    +SessionId fromSession
+    +SessionId toSession
+    +HandoffArtifact artifact
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class HandoffArtifact {
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class Spec {
+    +Ticket[] tickets
+    +Status status
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class Ticket {
+    +Size size
+    +Status status
+    +TicketId[] blockedBy
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class Compaction {
+    +Session fromSession
+    +Session toSession
+    +Context summary
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class Autocompact {
+    +Threshold trigger
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class Clearing {
+    +SessionId sessionId
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class MemorySystem {
+    +Path writePath
+    +Path readPath
+    &lt;&lt;aggregate root&gt;&gt;
+  }
+
+  class AGENTSmd {
+    +string path
+    +bool alwaysLoaded
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class Skill {
+    +string name
+    +string description
+    +Resource[] resources
+    +ContextPointer pointer
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class ContextPointer {
+    +string reference
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class Subagent {
+    +Session session
+    +ContextWindow contextWindow
+    +ToolResult report
+    &lt;&lt;entity&gt;&gt;
+  }
+
+  class HumanInTheLoop {
+    &lt;&lt;pattern&gt;&gt;
+  }
+
+  class AFK {
+    +PermissionMode permissiveMode
+    +Sandbox sandbox
+    &lt;&lt;pattern&gt;&gt;
+  }
+
+  class AutomatedCheck {
+    +string command
+    &lt;&lt;service&gt;&gt;
+  }
+
+  class AutomatedReview {
+    +Model reviewerModel
+    +SystemPrompt reviewPrompt
+    &lt;&lt;service&gt;&gt;
+  }
+
+  class HumanReview {
+    +Diff diff
+    &lt;&lt;service&gt;&gt;
+  }
+
+  class DesignConcept {
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class Hallucination {
+    +Flavor flavor
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class Sycophancy {
+    &lt;&lt;event&gt;&gt;
+  }
+
+  class SmartZone {
+    +TokenCount budget
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class PrimarySource {
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class SecondarySource {
+    &lt;&lt;value object&gt;&gt;
+  }
+
+  class DX {
+    &lt;&lt;quality attribute&gt;&gt;
+  }
+
+  class AX {
+    &lt;&lt;quality attribute&gt;&gt;
+  }
+
+  %% Training / Inference dependencies
+  Training ..> Model : sets parameters
+  Inference ..> Model : uses parameters
+  NextTokenPrediction ..> Model : core mechanism
+  ModelProvider "1" --> "1" Model : hosts
+
+  %% Harness composition
+  Harness "1" o-- "*" Tool : exposes
+  Harness "1" *-- "1" PermissionMode : gates
+  Harness "1" *-- "1" SystemPrompt : prepends
+  Harness "1" --> "1" ContextWindow : assembles
+  Harness "1" --> "1" ModelProvider : calls
+  MCPServer "1" --> "*" Tool : advertises
+  Harness ..> MCPServer : discovers
+
+  %% Session / Context Window
+  Session "1" *-- "*" Turn : contains
+  Session "1" ..> "1" ContextWindow : fills
+  Turn "1" *-- "*" ModelProviderRequest : chains
+  ContextWindow "1" o-- "1" SystemPrompt : prepended
+  ModelProviderRequest "1" ..> "1" ContextWindow : ships
+
+  %% Tool call / result
+  ToolCall "1" --> "1" Tool : names
+  ToolResult ..> ToolCall : responds to
+  Harness ..> ToolCall : parses
+  Harness ..> ToolResult : appends to Context
+  ToolResult ..> Environment : reads from
+  ToolCall ..> Environment : writes to
+
+  %% Environment
+  Environment "1" --> "0..1" Filesystem : default
+  Environment "1" --> "0..1" Sandbox : isolated
+
+  %% Agent composite
+  Agent --> "1" Model
+  Agent --> "1" Harness
+  Agent --> "1" Session
+  Agent ..> Environment : acts in
+
+  %% Permission flow
+  PermissionRequest ..> ToolCall : gates
+  PermissionMode ..> PermissionRequest : determines
+  AgentMode "1" *-- "1" PermissionMode : bundles
+  AgentMode "1" *-- "1" SystemPrompt : augments
+
+  %% Handoffs
+  Handoff "1" --> "1" Session : from
+  Handoff "1" --> "1" Session : to
+  Handoff "1" --> "1" HandoffArtifact : carries
+  Spec "1" *-- "*" Ticket : contains
+  HandoffArtifact --|> Spec
+  HandoffArtifact --|> Ticket
+  Ticket "1" --> "*" Ticket : blocked by
+  Compaction ..> Session : summarizes
+  Autocompact --|> Compaction : automated
+  Clearing ..> Session : ends
+
+  %% Memory
+  MemorySystem "1" --> "1" Environment : persists
+  MemorySystem ..> Session : relaunches into
+  AGENTSmd "1" --> "1" Environment : lives in
+  AGENTSmd ..> Harness : loaded by
+  Skill "1" --> "1" ContextPointer : uses
+  ContextPointer ..> Skill : references
+  ContextPointer ..> AGENTSmd : references
+  ContextPointer ..> MCPServer : references tools
+
+  %% Harness S6 responsibilities (proactive loading)
+  Harness "1" ..> "0..1" MemorySystem : loads at session start
+  Harness "1" ..> "0..1" AGENTSmd : loads at session start
+  Harness "1" ..> "*" Skill : maintains registry (progressive disclosure)
+
+  %% Subagent
+  Subagent "1" --> "1" ToolCall : spawned by
+  Subagent "1" *-- "1" Session : owns
+  Subagent "1" *-- "1" ContextWindow : owns
+  Subagent ..> ToolResult : reports as
+  Harness "1" --> "*" Subagent : spawns (independent Session + ContextWindow)
+
+  %% Failure modes
+  Hallucination ..> NextTokenPrediction : caused by
+  Sycophancy ..> Training : caused by
+  SmartZone ..> ContextWindow : emerges in
+  SmartZone ..> Session : degrades
+  PrimarySource ..|> ContextWindow : original
+  SecondarySource ..|> Compaction : derived
+  SecondarySource ..|> MemorySystem : derived
+  SecondarySource ..|> HandoffArtifact : derived
+
+  %% Patterns
+  HumanInTheLoop ..> PermissionRequest : implements
+  AFK ..> PermissionMode : requires permissive
+  AFK ..> Sandbox : requires
+  AutomatedCheck ..> Environment : runs in
+  AutomatedCheck ..> ToolCall : invoked via
+  AutomatedReview ..> Model : uses different
+  AutomatedReview ..> SystemPrompt : uses different
+  HumanReview ..> PrimarySource : reads diff
+  DesignConcept ..> Grilling : developed by
+  DesignConcept ..> Prototyping : developed by
+  DX ..> Environment : measures
+  AX ..> Environment : measures
+  VibeCoding ..> HumanReview : skips
+
+  note for Model "聚合根 — Section 1 AR\n被 Training 创建、被 Inference 消费"
+  note for Harness "聚合根 — Section 3 AR\n所有运行时调度的中心"
+  note for Session "聚合根 — Section 2 AR\nClearing/Compaction/Handoff 的操纵对象"
+  note for Spec "聚合根 — Section 5 AR\n多 Session 工作的根 artifact"
+  note for MemorySystem "聚合根 — Section 6 AR\n把 stateless agent 伪装成 stateful"
+  note for Environment "聚合根 — Section 3 AR\n最常见形态是 Filesystem"
+</div>
+
+<p><strong>关系类型图例</strong>：实心三角（<code>--|&gt;</code>）= 继承；空心三角（<code>..|&gt;</code>）= 实现/派生；实心菱形（<code>*--</code>）= 组合（生命周期一致）；空心菱形（<code>o--</code>）= 聚合（弱包含）；普通箭头（<code>--&gt;</code>）= 关联；虚线箭头（<code>..&gt;</code>）= 依赖/使用；红色字体的 <code>&lt;&lt;event&gt;&gt;</code> = 领域事件（不可变、有时间戳）。</p>
+<p class="note" style="font-size:13px"><strong>关于箭头风格</strong>：Mermaid 10.x 的 classDiagram 不支持 UML "open arrow" 变体（<code>&lt;..</code> / <code>&lt;|--</code> / <code>&lt;|..</code>），仅支持"filled arrow"（<code>..&gt;</code> / <code>--|&gt;</code> / <code>..|&gt;</code>）。语义不变，箭头头部由"空心"变为"实心"。</p>
+
+<!-- ============================================================ -->
+<h2 id="seq">4. 主要交互时序图</h2>
+<p>挑 4 个最能体现领域动态的场景。读图顺序：每个时序图都标了对应的 Bounded Context 切片，方便回到上下文地图对照。</p>
+
+<h3>4.1 一次完整 Turn 的端到端流程（横切 S1 + S2 + S3）</h3>
+<p>这是字典里反复出现的"agent loop"——Harness → Provider → Tool → Harness 的循环。注意 6 个 model provider request 如何只完成用户眼中"一个 turn"。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User
+    participant HA as Harness
+    participant CW as Context Window
+    participant MP as Model Provider
+    participant Model
+    participant ENV as Environment<br/>(Filesystem)
+    participant PR as Permission<br/>Gate
+
+    User->>HA: 发送消息<br/>("修一下失败的测试")
+    HA->>CW: 装配请求上下文<br/>(SystemPrompt + 历史 + 消息)
+    CW-->>HA: 返回完整 token 序列
+
+    rect rgb(230, 245, 255)
+    note over HA,Model: Request 1
+    HA->>MP: ModelProviderRequest
+    MP->>Model: next-token prediction
+    Model-->>MP: ToolCall: run tests
+    MP-->>HA: 返回 ToolCall
+    HA->>PR: 检查 PermissionMode
+    PR-->>HA: 允许 (Read 工具)
+    HA->>ENV: 执行 npm test
+    ENV-->>HA: 失败输出 (ToolResult)
+    HA->>CW: 追加 ToolResult
+    end
+
+    rect rgb(255, 248, 220)
+    note over HA,Model: Request 2
+    HA->>MP: 重发整个 Context<br/>(+ 上一步 ToolResult)
+    Model-->>HA: ToolCall: read test file
+    HA->>ENV: 读取测试文件
+    ENV-->>HA: 文件内容 (ToolResult)
+    HA->>CW: 追加
+    end
+
+    rect rgb(220, 255, 230)
+    note over HA,Model: Request 3-5
+    Model->>HA: read source / edit / run tests
+    HA->>ENV: 读源文件 / 写编辑 / 跑测试
+    ENV-->>HA: 三条 ToolResult
+    HA->>CW: 累计追加
+    end
+
+    rect rgb(245, 230, 255)
+    note over HA,Model: Request 6
+    HA->>MP: 重发整 Context
+    Model-->>HA: 最终回答 "fixed, tests pass"
+    HA-->>User: 显示回答
+    HA->>CW: 全部 6 个 Request 留底
+    end
+
+    note over User,CW: 一个 Turn = 6 个 ModelProviderRequest<br/>每个 Request 都重发整个 Context Window 内容
+</div>
+
+<h3>4.2 Smart Zone 失效后的 Compaction（S2 + S4 + S5 联动）</h3>
+<p>展示一个 Session 如何从 Smart Zone 滑入 Dumb Zone，触发 Autocompact，把 Session 历史做 primary→secondary 转换。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User
+    participant Session
+    participant CW as Context Window
+    participant Harness
+    participant Model
+    participant FS as Filesystem<br/>(Environment)
+    participant NewSession as 新 Session
+
+    Note over Session,CW: 早期 Smart Zone 阶段
+    User->>Session: turn 1-10 正常工作
+    Session->>CW: 累积 ~30K tokens
+    Model-->>User: 高质量回答
+
+    Note over Session,CW: 累积到 ~120K tokens
+    User->>Session: turn 50 ("修一下这个 bug")
+    Session->>CW: 累积 130K tokens
+    Session->>Harness: 进入 Dumb Zone
+    Harness->>Model: 触发 Autocompact 阈值检查
+    Model-->>Harness: "context 80% 满，触发 Autocompact"
+
+    Note over Harness,FS: Compaction 流程
+    Harness->>Model: "总结前面 50 个 turn"
+    Model-->>Harness: Summary (Secondary Source)
+    Harness->>FS: 把原文写到 .transcript.jsonl<br/>(留作 Primary Source)
+    Harness->>CW: 写入 ContextPointer 指向原文件
+    Harness->>NewSession: 创建新 Session
+    NewSession->>CW: 初始化空 ContextWindow
+    Harness->>NewSession: 注入 Summary 作为种子
+    Harness->>NewSession: 注入 ContextPointer
+    NewSession->>User: 继续 turn 51
+
+    Note over User,NewSession: 用户感觉"无缝"，<br/>但原 Session 已成为 Secondary Source<br/>丢失的细节可从 Primary Source 恢复
+</div>
+
+<h3>4.3 AFK 模式下的权限与沙箱协作（S3 + S7）</h3>
+<p>展示 PermissionMode + Sandbox + Subagent 在 AFK 场景中的协作——为什么这三者必须同时存在，缺一不可。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User
+    participant Harness
+    participant PM as PermissionMode<br/>(YOLO)
+    participant SB as Sandbox
+    participant Model
+    participant Sub as Subagent
+    participant FS as Filesystem
+
+    User->>Harness: 启动 AFK 任务<br/>"重构这个模块"
+
+    note over User,SB: 启动前约定:<br/>PermissionMode = bypass-permissions (YOLO)<br/>Sandbox = ephemeral container
+
+    Harness->>Model: 进入大任务
+    Model-->>Harness: ToolCall: spawn subagent<br/>(grep 整个 codebase)
+    Harness->>Sub: 启动 Subagent<br/>(独立 Session + ContextWindow)
+    Sub->>FS: 大量 grep/read
+    FS-->>Sub: 噪声 ToolResult (在 Sub 自己的 CW 里)
+    Sub->>Model: 回报单条 ToolResult<br/>(2 个相关文件路径)
+    Sub-->>Harness: 退出
+    Harness->>FS: 读这 2 个文件
+    FS-->>Harness: ToolResult (入 Parent CW)
+
+    Model-->>Harness: ToolCall: write file A
+    Harness->>PM: 检查权限
+    PM-->>Harness: 放行 (YOLO mode)
+    Harness->>SB: 沙箱内执行
+    SB->>FS: 写操作 (隔离)
+    SB-->>Harness: 成功
+
+    Note over Harness,SB: 万一写了危险命令
+    Model-->>Harness: ToolCall: rm -rf /
+    Harness->>SB: 在沙箱内执行
+    SB-->>Harness: 删除范围仅限沙箱容器
+    SB-->>User: 真实 FS 安全 ✓
+
+    Harness-->>User: 通知完成 / 错误
+    Note over User,FS: AFK 之所以能"无人值守":<br/>1. YOLO mode 解锁闸门<br/>2. Sandbox 限制爆炸半径<br/>3. Subagent 隔离噪声
+</div>
+
+<h3>4.4 Grilling → Spec → Tickets 的 Design Concept 形成路径（S7 + S5 + S6）</h3>
+<p>展示"从对话到交付"全链路。Grilling 收束 Design Concept，Spec 落纸，Ticket 切割工作，Handoff 把一个个 Session 串起来。这是 Section 7 和 Section 5 的精髓。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User
+    participant Agent
+    participant Skill as Grilling Skill
+    participant FS as Filesystem
+    participant Spec
+    participant Ticket1 as Ticket 1
+    participant Ticket2 as Ticket 2
+    participant SessionA as Session A
+    participant SessionB as Session B
+    participant Memory as Memory System
+
+    User->>Agent: "我想做个新功能"<br/>(Design Concept 不完整)
+    Agent->>Skill: 加载 Grilling skill<br/>(Progressive Disclosure)
+    Skill->>User: 决策 1: 主要用户场景是？
+    User->>Skill: "支持离线模式"
+    Skill->>User: 决策 2: 推荐 Postgres，推荐理由…
+    User->>Skill: "同意"
+    Note over Skill: Grilling 继续…<br/>直到 Design Concept 稳定
+
+    Skill->>FS: 写 Spec.md (HandoffArtifact)
+    FS-->>Spec: 持久化
+    Spec->>Ticket1: 拆分 ticket "DB schema"
+    Spec->>Ticket2: 拆分 ticket "API endpoint"
+
+    Memory->>SessionA: 启动 Session A<br/>(注入 Spec + Ticket 1)
+    SessionA->>FS: 读 Spec.md
+    SessionA->>User: "要开始 ticket 1 吗？"
+    User->>SessionA: 确认
+    SessionA->>SessionA: 完成 ticket 1
+    SessionA->>FS: 更新 Spec.md status
+    SessionA->>Memory: 写完成笔记
+    SessionA-->>User: 汇报
+
+    Memory->>SessionB: 启动 Session B<br/>(加载 spec, ticket 2 状态)
+    Note over SessionB: 全新 Session<br/>(Model 是 stateless)
+    SessionB->>FS: 读 Spec.md<br/>(ContextWindow 之外)
+    SessionB->>User: "开始 ticket 2"
+    User->>SessionB: 确认
+    SessionB->>SessionB: 完成 ticket 2
+    SessionB->>FS: 更新 Spec.md
+    SessionB->>Memory: 写完成笔记
+
+    Note over User,Memory: Design Concept 跨多个 Session 持续存在<br/>靠 Spec + Memory System + Filesystem 三方协作<br/>而不是靠 Model "记住"
+</div>
+
+<!-- ============================================================ -->
+<h2 id="glossary">5. 速查：聚合根 × 上下文对照表</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>聚合根 AR</th>
+      <th>所属 Bounded Context</th>
+      <th>关键内部成员</th>
+      <th>被谁操纵（领域事件）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Model</strong></td>
+      <td>S1 The Model</td>
+      <td>Parameters, KnowledgeCutoff</td>
+      <td>Training（写） / Inference（读）</td>
+    </tr>
+    <tr>
+      <td><strong>Session</strong></td>
+      <td>S2 Sessions/Context/Turns</td>
+      <td>Turn[], Message[], ProviderRequest[]</td>
+      <td>Clearing, Compaction, Autocompact, Handoff</td>
+    </tr>
+    <tr>
+      <td><strong>ContextWindow</strong></td>
+      <td>S2 Sessions/Context/Turns</td>
+      <td>SystemPrompt, content tokens</td>
+      <td>Harness（装配） / Autocompact（溢出）</td>
+    </tr>
+    <tr>
+      <td><strong>Harness</strong></td>
+      <td>S3 定义 · 跨 S1/S2/S6 协调</td>
+      <td>Tool[], SystemPrompt, PermissionMode, hooks, ContextManager, Skill registry</td>
+      <td>用户（启动/配置） / 自动（context 装配、Compact、Autocompact、Permission、Subagent spawn、AGENTS.md/Memory 装载）</td>
+    </tr>
+    <tr>
+      <td><strong>Environment</strong></td>
+      <td>S3 Tools & Environment</td>
+      <td>Filesystem (默认), Sandbox (隔离), DB/API (其他)</td>
+      <td>ToolCall（写） / ToolResult（读）</td>
+    </tr>
+    <tr>
+      <td><strong>Handoff</strong></td>
+      <td>S5 Handoffs</td>
+      <td>from Session, to Session, HandoffArtifact</td>
+      <td>用户 / Harness 策略</td>
+    </tr>
+    <tr>
+      <td><strong>Spec</strong></td>
+      <td>S5 Handoffs</td>
+      <td>Ticket[]</td>
+      <td>用户（创建） / 多个 Session（mutate）</td>
+    </tr>
+    <tr>
+      <td><strong>Ticket</strong></td>
+      <td>S5 Handoffs</td>
+      <td>size, status, blockedBy[]</td>
+      <td>Session（执行） / Spec（汇总）</td>
+    </tr>
+    <tr>
+      <td><strong>MemorySystem</strong></td>
+      <td>S6 Memory & Steering</td>
+      <td>writePath, readPath</td>
+      <td>Session（写） / Harness（启动时读）</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<div class="note">
+  <strong>建模说明（向 Matt 的 design 致敬）</strong><br>
+  1. 7 个 Bounded Context 100% 沿用 <code>Curriculum.md</code> 的 Section 划分，未做合并/拆分。理由：<code>domain.md</code> 明确说"用 glossary 定义的词，不要自己造同义词"——Context 名也是 glossary 的一部分。<br>
+  2. "Agent" 在 ER 图里被标为 <code>&lt;&lt;composite role&gt;&gt;</code> 而非 <code>&lt;&lt;aggregate root&gt;&gt;</code>，因为 Matt 原话："agent doesn't name a mechanical part"。它是 Model+Harness+Session 的运行时组合视图，不是独立实体。<br>
+  3. 横切关注点（Non-determinism / Attention* / Smart Zone / Primary/Secondary Source）用红色虚线标识——它们在原词条里也被描述为"贯穿多个 Section 的属性"。<br>
+  4. Hallucination / Sycophancy 被建模为 <code>&lt;&lt;event&gt;&gt;</code> 而非 entity，因为它们是"已经发生的事实"，不是"需要维护的状态"。<br>
+  5. <strong>Harness 是个特例</strong>：它是 Section 3 自己定义的聚合根 AR，但同时协调 S1（Provider 调用）、S2（Session 持有 + Compact 决策）、S6（AGENTS.md / Memory / Skill 装载）、S7（Subagent 派生）。在 ER 图里标为 <code>&lt;&lt;AR · cross-Section orchestrator&gt;&gt;</code>，比单一 AR 多了一条"跨 Section 协调者"的标签。Matt 原文用 5 个不同动词（assembles / executes / stores / asks / decides）列出 Harness 职责，分布确实横跨 4 个 Section——这在字典里没有其他词条是这样。
+</div>
+
+<div class="footer">
+  源仓库：<a href="https://github.com/mattpocock/dictionary-of-ai-coding">mattpocock/dictionary-of-ai-coding</a> · 词条数：69 · 章节数：7 · 解析时间：2026-07-18
+</div>
+
+</div>
+</body>
+</html>
