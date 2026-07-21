@@ -1,6 +1,37 @@
 ---
 layout: default
 ---
+
+<style>
+  .featured {
+    background: linear-gradient(135deg, #eef4ff 0%, #fff7e0 100%);
+    border: 1px solid #c7d8f7;
+    border-left: 4px solid #1f6feb;
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 0 0 28px;
+  }
+  .featured .badge {
+    display: inline-block; background: #1f6feb; color: #fff;
+    padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;
+    margin-right: 8px; vertical-align: middle;
+  }
+  .featured h2 {
+    margin: 6px 0; font-size: 18px; border: 0; padding: 0;
+  }
+  .featured h2 a { color: #1f6feb; text-decoration: none; }
+  .featured h2 a:hover { text-decoration: underline; }
+  .featured p { margin: 6px 0 0; color: #444; font-size: 14px; line-height: 1.6; }
+  .featured .meta-row { color: #6e6e73; font-size: 12px; margin-top: 8px; }
+</style>
+
+<div class="featured">
+  <span class="badge">🔥 最新</span>
+  <h2><a href="/wu2198-investment-report.html">📈 wu2198 投资日报 — 2026-07-21</a></h2>
+  <p>今日 wu2198 操盘观点速读：上证 3864 收阳，<b>三针探底 + W 反弹成立</b>，止损 3736 / 目标 3886-3916。博主点名「算力即国力」，附 3 个推荐板块 + 3 支个股深度分析（含源杰科技半年报 +1196%、中一科技、中际旭创 K 线图）。</p>
+  <div class="meta-row">📅 2026-07-21 · 抓取自 weibo-watcher skill · 行情数据 akshare 实时接口</div>
+</div>
+
 <ul class="entries">
 {% for post in paginator.posts %}
 	<li class="entry group">
