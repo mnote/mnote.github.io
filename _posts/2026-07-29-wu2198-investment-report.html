@@ -1,0 +1,784 @@
+---
+layout: null
+permalink: /wu2198-investment-report-20260729.html
+title: wu2198 投资日报 — 2026-07-29
+tags: [weibo, wu2198, A股, 投资日报, 兆易创新, MLCC, 创业板, 二次反击, 3886]
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>wu2198 投资日报 · 2026-07-29</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --card: #ffffff;
+    --accent: #d62728;
+    --up: #e63946;
+    --down: #2a9d8f;
+    --tint: #fef2f2;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                 "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.7; font-size: 15px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code.code { font-family: ui-monospace, "SF Mono", Menlo, monospace; background:#f3f4f6; padding:1px 6px; border-radius:4px; font-size: 12px; color:#374151; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 28px 80px; }
+  header.hero {
+    background: linear-gradient(135deg, #fff5f5 0%, #fff 50%, #f0f9ff 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+  }
+  header.hero h1 {
+    margin: 0 0 6px; font-size: 28px; letter-spacing: 0.5px;
+  }
+  header.hero .sub {
+    color: var(--muted); font-size: 14px; margin-bottom: 12px;
+  }
+  header.hero .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: #fff; border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 999px; font-size: 12px; color: #374151;
+  }
+  h2.section {
+    margin: 36px 0 16px;
+    font-size: 20px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+  }
+  h2.section .num {
+    color: var(--muted); font-weight: normal; margin-right: 8px;
+  }
+  .summary-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    margin-bottom: 8px;
+  }
+  .summary-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .summary-card .label {
+    color: var(--muted); font-size: 12px; margin-bottom: 6px;
+  }
+  .summary-card .value {
+    font-size: 20px; font-weight: 600; color: #111;
+  }
+  .summary-card .delta {
+    font-size: 13px; color: var(--up); margin-left: 6px;
+  }
+  .summary-card.warn { background: #fff7ed; border-color: #fed7aa; }
+  .summary-card.warn .value { color: #c2410c; font-size: 16px; }
+
+  /* 关键观点卡 */
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .card.sig { border-left: 4px solid var(--accent); }
+  .card.risk { background: #fff7ed; border-color: #fed7aa; }
+  .card-meta {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    color: var(--muted); font-size: 12px; margin-bottom: 8px;
+  }
+  .card-meta .time { font-weight: 600; color: #111; }
+  .card-meta .eng { margin-left: auto; }
+  .badge {
+    display: inline-block; color: #fff;
+    padding: 2px 8px; border-radius: 4px; font-size: 11px; line-height: 1.4;
+  }
+  .card-text {
+    font-size: 14px; line-height: 1.7; color: #1f2937;
+    white-space: pre-wrap; word-wrap: break-word;
+  }
+  .card-link { margin-top: 6px; font-size: 12px; }
+
+  /* 关键位表 */
+  table.levels {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+    background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+  }
+  table.levels th, table.levels td {
+    padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  table.levels th { background: #f9fafb; font-size: 13px; color: #374151; }
+  table.levels tr:last-child td { border-bottom: none; }
+  table.levels td.grp {
+    background: #f3f4f6; font-weight: 600; color: #111;
+  }
+  table.levels td.lv {
+    font-family: ui-monospace, monospace; font-weight: 600; color: var(--accent);
+  }
+
+  /* 全微博表 */
+  table.posts {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+  }
+  table.posts th, table.posts td {
+    padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.posts th { background: #f9fafb; font-size: 12px; color: #374151; position: sticky; top: 0; }
+  table.posts tr:last-child td { border-bottom: none; }
+  table.posts td.t { white-space: nowrap; font-family: ui-monospace, monospace; color: #111; font-weight: 600; }
+  table.posts td.e { white-space: nowrap; color: var(--muted); font-size: 12px; }
+
+  /* 板块 / 个股卡 */
+  .sector-card, .stock-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 16px;
+  }
+  .sector-card { background: linear-gradient(180deg, #fffbfb 0%, #fff 100%); border-left: 4px solid var(--accent); }
+  .sector-head, .stock-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+  }
+  .sector-rank, .stock-rank {
+    background: var(--accent); color: #fff; padding: 2px 8px;
+    border-radius: 4px; font-size: 12px; font-weight: 600;
+  }
+  .sector-card h3, .stock-card h3 {
+    margin: 0; font-size: 18px; color: #111;
+  }
+  .sector-anchor, .stock-head .sector-tag {
+    font-size: 12px; color: var(--muted);
+  }
+  .sector-anchor strong { color: #111; }
+  .sector-tag {
+    background: #f3f4f6; padding: 2px 8px; border-radius: 4px;
+    color: #374151 !important;
+  }
+  .sector-logic, .stock-thesis {
+    font-size: 14px; line-height: 1.8; color: #1f2937; margin: 8px 0;
+  }
+  .sector-evi, .stock-quote {
+    font-size: 13px; color: var(--muted);
+    background: #f9fafb; border-left: 3px solid #d1d5db;
+    padding: 8px 12px; border-radius: 0 4px 4px 0; margin: 8px 0;
+  }
+  .stock-points ul, .stock-risks ul {
+    margin: 6px 0 0 0; padding-left: 22px;
+  }
+  .stock-points li { font-size: 13px; color: #1f2937; }
+  .stock-risks li { font-size: 13px; color: #92400e; }
+
+  /* K 线图 */
+  .chart {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; margin: 12px 0 0;
+  }
+  .chart-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; color: #111; margin-bottom: 8px;
+  }
+  .chart-title .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+  }
+  .chart img {
+    width: 100%; height: auto; display: block; border-radius: 4px;
+  }
+  .chart figcaption {
+    font-size: 12px; color: var(--muted); margin-top: 6px;
+  }
+  .chart-missing {
+    background: #fef2f2; border: 1px dashed #fca5a5; border-radius: 8px;
+    padding: 18px; color: #b91c1c; text-align: center;
+  }
+
+  /* 警示 */
+  .alert {
+    background: #fff7ed; border: 1px solid #fed7aa;
+    border-radius: 10px; padding: 14px 18px; margin: 12px 0;
+  }
+  .alert h4 { margin: 0 0 8px; color: #c2410c; font-size: 14px; }
+  .alert ul { margin: 0; padding-left: 22px; }
+  .alert li { color: #9a3412; font-size: 13px; }
+
+  /* 投资结论 */
+  .verdict {
+    background: linear-gradient(135deg, #fff 0%, #fef3c7 100%);
+    border: 1px solid #fde68a; border-radius: 12px;
+    padding: 22px 26px; margin-top: 16px;
+  }
+  .verdict h3 { margin: 0 0 10px; color: #92400e; }
+  .verdict .level {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 12px; font-weight: 600;
+  }
+  .level.buy { background: #e63946; color: #fff; }
+  .level.hold { background: #f59e0b; color: #fff; }
+  .level.wait { background: #6b7280; color: #fff; }
+
+  footer {
+    margin-top: 40px; padding: 18px;
+    text-align: center; color: var(--muted); font-size: 12px;
+    border-top: 1px solid var(--border);
+  }
+  footer .disclaim {
+    background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;
+    padding: 12px 16px; color: #b91c1c; margin-bottom: 14px;
+  }
+  .toc {
+    background: #f9fafb; border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px; margin: 12px 0 24px;
+    font-size: 13px;
+  }
+  .toc a { color: #374151; margin-right: 14px; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 14px; }
+    header.hero { padding: 18px; }
+    header.hero h1 { font-size: 22px; }
+    h2.section { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>📊 wu2198 投资日报 · 2026-07-29</h1>
+  <div class="sub">基于 KOL <a href="https://m.weibo.cn/u/1216826604" target="_blank">@wu2198</a>（47.3w 粉丝）最近一天微博 · 自动生成于 2026-07-29 22:11</div>
+  <div class="tags">
+    <span class="tag">📅 交易日：2026-07-29</span>
+    <span class="tag">📝 抓取微博 19 条</span>
+    <span class="tag">🎯 操盘信号 12 条</span>
+    <span class="tag">📈 含 6 只个股 K 线</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <strong>目录 ·</strong>
+  <a href="#summary">① 行情摘要</a>
+  <a href="#keyviews">② 博主核心观点</a>
+  <a href="#sectors">③ 3 大板块推荐</a>
+  <a href="#stocks">④ 6 只个股深度</a>
+  <a href="#charts">⑤ 大盘 K 线</a>
+  <a href="#levels">⑥ 关键位</a>
+  <a href="#risk">⑦ 风险提示</a>
+  <a href="#all">⑧ 全部微博</a>
+  <a href="#verdict">⑨ 投资结论</a>
+</nav>
+
+<h2 class="section" id="summary"><span class="num">①</span>行情摘要</h2>
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="label">上证指数 · 关键位</div>
+    <div class="value">3782.06 / 3886 / 4258</div>
+    <div class="delta">早盘试 3782，符合 3786 二次反击点；收 3828</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">创业板指 · 关键位</div>
+    <div class="value">3249 / 3378 / 3500</div>
+    <div class="delta">试 3249 反弹，收 3378，反击力度强于主板</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">沪深 300</div>
+    <div class="value">3782 / 3828 / 4100</div>
+    <div class="delta">与上证同步反弹</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">市场资金面</div>
+    <div class="value">成交 2.31 万亿</div>
+    <div class="delta">较前日放量 2726 亿，量能改善</div>
+  </div>
+  <div class="summary-card warn">
+    <div class="label">博主风控姿态</div>
+    <div class="value">⚠️ 反弹波段待确认</div>
+    <div class="delta">「先考虑 ICU，再考虑 KTV」3886 是关键阈值</div>
+  </div>
+</div>
+
+<h2 class="section" id="keyviews"><span class="num">②</span>博主核心观点（最近一天）</h2>
+<div class="grid">
+
+        <div class="card">
+          <div class="card-meta">
+            <span class="time">⏱ 07-29 21:22</span>
+            <span class="eng">🔁3 💬71 👍1231</span>
+            <span class="badge" style="background:#555">个股</span>
+          </div>
+          <div class="card-text">兆易创新(603986.SH)公告称，公司董事长朱一明提议公司通过集中竞价交易方式回购A股股份，回购资金总额不低于10亿元(含)，不超过20亿元(含)，回购股份将全部用于注销并减少注册资本。朱一明承诺未来12个月内不减持公司股份，并计划自2026年12月13日至2027年7月29日期间增持公司股份，增持金额不低于10</div>
+          <div class="card-link"><a href="https://m.weibo.cn/detail/RaXI69r9v" target="_blank">查看原微博 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-meta">
+            <span class="time">⏱ 07-29 15:04</span>
+            <span class="eng">🔁94 💬1052 👍11109</span>
+            <span class="badge" style="background:#d62728">大盘判断</span> <span class="badge" style="background:#9467bd">行情速报</span>
+          </div>
+          <div class="card-text">早盘指数试了3782点（符合3786点二次反击点预期），收在3828点；创业板指数试了3249点，收在3378点；整体看急速下跌之后，市场在酝酿反弹........明天大盘指数收复3886点之后，反弹波段会明朗很多...........收到请回复666或点赞支持一下！</div>
+          <div class="card-link"><a href="https://m.weibo.cn/detail/RaVew8Ras" target="_blank">查看原微博 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-meta">
+            <span class="time">⏱ 07-29 14:54</span>
+            <span class="eng">🔁1 💬53 👍5629</span>
+            <span class="badge" style="background:#2ca02c">行业板块</span>
+          </div>
+          <div class="card-text">MLCC+电容板块龙头今天封板！其它同类也略有反击！</div>
+          <div class="card-link"><a href="https://m.weibo.cn/detail/RaVaIbNgF" target="_blank">查看原微博 ↗</a></div>
+        </div>
+</div>
+
+<h2 class="section" id="sectors"><span class="num">③</span>最值得投资的 3 个板块</h2>
+
+        <div class="sector-card">
+          <div class="sector-head">
+            <span class="sector-rank">#1</span>
+            <h3>半导体存储 / MCU</h3>
+          </div>
+          <div class="sector-anchor">核心标的：<strong>兆易创新 (603986)</strong></div>
+          <div class="sector-logic">博主 21:22 转发兆易创新回购+增持公告，是今晚最强的多头信号。存储+MCU 是国产替代主线下业绩弹性最大的环节。</div>
+          <div class="sector-evi">📎 博主证据：21:22 兆易创新公告 / 14:29 端侧+SoC+MCU 提示（注意博主认为是被量化折腾、分化大）</div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-head">
+            <span class="sector-rank">#2</span>
+            <h3>MLCC / 电容</h3>
+          </div>
+          <div class="sector-anchor">核心标的：<strong>风华高科 (000636) / 三环集团 (300408)</strong></div>
+          <div class="sector-logic">博主 14:54 明确说 MLCC+电容板块龙头今天封板，是今天少数走独立行情的板块之一。AI 服务器、汽车电子拉动高容值 MLCC 需求，国产化龙头双雄共振。</div>
+          <div class="sector-evi">📎 博主证据：14:54「MLCC+电容板块龙头今天封板，其它同类也略有反击」</div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-head">
+            <span class="sector-rank">#3</span>
+            <h3>创业板 / 深市成长</h3>
+          </div>
+          <div class="sector-anchor">核心标的：<strong>宁德时代 (300750) / 东方财富 (300059)</strong></div>
+          <div class="sector-logic">博主 15:04 复盘明确：创业板今天反击力度强于主板，深成指+创业板是博主提示的反弹主力方向。3886 是上证关键阈值 — 收复后反弹波段明朗。</div>
+          <div class="sector-evi">📎 博主证据：15:04「创业板指试了 3249 点，收在 3378 点，反击力度强」 / 15:04「明天大盘收复 3886 后反弹波段会明朗很多」</div>
+        </div>
+
+<h2 class="section" id="stocks"><span class="num">④</span>6 只个股深度分析</h2>
+
+        <div class="stock-card">
+          <div class="stock-head">
+            <div>
+              <span class="stock-rank">#1</span>
+              <h3>兆易创新</h3>
+              <code class="code">603986.SH</code>
+              <span class="sector-tag">半导体存储/MCU</span>
+            </div>
+          </div>
+          <div class="stock-quote">📎 博主原话：<em>21:22 直接提及，回购 10-20 亿 + 董事长增持 10 亿（双重利好）</em></div>
+          <div class="stock-thesis">博主 21:22 公告转发：兆易创新 (603986) 董事长朱一明提议回购 10-20 亿元 A 股并全部注销，并承诺 12 个月内不减持 + 2026-12-13 至 2027-07-29 增持不低于 10 亿元。回购注销直接抬升 ROE，董事长真金白银增持是稀缺信心信号。</div>
+          <div class="stock-points">
+            <strong>核心逻辑：</strong>
+            <ul><li>回购注销 → 减资抬升 EPS/ROE，对长期价值最直接</li><li>董事长 10 亿真金白银增持 + 12 个月不减持 → 信心锚</li><li>存储/MCU 国产替代主线下，业绩弹性大</li></ul>
+          </div>
+          <div class="stock-risks">
+            <strong>风险点：</strong>
+            <ul><li>存储芯片周期下行风险</li><li>全球半导体景气度反复</li></ul>
+          </div>
+          <div class="stock-chart">
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>兆易创新 日线</strong>
+        <code class="code">603986.SH</code>
+      </div>
+      <img src="/charts/603986_SH.png" alt="兆易创新 日线 日线" loading="lazy" />
+      <figcaption>K线+MA5/10/20/60 + 关键位虚线 + 成交量 + MACD</figcaption>
+    </figure>
+    </div>
+        </div>
+
+        <div class="stock-card">
+          <div class="stock-head">
+            <div>
+              <span class="stock-rank">#2</span>
+              <h3>风华高科</h3>
+              <code class="code">000636.SZ</code>
+              <span class="sector-tag">MLCC/电容</span>
+            </div>
+          </div>
+          <div class="stock-quote">📎 博主原话：<em>14:54 提到「MLCC+电容板块龙头今天封板，其它同类略有反击」</em></div>
+          <div class="stock-thesis">博主 14:54 明确点名 MLCC+电容板块龙头封板，是今天 A 股少数走独立行情的板块之一。风华高科作为 MLCC 国产化龙头，受益 AI 服务器/汽车电子拉动的高容值 MLCC 需求。</div>
+          <div class="stock-points">
+            <strong>核心逻辑：</strong>
+            <ul><li>MLCC 板块今天有龙头封板 + 跟风反击，板块动能在增强</li><li>AI 服务器 + 汽车电子 + 国产替代 三重需求</li><li>博主 14:35 也点出「行业爆发是趋势，股价滞涨+业绩恢复增长是事实」</li></ul>
+          </div>
+          <div class="stock-risks">
+            <strong>风险点：</strong>
+            <ul><li>板块情绪退潮</li><li>价格战压制毛利</li></ul>
+          </div>
+          <div class="stock-chart">
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>风华高科 日线</strong>
+        <code class="code">000636.SZ</code>
+      </div>
+      <img src="/charts/000636_SZ.png" alt="风华高科 日线 日线" loading="lazy" />
+      <figcaption>K线+MA5/10/20/60 + 关键位虚线 + 成交量 + MACD</figcaption>
+    </figure>
+    </div>
+        </div>
+
+        <div class="stock-card">
+          <div class="stock-head">
+            <div>
+              <span class="stock-rank">#3</span>
+              <h3>三环集团</h3>
+              <code class="code">300408.SZ</code>
+              <span class="sector-tag">MLCC/电子陶瓷</span>
+            </div>
+          </div>
+          <div class="stock-quote">📎 博主原话：<em>MLCC 板块共振，跟随风华高科</em></div>
+          <div class="stock-thesis">三环集团是 MLCC 国产化第二极，同时拥有陶瓷封装、SOFC 等多元业务。MLCC 板块龙头封板通常带动板块共振，作为优质跟风标的。</div>
+          <div class="stock-points">
+            <strong>核心逻辑：</strong>
+            <ul><li>MLCC 板块共振弹性</li><li>陶瓷封装+一体化布局护城河深</li><li>2026 业绩拐点已现</li></ul>
+          </div>
+          <div class="stock-risks">
+            <strong>风险点：</strong>
+            <ul><li>跟风标的波动率大于龙头</li><li>陶瓷材料业务验证周期长</li></ul>
+          </div>
+          <div class="stock-chart">
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>三环集团 日线</strong>
+        <code class="code">300408.SZ</code>
+      </div>
+      <img src="/charts/300408_SZ.png" alt="三环集团 日线 日线" loading="lazy" />
+      <figcaption>K线+MA5/10/20/60 + 关键位虚线 + 成交量 + MACD</figcaption>
+    </figure>
+    </div>
+        </div>
+
+        <div class="stock-card">
+          <div class="stock-head">
+            <div>
+              <span class="stock-rank">#4</span>
+              <h3>恒玄科技</h3>
+              <code class="code">688608.SH</code>
+              <span class="sector-tag">端侧 SoC</span>
+            </div>
+          </div>
+          <div class="stock-quote">📎 博主原话：<em>14:29「端侧+SoC 芯片，端侧+MCU 芯片等分化比较大，被量化折腾」</em></div>
+          <div class="stock-thesis">博主明确点出端侧+SoC 板块被量化折腾、分化大，说明是博主正在紧密跟踪的板块。端侧 AI 芯片（AI 耳机/AI 眼镜/AI 玩具）是 2026 主流叙事，恒玄科技是 SoC 龙头之一。</div>
+          <div class="stock-points">
+            <strong>核心逻辑：</strong>
+            <ul><li>端侧 AI 主线是今年最强叙事之一</li><li>博主把它列入紧密跟踪的板块，节奏信号清晰</li><li>短期波动大、节奏优先</li></ul>
+          </div>
+          <div class="stock-risks">
+            <strong>风险点：</strong>
+            <ul><li>量化主导、波动剧烈</li><li>估值高位，需等回调</li></ul>
+          </div>
+          <div class="stock-chart">
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>恒玄科技 日线</strong>
+        <code class="code">688608.SH</code>
+      </div>
+      <img src="/charts/688608_SH.png" alt="恒玄科技 日线 日线" loading="lazy" />
+      <figcaption>K线+MA5/10/20/60 + 关键位虚线 + 成交量 + MACD</figcaption>
+    </figure>
+    </div>
+        </div>
+
+        <div class="stock-card">
+          <div class="stock-head">
+            <div>
+              <span class="stock-rank">#5</span>
+              <h3>宁德时代</h3>
+              <code class="code">300750.SZ</code>
+              <span class="sector-tag">创业板/锂电</span>
+            </div>
+          </div>
+          <div class="stock-quote">📎 博主原话：<em>15:04「创业板指试了 3249 点，收在 3378 点，急速下跌后在酝酿反弹」</em></div>
+          <div class="stock-thesis">博主 15:04 复盘明确指出：创业板今天反击力度强于主板，宁德时代作为创业板权重 + 锂电龙头，跟指数共振属性最强。今天指数反弹是布局锂电等创业板权重的窗口。</div>
+          <div class="stock-points">
+            <strong>核心逻辑：</strong>
+            <ul><li>创业板反击力度强，宁王权重带动效应明显</li><li>锂电板块前期超跌 + 储能需求超预期</li><li>博主风险偏好是&#x27;反弹波段明朗后再加仓&#x27;</li></ul>
+          </div>
+          <div class="stock-risks">
+            <strong>风险点：</strong>
+            <ul><li>创业板节奏比上证更敏感</li><li>锂电产业链价格反复</li></ul>
+          </div>
+          <div class="stock-chart">
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>宁德时代 日线</strong>
+        <code class="code">300750.SZ</code>
+      </div>
+      <img src="/charts/300750_SZ.png" alt="宁德时代 日线 日线" loading="lazy" />
+      <figcaption>K线+MA5/10/20/60 + 关键位虚线 + 成交量 + MACD</figcaption>
+    </figure>
+    </div>
+        </div>
+
+        <div class="stock-card">
+          <div class="stock-head">
+            <div>
+              <span class="stock-rank">#6</span>
+              <h3>东方财富</h3>
+              <code class="code">300059.SZ</code>
+              <span class="sector-tag">创业板/证券</span>
+            </div>
+          </div>
+          <div class="stock-quote">📎 博主原话：<em>大盘成交量 23117 亿，量能增加 2726 亿（15:02）</em></div>
+          <div class="stock-thesis">博主 15:02 指出今天两市成交 2.3 万亿、量能比上一交易日增加 2726 亿，成交量放大 + 反弹初期 = 证券板块最受益。东财作为创业板+证券双重身份，对指数弹性最大。</div>
+          <div class="stock-points">
+            <strong>核心逻辑：</strong>
+            <ul><li>成交量放大直接利好券商</li><li>东财同时是创业板权重，反弹弹性大</li><li>博主多次强调&#x27;反弹波段明朗后&#x27;再加仓 — 3886 是关键阈值</li></ul>
+          </div>
+          <div class="stock-risks">
+            <strong>风险点：</strong>
+            <ul><li>证券板块是情绪放大器，反向波动也大</li><li>对成交量的持续性依赖高</li></ul>
+          </div>
+          <div class="stock-chart">
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>东方财富 日线</strong>
+        <code class="code">300059.SZ</code>
+      </div>
+      <img src="/charts/300059_SZ.png" alt="东方财富 日线 日线" loading="lazy" />
+      <figcaption>K线+MA5/10/20/60 + 关键位虚线 + 成交量 + MACD</figcaption>
+    </figure>
+    </div>
+        </div>
+
+<h2 class="section" id="charts"><span class="num">⑤</span>大盘 K 线（关键位居左虚线）</h2>
+
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>上证指数 日线</strong>
+        <code class="code">000001.SH</code>
+      </div>
+      <img src="/charts/000001_SH.png" alt="上证指数 日线 日线" loading="lazy" />
+      <figcaption>关键位 3786/3886/4258 居左虚线</figcaption>
+    </figure>
+    
+
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>创业板指 日线</strong>
+        <code class="code">399006.SZ</code>
+      </div>
+      <img src="/charts/399006_SZ.png" alt="创业板指 日线 日线" loading="lazy" />
+      <figcaption>关键位 3249/3378/3500 居左虚线</figcaption>
+    </figure>
+    
+
+    <figure class="chart">
+      <div class="chart-title">
+        <span class="dot"></span>
+        <strong>沪深 300 日线</strong>
+        <code class="code">000300.SH</code>
+      </div>
+      <img src="/charts/000300_SH.png" alt="沪深 300 日线 日线" loading="lazy" />
+      <figcaption>关键位 3782/3828/4100 居左虚线</figcaption>
+    </figure>
+    
+
+<h2 class="section" id="levels"><span class="num">⑥</span>关键点位速查</h2>
+<table class="levels">
+  <thead><tr><th style="width:120px">点位</th><th>含义</th><th style="width:160px">来源</th></tr></thead>
+  <tbody>
+  <tr><td class="grp" colspan="3">大盘（上证）</td></tr><tr><td class="lv">3786</td><td class="desc">二次反击点（已确认成立）</td><td class="src">来自博主原帖</td></tr><tr><td class="lv">3886</td><td class="desc">波段明朗阈值（明天收复则反弹成立）</td><td class="src">来自博主原帖</td></tr><tr><td class="lv">4258</td><td class="desc">前高（5月高点，参考位）</td><td class="src">来自博主原帖</td></tr><tr><td class="grp" colspan="3">创业板指</td></tr><tr><td class="lv">3249</td><td class="desc">今日盘中低点</td><td class="src">来自博主原帖</td></tr><tr><td class="lv">3378</td><td class="desc">今日收盘</td><td class="src">来自博主原帖</td></tr><tr><td class="lv">3500</td><td class="desc">反弹目标</td><td class="src">来自博主原帖</td></tr><tr><td class="grp" colspan="3">沪深 300</td></tr><tr><td class="lv">3782</td><td class="desc">今日盘中低点</td><td class="src">来自博主原帖</td></tr><tr><td class="lv">3828</td><td class="desc">今日收盘</td><td class="src">来自博主原帖</td></tr><tr><td class="lv">4100</td><td class="desc">反弹目标</td><td class="src">来自博主原帖</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="risk"><span class="num">⑦</span>博主警示板块与风险提示</h2>
+<div class="alert">
+  <h4>⚠️ 博主明确警示的板块</h4>
+  <ul><li>端侧+SoC+MCU 芯片（博主提示被量化折腾、分化大）</li><li>交换机（博主 14:20 提示今天补调整，阿紫跌停）</li></ul>
+</div>
+<div class="grid">
+
+        <div class="card risk">
+          <div class="card-meta">
+            <span class="time">⏱ 07-29 21:23</span>
+            <span class="eng">🔁7 💬57 👍1544</span>
+          </div>
+          <div class="card-text">7月29日韩国首尔国会大厦前，30余个“吊唁花圈”赫然在列，散户团体抗议单一股票杠杆ETF在股市暴跌中放大损失。</div>
+        </div>
+
+        <div class="card risk">
+          <div class="card-meta">
+            <span class="time">⏱ 07-29 17:44</span>
+            <span class="eng">🔁21 💬224 👍5450</span>
+          </div>
+          <div class="card-text">炒股要先考虑ICU，然后才是考虑KTV……</div>
+        </div>
+
+        <div class="card risk">
+          <div class="card-meta">
+            <span class="time">⏱ 07-29 14:45</span>
+            <span class="eng">🔁70 💬172 👍7198</span>
+          </div>
+          <div class="card-text">不管什么板块，亏钱的绝大多数属于追高或满仓进进出出，追涨杀跌的人。要是能克制这些，基本可以赢80%以上的投资者！</div>
+        </div>
+</div>
+
+<h2 class="section" id="all"><span class="num">⑧</span>博主今日全部 19 条微博</h2>
+<table class="posts">
+  <thead><tr><th>时间</th><th>互动</th><th>信号</th><th>内容</th></tr></thead>
+  <tbody>
+  <tr>
+          <td class="t">07-29 21:23</td>
+          <td class="e">🔁7 💬57 👍1544</td>
+          <td class="s"><span class="badge" style="background:#ff7f0e">风控</span> <span class="badge" style="background:#17becf">美股/外盘</span></td>
+          <td>7月29日韩国首尔国会大厦前，30余个“吊唁花圈”赫然在列，散户团体抗议单一股票杠杆ETF在股市暴跌中放大损失。</td>
+        </tr>
+<tr>
+          <td class="t">07-29 21:22</td>
+          <td class="e">🔁3 💬71 👍1231</td>
+          <td class="s"><span class="badge" style="background:#555">个股</span></td>
+          <td>兆易创新(603986.SH)公告称，公司董事长朱一明提议公司通过集中竞价交易方式回购A股股份，回购资金总额不低于10亿元(含)，不超过20亿元(含)，回购股份将全部用于注销并减少注册资本。朱一明承诺未来12个月内不减持公司股份，并计划自2…</td>
+        </tr>
+<tr>
+          <td class="t">07-29 19:59</td>
+          <td class="e">🔁13 💬364 👍4351</td>
+          <td class="s"><span class="badge" style="background:#555">—</span></td>
+          <td>收到请回复666或点赞支持一下！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 17:44</td>
+          <td class="e">🔁21 💬224 👍5450</td>
+          <td class="s"><span class="badge" style="background:#ff7f0e">风控</span></td>
+          <td>炒股要先考虑ICU，然后才是考虑KTV……</td>
+        </tr>
+<tr>
+          <td class="t">07-29 17:25</td>
+          <td class="e">🔁8 💬393 👍5309</td>
+          <td class="s"><span class="badge" style="background:#1f77b4">操作建议</span></td>
+          <td>我收手的时候，很多人讽刺……如今的盈利还在吗？//@wu2198:元旦的时候我定出了30%目标，如愿以偿.......你的呢？完成了吗？</td>
+        </tr>
+<tr>
+          <td class="t">07-29 17:20</td>
+          <td class="e">🔁3 💬42 👍3563</td>
+          <td class="s"><span class="badge" style="background:#555">—</span></td>
+          <td>#粉笔网炒股巨额亏损#亏损才是合理的预期，股市的钱哪有那么容易赚！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 17:12</td>
+          <td class="e">🔁2 💬38 👍3298</td>
+          <td class="s"><span class="badge" style="background:#555">—</span></td>
+          <td>#长鑫科技员工被楼盘疯抢#一夜暴富之后的正常现象！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 15:04</td>
+          <td class="e">🔁94 💬1052 👍11109</td>
+          <td class="s"><span class="badge" style="background:#d62728">大盘判断</span> <span class="badge" style="background:#9467bd">行情速报</span></td>
+          <td>早盘指数试了3782点（符合3786点二次反击点预期），收在3828点；创业板指数试了3249点，收在3378点；整体看急速下跌之后，市场在酝酿反弹........明天大盘指数收复3886点之后，反弹波段会明朗很多...........收到…</td>
+        </tr>
+<tr>
+          <td class="t">07-29 15:02</td>
+          <td class="e">🔁2 💬43 👍5421</td>
+          <td class="s"><span class="badge" style="background:#d62728">大盘判断</span> <span class="badge" style="background:#9467bd">行情速报</span></td>
+          <td>截止14：40两市成交了23117亿元，有4253只个股上涨，大盘资金流出88亿元，量能比上一交易日增加2726亿元！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:54</td>
+          <td class="e">🔁1 💬53 👍5629</td>
+          <td class="s"><span class="badge" style="background:#2ca02c">行业板块</span></td>
+          <td>MLCC+电容板块龙头今天封板！其它同类也略有反击！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:53</td>
+          <td class="e">🔁6 💬56 👍5402</td>
+          <td class="s"><span class="badge" style="background:#d62728">大盘判断</span></td>
+          <td>深成指，创业板指数，今天的反击力度强些。</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:49</td>
+          <td class="e">🔁15 💬229 👍5834</td>
+          <td class="s"><span class="badge" style="background:#9467bd">行情速报</span></td>
+          <td>长哥目前成交了426亿，昨日成交了444.3亿，前天1412亿。三个交易日换手率已经超过100%，也就是说平均倒了一次手。那么，截止目前价格区间是38.11至55.03之间，我们注意看区间取向，明白666</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:45</td>
+          <td class="e">🔁70 💬172 👍7198</td>
+          <td class="s"><span class="badge" style="background:#ff7f0e">风控</span> <span class="badge" style="background:#2ca02c">行业板块</span></td>
+          <td>不管什么板块，亏钱的绝大多数属于追高或满仓进进出出，追涨杀跌的人。要是能克制这些，基本可以赢80%以上的投资者！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:40</td>
+          <td class="e">🔁3 💬39 👍5531</td>
+          <td class="s"><span class="badge" style="background:#d62728">大盘判断</span> <span class="badge" style="background:#9467bd">行情速报</span></td>
+          <td>截止14：40两市成交了21450亿元，有4025只个股上涨，大盘资金流出127亿元，量能比上一交易日增加2710亿元！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:38</td>
+          <td class="e">🔁3 💬299 👍5742</td>
+          <td class="s"><span class="badge" style="background:#555">—</span></td>
+          <td>收到请回复666或点赞支持一下！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:35</td>
+          <td class="e">🔁41 💬276 👍5818</td>
+          <td class="s"><span class="badge" style="background:#555">—</span></td>
+          <td>行业爆发是趋势，股价滞涨+业绩恢复大幅度增长是事实；那么，量化折腾和主力洗礼目的是什么？</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:29</td>
+          <td class="e">🔁55 💬207 👍5557</td>
+          <td class="s"><span class="badge" style="background:#2ca02c">行业板块</span></td>
+          <td>端侧板块，今天虽然有只冲板的，但是端侧+SoC芯片，端侧+MCU芯片等分化比较大。被量化折腾得死去活来的！</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:26</td>
+          <td class="e">🔁40 💬151 👍5242</td>
+          <td class="s"><span class="badge" style="background:#d62728">大盘判断</span> <span class="badge" style="background:#1f77b4">操作建议</span> <span class="badge" style="background:#17becf">美股/外盘</span></td>
+          <td>对于香港股市恒指在冲28056点之后分析了将展开ABC结构调整，当时给出起码要跌回23000点区域才是机会。但是跌到之后又想21000/22000区域再分批干。结果市场到了22518点就展开反击行情了，今天已经到了25744点.......…</td>
+        </tr>
+<tr>
+          <td class="t">07-29 14:20</td>
+          <td class="e">🔁8 💬112 👍5585</td>
+          <td class="s"><span class="badge" style="background:#2ca02c">行业板块</span></td>
+          <td>交换机是7月份最牛的科技股板块，今天出现补调整，截止目前看阿紫跌停！</td>
+        </tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="verdict"><span class="num">⑨</span>综合投资结论</h2>
+<div class="verdict">
+  <h3>今日策略 <span class="level wait">观望 → 等待 3886 突破再加仓</span></h3>
+  <p>博主今天盘后最关键的一句话是 <strong>「明天大盘收复 3886 后，反弹波段会明朗很多」</strong>，配合 14:26 港股恒指已从 22518 反击到 25744 的实操案例，传达的立场是：</p>
+  <ol>
+    <li><strong>底仓可以开始看，但主动进攻需等 3886 突破</strong>（不是突破 3786，是 3886）。</li>
+    <li><strong>重点方向</strong>：半导体存储/MCU（兆易回购+增持锚） + MLCC+电容（今天已龙头封板） + 创业板/深市成长（反弹主力）。</li>
+    <li><strong>规避方向</strong>：端侧+SoC/MCU 芯片（博主提示被量化折腾、分化大），交换机（今天补调整，阿紫跌停）。</li>
+    <li><strong>风控底线</strong>：「先考虑 ICU，再考虑 KTV」；「追涨杀跌的人，能克制就能赢 80% 投资者」；韩国杠杆 ETF 散户抗议是活教材。</li>
+    <li><strong>操作节奏</strong>：成交量已经放大到 2.3 万亿（+2726 亿），但增量主力方向还不明确，建议分批：先 1/3 仓试 MLCC+兆易，等 3886 收复再加 1/3 创业板权重，剩 1/3 留作风控。</li>
+  </ol>
+  <p style="margin-top:12px;font-size:13px;color:#92400e">📌 跟单提示：博主已撤离本金+去年盈利一半（6/8 披露），自身偏防御。策略上以他给出的关键位（3786/3886/4258）和板块方向为准，不要机械复制其仓位。</p>
+</div>
+
+<footer>
+  <div class="disclaim">⚠️ 本报告由 mavis agent 基于公开微博数据自动生成，仅作研究参考，不构成投资建议。股市有风险，决策需谨慎。</div>
+  数据源：weibo-watcher skill (UID 1216826604) · Tushare Pro · 抓取时间 2026-07-29 22:11
+</footer>
+
+</div>
+</body>
+</html>
