@@ -1,0 +1,114 @@
+---
+layout: null
+title: Claude Code Architect · 双语版
+---
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Code Architect · 双语版</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --ink: #1a1a1a;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #1f6feb;
+  --en-bg: #f8f9fb;
+  --code-bg: #f3f4f6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans CN",system-ui,sans-serif;
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.mnote-back{position:sticky;top:0;z-index:9999;background:rgba(31,111,235,0.95);
+  backdrop-filter:blur(8px);color:#fff;padding:10px 16px;font-size:14px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;gap:10px}
+.mnote-back a{color:#fff;font-weight:600}
+.mnote-back .sep{margin:0 6px;opacity:0.5}
+.mnote-back .spacer{flex:1}
+
+.container{max-width:920px;margin:0 auto;padding:50px 40px 80px}
+h1{font-size:36px;letter-spacing:-.01em;margin:0 0 8px}
+.sub{color:var(--muted);font-size:15px;margin-bottom:40px}
+.meta{color:var(--muted);font-size:13px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:18px 0;margin-bottom:40px;line-height:1.7}
+.meta strong{color:#374151;font-weight:600}
+
+.part-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:30px}
+.part-card{padding:20px;border:1px solid var(--line);border-radius:8px;background:#fafbfc;
+  transition:all .15s;display:block;color:inherit}
+.part-card:hover{border-color:var(--accent);background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);text-decoration:none}
+.part-card h3{margin:0 0 6px;font-size:18px;color:#1f2937}
+.part-card .desc{color:var(--muted);font-size:13px;line-height:1.5}
+.part-card .pages{margin-top:10px;font-size:12px;color:#9ca3af;font-variant-numeric:tabular-nums}
+
+.full-link{display:block;padding:14px 18px;border:1px solid var(--line);border-radius:6px;
+  text-align:center;background:#f3f4f6;color:#374151;font-weight:500;margin-top:20px}
+.full-link:hover{background:var(--en-bg);text-decoration:none}
+
+@media (max-width:700px){.part-grid{grid-template-columns:1fr}.container{padding:30px 20px}}
+</style>
+</head>
+<body>
+<div class="mnote-back">
+  <a href="/">← mnote 首页</a>
+  <span class="sep">·</span>
+  <span>Claude Code Architect · 双语版</span>
+  <div class="spacer"></div>
+  <a href="/claude-code-architect-bilingual/book.html">完整版 1.0 MB</a>
+</div>
+
+<div class="container">
+  <h1>Claude Code Architect · 双语版</h1>
+  <div class="sub">中文逐句对照翻译 · 全文 242 页 · 按 PART 拆分为 6 份,易于阅读与分享</div>
+
+  <div class="meta">
+    <div><strong>原书:</strong>Andrei, Patrick. <em>Claude Code Architect: Master SKILL.md, Subagents, and Hooks That Transform Claude Code Into a Fully Engineered, Production-Ready System</em>. 2026.</div>
+    <div><strong>翻译:</strong>由 Mavis 主持 + 4 个并行翻译子代理协作完成,逐句对照,保留所有代码块、YAML、JSON、shell 路径与行内代码</div>
+    <div><strong>排版:</strong>白色底双语并排,左侧固定目录(可锚点跳转),顶部进度条,代码块灰底等宽,引文双语并列</div>
+  </div>
+
+  <div class="part-grid">
+    <a class="part-card" href="/claude-code-architect-bilingual/parts/part1.html">
+      <h3>PART I · 基础</h3>
+      <div class="desc">三支柱框架基础(Introduction + Ch 1-3)</div>
+      <div class="pages">PDF 第 7-35 页 · 共 29 页</div>
+    </a>
+    <a class="part-card" href="/claude-code-architect-bilingual/parts/part2.html">
+      <h3>PART II · Skills</h3>
+      <div class="desc">Claude 可扩展的知识系统(Ch 4-9)</div>
+      <div class="pages">PDF 第 36-90 页 · 共 55 页</div>
+    </a>
+    <a class="part-card" href="/claude-code-architect-bilingual/parts/part3.html">
+      <h3>PART III · Subagents</h3>
+      <div class="desc">Claude 的并行专家系统(Ch 10-14)</div>
+      <div class="pages">PDF 第 91-136 页 · 共 46 页</div>
+    </a>
+    <a class="part-card" href="/claude-code-architect-bilingual/parts/part4.html">
+      <h3>PART IV · Hooks</h3>
+      <div class="desc">Claude 的确定性强制系统(Ch 15-18)</div>
+      <div class="pages">PDF 第 137-178 页 · 共 42 页</div>
+    </a>
+    <a class="part-card" href="/claude-code-architect-bilingual/parts/part5.html">
+      <h3>PART V · 组合</h3>
+      <div class="desc">组合层:构建自我治理的开发环境(Ch 19-21,含两个完整案例研究)</div>
+      <div class="pages">PDF 第 179-216 页 · 共 38 页</div>
+    </a>
+    <a class="part-card" href="/claude-code-architect-bilingual/parts/part6.html">
+      <h3>PART VI + 附录</h3>
+      <div class="desc">发布、共享与演进(Ch 22)+ 4 附录(A 故障排查 / B Hook 速查 / C 三支柱之外 / D 术语索引)</div>
+      <div class="pages">PDF 第 217-242 页 · 共 26 页</div>
+    </a>
+  </div>
+
+  <a class="full-link" href="/claude-code-architect-bilingual/book.html">查看完整 242 页单文件版(1.0 MB)</a>
+</div>
+</body>
+</html>
