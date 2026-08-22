@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>wu2198 投资日报 — 2026-08-22</title>
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; background:#f7f8fa; color:#1d1d1f; margin:0; padding:0; line-height:1.65; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 30px 24px 80px; }
+  header { background: linear-gradient(135deg, #1f6feb 0%, #4a8df5 100%); color:#fff; padding: 32px 24px; border-radius: 12px; margin-bottom: 28px; }
+  header h1 { margin:0 0 8px; font-size: 28px; font-weight: 700; }
+  header .sub { opacity: 0.92; font-size: 14px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px; }
+  .kpi { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 16px; }
+  .kpi .label { color: #6e6e73; font-size: 12px; margin-bottom: 4px; }
+  .kpi .val { font-size: 22px; font-weight: 700; }
+  .kpi .chg { font-size: 13px; margin-top: 2px; }
+  .up { color: #ef232a; }
+  .down { color: #14b143; }
+  section { background: #fff; border: 1px solid #e0e3e8; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  section h2 { margin: 0 0 18px; font-size: 20px; font-weight: 700; color: #1d1d1f; border-left: 4px solid #1f6feb; padding-left: 12px; }
+  .weibo-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .weibo-table th, .weibo-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #eaecef; vertical-align: top; }
+  .weibo-table th { background: #f5f6f8; color: #4a4a4a; font-weight: 600; font-size: 12px; }
+  .insight { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+  .insight h3 { margin: 0 0 10px; font-size: 15px; color: #8a6d3b; }
+  .insight ol { margin: 0; padding-left: 22px; }
+  .insight li { margin-bottom: 6px; font-size: 14px; }
+  .sector { margin-bottom: 24px; }
+  .sector h2 { margin-bottom: 10px; }
+  .sector p { font-size: 14px; color: #4a4a4a; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+  .card { border: 1px solid #e0e3e8; border-radius: 10px; background: #fff; overflow: hidden; }
+  .card-header { padding: 14px 18px 8px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .card-header h3 { margin: 0; font-size: 16px; font-weight: 700; }
+  .card-header .code { color: #6e6e73; font-size: 12px; font-weight: 500; margin-left: 6px; }
+  .card-header .src-badge { background: #e3f2fd; color: #1565c0; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; font-weight: 500; }
+  .card-header .price { font-size: 14px; }
+  .card-header .pct { font-weight: 600; margin-left: 6px; }
+  .card-header .date { color: #999; font-size: 11px; margin-left: 4px; }
+  .chart { text-align: center; padding: 8px 0; background: #fff; }
+  .chart img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .meta { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 14px 18px; font-size: 13px; }
+  .levels table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .levels td { padding: 5px 0; border-bottom: 1px dashed #eee; }
+  .levels td:last-child { text-align: right; color: #1f6feb; }
+  .analysis p { margin: 4px 0; }
+  .index-card { background: #f5f8ff; }
+  .advice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .advice-block { background: #fafbfc; border: 1px solid #e0e3e8; border-radius: 10px; padding: 18px 22px; }
+  .advice-block h3 { margin: 0 0 12px; font-size: 16px; color: #1f6feb; }
+  .advice-block ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .risk { margin-top: 18px; padding: 12px 16px; background: #fff3e0; border-left: 3px solid #ff9800; border-radius: 4px; font-size: 13px; }
+  footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; padding: 20px 0; }
+  @media (max-width: 768px) { .kpi-row, .cards, .advice-grid, .meta { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📈 wu2198 投资日报 — 2026-08-22</h1>
+    <div class="sub">基于 8/21-8/22 wu2198 微博 (UID 1216826604) + tushare 公开行情数据 · 自动生成</div>
+  </header>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">上证指数 (8/21 收)</div>
+      <div class="val">3905.20</div>
+      <div class="chg up">▲ +0.04%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指 (8/21 收)</div>
+      <div class="val">3545.58</div>
+      <div class="chg up">▲ +1.43%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">中际旭创 300308</div>
+      <div class="val">943.00</div>
+      <div class="chg up">▲ +4.29%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">天赐材料 002709</div>
+      <div class="val">37.96</div>
+      <div class="chg up">▲ +2.37%</div>
+    </div>
+  </div>
+
+  
+<section class="opinions">
+  <h2>📋 wu2198 最近一天观点摘要</h2>
+  <p class="lead">8/21 (周五) ~ 8/22 (周六) 共抓取 10 条非置顶微博, 其中 <b>8 条为早安/晚安/娱乐内容</b>, 唯一有信息密度的内容是 <b>8/21 22:21-22:26 集中转发的 4 条公司中报公告</b>。</p>
+  <table class="weibo-table">
+    <thead><tr><th>时间</th><th>内容</th><th>信号</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>8/21 22:21</td>
+        <td>中际旭创 (300308) 中报: 营收 417.78 亿 (+182.49%) 归母净利 136.51 亿 (+241.7%) 拟 10 派 12 元</td>
+        <td>🎯 光模块</td>
+      </tr>
+      <tr>
+        <td>8/21 22:24</td>
+        <td>天赐材料 (002709) 中报: 营收 147.10 亿 (+109.28%) 归母净利 28.61 亿 (+967.91%) 拟 10 派 1 元</td>
+        <td>🎯 锂电材料</td>
+      </tr>
+      <tr>
+        <td>8/21 22:26</td>
+        <td>德福科技中报: 营收 91.97 亿 (+73.54%) 归母净利 2.63 亿 (+580.66%); 东山精密 (002384) 中报: 营收 277.98 亿 (+63.95%)</td>
+        <td>🎯 PCB/AI 硬件</td>
+      </tr>
+      <tr>
+        <td>8/22 06:39</td>
+        <td>早安帖 + 美股速报: 道指 +517.8 / 纳指 +113.28 / 标普 +33.21 (8/21 美股小幅上涨)</td>
+        <td>🌐 外盘情绪</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="insight">
+    <h3>🧠 关键洞察</h3>
+    <ol>
+      <li><b>业绩兑现主线</b>: 8/21 晚 wu2198 集中转发 4 条公司中报, 全是 70%~960% 量级的高增长 — 反映其偏好从"题材炒作"转向"业绩验证", 这与他 6/8 撤离算力租赁警示一脉相承。</li>
+      <li><b>三大方向确认</b>: 算力链 (中际旭创) + 锂电中游 (天赐材料) + PCB (德福/东山精密) 共同特征是"中游业绩兑现", 均为前期低估值板块 2026H1 业绩大爆发。</li>
+      <li><b>8/22 周末静默</b>: 周六只有早安帖和娱乐内容, 无 A 股新观点。投资者应关注 8/25 (周一) 早盘是否会延续业绩线判断。</li>
+      <li><b>外盘情绪</b>: 美股周五小幅上涨 (道指 +1.1% / 纳指 +0.6%), 情绪面对周一 A 股开盘偏正向。</li>
+    </ol>
+  </div>
+</section>
+
+
+  
+<section class="advice">
+  <h2>🎯 投资建议总结</h2>
+  <div class="advice-grid">
+    <div class="advice-block">
+      <h3>3 大板块</h3>
+      <ol>
+        <li><b>光模块/算力 (CPO)</b> — AI 算力链高景气兑现, 北美 CSP 资本开支持续放量</li>
+        <li><b>锂电材料 (电解液)</b> — 周期反转, 头部份额集中, 业绩弹性最大</li>
+        <li><b>PCB/AI 硬件</b> — AI 服务器硬件配套, 高多层/Mini-LED/IC 载板三方向共振</li>
+      </ol>
+    </div>
+    <div class="advice-block">
+      <h3>6 支个股 (🎯 = wu2198 点名)</h3>
+      <ol>
+        <li>🎯 <b>中际旭创 (300308)</b> — 光模块全球龙头, 业绩 241% 增速兑现</li>
+        <li>📊 <b>新易盛 (300502)</b> — 光模块二哥, 业绩弹性强</li>
+        <li>🎯 <b>天赐材料 (002709)</b> — 电解液龙头, 净利 967% 暴增</li>
+        <li>📊 <b>多氟多 (002407)</b> — 六氟磷酸锂龙头, 周期反转</li>
+        <li>🎯 <b>东山精密 (002384)</b> — PCB + 精密制造, 业绩持续兑现</li>
+        <li>📊 <b>沪电股份 (002463)</b> — AI 服务器 PCB 龙头</li>
+      </ol>
+    </div>
+  </div>
+  <p class="risk">⚠️ <b>风险提示:</b>本文基于 wu2198 微博内容 + tushare 公开行情数据生成, 不构成投资建议。市场有风险, 决策需谨慎。</p>
+</section>
+
+
+  <section>
+    <h2>🌐 大盘 K 线图</h2>
+    <div class="cards">
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 上证指数 <span class="code">000001.SH</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">3905.20</b> <span class="pct">▲ +0.04%</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_000001_SH.png" alt="上证指数 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>4175.35</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>3741.11</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>3970.37</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>4258.86</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>3741.11</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>4017.10</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>3905.20</b></td></tr></table>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>成长 · 创业板指 <span class="code">399006.SZ</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">3545.58</b> <span class="pct">▲ +1.43%</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_399006_SZ.png" alt="创业板指 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>4380.41</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>3158.14</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>3803.97</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>4380.41</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>3111.88</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>3675.66</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>3545.58</b></td></tr></table>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  
+    <section class="sector">
+      <h2>📌 板块 光模块/算力</h2>
+      <p><b>wu2198 看点 (8/21 22:21):</b>中际旭创 2026H1 营收 417.78 亿元 (+182.49%), 归母净利 136.51 亿元 (+241.7%), 拟 10 派 12 元。<b>光模块龙头业绩兑现,印证 AI 算力链高景气持续</b>。光模块是 AI 训练/推理集群的核心硬件,北美 CSP 资本开支高速增长直接传导到 800G/1.6T 高速光模块需求。</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>中际旭创 <span class="code">300308.SZ</span> <span class="src-badge">🎯 wu2198 点名</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">943.00</b> <span class="pct">▲ +4.29%</span> <span class="date">(8/21 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_300308_SZ.png" alt="中际旭创 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>1416.88</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>793.03</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>1098.23</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>1416.88</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>506.00</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>934.16</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>943.00</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -14.1% &nbsp;·&nbsp; <b>离 MA120:</b> +0.9%</p>
+          <p><b>关键位逻辑:</b> 60日高/低为短期波动区间,MA60/MA120 为中期多空分水岭。股价突破 60 日高表示强势,跌破 60 日低表示走弱。</p>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-header">
+        <h3>新易盛 <span class="code">300502.SZ</span> <span class="src-badge">📊 板块代表</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">442.00</b> <span class="pct">▲ +6.76%</span> <span class="date">(8/21 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_300502_SZ.png" alt="新易盛 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>818.38</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>347.00</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>532.14</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>818.38</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>346.74</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>521.56</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>442.00</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>趋势:</b> <span style="color:#14b143">空头排列 (现价 < MA60 < MA120)</span></p>
+          <p><b>离 MA60:</b> -16.9% &nbsp;·&nbsp; <b>离 MA120:</b> -15.3%</p>
+          <p><b>关键位逻辑:</b> 60日高/低为短期波动区间,MA60/MA120 为中期多空分水岭。股价突破 60 日高表示强势,跌破 60 日低表示走弱。</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    </section>
+    
+
+    <section class="sector">
+      <h2>📌 板块 锂电材料</h2>
+      <p><b>wu2198 看点 (8/21 22:24):</b>天赐材料 2026H1 营收 147.10 亿元 (+109.28%), 归母净利 28.61 亿元 (+967.91%), 同比近 10 倍增长, 拟 10 派 1 元。<b>电解液龙头业绩爆发,印证锂电产业链中游反转</b>。电解液价格已从底部回升,六氟磷酸锂供需重塑,头部份额持续集中。</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>天赐材料 <span class="code">002709.SZ</span> <span class="src-badge">🎯 wu2198 点名</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">37.96</b> <span class="pct">▲ +2.37%</span> <span class="date">(8/21 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_002709_SZ.png" alt="天赐材料 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>56.91</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>32.60</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>44.01</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>64.98</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>32.60</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>46.91</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>37.96</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>趋势:</b> <span style="color:#14b143">空头排列 (现价 < MA60 < MA120)</span></p>
+          <p><b>离 MA60:</b> -13.7% &nbsp;·&nbsp; <b>离 MA120:</b> -19.1%</p>
+          <p><b>关键位逻辑:</b> 60日高/低为短期波动区间,MA60/MA120 为中期多空分水岭。股价突破 60 日高表示强势,跌破 60 日低表示走弱。</p>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-header">
+        <h3>多氟多 <span class="code">002407.SZ</span> <span class="src-badge">📊 板块代表</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">36.15</b> <span class="pct">▲ +0.39%</span> <span class="date">(8/21 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_002407_SZ.png" alt="多氟多 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>57.50</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>25.49</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>37.50</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>57.50</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>24.73</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>34.53</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>36.15</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -3.6% &nbsp;·&nbsp; <b>离 MA120:</b> +4.7%</p>
+          <p><b>关键位逻辑:</b> 60日高/低为短期波动区间,MA60/MA120 为中期多空分水岭。股价突破 60 日高表示强势,跌破 60 日低表示走弱。</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    </section>
+    
+
+    <section class="sector">
+      <h2>📌 板块 PCB/AI 硬件</h2>
+      <p><b>wu2198 看点 (8/21 22:26):</b>德福科技 2026H1 营收 91.97 亿元 (+73.54%), 归母净利 2.63 亿元 (+580.66%); 东山精密 2026H1 营收 277.98 亿元 (+63.95%)。<b>AI 服务器 PCB 链条业绩兑现</b>,高多层/Mini-LED/IC 载板三大方向均处于景气上行周期。</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>东山精密 <span class="code">002384.SZ</span> <span class="src-badge">🎯 wu2198 点名</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">201.08</b> <span class="pct">▲ +1.73%</span> <span class="date">(8/21 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_002384_SZ.png" alt="东山精密 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>280.08</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>161.80</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>221.93</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>280.08</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>84.00</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>187.42</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>201.08</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -9.4% &nbsp;·&nbsp; <b>离 MA120:</b> +7.3%</p>
+          <p><b>关键位逻辑:</b> 60日高/低为短期波动区间,MA60/MA120 为中期多空分水岭。股价突破 60 日高表示强势,跌破 60 日低表示走弱。</p>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-header">
+        <h3>沪电股份 <span class="code">002463.SZ</span> <span class="src-badge">📊 板块代表</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">121.21</b> <span class="pct">▲ +6.03%</span> <span class="date">(8/21 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260822_002463_SZ.png" alt="沪电股份 K线图"/></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60日高</td><td style="text-align:right"><b>158.20</b></td></tr>
+<tr><td>60日低</td><td style="text-align:right"><b>94.73</b></td></tr>
+<tr><td>MA60</td><td style="text-align:right"><b>127.62</b></td></tr>
+<tr><td>120日高</td><td style="text-align:right"><b>158.20</b></td></tr>
+<tr><td>120日低</td><td style="text-align:right"><b>69.50</b></td></tr>
+<tr><td>MA120</td><td style="text-align:right"><b>110.71</b></td></tr>
+<tr><td>现价</td><td style="text-align:right"><b>121.21</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -5.0% &nbsp;·&nbsp; <b>离 MA120:</b> +9.5%</p>
+          <p><b>关键位逻辑:</b> 60日高/低为短期波动区间,MA60/MA120 为中期多空分水岭。股价突破 60 日高表示强势,跌破 60 日低表示走弱。</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    </section>
+    
+
+  <footer>📊 数据源: 新浪微博 (wu2198/1216826604) · tushare (pro.daily) · 报告生成时间: 2026-08-22 21:00 · 仅供参考, 不构成投资建议</footer>
+</div>
+</body>
+</html>
