@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>wu2198 投资日报 — 2026-08-24 (周一收盘)</title>
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; background:#f7f8fa; color:#1d1d1f; margin:0; padding:0; line-height:1.65; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 30px 24px 80px; }
+  header { background: linear-gradient(135deg, #1f6feb 0%, #4a8df5 100%); color:#fff; padding: 32px 24px; border-radius: 12px; margin-bottom: 28px; }
+  header h1 { margin:0 0 8px; font-size: 28px; font-weight: 700; }
+  header .sub { opacity: 0.92; font-size: 14px; }
+  header .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  header .tag { background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px; }
+  .kpi { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 16px; }
+  .kpi .label { color: #6e6e73; font-size: 12px; margin-bottom: 4px; }
+  .kpi .val { font-size: 22px; font-weight: 700; }
+  .kpi .chg { font-size: 13px; margin-top: 2px; }
+  .up { color: #ef232a; }
+  .down { color: #14b143; }
+  section { background: #fff; border: 1px solid #e0e3e8; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  section h2 { margin: 0 0 18px; font-size: 20px; font-weight: 700; color: #1d1d1f; border-left: 4px solid #1f6feb; padding-left: 12px; }
+  .weibo-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .weibo-table th, .weibo-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eaecef; vertical-align: top; }
+  .weibo-table th { background: #f5f6f8; color: #4a4a4a; font-weight: 600; font-size: 12px; }
+  .insight { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+  .insight h3 { margin: 0 0 10px; font-size: 15px; color: #8a6d3b; }
+  .insight ol { margin: 0; padding-left: 22px; }
+  .insight li { margin-bottom: 6px; font-size: 14px; }
+  .sector { margin-bottom: 24px; padding: 18px 22px; background: #fafbfc; border-radius: 10px; border: 1px solid #e0e3e8; }
+  .sector h3 { margin: 0 0 8px; color: #1f6feb; font-size: 16px; }
+  .sector p { font-size: 14px; color: #4a4a4a; line-height: 1.8; margin: 6px 0; }
+  .sector .anchor { color: #1d1d1f; font-weight: 600; }
+  .sector .evi { font-size: 12px; color: #6e6e73; background: #fff; border-left: 3px solid #1f6feb; padding: 6px 10px; border-radius: 0 4px 4px 0; margin-top: 10px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+  .card { border: 1px solid #e0e3e8; border-radius: 10px; background: #fff; overflow: hidden; }
+  .card-header { padding: 14px 18px 8px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .card-header h3 { margin: 0; font-size: 16px; font-weight: 700; }
+  .card-header .code { color: #6e6e73; font-size: 12px; font-weight: 500; margin-left: 6px; }
+  .card-header .src-badge { background: #e3f2fd; color: #1565c0; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; font-weight: 500; }
+  .card-header .price { font-size: 14px; }
+  .card-header .pct { font-weight: 600; margin-left: 6px; }
+  .card-header .date { color: #999; font-size: 11px; margin-left: 4px; }
+  .chart { text-align: center; padding: 8px 0; background: #fff; }
+  .chart img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .meta { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 14px 18px; font-size: 13px; }
+  .levels table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .levels td { padding: 5px 0; border-bottom: 1px dashed #eee; }
+  .levels td:last-child { text-align: right; color: #1f6feb; }
+  .analysis p { margin: 4px 0; }
+  .index-card { background: #f5f8ff; }
+  .advice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .advice-block { background: #fafbfc; border: 1px solid #e0e3e8; border-radius: 10px; padding: 18px 22px; }
+  .advice-block h3 { margin: 0 0 12px; font-size: 16px; color: #1f6feb; }
+  .advice-block ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .risk { margin-top: 18px; padding: 12px 16px; background: #fff3e0; border-left: 3px solid #ff9800; border-radius: 4px; font-size: 13px; }
+  .risk ul { margin: 4px 0 0 22px; padding: 0; }
+  .risk li { margin-bottom: 4px; }
+  .verdict { background: linear-gradient(135deg, #fff 0%, #f5f8ff 100%); border: 1px solid #c7d8f7; border-left: 4px solid #1f6feb; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+  .verdict h3 { margin: 0 0 12px; color: #1f6feb; font-size: 17px; }
+  .verdict ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .verdict ol li { margin-bottom: 8px; }
+  footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; padding: 20px 0; }
+  @media (max-width: 768px) { .kpi-row, .cards, .advice-grid, .meta { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📈 wu2198 投资日报 — 2026-08-24 (周一收盘)</h1>
+    <div class="sub">基于 8/24 wu2198 微博 (UID 1216826604) + tushare 公开行情数据 · 自动生成于 2026-08-24 21:00</div>
+    <div class="tags">
+      <span class="tag">📅 收盘:2026-08-24</span>
+      <span class="tag">📝 抓取微博 10 条 (8/24 当天)</span>
+      <span class="tag">🔴 上证 8/24 收 3882.21 (-0.61%)</span>
+      <span class="tag">🟡 博主立场: 短期偏防御 · 长期仍多(4256 大目标不变)</span>
+      <span class="tag">⚠️ 8/24 资金流出 921.44 亿(放量下跌)</span>
+      <span class="tag">🟢 14:21 唯一直接点名: 电池材料</span>
+      <span class="tag">🆕 16:38 转发西部黄金 +315% 业绩</span>
+    </div>
+  </header>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">上证指数 (8/24 收)</div>
+      <div class="val">3882.01</div>
+      <div class="chg down">▼ -0.59%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指 (8/24 收)</div>
+      <div class="val">3431.89</div>
+      <div class="chg down">▼ -3.21%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主 8/24 关键位</div>
+      <div class="val" style="font-size:18px">3856 / 3882 / 3926</div>
+      <div class="chg" style="color:#6e6e73">支撑 / 收盘 / 压力</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主年大目标</div>
+      <div class="val" style="font-size:22px">4256</div>
+      <div class="chg" style="color:#6e6e73">2026 全年目标</div>
+    </div>
+  </div>
+
+
+  <section class="opinions">
+    <h2>📋 wu2198 8/24 (周一) 观点摘要</h2>
+    <p class="lead">8/24 共抓取 <b>10 条非置顶微博</b>,其中 <b>5 条带操盘信号</b>。博主 8/24 立场:<b>🔴 短期偏防御</b>(试 3855.35 → 收 3882,资金流出 921.44 亿),但<b>长期多头信仰不变</b>(14:17 重申"今年只看 4256")。</p>
+    <table class="weibo-table">
+      <thead><tr><th>时间</th><th>互动</th><th>信号</th><th>内容</th></tr></thead>
+      <tbody>
+      <tr>
+        <td style="white-space:nowrap">08-24 16:38</td>
+        <td style="text-align:right;white-space:nowrap">R:11 C:90 L:3616</td>
+        <td style="font-size:12px">—</td>
+        <td>西部黄金8月24日披露半年报，公司上半年实现营业收入110.43亿元，同比增长119.62%；归属于上市公司股东的净利润5.47亿元，同比增长315.67%；基本每股收益0.6001元/股。公司拟向全体股东每10股派发现金红利0.5元(含税)。</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 15:00</td>
+        <td style="text-align:right;white-space:nowrap">R:65 C:859 L:10901</td>
+        <td style="font-size:12px">大盘判断, 技术位, 操作建议</td>
+        <td>今天大盘指数回撤了3856点（试3855.35点）收在3882点；按日线技术面看大盘指数3741和3767点连续的支撑位附近会有反复。明天指数需要观察3856--3926之间的取向，收到请回复666或点赞支持一下！</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:59</td>
+        <td style="text-align:right;white-space:nowrap">R:3 C:70 L:6061</td>
+        <td style="font-size:12px">大盘判断, 操作建议, 行情速报</td>
+        <td>截止14：58两市成交了20035亿元，有3984只个股下跌，大盘资金流出921.44亿元，量能比上一交易日增加1324亿元！</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:34</td>
+        <td style="text-align:right;white-space:nowrap">R:12 C:223 L:7688</td>
+        <td style="font-size:12px">—</td>
+        <td>目前看是多空小幅度折腾！</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:30</td>
+        <td style="text-align:right;white-space:nowrap">R:45 C:728 L:10558</td>
+        <td style="font-size:12px">—</td>
+        <td>齐白石的虾，张大千的虎，徐悲鸿的马，王羲之的字，还有我wu2198画的线，堪称世间五绝…… 还记得不？</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:26</td>
+        <td style="text-align:right;white-space:nowrap">R:22 C:431 L:8015</td>
+        <td style="font-size:12px">大盘判断</td>
+        <td>指数试3855.35点之后略有抵抗，暂时没有收破3856点，我们继续观察！明白666</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:21</td>
+        <td style="text-align:right;white-space:nowrap">R:10 C:118 L:7351</td>
+        <td style="font-size:12px">—</td>
+        <td>按短线看，今天只有电池材料板块资金活动是明显的。</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:17</td>
+        <td style="text-align:right;white-space:nowrap">R:152 C:1491 L:10955</td>
+        <td style="font-size:12px">操作建议</td>
+        <td>从2024年的2635和2689得双底得天下，再到3674点完成第一轮行情之后，展开ABC结构调整，再到去年4月7日3040点给大家一个字“干”，再到今年年初分析只看4256点.不管是大波浪，还是小波段，市场都符合我画的图走......所以，我会遵重市场，尊重自己的分析，起码在符合自己预期判断的前提下，不会起轻易改 ...全文</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:13</td>
+        <td style="text-align:right;white-space:nowrap">R:6 C:419 L:7875</td>
+        <td style="font-size:12px">—</td>
+        <td>前面给大家分析了，下午注意看3856点得失即可......明白666</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">08-24 14:09</td>
+        <td style="text-align:right;white-space:nowrap">R:293 C:864 L:11106</td>
+        <td style="font-size:12px">操作建议</td>
+        <td>C一般是分梯级下探的（即C1--C5）类似第二大浪调整的步伐.....不同的是第四大浪调整之后，即使有第五大浪上涨，起码有70%--80%的股票不会有新高了，明白666</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="insight">
+      <h3>🧠 关键洞察</h3>
+      <ol>
+        <li><b>15:00 大盘回撤关键位 🟡</b>「<b>今天大盘指数回撤了 3856 点(试 3855.35 点)收在 3882 点</b>;按日线技术面看大盘指数 <b>3741 和 3767 点连续的支撑位附近会有反复</b>。明天指数需要观察 <b>3856--3926 之间的取向</b>」 — 博主在 3882 给的清晰关键位框架:支撑 3856/3767/3741,压力 3926,操作上关注明天取向。</li>
+        <li><b>14:17 战略多头重申 🟢</b>「<b>从 2024 年的 2635 和 2689 得双底得天下,再到 3674 点完成第一轮行情之后,展开 ABC 结构调整,再到去年 4 月 7 日 3040 点给大家一个字'干',再到今年年初分析只看 4256 点</b>.不管是大波浪,还是小波段,市场都符合我画的图走」 — 博主用 2 年历史验证自己的分析体系,2026 年全年只盯 4256 目标位不变。</li>
+        <li><b>14:09 第四大浪风控 ⚠️🔥</b>「<b>C 一般是分梯级下探的(即 C1--C5)类似第二大浪调整的步伐...不同的是第四大浪调整之后,即使有第五大浪上涨,起码有 70%--80% 的股票不会有新高了</b>」 — <b>8/24 最重要的风控提示</b>:即使后续真有第五浪上涨,70-80% 个股不会创新高,选股难度极大,要<b>聚焦龙头和主线</b>。</li>
+        <li><b>14:21 板块: 电池材料 🟢🔥(8/24 唯一直接点名)</b>「<b>按短线看,今天只有电池材料板块资金活动是明显的</b>」 — 在大盘跌 0.61%、资金流出 921 亿的弱势格局下,电池材料是当天资金唯一明显流入的板块,含金量最高。</li>
+        <li><b>16:38 个股: 西部黄金 601020 🆕</b>「<b>西部黄金 8 月 24 日披露半年报,营收 110.43 亿(+119.62%) 净利 5.47 亿(+315.67%)</b>」 — 8/24 博主唯一明确点名的个股,半年报业绩 +315% 兑现,与央行 21 月增持黄金 7608 万盎司(8/8 提及)逻辑共振。</li>
+        <li><b>14:59 资金面警示 🔴</b>「<b>截止 14:58 两市成交了 20035 亿元,有 3984 只个股下跌,大盘资金流出 921.44 亿元,量能比上一交易日增加 1324 亿元</b>」 — 放量下跌(8/14 资金流出 193 亿,本次放大 4.7 倍),市场情绪恶化。</li>
+      </ol>
+    </div>
+  </section>
+
+
+  <section class="advice">
+    <h2>🎯 投资建议总结 (基于 8/24 当天)</h2>
+    <div class="advice-grid">
+      <div class="advice-block">
+        <h3>3 大板块 (按 8/24 含金量排序)</h3>
+        <ol>
+          <li><b>🟢🔥 电池材料 (锂电中游)</b> — 8/24 14:21 博主唯一直接点名,资金唯一明显流入板块</li>
+          <li><b>🆕 黄金/有色 (避险)</b> — 8/24 16:38 博主转发西部黄金 +315% 业绩 + 央行 21 月增持黄金共振</li>
+          <li><b>🟢 AI 算力/CPO (业绩兑现延续)</b> — 8/24 未单独点评但战略未改,中际旭创 +241% 业绩兑现标杆</li>
+        </ol>
+      </div>
+      <div class="advice-block">
+        <h3>6 支个股 (🟢 = 博主直接点名 · 🆕 = 8/24 新增)</h3>
+        <ol>
+          <li>🟢 <b>中际旭创 (300308)</b> — CPO 全球龙头,业绩 +241% 兑现</li>
+          <li>🟢 <b>天赐材料 (002709)</b> — 电解液龙头,业绩 +967% 暴增 + 8/24 板块对应</li>
+          <li>📊 <b>多氟多 (002407)</b> — 六氟磷酸锂龙头,电池材料板块代表</li>
+          <li>🆕 <b>西部黄金 (601020)</b> — 8/24 博主新增,半年报 +315% 业绩 + 央行增持</li>
+          <li>📊 <b>沪电股份 (002463)</b> — AI 服务器 PCB 龙头,8/22 +6.03% 强势</li>
+          <li>📊 <b>新易盛 (300502)</b> — 1.6T 光模块二哥,CPO 板块代表</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="risk">
+      <h4>⚠️ 风险提示 (8/24 博主明确警示)</h4>
+      <ul>
+        <li><b>第四大浪风控 (14:09 热帖 11106 赞)</b>:即使有第五大浪上涨,70-80% 个股不会有新高 → 选股难度极大,聚焦龙头和主线</li>
+        <li><b>大盘关键位博弈 (15:00 热帖 10901 赞)</b>:上证试 3855.35 收 3882,关注 3856-3926 区间取向;跌破 3856 看 3767/3741;站上 3926 看 4256</li>
+        <li><b>资金面恶化 (14:59)</b>:成交 20035 亿 +1324 亿(放量),资金流出 921.44 亿(8/14 的 193 亿的 4.7 倍),3984 只下跌</li>
+        <li><b>长期多头信仰未改 (14:17 热帖 10955 赞)</b>:博主用 2024-2026 历史验证自己的分析体系,2026 年全年只盯 4256</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section>
+    <h2>📌 3 大板块详细逻辑</h2>
+    
+    <div class="sector">
+      <h3>#1 电池材料 (锂电中游) — 博主 8/24 14:21 唯一直接点名</h3>
+      <p class="anchor"><b>核心标的:</b> 天赐材料 (002709) / 多氟多 (002407)</p>
+      <p>博主 8/24 14:21 明确表态:「<b>按短线看,今天只有电池材料板块资金活动是明显的</b>」 — 这是 8/24 当天博主<b>唯一直接点名</b>的板块,含金量最高。延续 8/22 业绩兑现主线:天赐材料半年报净利+967%(电解液价格底部回升 + 头部份额集中),多氟多(六氟磷酸锂龙头,周期反转)。<b>逻辑</b>:锂电中游从 2024-2025 年价格战洗牌,头部企业份额持续集中,2026H1 业绩集中爆发,周期反转信号明确。博主在 8/14 试 3903 时强调「电池/六氟磷酸锂个别上涨」, 8/24 升级为唯一直接点名。</p>
+      <div class="evi">📎 博主证据:14:21「按短线看,今天只有电池材料板块资金活动是明显的」</div>
+    </div>
+    <div class="sector">
+      <h3>#2 黄金/有色 (避险) — 博主 8/24 16:38 转发西部黄金半年报 + 央行 21 月增持黄金</h3>
+      <p class="anchor"><b>核心标的:</b> 西部黄金 (601020)</p>
+      <p>博主 8/24 16:38 转发:「<b>西部黄金 8 月 24 日披露半年报,公司上半年实现营业收入 110.43 亿元,同比增长 119.62%;归属于上市公司股东的净利润 5.47 亿元,同比增长 315.67%</b>」 — 这是 8/24 当天博主<b>唯一明确点名的个股</b>。<b>催化</b>:① 央行连续 21 月增持黄金 7608 万盎司(博主 8/8 提及)② 大盘 8/24 跌 0.61% 试 3855.35 收 3882,资金流出 921 亿(放量下跌),避险情绪上升 ③ 国际金价 2026 年持续走强。</p>
+      <div class="evi">📎 博主证据:16:38 转发西部黄金半年报 + 8/8 央行 21 月增持黄金 7608 万盎司</div>
+    </div>
+    <div class="sector">
+      <h3>#3 AI 算力 / CPO (业绩兑现延续) — 博主 8/22 22:21 中际旭创业绩 +241%</h3>
+      <p class="anchor"><b>核心标的:</b> 中际旭创 (300308) / 新易盛 (300502) / 沪电股份 (002463)</p>
+      <p>8/24 博主未直接点评光模块,但战略面 14:17 重申「<b>今年年初分析只看 4256 点</b>」多头信仰未改,业绩兑现主线延续。<b>催化</b>:① 中际旭创 8/22 业绩 +241% 兑现(AI 算力链景气度最强证据)② 8/14 19:30 转发英伟达 200G/lane CPO 量产(产业级催化)③ 8/22 PCB 链条 德福 +580% / 东山 +64% 双兑现。光模块/PCB 是 AI 算力硬件中游业绩兑现最确定的两个子板块。</p>
+      <div class="evi">📎 博主证据:8/22 22:21 转发中际旭创业绩 + 8/14 19:30 转发英伟达 200G/lane CPO 量产</div>
+    </div>
+  </section>
+
+
+  <section>
+    <h2>🌐 大盘 K 线图 (博主关键位居左虚线)</h2>
+    <div class="cards">
+      
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 上证指数 <span class="code">000001.SH</span></h3>
+        <div class="price">现价 <b style="color:#14b143">3882.01</b> <span class="pct" style="color:#14b143">▲ -0.59%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_000001_SH.png" alt="上证指数 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>4175.35</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>3741.11</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>4258.86</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>3741.11</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>3882.01</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 8/24 关键位:</b> 试低 <b>3855.35</b> → 收盘 <b>3882.21</b>;支撑 <b>3856 / 3767 / 3741</b>;压力 <b>3926</b>;年大目标 <b>4256</b></p>
+          <p><b>8/24 信号:</b> 大盘回撤 3855.35 收 3882(博主 15:00),资金流出 921.44 亿(博主 14:59 放量下跌),明天关注 3856-3926 取向</p>
+        </div>
+      </div>
+    </div>
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 创业板指 <span class="code">399006.SZ</span></h3>
+        <div class="price">现价 <b style="color:#14b143">3431.89</b> <span class="pct" style="color:#14b143">▲ -3.21%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_399006_SZ.png" alt="创业板指 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>4380.41</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>3158.14</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>4380.41</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>3111.88</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>3431.89</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主立场:</b> 8/24 未单独点评创业板,沿用 8/22 框架:60日低 3158 试过,8/21 收 3545 偏弱</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+  <section>
+    <h2>📊 6 只个股 K 线图 (关键位居左虚线标注)</h2>
+    
+    <div class="sector">
+      <h3>📌 光模块/算力 (CPO)</h3>
+      <p><b>博主看点:</b> CPO 全球龙头 · 8/22 半年报营收 417.78 亿(+182%) 净利 136.51 亿(+241%) · 10 派 12 元 · AI 算力链业绩兑现标杆</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>中际旭创 <span class="code">300308.SZ</span> <span class="src-badge">🎯 8/22 wu2198 点名</span></h3>
+        <div class="price">现价 <b style="color:#14b143">870.22</b> <span class="pct" style="color:#14b143">▲ -7.72%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_300308_SZ.png" alt="中际旭创 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>793.03</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>506.00</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>870.22</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 光模块/算力 (CPO)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -20.4% &nbsp;·&nbsp; <b>离 MA120:</b> -7.1%</p>
+          <p><b>看点:</b> CPO 全球龙头 · 8/22 半年报营收 417.78 亿(+182%) 净利 136.51 亿(+241%) · 10 派 12 元 · AI 算力链业绩兑现标杆</p>
+        </div>
+      </div>
+    </div></div>
+    </div>
+    <div class="sector">
+      <h3>📌 电池材料 (锂电中游)</h3>
+      <p><b>博主看点:</b> 电解液龙头 · 8/22 半年报营收 147.10 亿(+109%) 净利 28.61 亿(+967%) · 10 派 1 元 · 8/24 14:21 博主点电池材料板块代表</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>天赐材料 <span class="code">002709.SZ</span> <span class="src-badge">🎯 8/24 板块对应</span></h3>
+        <div class="price">现价 <b style="color:#14b143">37.48</b> <span class="pct" style="color:#14b143">▲ -1.26%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_002709_SZ.png" alt="天赐材料 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>56.91</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>32.60</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>64.98</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>32.60</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>37.48</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 电池材料 (锂电中游)</p>
+          <p><b>趋势:</b> <span style="color:#14b143">空头排列 (现价 < MA60 < MA120)</span></p>
+          <p><b>离 MA60:</b> -14.4% &nbsp;·&nbsp; <b>离 MA120:</b> -20.0%</p>
+          <p><b>看点:</b> 电解液龙头 · 8/22 半年报营收 147.10 亿(+109%) 净利 28.61 亿(+967%) · 10 派 1 元 · 8/24 14:21 博主点电池材料板块代表</p>
+        </div>
+      </div>
+    </div></div>
+    </div>
+    <div class="sector">
+      <h3>📌 电池材料 (锂电中游)</h3>
+      <p><b>博主看点:</b> 六氟磷酸锂龙头 · 锂电中游周期反转 · 电池材料板块代表</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>多氟多 <span class="code">002407.SZ</span> <span class="src-badge">📊 板块代表</span></h3>
+        <div class="price">现价 <b style="color:#14b143">34.57</b> <span class="pct" style="color:#14b143">▲ -4.37%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_002407_SZ.png" alt="多氟多 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>57.50</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>25.49</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>57.50</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>24.73</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>34.57</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 电池材料 (锂电中游)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -7.9% &nbsp;·&nbsp; <b>离 MA120:</b> -0.0%</p>
+          <p><b>看点:</b> 六氟磷酸锂龙头 · 锂电中游周期反转 · 电池材料板块代表</p>
+        </div>
+      </div>
+    </div></div>
+    </div>
+    <div class="sector">
+      <h3>📌 黄金/有色 (避险)</h3>
+      <p><b>博主看点:</b> 8/24 16:38 博主转发半年报:营收 110.43 亿(+119%) 净利 5.47 亿(+315%) · 10 派 0.5 元 · 央行连续 21 月增持黄金 7608 万盎司共振</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>西部黄金 <span class="code">601020.SH</span> <span class="src-badge">🆕 8/24 新增</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">23.29</b> <span class="pct" style="color:#ef232a">▲ +5.19%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_601020_SH.png" alt="西部黄金 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>27.28</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>17.02</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>41.54</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>17.02</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>23.29</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 黄金/有色 (避险)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> +6.9% &nbsp;·&nbsp; <b>离 MA120:</b> -10.9%</p>
+          <p><b>看点:</b> 8/24 16:38 博主转发半年报:营收 110.43 亿(+119%) 净利 5.47 亿(+315%) · 10 派 0.5 元 · 央行连续 21 月增持黄金 7608 万盎司共振</p>
+        </div>
+      </div>
+    </div></div>
+    </div>
+    <div class="sector">
+      <h3>📌 PCB/AI 硬件</h3>
+      <p><b>博主看点:</b> AI 服务器 PCB 龙头 · 8/22 收 121.21 +6.03% 强势 · 高多层/Mini-LED/IC 载板三方向</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>沪电股份 <span class="code">002463.SZ</span> <span class="src-badge">📊 板块代表</span></h3>
+        <div class="price">现价 <b style="color:#14b143">115.57</b> <span class="pct" style="color:#14b143">▲ -4.65%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_002463_SZ.png" alt="沪电股份 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>158.20</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>94.73</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>158.20</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>69.50</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>115.57</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> PCB/AI 硬件</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -9.2% &nbsp;·&nbsp; <b>离 MA120:</b> +4.1%</p>
+          <p><b>看点:</b> AI 服务器 PCB 龙头 · 8/22 收 121.21 +6.03% 强势 · 高多层/Mini-LED/IC 载板三方向</p>
+        </div>
+      </div>
+    </div></div>
+    </div>
+    <div class="sector">
+      <h3>📌 光模块/算力 (CPO)</h3>
+      <p><b>博主看点:</b> 1.6T 光模块二哥 · 8/22 收 442.00 +6.76% · CPO 板块代表</p>
+      <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <h3>新易盛 <span class="code">300502.SZ</span> <span class="src-badge">📊 板块代表</span></h3>
+        <div class="price">现价 <b style="color:#14b143">412.00</b> <span class="pct" style="color:#14b143">▲ -6.79%</span> <span class="date">(2026-08-24 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260824_300502_SZ.png" alt="新易盛 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>818.38</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>347.00</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>818.38</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>347.00</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>412.00</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 光模块/算力 (CPO)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>离 MA60:</b> -21.9% &nbsp;·&nbsp; <b>离 MA120:</b> -21.0%</p>
+          <p><b>看点:</b> 1.6T 光模块二哥 · 8/22 收 442.00 +6.76% · CPO 板块代表</p>
+        </div>
+      </div>
+    </div></div>
+    </div>
+  </section>
+
+
+  <section>
+    <h2>🧭 综合投资结论 (周二 8/25 操作前瞻)</h2>
+    <div class="verdict">
+      <h3>周二策略 <span style="background:#ff9800;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">🔴 短期偏防御 · 🟢 长期仍多 4256</span></h3>
+      <p>博主 8/24 核心立场综合:</p>
+      <ol>
+        <li><strong>大盘</strong>:8/24 收 <b>3882.21 (-0.61%)</b>,试 <b>3855.35</b> 后弱反,资金流出 <b>921.44 亿</b>(放量下跌)。<b>关键位</b>:支撑 <b>3856 / 3767 / 3741</b>,压力 <b>3926 / 4256</b>。明天 8/25 关注 <b>3856-3926 区间取向</b>:站稳 3856 维持 B 反/第四大浪判断,跌破 3856 看 3767/3741 测试,站上 3926 看 4256 大目标。</li>
+        <li><strong>长期多头信仰未改 (14:17 重申)</strong>:博主用 2 年历史(2635/2689 双底 → 3674 一轮行情 → ABC 调整 → 3040 干 → 4256 只看)验证自己分析体系,<b>2026 年全年目标 4256 不变</b>。即使第四大浪调整中,博主仍坚持"市场都符合我画的图走"。</li>
+        <li><strong>第四大浪风控 (14:09 11106 赞) ⚠️</strong>:"第四大浪调整之后,即使有第五大浪上涨,<b>起码有 70%-80% 的股票不会有新高</b>" — 这是 8/24 最重要的风险提示。意味着即使 2026 年大盘到 4256,大部分个股仍跑输大盘,选股必须聚焦龙头。</li>
+        <li><strong>新主线 #1: 电池材料 (8/24 14:21 唯一直接点名) 🟢🔥</strong>:博主明确表态"今天只有电池材料板块资金活动是明显的" — 在大盘跌 0.61%、资金流出 921 亿的弱势格局下唯一亮点。<b>核心标的</b>:天赐材料(002709, 半年报 +967%)/ 多氟多(002407, 六氟磷酸锂龙头)。延续 8/22 业绩兑现主线。</li>
+        <li><strong>新主线 #2: 黄金/有色 (8/24 16:38 博主新增) 🆕</strong>:博主转发西部黄金(601020)半年报营收 +119% 净利 +315%,与 8/8 提及的央行 21 月增持黄金 7608 万盎司逻辑共振。<b>核心标的</b>:西部黄金(601020)。在 8/24 放量下跌的弱势格局下,避险板块(黄金)有相对收益机会。</li>
+        <li><strong>延续主线 #3: AI 算力/CPO (业绩兑现)</strong>:8/24 博主未直接点评,但战略未改。<b>核心标的</b>:中际旭创(300308, 8/22 业绩 +241%)/ 新易盛(300502, 1.6T 光模块二哥)/ 沪电股份(002463, AI 服务器 PCB 龙头)。业绩兑现最确定的中游子板块。</li>
+        <li><strong>资金面恶化 (8/14 → 8/24 对比)</strong>:8/14 资金流出 193 亿(缩量 -4107 亿),8/24 资金流出 <b>921.44 亿(放量 +1324 亿)</b>,流出规模放大 4.7 倍,情绪显著恶化。<b>策略</b>:在资金流出未止住前,仓位不宜过重,聚焦博主明确点名的板块(电池材料 + 黄金)。</li>
+      </ol>
+      <p style="margin-top:12px;font-size:13px;color:#6e6e73">📌 <strong>博主风控姿态</strong>:8/24 同时发出<b>长期多头信仰 (14:17) + 短期风控 (14:09/14:59) + 关键位博弈 (15:00) + 板块点名 (14:21/16:38)</b> 4 类信号。这是缠论大师的典型操作:大方向坚定(4256),小节奏灵活(3856-3926 区间博弈),板块轮动敏锐(电池材料/黄金)。跟单策略上:<b>大方向跟他(4256 多头),小节奏跟他(3856 守/3926 攻),板块跟他(电池材料+黄金优先)</b>。</p>
+      <p style="margin-top:8px;font-size:13px;color:#b91c1c">⚠️ <strong>跟单提示</strong>:博主 6/8 披露"已撤离本金+去年盈利一半,预计今年不再调回" — 自身偏防御,不动用大资金博 4256。跟单用户应以他给的<b>关键位 + 板块方向</b>为准,不要机械复制其仓位。第四大浪提示 70-80% 个股不会新高 → <b>仓位集中到博主点名的龙头(中际旭创/天赐材料/西部黄金),不要分散</b>。大盘关键位 3856 失守需警惕进一步下行至 3767/3741。</p>
+    </div>
+  </section>
+
+
+  <footer>📊 数据源: 新浪微博 (wu2198/1216826604) · tushare (pro.daily / pro.index_daily) · 报告生成时间: 2026-08-24 21:00 · 仅作研究参考, 不构成投资建议</footer>
+</div>
+</body>
+</html>
