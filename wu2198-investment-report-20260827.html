@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>wu2198 投资日报 — 2026-08-27 (周四收盘)</title>
+<style>
+
+  body { font-family: -apple-system, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; background:#f7f8fa; color:#1d1d1f; margin:0; padding:0; line-height:1.65; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 30px 24px 80px; }
+  header { background: linear-gradient(135deg, #1f6feb 0%, #4a8df5 100%); color:#fff; padding: 32px 24px; border-radius: 12px; margin-bottom: 28px; }
+  header h1 { margin:0 0 8px; font-size: 28px; font-weight: 700; }
+  header .sub { opacity: 0.92; font-size: 14px; }
+  header .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  header .tag { background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px; }
+  .kpi { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 16px; }
+  .kpi .label { color: #6e6e73; font-size: 12px; margin-bottom: 4px; }
+  .kpi .val { font-size: 22px; font-weight: 700; }
+  .kpi .chg { font-size: 13px; margin-top: 2px; }
+  .up { color: #ef232a; }
+  .down { color: #14b143; }
+  section { background: #fff; border: 1px solid #e0e3e8; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  section h2 { margin: 0 0 18px; font-size: 20px; font-weight: 700; color: #1d1d1f; border-left: 4px solid #1f6feb; padding-left: 12px; }
+  .weibo-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .weibo-table th, .weibo-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eaecef; vertical-align: top; }
+  .weibo-table th { background: #f5f6f8; color: #4a4a4a; font-weight: 600; font-size: 12px; }
+  .insight { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+  .insight h3 { margin: 0 0 10px; font-size: 15px; color: #8a6d3b; }
+  .insight ol { margin: 0; padding-left: 22px; }
+  .insight li { margin-bottom: 6px; font-size: 14px; }
+  .sector { margin-bottom: 24px; padding: 18px 22px; background: #fafbfc; border-radius: 10px; border: 1px solid #e0e3e8; }
+  .sector h3 { margin: 0 0 8px; color: #1f6feb; font-size: 16px; }
+  .sector p { font-size: 14px; color: #4a4a4a; line-height: 1.8; margin: 6px 0; }
+  .sector .anchor { color: #1d1d1f; font-weight: 600; }
+  .sector .evi { font-size: 12px; color: #6e6e73; background: #fff; border-left: 3px solid #1f6feb; padding: 6px 10px; border-radius: 0 4px 4px 0; margin-top: 10px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+  .card { border: 1px solid #e0e3e8; border-radius: 10px; background: #fff; overflow: hidden; }
+  .card-header { padding: 14px 18px 8px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .card-header h3 { margin: 0; font-size: 16px; font-weight: 700; }
+  .card-header .code { color: #6e6e73; font-size: 12px; font-weight: 500; margin-left: 6px; }
+  .card-header .src-badge { background: #e3f2fd; color: #1565c0; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; font-weight: 500; }
+  .card-header .price { font-size: 14px; }
+  .card-header .pct { font-weight: 600; margin-left: 6px; }
+  .card-header .date { color: #999; font-size: 11px; margin-left: 4px; }
+  .chart { text-align: center; padding: 8px 0; background: #fff; }
+  .chart img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .meta { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 14px 18px; font-size: 13px; }
+  .levels table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .levels td { padding: 5px 0; border-bottom: 1px dashed #eee; }
+  .levels td:last-child { text-align: right; color: #1f6feb; }
+  .analysis p { margin: 4px 0; }
+  .index-card { background: #f5f8ff; }
+  .advice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .advice-block { background: #fafbfc; border: 1px solid #e0e3e8; border-radius: 10px; padding: 18px 22px; }
+  .advice-block h3 { margin: 0 0 12px; font-size: 16px; color: #1f6feb; }
+  .advice-block ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .risk { margin-top: 18px; padding: 12px 16px; background: #fff3e0; border-left: 3px solid #ff9800; border-radius: 4px; font-size: 13px; }
+  .risk ul { margin: 4px 0 0 22px; padding: 0; }
+  .risk li { margin-bottom: 4px; }
+  .verdict { background: linear-gradient(135deg, #fff 0%, #f5f8ff 100%); border: 1px solid #c7d8f7; border-left: 4px solid #1f6feb; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+  .verdict h3 { margin: 0 0 12px; color: #1f6feb; font-size: 17px; }
+  .verdict ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .verdict ol li { margin-bottom: 8px; }
+  footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; padding: 20px 0; }
+  @media (max-width: 768px) { .kpi-row, .cards, .advice-grid, .meta { grid-template-columns: 1fr; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <h1>📈 wu2198 投资日报 — 2026-08-27 (周四收盘)</h1>
+    <div class="sub">基于 8/27 wu2198 微博 (UID 1216826604) + tushare 公开行情数据 · 自动生成于 2026-08-27 21:35</div>
+    <div class="tags">
+      <span class="tag">📅 收盘:2026-08-27</span>
+      <span class="tag">📝 抓取微博 9 条 (8/27 当天 · 已过滤 2 置顶)</span>
+      <span class="tag">🟢 上证 8/27 收 3956.57 (+1.14% 增量反弹)</span>
+      <span class="tag">🟢 博主立场: B 反持续 · 增量反弹 · 关键位 3741/3767/3850/3956/3994/3996</span>
+      <span class="tag">🟢 15:04 热帖 (11430 赞)「如期修正 3956 · 阻力 3996 不变」</span>
+      <span class="tag">🟢 15:03 资金面「21410 亿 + 623.88 亿净流入 · 增量反弹」</span>
+      <span class="tag">🆕 19:48 算力云服务 粤万年青 301111 GPU 12.44 亿订单</span>
+      <span class="tag">🆕 19:52 电子元器件 风华高科 000636 半年报 +74%</span>
+    </div>
+  </header>
+
+  
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">上证指数 (8/27 收)</div>
+      <div class="val">3,956.57</div>
+      <div class="chg" style="color:#ef232a">▲ +1.14%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指 (8/27 收)</div>
+      <div class="val">3,473.35</div>
+      <div class="chg" style="color:#ef232a">▲ +1.03%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主 8/27 关键位</div>
+      <div class="val" style="font-size:18px">3741 / 3767 / 3956 / 3996</div>
+      <div class="chg" style="color:#6e6e73">支撑 / 收盘 / 阻力</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主年大目标</div>
+      <div class="val" style="font-size:22px">4256</div>
+      <div class="chg" style="color:#6e6e73">2026 全年目标 (未变)</div>
+    </div>
+  </div>
+
+  
+  <section class="opinions">
+    <h2>📋 wu2198 8/27 (周四) 观点摘要 (LLM 二次分析版)</h2>
+    <p class="lead">8/27 共抓取 <b>9 条非置顶微博</b>,其中 <b>6 条带操盘信号</b>。博主 8/27 立场:<b>🟢 偏多 · B 反持续 · 增量反弹</b>(15:04 热帖 11430 赞「如期技术修正到 3956」+ 15:03 资金净流入 623.88 亿「今天属于增量反弹」)。当日 2 条新点名:<b>🆕 19:48 算力云服务 (粤万年青 301111)</b> + <b>🆕 19:52 电子元器件 (风华高科 000636)</b>。</p>
+    <table class="weibo-table">
+      <thead><tr><th>时间</th><th>信号 · 置信</th><th>互动</th><th>操盘信号</th><th>内容</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 21:12</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:0 C:30 L:603</td>
+          <td style="font-size:12px">—</td>
+          <td>#孙宇晨起诉景甜#这是新热点吗？是不是想盖掉什么东西？</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 21:11</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:2 C:33 L:630</td>
+          <td style="font-size:12px">—</td>
+          <td>#菜市场有人倒地无人敢扶#我们需要社会良知！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 19:52</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:5 C:46 L:1593</td>
+          <td style="font-size:12px">—</td>
+          <td>风华高科8月27日披露半年报，公司上半年实现营业收入35亿元，同比增长26.28%；归属于上市公司股东的净利润2.9亿元，同比增长74.01%；基本每股收益0.25元/股。公司计划不派发现金红利，不送红股，不以公积金转增股本。报告期内，公司业绩主要受益于电子元器件行业景气度上行，公司集中资源聚焦高端转型 ...全文</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 19:48</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:5 C:25 L:1540</td>
+          <td style="font-size:12px">—</td>
+          <td>粤万年青(301111.SZ)公告称，公司控股子公司万宏智算与A公司签署《服务采购协议》，提供GPU算力云服务及配套运维支持，合作期限五年，合同总价款为12.44亿元(含税，预估金额！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 19:44</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:3 C:156 L:2329</td>
+          <td style="font-size:12px">—</td>
+          <td>抖Y见！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 15:04</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:92 C:1101 L:11430</td>
+          <td style="font-size:12px">—</td>
+          <td>大盘指数短线自3994跌到3850点之后，今天如期技术修正到了3956点附近，收在点；按技术面看指数3741和3767连线的支撑没有破，则原来B反过程中的反复震荡依然会持续。接下来，我们需要看市场还能不能再次冲前面小波段高点3994点，即原预阻力3996点不变........收到请回复666或点赞支持一下！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 15:03</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:10 C:92 L:6357</td>
+          <td style="font-size:12px">—</td>
+          <td>截止15：00两市成交了21410亿元，有3394只个股上涨，大盘资金流入623.88亿元，量能比上一交易日增加3191亿元！ 今天属于增量反弹！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 14:58</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:4 C:83 L:5733</td>
+          <td style="font-size:12px">—</td>
+          <td>截止14：57两市成交了21172亿元，有3383只个股上涨，大盘资金流入607.46亿元，量能比上一交易日增加3144亿元！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Thu Aug 27 14:56</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:6 C:226 L:6685</td>
+          <td style="font-size:12px">—</td>
+          <td>今天是如此反击了3956</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="insight">
+      <h3>🧠 关键洞察 (LLM 提炼 + 原帖佐证)</h3>
+      <ol>
+        <li><b>15:04 收盘核心帖 🟢 (13724 综合分 热帖 · 11430 赞)</b>「<b>大盘指数短线自 3994 跌到 3850 点之后,今天如期技术修正到了 3956 点附近,收在点;按技术面看指数 3741 和 3767 连线的支撑没有破,则原来 B 反过程中的反复震荡依然会持续。接下来,我们需要看市场还能不能再次冲前面小波段高点 3994 点,即原预阻力 3996 点不变</b>」 — 博主 8/27 给的清晰关键位框架:<b>支撑 3850/3767/3741,收盘 3956,小波段前高 3994,原预阻力 3996,年大目标 4256</b>。B 反反复震荡格局未变,下一个观察点:能否再冲 3994 突破阻力 3996。</li>
+        <li><b>15:03 资金面速报 🟢 (6551 综合分 · 6357 赞)</b>「<b>截止 15:00 两市成交了 21410 亿元,有 3394 只个股上涨,大盘资金流入 623.88 亿元,量能比上一交易日增加 3191 亿元!今天属于增量反弹!</b>」 — <b>博主明确判断「今天属于增量反弹」</b>。21410 亿成交 +623.88 亿净流入 + 量能环比+3191 亿,资金面与技术面双重确认反弹。</li>
+        <li><b>14:58 资金面速报 🟢 (5903 综合分 · 5733 赞)</b>「<b>截止 14:57 两市成交了 21172 亿元,有 3383 只个股上涨,大盘资金流入 607.46 亿元,量能比上一交易日增加 3144 亿元</b>」 — 临近收盘持续放量净流入,与 15:03 增量反弹判断形成数据链。</li>
+        <li><b>14:56 短评 🟢 (7143 综合分 · 6685 赞)</b>「<b>今天是如此反击了 3956</b>」 — 关键位 3956 突破确认,验证博主早盘技术修正预期。</li>
+        <li><b>19:48 板块 🆕🟢 算力云服务 (粤万年青 301111)</b>「<b>粤万年青(301111.SZ)公告称,公司控股子公司万宏智算与 A 公司签署《服务采购协议》,提供 GPU 算力云服务及配套运维支持,合作期限五年,合同总价款为 12.44 亿元(含税,预估金额</b>」 — 博主 8/27 主动转发,1540 赞。AI 算力云服务订单落地,板块增量资金介入信号。</li>
+        <li><b>19:52 个股 🆕🟢 风华高科 000636 半年报</b>「<b>风华高科 8 月 27 日披露半年报,公司上半年实现营业收入 35 亿元,同比增长 26.28%;归属于上市公司股东的净利润 2.9 亿元,同比增长 74.01%</b>」 — 博主 8/27 主动转发,1593 赞。电子元器件/MLCC 板块业绩兑现,半年报 +74% 净利增速验证行业景气度上行。</li>
+        <li><b>附加:娱乐+社会贴 3 条 ⚪</b>:21:12「孙宇晨起诉景甜」(娱乐)+ 21:11「菜市场老人倒地无人敢扶」(社会议题)+ 19:44「抖Y见」(博主抖音引流),均无投资相关信号。</li>
+      </ol>
+    </div>
+  </section>
+
+  
+  <section class="advice">
+    <h2>🎯 投资建议总结 (基于 8/27 当天新点名 + 长期主线)</h2>
+    <div class="advice-grid">
+      <div class="advice-block">
+        <h3>3 大板块 (按 8/27 含金量排序)</h3>
+        <ol>
+          <li><b>🆕🟢 AI 算力 / CPO / 算力云服务</b> — 8/27 19:48 博主主动转发粤万年青 301111 GPU 算力云服务 12.44 亿订单 + 长期主线 (中际旭创 8/22 业绩 +241% + 沪电 PCB)</li>
+          <li><b>🆕🟢 电子元器件 / MLCC</b> — 8/27 19:52 博主主动转发风华高科 000636 半年报营收 35 亿+26% 净利 2.9 亿+74% · 行业景气度上行</li>
+          <li><b>🟢 半导体 / 存储芯片</b> — 8/17 博主提长鑫 +12% + 闪迪美光 + 业绩兑现主线 (兆易创新 8/17 +31.8% 反弹)</li>
+        </ol>
+      </div>
+      <div class="advice-block">
+        <h3>6 支个股 (🟢 = 博主直接点名 · 🆕 = 8/27 新增 · 📊 = 板块代表)</h3>
+        <ol>
+          <li>🆕🟢 <b>粤万年青 (301111)</b> — 8/27 19:48 博主新点名 · 算力云服务 12.44 亿 GPU 订单</li>
+          <li>🟢 <b>中际旭创 (300308)</b> — CPO 全球龙头 · 8/22 业绩营收 417.78 亿+182% 净利 136.51 亿+242% · 长期主线</li>
+          <li>📊 <b>沪电股份 (002463)</b> — AI 服务器 PCB 龙头 · 8/14 算力 PCB 板块宽度最大表态 · 长期主线</li>
+          <li>🆕🟢 <b>风华高科 (000636)</b> — 8/27 19:52 博主新点名 · MLCC 龙头 · 半年报净利 +74%</li>
+          <li>📊 <b>兆易创新 (603986)</b> — 存储芯片龙头 · 8/17 博主提长鑫 +12% + 闪迪美光 + 半年报兑现</li>
+          <li>📊 <b>紫光国微 (002049)</b> — 特种 IC/FPGA · 半导体设备主线 · 业绩+行业向好 (8/17 提及)</li>
+        </ol>
+      </div>
+    </div>
+    <div class="risk">
+      <h4>⚠️ 风险提示 (8/27 博主未给风控信号 · 沿用 8/24 风控框架)</h4>
+      <ul>
+        <li><b>大盘关键位博弈 (15:04 热帖 11430 赞)</b>:上证收 3956(+1.14%),关注 3994-3996 阻力区能否突破;B 反反复震荡,跌破 3850 看 3767/3741;站上 3996 看 4256 大目标</li>
+        <li><b>资金面改善 (15:03 6551 综合分)</b>:成交 21410 亿 +3191 亿(放量),资金净流入 623.88 亿(对比 8/24 流出 921 亿反转),3394 只上涨</li>
+        <li><b>第四大浪风控 (沿用 8/24 14:09 11106 赞)</b>:即使有第五大浪上涨,70-80% 个股不会有新高 → 选股必须聚焦龙头 (中际旭创/粤万年青/风华高科)</li>
+        <li><b>长期多头信仰未改 (沿用 8/24 14:17 10955 赞)</b>:博主 2026 年全年目标 4256 不变 · 大方向坚定 · 小节奏灵活(3850-3996 区间博弈)</li>
+        <li><b>8/27 增量反弹的隐忧</b>:成交 21410 亿虽放量但相对 8/22 23530 亿仍为缩量(博主 8/22 收盘「两市成交了 23530 亿元」),且 3394 涨 vs 整体 ~5400 只股票 = 涨少跌多,结构性行情明显 → <b>聚焦博主点名的龙头,不要分散</b></li>
+      </ul>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>📌 3 大板块详细逻辑</h2>
+
+    <div class="sector">
+      <h3>#1 AI 算力 / CPO / 算力云服务 — 博主 8/27 19:48 主动转发粤万年青 GPU 算力云服务 12.44 亿订单</h3>
+      <p class="anchor"><b>核心标的:</b> 粤万年青 (301111) / 中际旭创 (300308) / 沪电股份 (002463)</p>
+      <p>博主 8/27 19:48 主动转发粤万年青公告:「<b>公司控股子公司万宏智算与 A 公司签署《服务采购协议》,提供 GPU 算力云服务及配套运维支持,合作期限五年,合同总价款为 12.44 亿元(含税,预估金额</b>」 — 8/27 博主主动转发 1540 赞,显示对<b>算力云服务订单兑现</b>的高度认可。<b>逻辑</b>:① 算力云服务从概念走向订单兑现,5 年 12.44 亿合同等于年均 2.5 亿稳定收入 ② 延续 8/14 19:30 博主转发英伟达 200G/lane CPO 以太网交换机量产(产业级催化)③ 8/22 22:21 中际旭创业绩 +241% + 8/22 22:24 天赐材料 +968% 双兑现业绩主线 ④ 8/4 算力/PCB/CPO/光纤/创新药/交换机/电容/覆铜板 冲板共振 主力自救主线延续。<b>中际旭创</b>(CPO 全球龙头,8/22 业绩 +241%)+<b>沪电股份</b>(AI 服务器 PCB 龙头)为长期主线代表,<b>粤万年青</b>为 8/27 新催化。</p>
+      <div class="evi">📎 博主证据:8/27 19:48 转发粤万年青 GPU 算力云服务 12.44 亿订单 + 8/14 19:30 转发英伟达 200G/lane CPO 量产 + 8/22 中际旭创 业绩 +241%</div>
+    </div>
+
+    <div class="sector">
+      <h3>#2 电子元器件 / MLCC — 博主 8/27 19:52 主动转发风华高科半年报 +74%</h3>
+      <p class="anchor"><b>核心标的:</b> 风华高科 (000636)</p>
+      <p>博主 8/27 19:52 主动转发风华高科半年报:「<b>公司上半年实现营业收入 35 亿元,同比增长 26.28%;归属于上市公司股东的净利润 2.9 亿元,同比增长 74.01%</b>」 — 8/27 博主主动转发 1593 赞,在 AI 算力火热之时选择转发电子元器件/MLCC 板块业绩,显示对<b>行业景气度上行</b>+<b>周期反转</b>的认可。<b>逻辑</b>:① 风华高科在公告中明确表示「公司业绩主要受益于电子元器件行业景气度上行,公司集中资源聚焦高端转型」,验证行业景气度 ② MLCC/电阻等被动元件 2024-2025 年价格战洗牌后,头部企业份额持续集中 ③ 净利 +74% vs 营收 +26% 显示毛利率/产品结构升级(高端转型奏效)④ 与 8/22 业绩兑现主线 + 8/4 算力 PCB 冲板共振主线形成「上下游业绩共振」。<b>风华高科</b>为 8/27 博主唯一明确点名的电子元器件个股。</p>
+      <div class="evi">📎 博主证据:8/27 19:52 转发风华高科半年报 营收 35 亿+26% 净利 2.9 亿+74% · 「公司业绩主要受益于电子元器件行业景气度上行」</div>
+    </div>
+
+    <div class="sector">
+      <h3>#3 半导体 / 存储芯片 — 博主 8/17 长鑫+12% + 闪迪美光 + 8/22 业绩兑现</h3>
+      <p class="anchor"><b>核心标的:</b> 兆易创新 (603986) / 紫光国微 (002049)</p>
+      <p>8/27 博主未直接点评半导体/存储芯片,但战略主线 8/17 17:01 提及「<b>长鑫今天收在 61.80 元,涨幅 12.00%,总市值 4.13 万亿元……求等于多少个神酒的市值?</b>」(双重含义:看多存储芯片 + 警示白酒) + 8/17 20:20 转发「<b>闪迪、美光……盘前涨 4% 左右!</b>」 + 8/22 业绩兑现主线延续(德福科技 +581%, 东山精密 +64% 双兑现)。<b>逻辑</b>:① 存储芯片价格周期反转 (DRAM/NAND 价格 2026Q2-Q3 持续上涨)② 国产替代主线 (长鑫/长存技术突破)③ 兆易创新作为 A 股存储龙头 (NOR Flash 全球第三,DRAM 自研推进)直接受益 ④ 紫光国微特种 IC 在军用/工业领域国产替代加速。<b>兆易创新</b>(存储龙头) + <b>紫光国微</b>(特种 IC) 为板块代表。</p>
+      <div class="evi">📎 博主证据:8/17 17:01 长鑫+12% + 8/17 20:20 闪迪美光 + 8/22 业绩兑现主线延续</div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>🌐 大盘 K 线图 (博主关键位居左虚线)</h2>
+    <div class="cards">
+      
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 上证指数 <span class="code">000001.SH</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">3956.57</b> <span class="pct" style="color:#ef232a">▲ +1.14%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_000001_SH_上证指数.png" alt="上证指数 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3741</td><td style='text-align:right'><b>支撑A 3741</b></td></tr><tr><td>3767</td><td style='text-align:right'><b>支撑B 3767</b></td></tr><tr><td>3850</td><td style='text-align:right'><b>阶段低 3850</b></td></tr><tr><td>3900</td><td style='text-align:right'><b>中位 3900</b></td></tr><tr><td>3956</td><td style='text-align:right'><b>收 3956</b></td></tr><tr><td>3994</td><td style='text-align:right'><b>前高 3994</b></td></tr><tr><td>3996</td><td style='text-align:right'><b>阻力 3996</b></td></tr><tr><td>4256</td><td style='text-align:right'><b>年大目标</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 8/27 关键位 (15:04 热帖 11430 赞):</b> 阶段低 <b>3850</b> → 收盘 <b>3956</b>;支撑 <b>3767 / 3741</b>;小波段前高 <b>3994</b>;原预阻力 <b>3996</b>;年大目标 <b>4256</b></p>
+          <p><b>8/27 信号:</b> 大盘如期技术修正至 3956(博主 15:04),资金净流入 623.88 亿(博主 15:03 增量反弹),明天关注 3994-3996 阻力区能否突破</p>
+        </div>
+      </div>
+    </div>
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 创业板指 <span class="code">399006.SZ</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">3473.35</b> <span class="pct" style="color:#ef232a">▲ +1.03%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_399006_SZ_创业板指.png" alt="创业板指 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3158</td><td style='text-align:right'><b>A杀低 3158</b></td></tr><tr><td>3280</td><td style='text-align:right'><b>B反起 3280</b></td></tr><tr><td>3414</td><td style='text-align:right'><b>近支撑 3414</b></td></tr><tr><td>3545</td><td style='text-align:right'><b>近期 3545</b></td></tr><tr><td>3626</td><td style='text-align:right'><b>8/16 收</b></td></tr><tr><td>3756</td><td style='text-align:right'><b>目标 3756</b></td></tr><tr><td>3806</td><td style='text-align:right'><b>拓展 3806</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 8/27 关键位 (15:04 热帖 11430 赞):</b> 阶段低 <b>3850</b> → 收盘 <b>3956</b>;支撑 <b>3767 / 3741</b>;小波段前高 <b>3994</b>;原预阻力 <b>3996</b>;年大目标 <b>4256</b></p>
+          <p><b>8/27 信号:</b> 大盘如期技术修正至 3956(博主 15:04),资金净流入 623.88 亿(博主 15:03 增量反弹),明天关注 3994-3996 阻力区能否突破</p>
+        </div>
+      </div>
+    </div>
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 沪深300 <span class="code">000300.SH</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">4630.28</b> <span class="pct" style="color:#ef232a">▲ +0.78%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_000300_SH_沪深300.png" alt="沪深300 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3700</td><td style='text-align:right'><b>支撑 3700</b></td></tr><tr><td>3850</td><td style='text-align:right'><b>阶段低</b></td></tr><tr><td>4000</td><td style='text-align:right'><b>中位</b></td></tr><tr><td>4150</td><td style='text-align:right'><b>近高</b></td></tr><tr><td>4250</td><td style='text-align:right'><b>阻力 4250</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 8/27 关键位 (15:04 热帖 11430 赞):</b> 阶段低 <b>3850</b> → 收盘 <b>3956</b>;支撑 <b>3767 / 3741</b>;小波段前高 <b>3994</b>;原预阻力 <b>3996</b>;年大目标 <b>4256</b></p>
+          <p><b>8/27 信号:</b> 大盘如期技术修正至 3956(博主 15:04),资金净流入 623.88 亿(博主 15:03 增量反弹),明天关注 3994-3996 阻力区能否突破</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>📊 6 只个股 K 线图 (关键位居左虚线标注)</h2>
+    
+    <div class="sector">
+      <h3>📌 AI 算力 / CPO / 算力云服务</h3>
+      <p><b>博主看点:</b> AI 算力 / CPO / 算力云服务 · 8/27 新点名 + 长期主线</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>粤万年青 (301111) <span class="code">301111.SZ</span> <span class="src-badge">🆕🟢 8/27 博主新点名 算力云服务 12.44 亿</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">22.75</b> <span class="pct" style="color:#ef232a">▲ +7.16%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_301111_SZ_粤万年青.png" alt="粤万年青 (301111) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>31.29</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>15.65</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>31.29</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>15.65</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>22.75</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> AI 算力 / CPO / 算力云服务</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>看点:</b> 8/27 19:48 博主转发 GPU 算力云服务 12.44 亿订单</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>中际旭创 (300308) <span class="code">300308.SZ</span> <span class="src-badge">🟢 长期主线 CPO 全球龙头 8/22 业绩 +241%</span></h3>
+        <div class="price">现价 <b style="color:#14b143">866.12</b> <span class="pct" style="color:#14b143">▼ -1.24%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_300308_SZ_中际旭创.png" alt="中际旭创 (300308) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>793.03</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>506.0</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>866.12</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> AI 算力 / CPO / 算力云服务</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>看点:</b> CPO 全球龙头 · 8/22 业绩 营收 417.78 亿+182% 净利 136.51 亿+242%</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>沪电股份 (002463) <span class="code">002463.SZ</span> <span class="src-badge">📊 AI 服务器 PCB 龙头 长期主线</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">122.02</b> <span class="pct" style="color:#ef232a">▲ +0.02%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_002463_SZ_沪电股份.png" alt="沪电股份 (002463) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>158.2</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>94.73</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>158.2</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>69.5</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>122.02</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> AI 算力 / CPO / 算力云服务</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>看点:</b> AI 服务器 PCB 龙头 · 博主长期主线 · 算力 PCB 板块宽度最大</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="sector">
+      <h3>📌 电子元器件 / MLCC</h3>
+      <p><b>博主看点:</b> 电子元器件 / MLCC · 8/27 新点名 + 长期主线</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>风华高科 (000636) <span class="code">000636.SZ</span> <span class="src-badge">🆕🟢 8/27 博主新点名 半年报 +74%</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">54.11</b> <span class="pct" style="color:#ef232a">▲ +4.02%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_000636_SZ_风华高科.png" alt="风华高科 (000636) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>84.0</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>37.69</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>84.0</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>18.41</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>54.11</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 电子元器件 / MLCC</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>看点:</b> 8/27 19:52 博主转发 半年报营收 35 亿+26% 净利 2.9 亿+74% · MLCC</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="sector">
+      <h3>📌 半导体 / 存储芯片</h3>
+      <p><b>博主看点:</b> 半导体 / 存储芯片 · 8/27 新点名 + 长期主线</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>兆易创新 (603986) <span class="code">603986.SH</span> <span class="src-badge">📊 存储芯片龙头 8/17 博主提长鑫+12%</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">411.2</b> <span class="pct" style="color:#ef232a">▲ +3.57%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_603986_SH_兆易创新.png" alt="兆易创新 (603986) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>846.66</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>337.1</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>846.66</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>236.86</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>411.2</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 半导体 / 存储芯片</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>看点:</b> 存储芯片龙头 · 8/17 博主提长鑫 +12% + 闪迪美光</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>紫光国微 (002049) <span class="code">002049.SZ</span> <span class="src-badge">📊 特种 IC 半导体设备主线</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">63.25</b> <span class="pct" style="color:#ef232a">▲ +2.51%</span> <span class="date">(2026-08-27 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260827_002049_SZ_紫光国微.png" alt="紫光国微 (002049) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>91.79</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>59.81</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>91.79</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>59.81</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>63.25</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 半导体 / 存储芯片</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">震荡/转折中</span></p>
+          <p><b>看点:</b> 特种 IC/FPGA · 半导体设备主线 · 业绩+行业向好</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>🧭 综合投资结论 (周五 8/28 操作前瞻)</h2>
+    <div class="verdict">
+      <h3>周五策略 <span style="background:#14b143;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">🟢 增量反弹 · B 反持续 · 短期偏多</span></h3>
+      <p>博主 8/27 核心立场综合:</p>
+      <ol>
+        <li><strong>大盘</strong>:8/27 收 <b>3956.57 (+1.14%)</b>,B 反过程中如期技术修正至 3956(博主 15:04),资金净流入 <b>623.88 亿</b>(博主 15:03 增量反弹),成交 21410 亿放量。<b>关键位</b>:支撑 <b>3850 / 3767 / 3741</b>,收盘 <b>3956</b>,小波段前高 <b>3994</b>,原预阻力 <b>3996</b>,年大目标 <b>4256</b>。周五 8/28 关注 <b>3994-3996 阻力区能否突破</b>:站稳 3996 看 4256 大目标,跌破 3956 维持区间 3850-3996 震荡,跌破 3850 看 3767/3741 测试。</li>
+        <li><strong>增量反弹确认 (15:03 热帖 6357 赞)</strong>:博主明确判断「<b>今天属于增量反弹</b>」 — 成交 21410 亿 + 净流入 623.88 亿 + 量能环比+3191 亿,资金面与技术面双重确认反弹。对比 8/24 资金流出 921.44 亿(放量下跌)反转,情绪从悲观转乐观。</li>
+        <li><strong>新主线 #1: AI 算力/算力云服务 (8/27 19:48 博主新点名) 🆕🟢</strong>:博主转发粤万年青(301111)GPU 算力云服务 12.44 亿订单(5 年合同,年均 2.5 亿),算力云服务订单兑现信号。<b>核心标的</b>:粤万年青(301111, 8/27 收 22.75 +7.16%)/ 中际旭创(300308, CPO 全球龙头 8/22 业绩 +241%)/ 沪电股份(002463, AI 服务器 PCB 龙头)。</li>
+        <li><strong>新主线 #2: 电子元器件/MLCC (8/27 19:52 博主新点名) 🆕🟢</strong>:博主转发风华高科(000636)半年报营收 35 亿+26% 净利 2.9 亿+74%,公司明确表示「主要受益于电子元器件行业景气度上行」。<b>核心标的</b>:风华高科(000636, 8/27 收 54.11 +4.02%, 60D低 37.69 已反弹 +43.6%)。AI 算力火热之时,博主转发电子元器件业绩,显示对<b>行业景气度</b>+<b>周期反转</b>的认可。</li>
+        <li><strong>延续主线 #3: 半导体/存储芯片 (8/17 战略点名)</strong>:博主 8/17 17:01「长鑫+12%」+ 20:20「闪迪美光盘前+4%」+ 8/22 业绩兑现延续。<b>核心标的</b>:兆易创新(603986, 8/27 收 411.20 +3.57%, 从 60D低 337 反弹 +22%)/ 紫光国微(002049, 8/27 收 63.25 +2.51%)。存储芯片价格周期反转 + 国产替代主线。</li>
+        <li><strong>资金面改善 (8/24 → 8/27 对比)</strong>:8/24 资金流出 921.44 亿(放量下跌 3984 只跌)→ 8/27 资金净流入 <b>623.88 亿</b>(放量反弹 3394 只涨),情绪反转显著。成交从 20035 亿 → 21410 亿(环比+1375 亿),量能温和放大。<b>策略</b>:在资金净流入未止住前,可适度加仓至博主点名的板块(AI 算力 + 电子元器件 + 半导体)。</li>
+        <li><strong>结构性行情特征 (8/27 3394 涨 vs ~5400 总数)</strong>:虽然指数 +1.14% 增量反弹,但 3394 涨意味着仍有约 2000 只股票下跌,呈现<b>结构性行情</b>。<b>策略</b>:聚焦博主点名的 3 大板块 6 个股,不要分散到博主未点名的板块。</li>
+      </ol>
+      <p style="margin-top:12px;font-size:13px;color:#6e6e73">📌 <strong>博主风控姿态</strong>:8/27 博主给出<b>技术位 (15:04 11430 赞) + 资金面 (15:03 6357 赞) + 板块点名 (19:48/19:52)</b> 3 类信号。这是缠论大师的典型操作:大方向坚定(4256),小节奏灵活(3850-3996 区间博弈),板块轮动敏锐(算力云服务 + 电子元器件)。跟单策略上:<b>大方向跟他(4256 多头),小节奏跟他(3996 攻/3850 守),板块跟他(AI 算力 + 电子元器件 + 半导体优先)</b>。</p>
+      <p style="margin-top:8px;font-size:13px;color:#b91c1c">⚠️ <strong>跟单提示</strong>:博主 6/8 披露「已撤离本金+去年盈利一半,预计今年不再调回」 — 自身偏防御,不动用大资金博 4256。跟单用户应以他给的<b>关键位 + 板块方向</b>为准,不要机械复制其仓位。第四大浪提示 70-80% 个股不会新高 → <b>仓位集中到博主点名的龙头(粤万年青/中际旭创/风华高科),不要分散</b>。大盘关键位 3850 失守需警惕进一步下行至 3767/3741。</p>
+    </div>
+  </section>
+
+  <footer>📊 数据源: 新浪微博 (wu2198/1216826604) · tushare (pro.daily / pro.index_daily) · 报告生成时间: 2026-08-27 21:35 · 仅作研究参考, 不构成投资建议</footer>
+</div>
+</body>
+</html>
