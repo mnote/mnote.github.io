@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>wu2198 投资日报 — 2026-08-28 (周五收盘)</title>
+<style>
+
+  body { font-family: -apple-system, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; background:#f7f8fa; color:#1d1d1f; margin:0; padding:0; line-height:1.65; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 30px 24px 80px; }
+  header { background: linear-gradient(135deg, #1f6feb 0%, #4a8df5 100%); color:#fff; padding: 32px 24px; border-radius: 12px; margin-bottom: 28px; }
+  header h1 { margin:0 0 8px; font-size: 28px; font-weight: 700; }
+  header .sub { opacity: 0.92; font-size: 14px; }
+  header .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  header .tag { background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px; }
+  .kpi { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 16px; }
+  .kpi .label { color: #6e6e73; font-size: 12px; margin-bottom: 4px; }
+  .kpi .val { font-size: 22px; font-weight: 700; }
+  .kpi .chg { font-size: 13px; margin-top: 2px; }
+  .up { color: #ef232a; }
+  .down { color: #14b143; }
+  section { background: #fff; border: 1px solid #e0e3e8; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  section h2 { margin: 0 0 18px; font-size: 20px; font-weight: 700; color: #1d1d1f; border-left: 4px solid #1f6feb; padding-left: 12px; }
+  .weibo-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .weibo-table th, .weibo-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eaecef; vertical-align: top; }
+  .weibo-table th { background: #f5f6f8; color: #4a4a4a; font-weight: 600; font-size: 12px; }
+  .insight { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+  .insight h3 { margin: 0 0 10px; font-size: 15px; color: #8a6d3b; }
+  .insight ol { margin: 0; padding-left: 22px; }
+  .insight li { margin-bottom: 6px; font-size: 14px; }
+  .sector { margin-bottom: 24px; padding: 18px 22px; background: #fafbfc; border-radius: 10px; border: 1px solid #e0e3e8; }
+  .sector h3 { margin: 0 0 8px; color: #1f6feb; font-size: 16px; }
+  .sector p { font-size: 14px; color: #4a4a4a; line-height: 1.8; margin: 6px 0; }
+  .sector .anchor { color: #1d1d1f; font-weight: 600; }
+  .sector .evi { font-size: 12px; color: #6e6e73; background: #fff; border-left: 3px solid #1f6feb; padding: 6px 10px; border-radius: 0 4px 4px 0; margin-top: 10px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+  .card { border: 1px solid #e0e3e8; border-radius: 10px; background: #fff; overflow: hidden; }
+  .card-header { padding: 14px 18px 8px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .card-header h3 { margin: 0; font-size: 16px; font-weight: 700; }
+  .card-header .code { color: #6e6e73; font-size: 12px; font-weight: 500; margin-left: 6px; }
+  .card-header .src-badge { background: #e3f2fd; color: #1565c0; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; font-weight: 500; }
+  .card-header .price { font-size: 14px; }
+  .card-header .pct { font-weight: 600; margin-left: 6px; }
+  .card-header .date { color: #999; font-size: 11px; margin-left: 4px; }
+  .chart { text-align: center; padding: 8px 0; background: #fff; }
+  .chart img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .meta { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 14px 18px; font-size: 13px; }
+  .levels table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .levels td { padding: 5px 0; border-bottom: 1px dashed #eee; }
+  .levels td:last-child { text-align: right; color: #1f6feb; }
+  .analysis p { margin: 4px 0; }
+  .index-card { background: #f5f8ff; }
+  .advice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .advice-block { background: #fafbfc; border: 1px solid #e0e3e8; border-radius: 10px; padding: 18px 22px; }
+  .advice-block h3 { margin: 0 0 12px; font-size: 16px; color: #1f6feb; }
+  .advice-block ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .risk { margin-top: 18px; padding: 12px 16px; background: #fff3e0; border-left: 3px solid #ff9800; border-radius: 4px; font-size: 13px; }
+  .risk ul { margin: 4px 0 0 22px; padding: 0; }
+  .risk li { margin-bottom: 4px; }
+  .verdict { background: linear-gradient(135deg, #fff 0%, #f5f8ff 100%); border: 1px solid #c7d8f7; border-left: 4px solid #1f6feb; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+  .verdict h3 { margin: 0 0 12px; color: #1f6feb; font-size: 17px; }
+  .verdict ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .verdict ol li { margin-bottom: 8px; }
+  footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; padding: 20px 0; }
+  @media (max-width: 768px) { .kpi-row, .cards, .advice-grid, .meta { grid-template-columns: 1fr; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <h1>📈 wu2198 投资日报 — 2026-08-28 (周五收盘)</h1>
+    <div class="sub">基于 8/28 wu2198 微博 (UID 1216826604) + tushare 公开行情数据 · 自动生成于 2026-08-28 21:00</div>
+    <div class="tags">
+      <span class="tag">📅 收盘:2026-08-28</span>
+      <span class="tag">📝 抓取微博 10 条 (8/28 当天 · 已过滤 2 置顶)</span>
+      <span class="tag">🟡 上证 8/28 收 3952.18 (+0.05% 区间震荡)</span>
+      <span class="tag">🟡 创业板 8/28 收 3424.40 (-0.85% 偏软)</span>
+      <span class="tag">🟡 博主立场: 区间震荡 · 偏防御 · 多看少动 · 关键位 3850-3970</span>
+      <span class="tag">🟡 14:55 热帖 (9037 赞)「下周震荡整理 · 可操作空间不大」</span>
+      <span class="tag">🔴 14:33 资金面「18782 亿 + 流出 289 亿 · 量能-117 亿」</span>
+      <span class="tag">🔴 14:44 早盘提醒「短线不要追 · 小心被扎」</span>
+      <span class="tag">🆕 14:55 主板权重 「银行/煤炭/保险/券商」 加持收红</span>
+    </div>
+  </header>
+
+  
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">上证指数 (8/28 收)</div>
+      <div class="val">3,952.18</div>
+      <div class="chg" style="color:#ef232a">▲ +0.05%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指 (8/28 收)</div>
+      <div class="val">3,424.40</div>
+      <div class="chg" style="color:#14b143">▼ -0.85%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主 8/28 关键位</div>
+      <div class="val" style="font-size:18px">3850 / 3970</div>
+      <div class="chg" style="color:#6e6e73">区间下沿 / 上沿</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主年大目标</div>
+      <div class="val" style="font-size:22px">4256</div>
+      <div class="chg" style="color:#6e6e73">2026 全年目标 (未变)</div>
+    </div>
+  </div>
+
+  
+  <section class="opinions">
+    <h2>📋 wu2198 8/28 (周五) 观点摘要 (LLM 二次分析版)</h2>
+    <p class="lead">8/28 共抓取 <b>10 条非置顶微博</b>,其中 <b>4 条带操盘信号</b>。博主 8/28 立场:<b>🟡 区间震荡 · 偏防御 · 多看少动</b>(14:55 热帖 9037 赞「下周震荡整理 · 可操作空间不大」+ 14:33 资金流出 289 亿 + 14:44 早盘提醒「短线不要追 · 小心被扎」)。当日 1 条新点名:<b>🆕 14:55 主板权重 「银行/煤炭/保险/券商」 加持收红</b>。</p>
+    <table class="weibo-table">
+      <thead><tr><th>时间</th><th>信号 · 置信</th><th>互动</th><th>操盘信号</th><th>内容</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 18:36</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:3 C:93 L:1404</td>
+          <td style="font-size:12px">—</td>
+          <td>#景甜贴黑胶带的原因#有阴影？</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:55</td>
+          <td style="text-align:right;white-space:nowrap">🟡 中性 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:81 C:940 L:9037</td>
+          <td style="font-size:12px">—</td>
+          <td>按周线看大盘指数本周收小阳，指数介于3850--3970之间波动；深成指和创业板指数周线收阴，说明市场对于科技类股的风险预期还在，而主板则得益于银行，煤炭，保险，券商等权种力量的加持收红。整体看下周市场维持震荡整理的可能性比较大，可操作空间不大，依然是多看少动为主.......收到请回复666或点赞 ...全文</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:49</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:4 C:115 L:4599</td>
+          <td style="font-size:12px">—</td>
+          <td>#景甜给财务八万想了三天#财务这人不错，没出来爆料！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:46</td>
+          <td style="text-align:right;white-space:nowrap">🟡 中性 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:15 C:155 L:6249</td>
+          <td style="font-size:12px">—</td>
+          <td>反弹的时候你的个股没有份，跌的时候有份，说明你的持股输于大盘。</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:44</td>
+          <td style="text-align:right;white-space:nowrap">🔴 空 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:8 C:115 L:5703</td>
+          <td style="font-size:12px">—</td>
+          <td>早上和大家分析了，短线不要追，小心被扎！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:41</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:2 C:84 L:3672</td>
+          <td style="font-size:12px">—</td>
+          <td>#QQ飞车景甜旧照#我当年的QQ号还记得！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:37</td>
+          <td style="text-align:right;white-space:nowrap">🟡 中性 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:23 C:112 L:5734</td>
+          <td style="font-size:12px">—</td>
+          <td>大盘指数连续反击了几天，显示出疲惫了。而且创业板指数偏软！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:33</td>
+          <td style="text-align:right;white-space:nowrap">🔴 空 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:2 C:35 L:4503</td>
+          <td style="font-size:12px">—</td>
+          <td>截止14:33两市成交了18782亿元，有3406只个股上涨，大盘资金流出289亿元，量能比上一交易日减少117亿元！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:25</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:14 C:243 L:5796</td>
+          <td style="font-size:12px">—</td>
+          <td>这不是普通的瓜，对于男人来说是很励志的瓜：20年前遥不可及的女神，20年后会躺着怀里帮你修指甲。所以，努力吧！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Fri Aug 28 14:21</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:15 C:312 L:6509</td>
+          <td style="font-size:12px">—</td>
+          <td>以个人资产来衡量的话，他这笔钱大概相当于普通人的三千块钱。睡了自己的白月光，然后为了这笔钱撕13.......这事一般人不会这么做。</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="insight">
+      <h3>🧠 关键洞察 (LLM 提炼 + 原帖佐证)</h3>
+      <ol>
+        <li><b>14:55 周线复盘 + 下周展望 🟡 (10998 综合分 · 热帖 · 9037 赞)</b>「<b>按周线看大盘指数本周收小阳,指数介于 3850--3970 之间波动;深成指和创业板指数周线收阴,说明市场对于科技类股的风险预期还在,而主板则得益于银行,煤炭,保险,券商等权种力量的加持收红。整体看下周市场维持震荡整理的可能性比较大,可操作空间不大,依然是多看少动为主</b>」 — 博主 8/28 给出<b>下周关键位框架:区间下沿 3850 / 区间上沿 3970</b>。明确点出「<b>主板得益于银行,煤炭,保险,券商等权种力量的加持收红</b>」+「<b>深成指和创业板收阴,科技类股风险预期还在</b>」+「<b>可操作空间不大</b>」三组关键判断。博主 8/28 立场:区间震荡 + 偏防御 + 多看少动。</li>
+        <li><b>14:33 资金面速报 🔴 (4743 综合分 · 4503 赞)</b>「<b>截止 14:33 两市成交了 18782 亿元,有 3406 只个股上涨,大盘资金流出 289 亿元,量能比上一交易日减少 117 亿元!</b>」 — 8/28 资金面转弱信号:成交 18782 亿 + 资金流出 289 亿(对比 8/27 +623.88 亿反转) + 量能环比 -117 亿(从 8/27 +3191 亿到 -117 亿,资金动能快速衰减)。</li>
+        <li><b>14:37 大盘疲惫 🟡 (5981 综合分 · 5734 赞)</b>「<b>大盘指数连续反击了几天,显示出疲惫了。而且创业板指数偏软!</b>」 — 博主明确指出「<b>反击显疲惫</b>」+「<b>创业板偏软</b>」,与 14:55 周线复盘「深成指和创业板收阴」形成判断链,科创/成长板块警惕。</li>
+        <li><b>14:44 早盘提醒 🔴 (5941 综合分 · 5703 赞)</b>「<b>早上和大家分析了,短线不要追,小心被扎!</b>」 — 博主早盘即定调防御策略,8/28 全天贯彻「不追高」思路。</li>
+        <li><b>14:46 操作建议 🟡 (6574 综合分 · 6249 赞)</b>「<b>反弹的时候你的个股没有份,跌的时候有份,说明你的持股输于大盘。</b>」 — 博主提示「<b>持股弱于大盘</b>」,呼吁审视持仓结构,与 8/24 14:26「指数试 3855.35 后略有抵抗」一脉相承 — 8/28 收 3952.18 仍在区间下沿 3850 与上沿 3970 之间,但个股分化加大。</li>
+        <li><b>附加:娱乐+社会贴 5 条 ⚪</b>:18:36「景甜贴黑胶带的原因」+ 14:49「景甜给财务八万」+ 14:41「QQ 飞车景甜旧照」+ 14:25「励志瓜」+ 14:21「资产衡量贴」,均无投资相关信号。</li>
+      </ol>
+    </div>
+  </section>
+
+  
+  <section class="advice">
+    <h2>🎯 投资建议总结 (基于 8/28 博主新点名 + 中长期主线)</h2>
+    <div class="advice-grid">
+      <div class="advice-block">
+        <h3>3 大板块 (按 8/28 含金量排序 · 🆕 = 博主 8/28 新点名)</h3>
+        <ol>
+          <li><b>🆕🟢 银行 / 煤炭 / 保险 / 券商 (高股息防御板块)</b> — 8/28 14:55 博主周线复盘明确点名「主板得益于银行,煤炭,保险,券商等权种力量的加持收红」 · 8/28 上证 3952.18 在 3850-3970 区间内,防御属性突出</li>
+          <li><b>🟢 AI 算力 / CPO (中长期主线 · 业绩兑现延续)</b> — 中际旭创 8/22 业绩营收 417.78 亿+182% 净利 136.51 亿+242% + 8/14 19:30 英伟达 200G/lane CPO 量产 + 8/4 算力/PCB/CPO/光纤/交换机冲板共振</li>
+          <li><b>🟢 电子元器件 / 半导体 / MLCC (行业景气度上行)</b> — 8/27 博主转发风华高科半年报 +74% + 8/17 长鑫+12% + 闪迪美光 + 兆易创新/紫光国微业绩兑现</li>
+        </ol>
+      </div>
+      <div class="advice-block">
+        <h3>6 支个股 (🆕 = 8/28 博主新点名 · 🟢 = 长期主线)</h3>
+        <ol>
+          <li>🆕🟢 <b>工商银行 (601398)</b> — 8/28 博主新点名「银行」权重 · A股市值最大银行 · 高股息防御 · 8/28 收 7.86 (+0.90% 验证「银行加持收红」)</li>
+          <li>🆕🟢 <b>中国神华 (601088)</b> — 8/28 博主新点名「煤炭」权重 · 高股息 · 煤价稳定 · 现金奶牛 · 8/28 收 47.63</li>
+          <li>🆕🟢 <b>中信证券 (600030)</b> — 8/28 博主新点名「券商」权重 · 牛市风向标 · 龙头 · 8/28 收 27.93 (+0.18%)</li>
+          <li>🟢 <b>中际旭创 (300308)</b> — CPO 全球龙头 · 8/22 业绩营收 +182% 净利 +242% · 长期主线 · 8/28 收 858.35 (回调 -0.65% · 60D低 793.03 · 关注 793 附近支撑)</li>
+          <li>🟢 <b>风华高科 (000636)</b> — MLCC 龙头 · 8/27 19:52 博主转发半年报营收 35 亿+26% 净利 2.9 亿+74% · 8/28 收 55.45 (+0.82% 业绩兑现延续)</li>
+          <li>🟢 <b>兆易创新 (603986)</b> — 存储芯片龙头 · 8/17 博主提长鑫 +12% + 闪迪美光 · 8/28 收 396.82 (-2.49% 短期回调 · 60D低 337.10 关注支撑)</li>
+        </ol>
+      </div>
+    </div>
+    <div class="risk">
+      <h4>⚠️ 风险提示 (8/28 博主明确风控)</h4>
+      <ul>
+        <li><b>博主 8/28 14:55 周线复盘明确风控 (9037 赞 热帖)</b>:「<b>下周市场维持震荡整理的可能性比较大,可操作空间不大,依然是多看少动为主</b>」 — 8/28 博主立场定调区间震荡,操作上 <b>控制仓位,多看少动</b></li>
+        <li><b>博主 8/28 14:33 资金面转弱 (4503 赞)</b>:成交 18782 亿(从 8/27 21410 亿缩量 -2628 亿) + 资金流出 289 亿(对比 8/27 +623.88 亿反转) + 量能环比 -117 亿(从 +3191 亿到 -117 亿,资金动能快速衰减)</li>
+        <li><b>博主 8/28 14:44 早盘防御 (5703 赞)</b>:「<b>短线不要追,小心被扎</b>」 — 博主早盘即定调防御策略,8/28 全天贯彻不追高思路</li>
+        <li><b>博主 8/28 14:37 大盘疲惫 + 创业板偏软 (5734 赞)</b>:「<b>大盘指数连续反击了几天,显示出疲惫了。而且创业板指数偏软</b>」 — 8/28 创业板 -0.85% 验证博主判断,科技/成长板块警惕</li>
+        <li><b>关键位博弈 (博主 8/28 14:55 新框架)</b>:上证收 3952.18(在区间内),<b>区间下沿 3850 / 区间上沿 3970</b> · 跌破 3850 看 3767/3741 · 突破 3970 看 3994/3996 · 突破 3996 看 4256 大目标</li>
+        <li><b>第四大浪风控 (沿用 8/24 14:09 11106 赞)</b>:即使有第五大浪上涨,70-80% 个股不会有新高 → <b>选股必须聚焦博主点名的龙头</b>(银行/煤炭/券商权重 + 中际旭创/风华高科/兆易创新)</li>
+        <li><b>长期多头信仰未改 (沿用 8/24 14:17 10955 赞)</b>:博主 2026 年全年目标 <b>4256</b> 不变 · 大方向坚定 · 小节奏灵活(8/28 区间 3850-3970 博弈)· 中长期持有龙头(银行/煤炭/中际旭创)</li>
+        <li><b>8/28 个股分化</b>:博主 14:46「反弹时你的个股没份,跌时跟跌,说明持股弱于大盘」(6249 赞) → 审视持仓,弱于大盘的标的减仓或换股</li>
+      </ul>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>📌 3 大板块详细逻辑</h2>
+
+    <div class="sector">
+      <h3>#1 🆕 银行 / 煤炭 / 保险 / 券商 (高股息防御板块) — 博主 8/28 14:55 周线复盘明确点名</h3>
+      <p class="anchor"><b>核心标的:</b> 工商银行 (601398) / 中国神华 (601088) / 中信证券 (600030)</p>
+      <p>博主 8/28 14:55 周线复盘明确点名:<b>「主板则得益于银行,煤炭,保险,券商等权种力量的加持收红」</b> — 8/28 博主新点名权重板块,显示对<b>主板权重防御属性</b>的高度认可。<b>逻辑</b>:① 8/28 上证 3952.18(+0.05%)在 3850-3970 区间内<b>窄幅震荡</b>,需要权重护盘 ② 8/28 资金面转弱(成交缩量 -2628 亿,资金流出 289 亿),<b>防御板块</b>(高股息/低波动)成为资金避风港 ③ 8/24 14:09 博主「<b>第四大浪调整之后,即使有第五大浪上涨,70%-80% 的股票不会有新高</b>」(11106 赞) → 选股聚焦权重龙头 ④ 工商银行 8/28 收 7.86 (+0.90%) 验证「银行加持收红」⑤ 中国神华高股息 5%+ 煤价稳定,中信证券牛市风向标。<b>8/28 投资策略</b>:区间震荡 + 防御为主,权重龙头是 8/28-下周最优配置。</p>
+      <div class="evi">📎 博主证据:8/28 14:55 (9037 赞 热帖)「主板得益于银行,煤炭,保险,券商等权种力量的加持收红」+ 8/24 14:09 (11106 赞)「70-80% 个股不会有新高」+ 8/28 14:55「可操作空间不大,多看少动」</div>
+    </div>
+
+    <div class="sector">
+      <h3>#2 AI 算力 / CPO (中长期主线 · 业绩兑现延续) — 8/22 中际旭创 业绩 +241%</h3>
+      <p class="anchor"><b>核心标的:</b> 中际旭创 (300308)</p>
+      <p>博主 8/22 22:21 主动转发中际旭创 2026 年中报:「<b>2026 年上半年实现营业收入 417.78 亿元,同比增长 182.16%;归属于上市公司股东的净利润 136.51 亿元,同比增长 241.85%;向全体股东每 10 股派发现金红利 12 元(含税)</b>」 — 8/22 业绩兑现 + 8/14 19:30 博主转发英伟达 200G/lane CPO 以太网交换机量产(产业级催化) + 8/4 算力/PCB/CPO/光纤/创新药/交换机/电容/覆铜板 冲板共振 主力自救主线延续。<b>逻辑</b>:① CPO (共封装光学) 是 AI 数据中心网络升级必经之路,英伟达 Spectrum-6 ASIC 102.4Tb/s 量产开启兆瓦级 AI 工厂时代 ② 中际旭创作为 800G/1.6T 光模块全球龙头直接受益 ③ 8/28 中际旭创收 858.35(-0.65%) 处于 60D低 793.03 与 60D高 1416.88 之间<b>回调阶段</b>,8/28 大盘防御格局下 <b>等回调到位</b>(60D低 793 附近支撑确认)再加仓 ④ 博主 8/28 14:44 提醒「<b>短线不要追</b>」 → AI 算力主线 <b>等回调不追高</b>。</p>
+      <div class="evi">📎 博主证据:8/22 22:21 中际旭创业绩营收 417.78 亿+182% 净利 136.51 亿+242% + 8/14 19:30 英伟达 200G/lane CPO 量产 + 8/4 算力 PCB 冲板共振</div>
+    </div>
+
+    <div class="sector">
+      <h3>#3 电子元器件 / 半导体 / MLCC (行业景气度上行) — 8/27 风华高科 +74% 业绩兑现</h3>
+      <p class="anchor"><b>核心标的:</b> 风华高科 (000636) / 兆易创新 (603986)</p>
+      <p>博主 8/27 19:52 主动转发风华高科半年报:「<b>公司上半年实现营业收入 35 亿元,同比增长 26.28%;归属于上市公司股东的净利润 2.9 亿元,同比增长 74.01%</b>」 — 1593 赞。博主 8/17 17:01 提及「<b>长鑫今天收在 61.80 元,涨幅 12.00%</b>」+ 8/17 20:20「<b>闪迪、美光……盘前涨 4% 左右</b>」。<b>逻辑</b>:① 电子元器件行业景气度上行(风华高科半年报公告原文)② MLCC/电阻等被动元件价格周期反转 ③ 存储芯片价格周期反转(DRAM/NAND 2026Q2-Q3 持续上涨) ④ 国产替代主线(长鑫/长存技术突破)⑤ 风华高科 8/28 收 55.45 (+0.82% 业绩兑现延续)⑥ 兆易创新 8/28 收 396.82 (-2.49% 短期回调 · 关注 60D低 337.10 支撑)⑦ 博主 8/28 14:37「<b>创业板偏软</b>」→ <b>科技/成长板块警惕,等回调到位</b>。</p>
+      <div class="evi">📎 博主证据:8/27 19:52 (1593 赞) 风华高科半年报 +74% + 8/17 17:01 长鑫+12% + 8/17 20:20 闪迪美光 + 8/14 算力 PCB 板块宽度最大</div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>🌐 大盘 K 线图 (博主关键位居左虚线)</h2>
+    <div class="cards">
+      
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 上证指数 <span class="code">000001.SH</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">3952.18</b> <span class="pct" style="color:#ef232a">▲ +0.05%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_000001_SH_上证指数.png" alt="上证指数 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3741</td><td style='text-align:right'><b>支撑A 3741</b></td></tr><tr><td>3767</td><td style='text-align:right'><b>支撑B 3767</b></td></tr><tr><td>3850</td><td style='text-align:right'><b>区间下沿 3850</b></td></tr><tr><td>3900</td><td style='text-align:right'><b>中位 3900</b></td></tr><tr><td>3956</td><td style='text-align:right'><b>8/27 收</b></td></tr><tr><td>3970</td><td style='text-align:right'><b>区间上沿 3970</b></td></tr><tr><td>3994</td><td style='text-align:right'><b>前高 3994</b></td></tr><tr><td>3996</td><td style='text-align:right'><b>阻力 3996</b></td></tr><tr><td>4256</td><td style='text-align:right'><b>年大目标</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 8/28 关键位 (14:55 周线复盘 9037 赞):</b> 区间下沿 <b>3850</b> → 收盘 <b>3952</b> → 区间上沿 <b>3970</b>;支撑 <b>3767 / 3741</b>;小波段前高 <b>3994</b>;原预阻力 <b>3996</b>;年大目标 <b>4256</b></p>
+          <p><b>8/28 信号:</b> 大盘区间震荡 3850-3970 内(博主 14:55),资金流出 289 亿(博主 14:33 资金面转弱),下周关注区间取向:站上 3970 看 3994-3996,跌破 3850 看 3767/3741</p>
+        </div>
+      </div>
+    </div>
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 创业板指 <span class="code">399006.SZ</span></h3>
+        <div class="price">现价 <b style="color:#14b143">3424.4</b> <span class="pct" style="color:#14b143">▼ -0.85%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_399006_SZ_创业板指.png" alt="创业板指 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3158</td><td style='text-align:right'><b>A杀低 3158</b></td></tr><tr><td>3280</td><td style='text-align:right'><b>B反起 3280</b></td></tr><tr><td>3414</td><td style='text-align:right'><b>近支撑 3414</b></td></tr><tr><td>3473</td><td style='text-align:right'><b>8/27 收</b></td></tr><tr><td>3545</td><td style='text-align:right'><b>近期 3545</b></td></tr><tr><td>3626</td><td style='text-align:right'><b>8/16 收</b></td></tr><tr><td>3756</td><td style='text-align:right'><b>目标 3756</b></td></tr><tr><td>3806</td><td style='text-align:right'><b>拓展 3806</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 8/28 关键位 (14:55 周线复盘 9037 赞):</b> 区间下沿 <b>3850</b> → 收盘 <b>3952</b> → 区间上沿 <b>3970</b>;支撑 <b>3767 / 3741</b>;小波段前高 <b>3994</b>;原预阻力 <b>3996</b>;年大目标 <b>4256</b></p>
+          <p><b>8/28 信号:</b> 大盘区间震荡 3850-3970 内(博主 14:55),资金流出 289 亿(博主 14:33 资金面转弱),下周关注区间取向:站上 3970 看 3994-3996,跌破 3850 看 3767/3741</p>
+        </div>
+      </div>
+    </div>
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 沪深300 <span class="code">000300.SH</span></h3>
+        <div class="price">现价 <b style="color:#14b143">4609.18</b> <span class="pct" style="color:#14b143">▼ -0.14%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_000300_SH_沪深300.png" alt="沪深300 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3700</td><td style='text-align:right'><b>支撑 3700</b></td></tr><tr><td>3850</td><td style='text-align:right'><b>阶段低</b></td></tr><tr><td>4000</td><td style='text-align:right'><b>中位</b></td></tr><tr><td>4150</td><td style='text-align:right'><b>近高</b></td></tr><tr><td>4250</td><td style='text-align:right'><b>阻力 4250</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 8/28 关键位 (14:55 周线复盘 9037 赞):</b> 区间下沿 <b>3850</b> → 收盘 <b>3952</b> → 区间上沿 <b>3970</b>;支撑 <b>3767 / 3741</b>;小波段前高 <b>3994</b>;原预阻力 <b>3996</b>;年大目标 <b>4256</b></p>
+          <p><b>8/28 信号:</b> 大盘区间震荡 3850-3970 内(博主 14:55),资金流出 289 亿(博主 14:33 资金面转弱),下周关注区间取向:站上 3970 看 3994-3996,跌破 3850 看 3767/3741</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>📊 6 只个股 K 线图 (关键位居左虚线标注)</h2>
+    
+    <div class="sector">
+      <h3>🆕 银行 / 煤炭 / 券商 (8/28 博主新点名 主板权重)</h3>
+      <p><b>博主看点:</b> 银行 / 煤炭 / 券商 (8/28 博主新点名 主板权重) · 8/28 防御 + 长期主线</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>工商银行 (601398) <span class="code">601398.SH</span> <span class="src-badge">🆕🟢 8/28 博主新点名「银行」权重 高股息防御</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">7.86</b> <span class="pct" style="color:#ef232a">▲ +0.90%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_601398_SH_工商银行.png" alt="工商银行 (601398) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>8.16</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>6.95</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>8.16</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>6.95</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>7.86</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 银行 / 煤炭 / 券商 (8/28 博主新点名 主板权重)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">区间震荡 · 8/28 偏防御</span></p>
+          <p><b>看点:</b> 8/28 博主新点名「银行」权重 · A股最大市值银行 · 高股息防御</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>中国神华 (601088) <span class="code">601088.SH</span> <span class="src-badge">🆕🟢 8/28 博主新点名「煤炭」权重 高股息 现金奶牛</span></h3>
+        <div class="price">现价 <b style="color:#14b143">47.63</b> <span class="pct" style="color:#14b143">▼ -0.36%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_601088_SH_中国神华.png" alt="中国神华 (601088) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>51.18</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>38.73</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>51.18</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>38.73</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>47.63</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 银行 / 煤炭 / 券商 (8/28 博主新点名 主板权重)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">区间震荡 · 8/28 偏防御</span></p>
+          <p><b>看点:</b> 8/28 博主新点名「煤炭」权重 · 高股息 · 煤价稳定 · 现金奶牛</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>中信证券 (600030) <span class="code">600030.SH</span> <span class="src-badge">🆕🟢 8/28 博主新点名「券商」权重 牛市风向标</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">27.93</b> <span class="pct" style="color:#ef232a">▲ +0.18%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_600030_SH_中信证券.png" alt="中信证券 (600030) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>29.88</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>24.95</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>29.88</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>23.77</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>27.93</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 银行 / 煤炭 / 券商 (8/28 博主新点名 主板权重)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">区间震荡 · 8/28 偏防御</span></p>
+          <p><b>看点:</b> 8/28 博主新点名「券商」权重 · 牛市风向标 · 龙头</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="sector">
+      <h3>🟢 AI 算力 / CPO (中长期主线 · 业绩兑现延续)</h3>
+      <p><b>博主看点:</b> AI 算力 / CPO (中长期主线 · 业绩兑现延续) · 8/28 防御 + 长期主线</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>中际旭创 (300308) <span class="code">300308.SZ</span> <span class="src-badge">🟢 长期主线 CPO 全球龙头 8/22 业绩 +241%</span></h3>
+        <div class="price">现价 <b style="color:#14b143">858.35</b> <span class="pct" style="color:#14b143">▼ -0.65%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_300308_SZ_中际旭创.png" alt="中际旭创 (300308) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>793.03</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>506.0</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>858.35</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> AI 算力 / CPO (中长期主线 · 业绩兑现延续)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">区间震荡 · 8/28 偏防御</span></p>
+          <p><b>看点:</b> CPO 全球龙头 · 8/22 业绩 营收 417.78 亿+182% 净利 136.51 亿+242% · 长期主线</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="sector">
+      <h3>🟢 电子元器件 / 半导体 / MLCC (行业景气度上行)</h3>
+      <p><b>博主看点:</b> 电子元器件 / 半导体 / MLCC (行业景气度上行) · 8/28 防御 + 长期主线</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>风华高科 (000636) <span class="code">000636.SZ</span> <span class="src-badge">🟢 8/27 博主转发 半年报 +74% 业绩兑现</span></h3>
+        <div class="price">现价 <b style="color:#ef232a">55.45</b> <span class="pct" style="color:#ef232a">▲ +0.82%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_000636_SZ_风华高科.png" alt="风华高科 (000636) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>84.0</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>37.69</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>84.0</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>18.41</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>55.45</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 电子元器件 / 半导体 / MLCC (行业景气度上行)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">区间震荡 · 8/28 偏防御</span></p>
+          <p><b>看点:</b> 8/27 19:52 博主转发 半年报营收 35 亿+26% 净利 2.9 亿+74% · MLCC 龙头</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>兆易创新 (603986) <span class="code">603986.SH</span> <span class="src-badge">🟢 8/17 博主提长鑫+12% + 闪迪美光 存储龙头</span></h3>
+        <div class="price">现价 <b style="color:#14b143">396.82</b> <span class="pct" style="color:#14b143">▼ -2.49%</span> <span class="date">(2026-08-28 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260828_603986_SH_兆易创新.png" alt="兆易创新 (603986) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>846.66</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>337.1</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>846.66</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>236.86</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>396.82</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 电子元器件 / 半导体 / MLCC (行业景气度上行)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">区间震荡 · 8/28 偏防御</span></p>
+          <p><b>看点:</b> 存储芯片龙头 · 8/17 博主提长鑫 +12% + 闪迪美光 · 业绩兑现</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>🧭 综合投资结论 (下周一 8/31 操作前瞻)</h2>
+    <div class="verdict">
+      <h3>下周策略 <span style="background:#ff9800;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">🟡 区间震荡 · 偏防御 · 多看少动</span></h3>
+      <p>博主 8/28 核心立场综合:</p>
+      <ol>
+        <li><strong>大盘</strong>:8/28 收 <b>3952.18 (+0.05%)</b>,博主周线复盘明确「<b>指数介于 3850--3970 之间波动</b>」,资金面转弱(成交 18782 亿 -2628 亿,资金流出 289 亿)。<b>关键位</b>(8/28 新框架):区间下沿 <b>3850</b>,收盘 <b>3952</b>,区间上沿 <b>3970</b>;支撑 <b>3767 / 3741</b>;小波段前高 <b>3994</b>;原预阻力 <b>3996</b>;年大目标 <b>4256</b>。下周一 8/31 关注<b>区间取向</b>:站上 3970 看 3994-3996,跌破 3850 看 3767/3741。</li>
+        <li><strong>博主 8/28 14:55 周线复盘 (9037 赞 热帖)</strong>「<b>按周线看大盘指数本周收小阳,指数介于 3850--3970 之间波动;深成指和创业板指数周线收阴,说明市场对于科技类股的风险预期还在,而主板则得益于银行,煤炭,保险,券商等权种力量的加持收红。整体看下周市场维持震荡整理的可能性比较大,可操作空间不大,依然是多看少动为主</b>」 — 博主 8/28 给出<b>下周关键判断</b>:① 区间震荡(3850-3970)② 主板权重(银行/煤炭/保险/券商)撑红 ③ 创业板/科技股风险预期还在 ④ 可操作空间不大 ⑤ 多看少动。</li>
+        <li><strong>新主线 #1: 银行/煤炭/保险/券商 (8/28 14:55 博主新点名) 🆕🟢</strong>:博主 8/28 明确点名「<b>主板得益于银行,煤炭,保险,券商等权种力量的加持收红</b>」 — 防御板块成为 8/28-下周最优配置。<b>核心标的</b>:工商银行(601398, 8/28 收 7.86 +0.90% 验证「银行加持收红」)/ 中国神华(601088, 8/28 收 47.63 高股息煤炭)/ 中信证券(600030, 8/28 收 27.93 牛市风向标)。</li>
+        <li><strong>延续主线 #2: AI 算力/CPO (中长期主线 · 等回调)</strong>:中际旭创 8/22 业绩营收 417.78 亿+182% 净利 136.51 亿+242% + 8/14 19:30 博主转发英伟达 200G/lane CPO 量产。<b>核心标的</b>:中际旭创(300308, 8/28 收 858.35 -0.65% 回调中, 60D低 793.03 关注支撑)。博主 8/28 14:44「<b>短线不要追,小心被扎</b>」 → 等回调到位再加仓。</li>
+        <li><strong>延续主线 #3: 电子元器件/半导体/MLCC (行业景气度上行)</strong>:8/27 博主转发风华高科半年报 +74% + 8/17 博主提长鑫+12% + 闪迪美光。<b>核心标的</b>:风华高科(000636, 8/28 收 55.45 +0.82% 业绩兑现延续)/ 兆易创新(603986, 8/28 收 396.82 -2.49% 短期回调 · 关注 60D低 337.10 支撑)。博主 8/28 14:37「<b>创业板偏软</b>」 → 科技/成长板块警惕。</li>
+        <li><strong>资金面转弱 (8/27 → 8/28 对比)</strong>:8/27 资金净流入 623.88 亿(放量反弹 3394 只涨)→ 8/28 资金流出 <b>289 亿</b>(缩量震荡 3406 只涨),情绪从乐观转中性偏防御。成交从 21410 亿 → 18782 亿(环比-2628 亿),量能快速萎缩。<b>策略</b>:资金动能衰减 + 博主「多看少动」 → 仓位降低至 5 成以下,聚焦博主点名的权重防御板块(银行/煤炭/券商) + 长期主线龙头(中际旭创/风华高科/兆易创新 等回调到位再加)。</li>
+        <li><strong>结构性分化 (8/28 14:46 6249 赞)</strong>:博主「<b>反弹时你的个股没份,跌时跟跌,说明持股弱于大盘</b>」 — 8/28 收 3952.18 看似稳定但 3406 涨/约 5400 总数意味着 2000 只股票下跌,个股分化加大。<b>策略</b>:审视持仓,弱于大盘的标的减仓或换股,聚焦博主点名的 3 大板块 6 个股。</li>
+      </ol>
+      <p style="margin-top:12px;font-size:13px;color:#6e6e73">📌 <strong>博主风控姿态</strong>:8/28 博主给出<b>周线复盘 (14:55 9037 赞) + 资金面 (14:33 4503 赞) + 大盘判断 (14:37 5734 赞) + 早盘防御 (14:44 5703 赞)</b> 4 类信号。这是缠论大师的典型防御操作:大方向坚定(4256),小节奏灵活(8/28 区间 3850-3970 转向「多看少动」),板块敏锐(主板权重 > 创业板/科技)。跟单策略上:<b>大方向跟他(4256 多头),小节奏跟他(8/28 区间 3850-3970 + 「多看少动」),板块跟他(银行/煤炭/券商 权重 + AI 算力/电子元器件 长期主线)</b>。</p>
+      <p style="margin-top:8px;font-size:13px;color:#b91c1c">⚠️ <strong>跟单提示</strong>:博主 6/8 披露「已撤离本金+去年盈利一半,预计今年不再调回」 — 自身偏防御,不动用大资金博 4256。8/28 14:55「<b>可操作空间不大,依然是多看少动为主</b>」 — 博主明确 8/28-下周操作思路为<b>多看少动</b>。跟单用户应以他给的<b>关键位 + 板块方向</b>为准,不要机械复制其仓位。第四大浪提示 70-80% 个股不会新高 → <b>仓位集中到博主点名的权重(银行/煤炭/券商) + 龙头(中际旭创/风华高科/兆易创新 等回调到位再加),不要分散</b>。大盘关键位 3850 失守需警惕进一步下行至 3767/3741。</p>
+    </div>
+  </section>
+
+  <footer>📊 数据源: 新浪微博 (wu2198/1216826604) · tushare (pro.daily / pro.index_daily) · 报告生成时间: 2026-08-28 21:00 · 仅作研究参考, 不构成投资建议</footer>
+</div>
+</body>
+</html>
