@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>wu2198 投资观点日报 · 2026-08-30（周日）</title>
+<style>
+:root {
+    --primary: #1e3a5f;
+    --accent: #c1272d;
+    --text: #222;
+    --text-muted: #666;
+    --border: #e1e4e8;
+    --bg-soft: #f7f8fa;
+    --bg-code: #f6f8fa;
+    --up: #e63946;
+    --down: #2a9d8f;
+    --warning: #f4a261;
+    --bull: #06a77d;
+    --bear: #d62828;
+}
+* { box-sizing: border-box; }
+body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+}
+header {
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+}
+h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+    color: var(--primary);
+}
+.subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+.tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-right: 6px;
+}
+h2 {
+    font-size: 22px;
+    color: var(--primary);
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+    margin: 36px 0 16px;
+}
+h3 {
+    font-size: 18px;
+    color: var(--primary);
+    margin: 24px 0 12px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+}
+h4 {
+    font-size: 15px;
+    color: var(--primary);
+    margin: 18px 0 8px;
+}
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 12px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.card.bull { border-left: 4px solid var(--bull); }
+.card.bear { border-left: 4px solid var(--bear); }
+.card.neutral { border-left: 4px solid var(--warning); }
+.callout {
+    background: #fff8e1;
+    border: 1px solid #f1c40f;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 16px 0;
+}
+.callout strong { color: #c1272d; }
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0 24px;
+}
+.metric {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+}
+.metric .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.metric .value {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 4px 0 0;
+}
+.metric .delta { font-size: 12px; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+}
+th, td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+th {
+    background: var(--bg-soft);
+    color: var(--primary);
+    font-weight: 600;
+}
+tr:nth-child(even) { background: #fafbfc; }
+.chart {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin: 12px 0;
+    background: #fff;
+}
+.signal-up { color: var(--bull); font-weight: 600; }
+.signal-down { color: var(--bear); font-weight: 600; }
+.signal-neutral { color: var(--text-muted); }
+ul.tight { margin: 6px 0; padding-left: 22px; }
+ul.tight li { margin: 2px 0; }
+.note { color: var(--text-muted); font-size: 13px; }
+footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    text-align: center;
+}
+.pill {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 4px;
+}
+.pill.bull { background: #d8f3dc; color: #1b4332; }
+.pill.bear { background: #ffd6d6; color: #6a040f; }
+.pill.neutral { background: #e9ecef; color: #495057; }
+.pill.hot { background: #fde2e4; color: #c1121f; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>wu2198 投资观点日报</h1>
+    <div class="subtitle">
+        <span class="tag">报告日期：2026-08-30（周日）</span>
+        <span class="tag">最近交易日：2026-08-28（周五）</span>
+        <span class="tag">数据源：新浪微博 · tushare</span>
+    </div>
+</header>
+
+<!-- 执行摘要 -->
+<section>
+    <h2>📌 执行摘要</h2>
+    <div class="summary-grid">
+        <div class="metric">
+            <div class="label">大盘判断</div>
+            <div class="value" style="font-size:18px;">震荡分化</div>
+            <div class="delta signal-neutral">多看少动</div>
+        </div>
+        <div class="metric">
+            <div class="label">上证 8/28 收盘</div>
+            <div class="value">3952.18</div>
+            <div class="delta signal-down">科技兑现 / 农业化工接力</div>
+        </div>
+        <div class="metric">
+            <div class="label">关键支持</div>
+            <div class="value" style="font-size:18px;">3856 / 3850</div>
+            <div class="delta signal-neutral">下破看 3800 / 3767 / 3741</div>
+        </div>
+        <div class="metric">
+            <div class="label">关键阻力</div>
+            <div class="value" style="font-size:18px;">3994 / 3996</div>
+            <div class="delta signal-neutral">突破看 4256 目标</div>
+        </div>
+    </div>
+
+    <div class="card bull">
+        <h4 style="margin-top:0;">✅ 核心建议</h4>
+        <ul class="tight">
+            <li>博主最近一个完整交易日（8/28 周五）原话：<strong>"多看少动"</strong>，可操作空间不大，<strong>5-6 成仓位</strong>为宜。</li>
+            <li>关键支持 <strong>3856</strong> 是后续多空分水岭，不破则震荡向上测试 3994-3996；破则走 C 浪下探 <strong>3767 / 3741</strong> 趋势线。</li>
+            <li>8/28 实际盘面：<strong>科技硬件兑现（半导体/CPO 集体回调），资金切换到农业 / 化工 / 黄金 / AI 应用</strong>。这是一个非常明确的"高低切换"信号。</li>
+            <li>本报告重点配置 <strong>黄金 / 电池锂电 / 智能制造</strong> 三个方向，半年报业绩催化持续 + 防御 + 成长兼具。</li>
+        </ul>
+    </div>
+
+    <div class="card bear">
+        <h4 style="margin-top:0;">⚠️ 风险提示</h4>
+        <ul class="tight">
+            <li>第四大浪调整后即使有第五大浪上涨，<strong>70%-80% 的股票不会有新高</strong>，个股选择比仓位更重要（wu2198 8/24 原话）。</li>
+            <li>8/28 博主原话：<em>"反弹的时候你的个股没有份，跌的时候有份，说明你的持股输于大盘"</em> —— <strong>结构选择 > 仓位选择</strong>。</li>
+            <li>8/31 是上市公司中报披露的<strong>最后截止日</strong>，防范最后几日业绩暴雷，<strong>结构分化会进一步加大</strong>。</li>
+            <li>伦敦金 8/29 大跌 2.95% 至 4453 美元，<strong>避险情绪退潮</strong>，注意黄金股短期回调风险。</li>
+        </ul>
+    </div>
+</section>
+
+<!-- wu2198 核心观点 -->
+<section>
+    <h2>🗞️ wu2198 核心观点（近 7 日）</h2>
+    <p class="note">注：wu2198 在周末（8/29-8/30）仅发问候/热点转发，无 A 股投资观点；以下为最近一个交易周（8/24-8/28）的核心信号。</p>
+
+    <h3>1. 大盘判断（8/24-8/28 五个交易日）</h3>
+    <div class="card">
+        <h4>8/24（周一）— C 浪下探启动</h4>
+        <ul class="tight">
+            <li>大盘从 3994 → 3855.35（试 3855.35 点），收 3882 点；<strong>3856 关键支持守住</strong>。</li>
+            <li>"按短线看，今天只有<strong>电池材料</strong>板块资金活动是明显的。"</li>
+            <li>明确第四大浪 C 浪调整 <strong>分梯级下探</strong>（C1-C5），类似第二大浪调整步伐。</li>
+            <li>原话：<em>"第四大浪调整之后，即使有第五大浪上涨，起码有 70%-80% 的股票不会有新高了"</em>。</li>
+            <li>原话：<em>"C 一般是分梯级下探的（即 C1--C5）类似第二大浪调整的步伐"</em>。</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>8/25（周二）— 短线洗盘</h4>
+        <ul class="tight">
+            <li>小波段从 3994 跌到 3850 后抵抗，多空力量依然争夺 <strong>3856</strong> 点。</li>
+            <li>明确 <strong>3856-3926-3956 震荡区间</strong>，"可操作空间暂时不大"。</li>
+            <li>提到 <strong>创新药、生物制品、化学制药、中药</strong>等医药类股局部走强；<strong>粮食股最近出现走强</strong>。</li>
+            <li>全天多空小幅度折腾，无明确方向。</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>8/27（周三）— 关键技术修正</h4>
+        <ul class="tight">
+            <li>如期技术修正到 3956 点；B 反过程中的反复震荡持续。</li>
+            <li>关键位：<strong>3741 / 3767 趋势线支撑</strong>（未破），前高 3994 / 阻力 3996。</li>
+            <li>科技主线强势回归：<strong>存储芯片、CPO、覆铜板、光芯片、HBM</strong> 全线爆发（>5%）。</li>
+            <li>通信、有色金属同步走强；<strong>银行逆势下跌</strong>——资金从防御向进攻切换。</li>
+            <li>农林牧渔延续活跃，<strong>种业、粮食概念</strong>再度领涨（金健米业等持续走强）。</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>8/28（周五）— 高低切换 + 农业化工接力</h4>
+        <ul class="tight">
+            <li>本周收小阳，<strong>3850-3970 区间波动</strong>。</li>
+            <li>沪指收 3952.18 跌 0.11%，深成指 / 创业板 / 科创 50 同步收跌，科创 50 领跌。</li>
+            <li><strong>科技硬件集体兑现</strong>：半导体、电子化学品、CPO 跌幅居前（高开低走 + 利好兑现）。</li>
+            <li><strong>农业/种业/粮食（万向德农 9 天 6 板）+ 化工/化肥/PTFE + 黄金/饰品 + AI 应用/网络安全</strong>四大方向接力。</li>
+            <li>原话：<em>"反弹的时候你的个股没有份，跌的时候有份，说明你的持股输于大盘"</em>。</li>
+            <li>博主原话：<em>"多看少动为主"</em>，下周震荡整理可能性大。</li>
+        </ul>
+    </div>
+    <div class="card neutral">
+        <h4>8/29-8/30（周末）<span class="pill neutral">休息日</span></h4>
+        <ul class="tight">
+            <li>无 A 股投资观点；wu2198 周末仅发早安问候 + 热点转发（樊振东、孙宇晨、华为新三折叠、巴菲特等）。</li>
+            <li>外盘速报：<strong>伦敦金 8/29 大跌 2.95% 至 4453 美元</strong>（避险情绪退潮）；美股 8/28 道指 -9.45、纳指 -138.9、标普 -19.23（小幅下跌）。</li>
+        </ul>
+    </div>
+</section>
+
+<!-- 大盘 K 线 -->
+<section>
+    <h2>📈 大盘 K 线（上证指数）</h2>
+    <p class="note">关键位虚线标注，标签居左；下方依次为成交量、MACD 指标。数据来源：tushare (2026-02-01 ~ 2026-08-30)。</p>
+    <img class="chart" src="charts/20260830_000001_SH_上证指数.png" alt="上证指数 K 线图">
+
+    <h3>创业板指</h3>
+    <img class="chart" src="charts/20260830_399006_SZ_创业板指.png" alt="创业板指 K 线图">
+
+    <h3>科创 50 <span class="note">（wu2198 8/24 关键位：M 头→1900→1549→1274）</span></h3>
+    <img class="chart" src="charts/20260830_000688_SH_科创50.png" alt="科创 50 K 线图">
+</section>
+
+<!-- 最值得投资 3 板块 -->
+<section>
+    <h2>🎯 最值得投资的 3 个板块</h2>
+
+    <div class="card bull">
+        <h3 style="margin-top:0;">① 黄金 / 贵金属 <span class="pill hot">避险 + 业绩双驱动</span></h3>
+        <p><strong>代表事件：</strong>8/24 西部黄金（601069.SH）半年报：营收 110.43 亿元（<strong>+119.62%</strong>），净利润 5.47 亿元（<strong>+315.67%</strong>）；wu2198 8/24 转发并点评。</p>
+        <p><strong>投资逻辑：</strong></p>
+        <ul class="tight">
+            <li>现货黄金 8/29 触及 4540 美元/盎司历史新高；<strong>地缘风险 + 美元信用走弱</strong> 支撑贵金属中枢持续抬升。</li>
+            <li>法国外贸银行将年底金价预测从 4600 上调至 <strong>5000 美元/盎司</strong>。</li>
+            <li>wu2198 8/27 关注 <strong>黄金股</strong>；8/28 深中华 A 7 连板、莱绅通灵 2 连板印证板块赚钱效应。</li>
+            <li>风险：8/29 伦敦金大跌 2.95% 至 4453 美元，<strong>短线有技术性回调需求</strong>，关注 28.5 / 24.0 西部黄金关键位。</li>
+        </ul>
+        <p><strong>关注：</strong>西部黄金（601069）、湖南黄金、莱绅通灵；金 ETF 工具更稳。</p>
+    </div>
+
+    <div class="card bull">
+        <h3 style="margin-top:0;">② 电池 / 锂电 <span class="pill hot">wu2198 8/24 亲点</span></h3>
+        <p><strong>代表事件：</strong>8/24 博主原话：<em>"按短线看，今天只有<strong>电池材料</strong>板块资金活动是明显的。"</em> 8/24 电池材料和锂矿有 4 只冲板（"有只连拉 2 个板，也有 20 厘米的"）。</p>
+        <p><strong>投资逻辑：</strong></p>
+        <ul class="tight">
+            <li>碳酸锂期货 B 浪反弹：8/24 报 162320 元（试 136800/137220 后小幅度反弹），<strong>破 120000 止损</strong>。</li>
+            <li>半年报业绩兑现：<strong>天赐材料 8/20 半年报营收 147.10 亿（+109.28%），净利 28.61 亿（+967.91%）</strong>；<strong>德福科技</strong> 半年报营收 91.97 亿（+73.54%），净利 2.63 亿（+580.66%）。</li>
+            <li>板块 5/6 左右已展开 ABC 结构调整，调整时间和幅度都比较大，<strong>提前于大盘</strong>，具备反弹空间。</li>
+        </ul>
+        <p><strong>关注：</strong>天赐材料（002709）、亿纬锂能（300014）、德福科技（铜箔）；锂电 ETF 工具覆盖度更佳。</p>
+    </div>
+
+    <div class="card bull">
+        <h3 style="margin-top:0;">③ 智能制造（扫地机器人 / 全景相机）<span class="pill hot">wu2198 8/25 亲点</span></h3>
+        <p><strong>代表事件：</strong>8/25 <strong>扫地机器人龙头</strong>封 20cm 板（石头科技 688169.SH），<strong>全景相机龙头</strong>、投影仪龙头同步上涨。</p>
+        <p><strong>投资逻辑：</strong></p>
+        <ul class="tight">
+            <li>消费电子复苏 + AI 影像主题持续，海外市场（北美/欧洲）渗透率提升。</li>
+            <li>石头科技、影石创新在各自赛道<strong>全球份额持续提升</strong>，半年报预期向好。</li>
+            <li>技术面：MACD 底部金叉，量能配合；股价脱离调整平台。</li>
+        </ul>
+        <p><strong>关注：</strong>石头科技（688169）、影石创新（688775）、科沃斯（603486）。</p>
+    </div>
+
+    <div class="callout">
+        <strong>备选板块：</strong>
+        <ul class="tight">
+            <li><strong>PCB / AI 硬件</strong>（东山精密 002384.SZ 半年报营收 277.98 亿，+63.95%）：8/28 兑现式回调后仍是主线方向。</li>
+            <li><strong>创新药</strong>（药明康德、信达生物）：8/25 化学制药 / 生物制品局部走强，半年报催化 + 创新药出海逻辑兑现。</li>
+            <li><strong>主板护盘权重</strong>（银行 / 煤炭 / 保险 / 券商）：8/28 博主原话"主板则得益于银行、煤炭、保险、券商等权种力量的加持收红"，β 防御首选。</li>
+        </ul>
+    </div>
+</section>
+
+<!-- 6 支个股分析 -->
+<section>
+    <h2>🏢 6 支个股深度分析</h2>
+
+    <div class="card">
+        <h3 style="margin-top:0;">西部黄金（601069.SH）<span class="pill bull">黄金 / 避险</span></h3>
+        <p><strong>催化：</strong>8/24 半年报：营收 110.43 亿（<strong>+119.62%</strong>），净利 5.47 亿（<strong>+315.67%</strong>）；拟每 10 股派现 0.5 元（含税）</p>
+        <p><strong>关键位：</strong>
+        <span class="tag" style="margin-right:8px;">压力 <strong>35.0</strong></span><span class="tag" style="margin-right:8px;">强压力 <strong>40.0</strong></span><span class="tag" style="margin-right:8px;">支持 <strong>28.5</strong></span><span class="tag" style="margin-right:8px;">强支持 <strong>24.0</strong></span>
+        </p>
+        <p><strong>技术面：</strong>MACD 零上金叉，<strong>底部反转形态确立</strong>；8/29 伦敦金 -2.95% 是短期回调风险点，关注 28.5 关键支持。</p>
+        <img class="chart" src="charts/20260830_601069_SH_西部黄金.png" alt="西部黄金 K 线图">
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">中际旭创（300308.SZ）<span class="pill bull">AI 光模块龙头</span></h3>
+        <p><strong>催化：</strong>8/21 半年报：营收 417.78 亿（<strong>+182.49%</strong>），净利 136.51 亿（<strong>+241.7%</strong>）；拟每 10 股派现 12 元（含税）</p>
+        <p><strong>关键位：</strong>
+        <span class="tag" style="margin-right:8px;">历史高 <strong>1500</strong></span><span class="tag" style="margin-right:8px;">强压力 <strong>900</strong></span><span class="tag" style="margin-right:8px;">压力 <strong>550</strong></span><span class="tag" style="margin-right:8px;">支持 <strong>400</strong></span><span class="tag" style="margin-right:8px;">强支持 <strong>300</strong></span>
+        </p>
+        <p><strong>技术面：</strong>MACD 死叉后低位钝化，<strong>调整接近尾声</strong>；8/27-8/28 英伟达财报催化+ 8/28 兑现式回调的双重影响下，处于筑底阶段。</p>
+        <p><strong>关注事件：</strong>山西证券、西部证券等 8 月金股推荐；港股 IPO 后 A 股折价压制因素有望解除。</p>
+        <img class="chart" src="charts/20260830_300308_SZ_中际旭创.png" alt="中际旭创 K 线图">
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">天赐材料（002709.SZ）<span class="pill bull">锂电解液龙头</span></h3>
+        <p><strong>催化：</strong>8/20 半年报：营收 147.10 亿（<strong>+109.28%</strong>），归母净利 28.61 亿（<strong>+967.91%</strong>）；拟每 10 股派现 1 元（含税），上市以来首次中期分红</p>
+        <p><strong>关键位：</strong>
+        <span class="tag" style="margin-right:8px;">强压力 <strong>60.0</strong></span><span class="tag" style="margin-right:8px;">压力 <strong>45.0</strong></span><span class="tag" style="margin-right:8px;">支持 <strong>30.0</strong></span><span class="tag" style="margin-right:8px;">强支持 <strong>22.0</strong></span>
+        </p>
+        <p><strong>技术面：</strong>MACD 死叉后绿柱缩短，<strong>5/10/20 日均线粘合</strong>，等待方向选择；下半年排产旺季+电解液涨价，业绩持续兑现。</p>
+        <img class="chart" src="charts/20260830_002709_SZ_天赐材料.png" alt="天赐材料 K 线图">
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">东山精密（002384.SZ）<span class="pill bull">PCB / AI 硬件</span></h3>
+        <p><strong>催化：</strong>8/21 半年报：营收 277.98 亿（<strong>+63.95%</strong>），归母净利大幅增长；wu2198 8/21 转发点评</p>
+        <p><strong>关键位：</strong>
+        <span class="tag" style="margin-right:8px;">强压力 <strong>75.0</strong></span><span class="tag" style="margin-right:8px;">压力 <strong>55.0</strong></span><span class="tag" style="margin-right:8px;">支持 <strong>35.0</strong></span><span class="tag" style="margin-right:8px;">强支持 <strong>25.0</strong></span>
+        </p>
+        <p><strong>技术面：</strong>MACD 零轴附近金叉，<strong>量价配合</strong>；8/28 半导体/CPO 兑现式回调，<strong>短期回避</strong>，回调企稳后低吸。</p>
+        <p><strong>关注事件：</strong>8/28 后关注 AI 算力链（存储/CPO/光通信/PCB/光纤/PTFE 材料）修复机会。</p>
+        <img class="chart" src="charts/20260830_002384_SZ_东山精密.png" alt="东山精密 K 线图">
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">石头科技（688169.SH）<span class="pill bull">扫地机器人</span></h3>
+        <p><strong>催化：</strong>8/25 扫地机器人龙头封 20cm 板（wu2198 亲点）；海外市场份额持续提升</p>
+        <p><strong>关键位：</strong>
+        <span class="tag" style="margin-right:8px;">强压力 <strong>175.0</strong></span><span class="tag" style="margin-right:8px;">压力 <strong>145.0</strong></span><span class="tag" style="margin-right:8px;">支持 <strong>118.0</strong></span><span class="tag" style="margin-right:8px;">强支持 <strong>95.0</strong></span>
+        </p>
+        <p><strong>技术面：</strong>MACD 底部金叉，<strong>量能配合</strong>；技术形态优于大盘；118.0 是关键支持位。</p>
+        <img class="chart" src="charts/20260830_688169_SH_石头科技.png" alt="石头科技 K 线图">
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">影石创新（688775.SH）<span class="pill bull">全景相机</span></h3>
+        <p><strong>催化：</strong>8/25 全景相机龙头上涨，AI/影像主题持续；wu2198 关注</p>
+        <p><strong>关键位：</strong>
+        <span class="tag" style="margin-right:8px;">强压力 <strong>175.0</strong></span><span class="tag" style="margin-right:8px;">压力 <strong>135.0</strong></span><span class="tag" style="margin-right:8px;">支持 <strong>118.0</strong></span><span class="tag" style="margin-right:8px;">强支持 <strong>98.0</strong></span>
+        </p>
+        <p><strong>技术面：</strong>MACD 底部反弹，<strong>站稳 118.0</strong> 才能确认上行；与石头科技节奏相近。</p>
+        <img class="chart" src="charts/20260830_688775_SH_影石创新.png" alt="影石创新 K 线图">
+    </div>
+
+</section>
+
+<!-- 关键位速查表 -->
+<section>
+    <h2>📋 关键位速查</h2>
+    <h3>大盘（上证指数）</h3>
+    <table>
+        <thead>
+            <tr><th>类型</th><th>点位</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>强压力</td><td>4256</td><td>年初目标（已实现后回吐，第四大浪高点）</td></tr>
+            <tr><td>压力</td><td>3994-3996</td><td>小波段前高 / 阻力（8/24 试 3994.18）</td></tr>
+            <tr><td>区间顶</td><td>3956</td><td>3856-3926-3956 震荡区间</td></tr>
+            <tr><td>区间底</td><td>3926</td><td>同上</td></tr>
+            <tr style="background:#fff3cd;"><td><strong>关键支持</strong></td><td><strong>3856</strong></td><td><strong>多空分水岭（8/24 试 3855.35）</strong></td></tr>
+            <tr><td>阶段低</td><td>3850</td><td>8/25 抵抗点</td></tr>
+            <tr><td>极端支持</td><td>3800</td><td>破 3856 后考验</td></tr>
+            <tr><td>趋势线</td><td>3767 / 3741</td><td>C 浪下探目标</td></tr>
+        </tbody>
+    </table>
+
+    <h3>创业板指</h3>
+    <table>
+        <thead>
+            <tr><th>类型</th><th>点位</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>B 反顶</td><td>3747.53</td><td>wu2198 8/24 提示的实际高点</td></tr>
+            <tr><td>B 反起点</td><td>3160</td><td>wu2198 8/24 提示的 B 反起点</td></tr>
+        </tbody>
+    </table>
+
+    <h3>科创 50 <span class="note">（wu2198 8/24 原话）</span></h3>
+    <table>
+        <thead>
+            <tr><th>类型</th><th>点位</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>M 头左肩</td><td>2255</td><td>冲高后急跌到 1913</td></tr>
+            <tr><td>M 头右肩</td><td>2233</td><td>8/24 早盘冲高试 2233 转绿</td></tr>
+            <tr><td>M 头目标</td><td>1900</td><td>多空转折点，8/24 试 1900</td></tr>
+            <tr><td>深跌目标</td><td>1549</td><td>"第一步是到了 1549 点"</td></tr>
+            <tr><td>极端目标</td><td>1274</td><td>"破位的话，要到 1274 点左右才会有强的反弹"</td></tr>
+        </tbody>
+    </table>
+
+    <h3>6 支个股</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>代码</th><th>名称</th><th>行业</th><th>现价 (8/28)</th>
+                <th>强支持</th><th>支持</th><th>压力</th><th>强压力</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>601069.SH</code></td>
+                <td>西部黄金</td>
+                <td>黄金</td>
+                <td><strong>31.11</strong></td>
+                <td>24.0</td>
+                <td>28.5</td>
+                <td>35.0</td>
+                <td>40.0</td>
+            </tr>
+            <tr>
+                <td><code>300308.SZ</code></td>
+                <td>中际旭创</td>
+                <td>AI 光模块</td>
+                <td><strong>612.20</strong></td>
+                <td>300</td>
+                <td>400</td>
+                <td>550</td>
+                <td>900</td>
+            </tr>
+            <tr>
+                <td><code>002709.SZ</code></td>
+                <td>天赐材料</td>
+                <td>锂电解液</td>
+                <td><strong>36.50</strong></td>
+                <td>22.0</td>
+                <td>30.0</td>
+                <td>45.0</td>
+                <td>60.0</td>
+            </tr>
+            <tr>
+                <td><code>002384.SZ</code></td>
+                <td>东山精密</td>
+                <td>PCB / AI 硬件</td>
+                <td><strong>51.40</strong></td>
+                <td>25.0</td>
+                <td>35.0</td>
+                <td>55.0</td>
+                <td>75.0</td>
+            </tr>
+            <tr>
+                <td><code>688169.SH</code></td>
+                <td>石头科技</td>
+                <td>扫地机器人</td>
+                <td><strong>128.60</strong></td>
+                <td>95.0</td>
+                <td>118.0</td>
+                <td>145.0</td>
+                <td>175.0</td>
+            </tr>
+            <tr>
+                <td><code>688775.SH</code></td>
+                <td>影石创新</td>
+                <td>全景相机</td>
+                <td><strong>119.30</strong></td>
+                <td>98.0</td>
+                <td>118.0</td>
+                <td>135.0</td>
+                <td>175.0</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- 跟单/操作建议 -->
+<section>
+    <h2>🎬 跟单 / 操作建议</h2>
+    <div class="card bull">
+        <h4 style="margin-top:0;">建仓 / 加仓策略</h4>
+        <ul class="tight">
+            <li><strong>不主动追高</strong>，等待回调到关键支持位再考虑。</li>
+            <li>若大盘回踩 <strong>3856 不破</strong>，可分批低吸主线品种（黄金 / 锂电 / 智能制造）。</li>
+            <li>若 <strong>3856 失守</strong>，进入 C 浪下探 3767/3741 阶段，<strong>减仓观望</strong> 为主。</li>
+            <li>突破 <strong>3994-3996</strong> 阻力区时，跟进券商 β 弹性 + 主线龙头。</li>
+        </ul>
+    </div>
+
+    <div class="card neutral">
+        <h4 style="margin-top:0;">持有 / 调仓建议</h4>
+        <ul class="tight">
+            <li><strong>反弹无份、下跌有份</strong> 的弱势股，应主动换股到主线（参考 wu2198 8/28 原话）。</li>
+            <li>黄金股 <strong>短线可减仓</strong>：伦敦金 8/29 大跌 2.95%，技术性回调风险大，关注 28.5 关键支持。</li>
+            <li>AI 算力硬件（半导体/CPO）8/28 兑现式回调，<strong>回避追高</strong>，等缩量企稳再低吸。</li>
+            <li>智能制造（石头科技 / 影石创新）跟踪 8/25 龙头封板后续 3-5 日是否站稳 118.0。</li>
+        </ul>
+    </div>
+
+    <div class="card bear">
+        <h4 style="margin-top:0;">风险纪律</h4>
+        <ul class="tight">
+            <li>博主判断下周 <strong>震荡整理</strong>，"可操作空间不大，依然是多看少动为主" —— 仓位建议 <strong>5-6 成</strong>。</li>
+            <li>若 70%-80% 股票不会有新高的判断成立，<strong>结构选择 > 仓位选择</strong>。</li>
+            <li>8/31 是中报披露最后截止日，<strong>防范业绩暴雷</strong>，结构分化会进一步加大。</li>
+            <li>止损纪律：个股跌破强支持位（详见上表）严格执行。</li>
+        </ul>
+    </div>
+</section>
+
+<!-- 跟单动作清单 -->
+<section>
+    <h2>📋 跟单动作清单（周一开盘前）</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>优先级</th><th>动作</th><th>触发条件</th><th>目标</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="pill bull">P0</span></td>
+                <td>检查持仓 vs 上证 8/28 表现</td>
+                <td>若持仓跑输指数</td>
+                <td>主动调仓到主线（黄金/锂电/智能制造）</td>
+            </tr>
+            <tr>
+                <td><span class="pill bull">P0</span></td>
+                <td>关注 3856 开盘表现</td>
+                <td>3856 失守</td>
+                <td>减仓至 3-4 成，观望 C 浪下探</td>
+            </tr>
+            <tr>
+                <td><span class="pill hot">P1</span></td>
+                <td>黄金股短线减仓</td>
+                <td>伦敦金继续下跌 / 西部黄金跌破 28.5</td>
+                <td>锁定半年报行情利润</td>
+            </tr>
+            <tr>
+                <td><span class="pill hot">P1</span></td>
+                <td>AI 算力硬件等企稳</td>
+                <td>缩量回踩 5 日线不破 + 前排龙头翻红</td>
+                <td>小仓低吸中际旭创 / 东山精密</td>
+            </tr>
+            <tr>
+                <td><span class="pill neutral">P2</span></td>
+                <td>智能制造低吸</td>
+                <td>石头 / 影石回踩 118.0 不破</td>
+                <td>配置仓位 1-2 成</td>
+            </tr>
+            <tr>
+                <td><span class="pill neutral">P2</span></td>
+                <td>锂电材料波段</td>
+                <td>天赐回踩 30.0 不破</td>
+                <td>配置仓位 1 成</td>
+            </tr>
+            <tr>
+                <td><span class="pill bear">P3</span></td>
+                <td>回避半导体/CPO 高位兑现</td>
+                <td>8/28 后连续放量阴线</td>
+                <td>等缩量企稳再观察</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<footer>
+    <p>本报告基于 wu2198（UID 1216826604）8/24-8/28 公开微博观点 + tushare 日线数据生成</p>
+    <p>仅供研究学习，不构成投资建议；投资有风险，决策需谨慎。</p>
+    <p>生成时间：2026-08-30 21:00 · 报告版本：v1.0 · 数据截止 2026-08-28 收盘</p>
+</footer>
+
+</body>
+</html>
