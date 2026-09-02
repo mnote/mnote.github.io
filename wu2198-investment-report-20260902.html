@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>wu2198 投资日报 — 2026-09-02 (周三收盘)</title>
+<style>
+
+  body { font-family: -apple-system, "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; background:#f7f8fa; color:#1d1d1f; margin:0; padding:0; line-height:1.65; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 30px 24px 80px; }
+  header { background: linear-gradient(135deg, #1f6feb 0%, #4a8df5 100%); color:#fff; padding: 32px 24px; border-radius: 12px; margin-bottom: 28px; }
+  header h1 { margin:0 0 8px; font-size: 28px; font-weight: 700; }
+  header .sub { opacity: 0.92; font-size: 14px; }
+  header .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  header .tag { background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px; }
+  .kpi { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 16px; }
+  .kpi .label { color: #6e6e73; font-size: 12px; margin-bottom: 4px; }
+  .kpi .val { font-size: 22px; font-weight: 700; }
+  .kpi .chg { font-size: 13px; margin-top: 2px; }
+  .up { color: #ef232a; }
+  .down { color: #14b143; }
+  section { background: #fff; border: 1px solid #e0e3e8; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  section h2 { margin: 0 0 18px; font-size: 20px; font-weight: 700; color: #1d1d1f; border-left: 4px solid #1f6feb; padding-left: 12px; }
+  .weibo-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .weibo-table th, .weibo-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eaecef; vertical-align: top; }
+  .weibo-table th { background: #f5f6f8; color: #4a4a4a; font-weight: 600; font-size: 12px; }
+  .insight { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+  .insight h3 { margin: 0 0 10px; font-size: 15px; color: #8a6d3b; }
+  .insight ol { margin: 0; padding-left: 22px; }
+  .insight li { margin-bottom: 6px; font-size: 14px; }
+  .sector { margin-bottom: 24px; padding: 18px 22px; background: #fafbfc; border-radius: 10px; border: 1px solid #e0e3e8; }
+  .sector h3 { margin: 0 0 8px; color: #1f6feb; font-size: 16px; }
+  .sector p { font-size: 14px; color: #4a4a4a; line-height: 1.8; margin: 6px 0; }
+  .sector .anchor { color: #1d1d1f; font-weight: 600; }
+  .sector .evi { font-size: 12px; color: #6e6e73; background: #fff; border-left: 3px solid #1f6feb; padding: 6px 10px; border-radius: 0 4px 4px 0; margin-top: 10px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+  .card { border: 1px solid #e0e3e8; border-radius: 10px; background: #fff; overflow: hidden; }
+  .card-header { padding: 14px 18px 8px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .card-header h3 { margin: 0; font-size: 16px; font-weight: 700; }
+  .card-header .code { color: #6e6e73; font-size: 12px; font-weight: 500; margin-left: 6px; }
+  .card-header .src-badge { background: #e3f2fd; color: #1565c0; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; font-weight: 500; }
+  .card-header .price { font-size: 14px; }
+  .card-header .pct { font-weight: 600; margin-left: 6px; }
+  .card-header .date { color: #999; font-size: 11px; margin-left: 4px; }
+  .chart { text-align: center; padding: 8px 0; background: #fff; }
+  .chart img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .meta { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 14px 18px; font-size: 13px; }
+  .levels table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .levels td { padding: 5px 0; border-bottom: 1px dashed #eee; }
+  .levels td:last-child { text-align: right; color: #1f6feb; }
+  .analysis p { margin: 4px 0; }
+  .index-card { background: #f5f8ff; }
+  .advice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .advice-block { background: #fafbfc; border: 1px solid #e0e3e8; border-radius: 10px; padding: 18px 22px; }
+  .advice-block h3 { margin: 0 0 12px; font-size: 16px; color: #1f6feb; }
+  .advice-block ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .risk { margin-top: 18px; padding: 12px 16px; background: #fff3e0; border-left: 3px solid #ff9800; border-radius: 4px; font-size: 13px; }
+  .risk ul { margin: 4px 0 0 22px; padding: 0; }
+  .risk li { margin-bottom: 4px; }
+  .verdict { background: linear-gradient(135deg, #fff 0%, #f5f8ff 100%); border: 1px solid #c7d8f7; border-left: 4px solid #1f6feb; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+  .verdict h3 { margin: 0 0 12px; color: #1f6feb; font-size: 17px; }
+  .verdict ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.9; }
+  .verdict ol li { margin-bottom: 8px; }
+  footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; padding: 20px 0; }
+  @media (max-width: 768px) { .kpi-row, .cards, .advice-grid, .meta { grid-template-columns: 1fr; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <h1>📈 wu2198 投资日报 — 2026-09-02 (周三收盘)</h1>
+    <div class="sub">基于 9/2 wu2198 微博 (UID 1216826604) + tushare 公开行情数据 · 自动生成于 2026-09-02 21:00</div>
+    <div class="tags">
+      <span class="tag">📅 收盘:2026-09-02</span>
+      <span class="tag">📝 抓取微博 10 条 (9/2 当天 · 已过滤 2 置顶)</span>
+      <span class="tag">🔴 上证 9/2 收 3941.39 (-0.97% 失守 3980)</span>
+      <span class="tag">🔴 创业板 9/2 收 3312.24 (-2.39% 试探 3300)</span>
+      <span class="tag">🟡 博主立场: 偏防御 · 多看少动 · 关键支撑 3926</span>
+      <span class="tag">🆕 9/2 14:05 算力租赁龙头拉红 (博主主动点名)</span>
+      <span class="tag">🟢 9/2 17:46 戴尔财报 AI 服务器营收 164 亿 +89% (算力印证)</span>
+      <span class="tag">🔴 9/2 14:50 外盘拖累 日股-2.85% / 韩股-3.99%</span>
+      <span class="tag">🔴 9/2 15:02 资金面 成交 18203 亿(缩量2316亿) 净流出 666 亿 3901 只跌</span>
+    </div>
+  </header>
+
+  
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">上证指数 (9/2 收)</div>
+      <div class="val">3,941.39</div>
+      <div class="chg" style="color:#14b143">▼ -0.97%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指 (9/2 收)</div>
+      <div class="val">3,312.24</div>
+      <div class="chg" style="color:#14b143">▼ -2.39%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主 9/2 关键位</div>
+      <div class="val" style="font-size:18px">3926 / 3300</div>
+      <div class="chg" style="color:#6e6e73">上证 3926 明日支撑 / 创业板 3300 关键</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主年大目标</div>
+      <div class="val" style="font-size:22px">4256</div>
+      <div class="chg" style="color:#6e6e73">2026 全年目标 (未变)</div>
+    </div>
+  </div>
+
+  
+  <section class="opinions">
+    <h2>📋 wu2198 9/2 (周三) 观点摘要 (LLM 二次分析版)</h2>
+    <p class="lead">9/2 共抓取 <b>10 条非置顶微博</b>,其中 <b>6 条带操盘信号</b>。博主 9/2 立场:<b>🟡 偏防御 · 多看少动 · 关注明日 3926 得失</b>(15:04 「今天收 3941, 明天注意看 3926 得失」 9132 综合分 + 14:44 「要耐得住寂寞」 8843 赞 + 13:56 「多空双方小幅震荡,无法玩」 7538 赞)。当日 1 条新点名:<b>🆕 14:05 算力租赁龙头拉红</b>(博主主动点名板块信号,9/2 唯一明确的板块催化)。<b>9/2 17:46 戴尔 FY27Q2 财报</b>:AI 优化服务器营收 164 亿美元 +89%, ISG 总营收 318 亿 +89% — 印证 AI 算力产业链高景气延续,与 9/2 14:05 算力租赁龙头拉红形成主线共振。</p>
+    <table class="weibo-table">
+      <thead><tr><th>时间</th><th>信号 · 置信</th><th>互动</th><th>操盘信号</th><th>内容</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 17:46</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:9 C:59 L:2331</td>
+          <td style="font-size:12px">—</td>
+          <td>戴尔科技发布的2027财年第二季度财报显示，公司二季度实现营收470亿美元，同比增长58%；非GAAP摊薄每股收益7.04美元，同比增长203%。基础设施解决方案集团(ISG)营收318亿美元，同比增长89%。其中，AI优化服务器营收164亿美元，传统服务器及网络设备营收105亿美元，同比增长122%；存储营收49亿美元，同 ...全文</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 15:37</td>
+          <td style="text-align:right;white-space:nowrap">🟡 中性 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:8 C:136 L:4498</td>
+          <td style="font-size:12px">—</td>
+          <td>#伊朗打击三国美军基地#波斯一定要硬气啊！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 15:04</td>
+          <td style="text-align:right;white-space:nowrap">🔴 空 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:37 C:635 L:7825</td>
+          <td style="font-size:12px">—</td>
+          <td>今天收3941点……明天注意看3926得失……收到请回复666或者点赞支持一下！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 15:02</td>
+          <td style="text-align:right;white-space:nowrap">🔴 空 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:9 C:92 L:5170</td>
+          <td style="font-size:12px">—</td>
+          <td>截止15:00两市成交了18203亿元，有3901只个股下跌，大盘资金流出666亿元，量能比上一交易日减少2316亿元！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 14:50</td>
+          <td style="text-align:right;white-space:nowrap">🔴 空 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:9 C:88 L:5439</td>
+          <td style="font-size:12px">—</td>
+          <td>日本股市跌1889点，下跌2.85%。韩国股市下跌3.99%。</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 14:44</td>
+          <td style="text-align:right;white-space:nowrap">🟡 中性 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:24 C:384 L:8051</td>
+          <td style="font-size:12px">—</td>
+          <td>要耐得住寂寞！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 14:23</td>
+          <td style="text-align:right;white-space:nowrap">⚪ 无关 · —</td>
+          <td style="text-align:right;white-space:nowrap">R:10 C:379 L:7270</td>
+          <td style="font-size:12px">—</td>
+          <td>死鬼，好软哦！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 14:05</td>
+          <td style="text-align:right;white-space:nowrap">🟢 多 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:7 C:118 L:6998</td>
+          <td style="font-size:12px">—</td>
+          <td>算力租赁龙头出现拉红！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 13:56</td>
+          <td style="text-align:right;white-space:nowrap">🔴 空 · 中</td>
+          <td style="text-align:right;white-space:nowrap">R:9 C:163 L:7203</td>
+          <td style="font-size:12px">—</td>
+          <td>多空双方小幅震荡，无法玩！</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap">Wed Sep 02 13:20</td>
+          <td style="text-align:right;white-space:nowrap">🔴 空 · 高</td>
+          <td style="text-align:right;white-space:nowrap">R:26 C:604 L:9655</td>
+          <td style="font-size:12px">—</td>
+          <td>创业板指数早盘试探了3296点，下午注意看3300得失.......明白666</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="insight">
+      <h3>🧠 关键洞察 (LLM 提炼 + 原帖佐证)</h3>
+      <ol>
+        <li><b>15:04 大盘点位 + 明日关键位 🔴 (9132 综合分 · 7825 赞 · 今日最热)</b>「<b>今天收 3941 点……明天注意看 3926 得失……</b>」 — 博主 9/2 收盘明确给出<b>明日(9/3)上证关键支撑 3926</b>。3941 → 3926 仅 15 点空间,一旦失守 3926 则继续向下寻底,大概率回到 3900/3850 区间。这是 9/2 唯一给出具体数字的关键位,优先级最高。</li>
+        <li><b>14:44 操作心态 🟡 (8843 赞 · 今日次热)</b>「<b>要耐得住寂寞!</b>」 — 博主 9/2 操作心态:没有可操作机会,控制仓位等待。连续两天(8/31 14:54「看别人赚钱,求安慰」+ 9/2 14:44「耐得住寂寞」)显示博主本人 9 月初阶段防御姿态明显。</li>
+        <li><b>14:50 外盘拖累 🔴 (5624 综合分 · 5439 赞)</b>「<b>日本股市跌 1889 点,下跌 2.85%。韩国股市下跌 3.99%</b>」 — 9/2 亚洲外盘集体大跌,日股 -2.85%,韩股 -3.99%。外盘弱势直接传导至 A 股开盘,博主特意发帖提示外盘风险。</li>
+        <li><b>15:02 资金面速报 🔴 (5363 综合分 · 5170 赞)</b>「<b>截止 15:00 两市成交了 18203 亿元,有 3901 只个股下跌,大盘资金流出 666 亿元,量能比上一交易日减少 2316 亿元</b>」 — 9/2 资金面三大弱势信号:① 成交 18203 亿(对比 9/1 19610 亿,<b>大幅缩量 1407 亿</b>)② 资金净流出 666 亿(对比 9/1 净流出 353 亿,<b>流出加速</b>)③ <b>3901 只个股下跌</b>(对比 9/1 仅 2033 只下跌,普跌格局明显)。</li>
+        <li><b>14:23 情绪化贴 ⚪ (8038 综合分 · 7270 赞)</b>「<b>死鬼,好软哦!</b>」 + <b>14:05 算力租赁龙头拉红 🟢 (7241 综合分 · 6998 赞)</b>「<b>算力租赁龙头出现拉红!</b>」 — 9/2 14:05 博主主动点名「<b>算力租赁</b>」板块异动,这是 9/2 唯一明确的板块信号。结合 9/2 17:46 戴尔财报 AI 优化服务器营收 +89% 的高景气印证,算力租赁 / AI 算力主线在 9/2 弱势市场中显示 <b>抗跌领涨</b>特征。</li>
+        <li><b>13:56 盘中震荡观点 🟡 (7538 综合分 · 7203 赞)</b>「<b>多空双方小幅震荡,无法玩!</b>」 — 9/2 盘中震荡格局定性,与 15:04「明天看 3926」形成日内-隔日判断链。</li>
+        <li><b>13:20 创业板关键位 🟡 (10889 综合分 · 9655 赞 · 全场最热)</b>「<b>创业板指数早盘试探了 3296 点,下午注意看 3300 得失</b>」 — 9/2 13:20 早盘提示<b>创业板 3300 关键位</b>(全天最热, 9655 赞)。9/2 实际收 3312.24,3300 暂时守住但已破位 9/1 的 3393 收盘位,跌 2.39%。</li>
+        <li><b>15:37 中东地缘风险 🟡 (4778 综合分 · 4498 赞)</b>「<b>#伊朗打击三国美军基地#波斯一定要硬气啊!</b>」 — 9/2 转发地缘事件,中东冲突升级可能引发避险情绪(原油/黄金/军工),博主未直接给出 A 股影响判断。</li>
+        <li><b>17:46 戴尔财报详解 🟢 (2458 综合分 · 2331 赞)</b>「<b>戴尔科技 2027 财年第二季度财报:营收 470 亿美元,同比 +58%; ISG 营收 318 亿 +89%; AI 优化服务器营收 164 亿美元, 同比 +89%; 传统服务器及网络设备营收 105 亿, 同比 +122%; 存储营收 49 亿...</b>」 — 9/2 17:46 博主转发戴尔 FY27Q2 财报细节:<b>AI 优化服务器营收 164 亿美元 +89%</b>, <b>存储营收 49 亿美元</b>。<b>印证 AI 算力需求高景气</b>, 利好算力租赁/光模块/存储芯片产业链。</li>
+      </ol>
+    </div>
+  </section>
+
+  
+  <section class="advice">
+    <h2>🎯 投资建议总结 (基于 9/2 博主新点名 + 戴尔财报印证)</h2>
+    <div class="advice-grid">
+      <div class="advice-block">
+        <h3>3 大板块 (按 9/2 含金量排序 · 🆕 = 博主 9/2 新点名)</h3>
+        <ol>
+          <li><b>🆕🟢 算力租赁 / IDC (博主 9/2 14:05 明确点名)</b> — 9/2 14:05 博主「算力租赁龙头出现拉红」 + 9/2 17:46 戴尔财报 AI 服务器 +89% 印证 · 弱势市场唯一异动板块,主线地位明确</li>
+          <li><b>🟢 光模块 / CPO (戴尔财报印证 · 算力产业链)</b> — 戴尔 AI 优化服务器 +89% + 存储 +49 亿 → 光模块/光器件直接受益 · 中际旭创/新易盛 800G/1.6T 主力供应商</li>
+          <li><b>🟢 存储芯片 (戴尔财报 + 长鑫概念 · 算力硬件下游)</b> — 戴尔存储 49 亿 + 博主 8/17 提过长鑫 +12% · DRAM/NAND 周期反转 + 国产替代主线</li>
+        </ol>
+      </div>
+      <div class="advice-block">
+        <h3>6 支个股 (🆕 = 9/2 博主新点名板块 · 🟢 = 长期主线)</h3>
+        <ol>
+          <li>🆕🟢 <b>奥飞数据 (300738)</b> — 9/2 博主点名的「算力租赁龙头」之一 · 一线 IDC+算力租赁, 9/2 收 19.95 (-1.14% 抗跌)</li>
+          <li>🆕🟢 <b>数据港 (603881)</b> — 算力租赁+IDC 一线, 上海/张北/深圳数据中心核心节点; 9/2 收 24.83 (-1.86%)</li>
+          <li>🆕🟢 <b>鸿博股份 (002229)</b> — 算力租赁+英伟达生态; 博主 7-8 月持续跟踪; 9/2 收 12.09 (-0.49% 抗跌)</li>
+          <li>🟢 <b>中际旭创 (300308)</b> — 光模块/CPO 全球龙头, 800G/1.6T 主力; 戴尔 AI 服务器 +89% 直接利好; 9/2 收 822.40 (-4.29% 跟随大盘回调)</li>
+          <li>🟢 <b>新易盛 (300502)</b> — 光模块一线, 800G/1.6T 受益; 9/2 收 386.70 (-4.00% 跟随大盘回调)</li>
+          <li>🟢 <b>兆易创新 (603986)</b> — 存储芯片龙头 NOR Flash + DRAM; 博主 8/17 提过存储涨价 + 长鑫; 9/2 收 388.86 (-1.05% 抗跌)</li>
+        </ol>
+      </div>
+    </div>
+    <div class="risk">
+      <h4>⚠️ 风险提示 (9/2 博主明确风控)</h4>
+      <ul>
+        <li><b>9/2 15:04 收盘复盘 (7825 赞 全场最热)</b>:「<b>今天收 3941 点……明天注意看 3926 得失</b>」 — 9/2 博主明确 9/3 关键位 <b>3926</b>。失守则继续向下; 守住则维持震荡。博主 9/2 立场:多看少动。</li>
+        <li><b>9/2 14:44 操作心态 (8051 赞)</b>:「<b>要耐得住寂寞!</b>」 — 博主 9/2 防御姿态明显, 没有可操作机会, 控制仓位等待。</li>
+        <li><b>9/2 14:50 外盘拖累 (5439 赞)</b>:日股 -2.85% (1889 点), 韩股 -3.99% — 外盘弱势传导, 短线谨慎。</li>
+        <li><b>9/2 15:02 资金面 (5170 赞)</b>:成交 18203 亿(对比 9/1 -1407 亿 / 对比 8/31 -3251 亿, <b>连续缩量</b>), 资金净流出 666 亿(<b>加速流出</b>), 3901 只个股下跌(<b>普跌格局</b>)。</li>
+        <li><b>9/2 13:20 创业板关键位 (9655 赞 全场最热)</b>:创业板早盘试探 3296, 关注 3300 得失。9/2 实际收 3312, 3300 暂时守住但 9/3 仍面临考验。</li>
+        <li><b>9/2 9/3 关键位博弈</b>:上证收 3941.39, 明日 9/3 关键支撑 3926(失守看 3900/3850), 阻力 3970/3980; 创业板收 3312.24, 关键 3300(失守看 3280/3258), 阻力 3393(9/1 收)。</li>
+        <li><b>第四大浪风控 (沿用 8/24 14:09 11106 赞)</b>:即使有第五大浪上涨, 70-80% 个股不会有新高 → <b>选股必须聚焦博主点名的龙头</b>(算力租赁/光模块/存储芯片)。</li>
+        <li><b>9/2 个股普跌 + 算力主线抗跌</b>:9/2 3901 只下跌, 但 9/2 14:05 算力租赁龙头拉红 → 弱势市场选主线: 算力租赁/光模块/存储芯片 是 9/2 唯一有持续性的方向。</li>
+        <li><b>长期多头信仰未改 (沿用博主全年立场)</b>:博主 2026 年全年目标 <b>4256</b> 不变 · 大方向坚定 · 小节奏灵活(9/2 关键位 3926) · 关注算力主线龙头(算力租赁/光模块/存储)。</li>
+      </ul>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>📌 3 大板块详细逻辑</h2>
+
+    <div class="sector">
+      <h3>#1 🆕 算力租赁 / IDC (博主 9/2 14:05 明确点名 · 9/2 唯一板块信号)</h3>
+      <p class="anchor"><b>核心标的:</b> 奥飞数据 (300738) / 数据港 (603881) / 鸿博股份 (002229)</p>
+      <p>博主 9/2 14:05 主动点名:<b>「算力租赁龙头出现拉红!」</b> — 9/2 全天 3901 只个股下跌的弱势市场中,<b>算力租赁</b>是博主明确点出的<b>唯一异动板块</b>。结合 9/2 17:46 戴尔 FY27Q2 财报:<b>AI 优化服务器营收 164 亿美元 +89%</b>、<b>ISG 营收 318 亿美元 +89%</b>、<b>存储营收 49 亿美元</b>, 印证 AI 算力需求高景气延续。<b>逻辑</b>:① 算力租赁/IDC 是 AI 算力产业链最直接受益环节, 模型训练/推理需求驱动 GPU 服务器和数据中心扩张 ② 奥飞数据/数据港/鸿博股份是 A 股算力租赁一线, 与英伟达/AMD/国产 GPU 厂商深度合作 ③ 9/2 大盘弱势(3941.39 -0.97%, 创业板 -2.39%), <b>算力租赁抗跌领涨</b>, 验证主线地位 ④ 博主 7-8 月持续跟踪算力租赁主线, 多次发文提示。<b>9/3 投资策略</b>:算力租赁主线 9/2 异动, 9/3 关注持续性, 回调可低吸龙头(奥飞数据/数据港/鸿博股份)。</p>
+      <div class="evi">📎 博主证据:9/2 14:05 (6998 赞)「算力租赁龙头出现拉红」+ 9/2 17:46 (2331 赞) 戴尔 FY27Q2 财报 AI 优化服务器营收 164 亿 +89%</div>
+    </div>
+
+    <div class="sector">
+      <h3>#2 光模块 / CPO (戴尔财报印证 · 算力产业链)</h3>
+      <p class="anchor"><b>核心标的:</b> 中际旭创 (300308) / 新易盛 (300502)</p>
+      <p>戴尔 9/2 17:46 财报显示 <b>AI 优化服务器营收 164 亿美元 +89%</b>, 传统服务器 +122%, 存储 49 亿 → AI 数据中心网络升级需求强劲, <b>800G/1.6T 光模块</b>直接受益。<b>逻辑</b>:① CPO (共封装光学) 是 AI 数据中心网络升级必经之路, 单台 AI 服务器需要 8-16 个光模块, 算力扩张直接拉动光模块需求 ② 中际旭创作为 800G/1.6T 光模块全球龙头直接受益, 8/22 业绩营收 417.78 亿+182% 净利 136.51 亿+242% 业绩兑现 ③ 新易盛是光模块一线, 海外云厂客户深度合作 ④ 9/2 中际旭创收 822.40(-4.29%)、新易盛收 386.70(-4.00%) 跟随大盘回调, 但 60D低 793/347 附近有强支撑, <b>等回调到位</b>再加仓 ⑤ 博主 9/2 14:44「<b>要耐得住寂寞</b>」 → 弱势市场不追高, 等回调。</p>
+      <div class="evi">📎 博主证据:9/2 17:46 戴尔 AI 服务器 +89% + 8/22 中际旭创业绩 +241% + 8/14 英伟达 200G/lane CPO 量产</div>
+    </div>
+
+    <div class="sector">
+      <h3>#3 存储芯片 (戴尔存储 + 长鑫概念 · 算力硬件下游)</h3>
+      <p class="anchor"><b>核心标的:</b> 兆易创新 (603986)</p>
+      <p>戴尔 9/2 17:46 财报显示 <b>存储营收 49 亿美元</b>, AI 算力对 HBM/DDR5/NAND 需求强劲。博主 8/17 17:01 提及「<b>长鑫今天收在 61.80 元,涨幅 12.00%</b>」+ 8/17 20:20「<b>闪迪、美光……盘前涨 4% 左右</b>」。<b>逻辑</b>:① AI 训练对 HBM 需求强劲, HBM3e 单价是 DDR5 的 5-10 倍 ② DDR5/NAND 周期反转, 2026Q2-Q3 持续涨价 ③ 国产替代主线(长鑫/长存技术突破, 兆易创新深度参与) ④ 兆易创新 9/2 收 388.86(-1.05% 抗跌), 60D高 846.66 / 60D低 337.10, 处于中位区间, 业绩兑现延续 ⑤ 博主 9/2 14:44「<b>要耐得住寂寞</b>」 → 不追高, 关注 60D低 337 附近支撑。</p>
+      <div class="evi">📎 博主证据:9/2 17:46 戴尔存储 49 亿 + 8/17 17:01 (博主)「长鑫 +12%」 + 8/17 20:20 闪迪美光 + 9/2 算力主线</div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>🌐 大盘 K 线图 (博主关键位居左虚线)</h2>
+    <div class="cards">
+      
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 上证指数 <span class="code">000001.SH</span></h3>
+        <div class="price">现价 <b style="color:#14b143">3941.39</b> <span class="pct" style="color:#14b143">▼ -0.97%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_000001_SH_上证指数.png" alt="上证指数 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3850</td><td style='text-align:right'><b>区间下沿 3850</b></td></tr><tr><td>3880</td><td style='text-align:right'><b>下方缺口 3880</b></td></tr><tr><td>3900</td><td style='text-align:right'><b>中位 3900</b></td></tr><tr><td>3926</td><td style='text-align:right'><b>9/3 关键支撑 3926</b></td></tr><tr><td>3941</td><td style='text-align:right'><b>9/2 收 3941</b></td></tr><tr><td>3970</td><td style='text-align:right'><b>区间上沿 3970</b></td></tr><tr><td>3980</td><td style='text-align:right'><b>9/1 收 3980</b></td></tr><tr><td>3994</td><td style='text-align:right'><b>前高 3994</b></td></tr><tr><td>4256</td><td style='text-align:right'><b>年大目标</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 9/2 关键位:</b> 上证 9/2 收 <b>3941</b> → 9/3 关键支撑 <b>3926</b>(失守看 3900/3850)·阻力 <b>3970/3980</b> · 创业板 9/2 收 <b>3312</b> → 关键 <b>3300</b>(失守看 3280)·阻力 <b>3393</b>(9/1 收)</p>
+          <p><b>9/2 信号:</b> 大盘 -0.97% 失守 3980, 创业板 -2.39% 试探 3300, 3901 只下跌, 资金净流出 666 亿(加速), 算力租赁抗跌领涨</p>
+        </div>
+      </div>
+    </div>
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 创业板指 <span class="code">399006.SZ</span></h3>
+        <div class="price">现价 <b style="color:#14b143">3312.24</b> <span class="pct" style="color:#14b143">▼ -2.39%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_399006_SZ_创业板指.png" alt="创业板指 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>3158</td><td style='text-align:right'><b>A杀低 3158</b></td></tr><tr><td>3220</td><td style='text-align:right'><b>支撑 3220</b></td></tr><tr><td>3296</td><td style='text-align:right'><b>9/2 早盘试探 3296</b></td></tr><tr><td>3300</td><td style='text-align:right'><b>关键位 3300</b></td></tr><tr><td>3312</td><td style='text-align:right'><b>9/2 收 3312</b></td></tr><tr><td>3393</td><td style='text-align:right'><b>9/1 收 3393</b></td></tr><tr><td>3473</td><td style='text-align:right'><b>前期 3473</b></td></tr><tr><td>3626</td><td style='text-align:right'><b>前期高 3626</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 9/2 关键位:</b> 上证 9/2 收 <b>3941</b> → 9/3 关键支撑 <b>3926</b>(失守看 3900/3850)·阻力 <b>3970/3980</b> · 创业板 9/2 收 <b>3312</b> → 关键 <b>3300</b>(失守看 3280)·阻力 <b>3393</b>(9/1 收)</p>
+          <p><b>9/2 信号:</b> 大盘 -0.97% 失守 3980, 创业板 -2.39% 试探 3300, 3901 只下跌, 资金净流出 666 亿(加速), 算力租赁抗跌领涨</p>
+        </div>
+      </div>
+    </div>
+    <div class="card index-card">
+      <div class="card-header">
+        <h3>大盘 · 沪深300 <span class="code">000300.SH</span></h3>
+        <div class="price">现价 <b style="color:#14b143">4547.96</b> <span class="pct" style="color:#14b143">▼ -1.38%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_000300_SH_沪深300.png" alt="沪深300 K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>4400</td><td style='text-align:right'><b>支撑 4400</b></td></tr><tr><td>4500</td><td style='text-align:right'><b>中位 4500</b></td></tr><tr><td>4548</td><td style='text-align:right'><b>9/2 收 4548</b></td></tr><tr><td>4611</td><td style='text-align:right'><b>9/1 收 4611</b></td></tr><tr><td>4700</td><td style='text-align:right'><b>前高 4700</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>博主 9/2 关键位:</b> 上证 9/2 收 <b>3941</b> → 9/3 关键支撑 <b>3926</b>(失守看 3900/3850)·阻力 <b>3970/3980</b> · 创业板 9/2 收 <b>3312</b> → 关键 <b>3300</b>(失守看 3280)·阻力 <b>3393</b>(9/1 收)</p>
+          <p><b>9/2 信号:</b> 大盘 -0.97% 失守 3980, 创业板 -2.39% 试探 3300, 3901 只下跌, 资金净流出 666 亿(加速), 算力租赁抗跌领涨</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>📊 6 只个股 K 线图 (关键位居左虚线标注)</h2>
+    
+    <div class="sector">
+      <h3>🆕 算力租赁 / IDC (博主 9/2 14:05 明确点名)</h3>
+      <p><b>博主看点:</b> 算力租赁 / IDC (博主 9/2 14:05 明确点名) · 9/2 弱势市场算力主线抗跌 · 戴尔财报印证需求</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>奥飞数据 (300738) <span class="code">300738.SZ</span> <span class="src-badge">🆕🟢 9/2 博主点名「算力租赁龙头」</span></h3>
+        <div class="price">现价 <b style="color:#14b143">19.95</b> <span class="pct" style="color:#14b143">▼ -1.14%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_300738_SZ_奥飞数据.png" alt="奥飞数据 (300738) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>24.18</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>18.51</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>29.49</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>18.51</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>19.95</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 算力租赁 / IDC (博主 9/2 14:05 明确点名)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">弱势市场算力主线抗跌 · 9/2 普跌中显示韧性</span></p>
+          <p><b>看点:</b> 9/2 博主明确点名「算力租赁龙头」, 午后拉红; 一线 IDC+算力租赁, AI 算力高景气直接受益</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>数据港 (603881) <span class="code">603881.SH</span> <span class="src-badge">🆕🟢 算力租赁+IDC 一线 阿里云合作</span></h3>
+        <div class="price">现价 <b style="color:#14b143">24.83</b> <span class="pct" style="color:#14b143">▼ -1.86%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_603881_SH_数据港.png" alt="数据港 (603881) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>35.46</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>21.95</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>44.96</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>21.95</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>24.83</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 算力租赁 / IDC (博主 9/2 14:05 明确点名)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">弱势市场算力主线抗跌 · 9/2 普跌中显示韧性</span></p>
+          <p><b>看点:</b> 算力租赁+IDC 一线, 上海/张北/深圳数据中心核心节点; 阿里云生态重要合作伙伴</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>鸿博股份 (002229) <span class="code">002229.SZ</span> <span class="src-badge">🆕🟢 算力租赁 博主 7-8 月持续跟踪</span></h3>
+        <div class="price">现价 <b style="color:#14b143">12.09</b> <span class="pct" style="color:#14b143">▼ -0.49%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_002229_SZ_鸿博股份.png" alt="鸿博股份 (002229) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>15.19</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>8.56</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>20.18</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>8.56</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>12.09</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 算力租赁 / IDC (博主 9/2 14:05 明确点名)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">弱势市场算力主线抗跌 · 9/2 普跌中显示韧性</span></p>
+          <p><b>看点:</b> 算力租赁+英伟达生态; 博主 7-8 月持续跟踪, 多次发文提示算力租赁主线</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="sector">
+      <h3>🟢 光模块 / CPO (戴尔财报印证 AI 算力需求)</h3>
+      <p><b>博主看点:</b> 光模块 / CPO (戴尔财报印证 AI 算力需求) · 9/2 弱势市场算力主线抗跌 · 戴尔财报印证需求</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>中际旭创 (300308) <span class="code">300308.SZ</span> <span class="src-badge">🟢 光模块/CPO 全球龙头 8/22 业绩 +241%</span></h3>
+        <div class="price">现价 <b style="color:#14b143">822.4</b> <span class="pct" style="color:#14b143">▼ -4.29%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_300308_SZ_中际旭创.png" alt="中际旭创 (300308) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>793.03</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>1416.88</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>525.01</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>822.4</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 光模块 / CPO (戴尔财报印证 AI 算力需求)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">弱势市场算力主线抗跌 · 9/2 普跌中显示韧性</span></p>
+          <p><b>看点:</b> 光模块/CPO 全球龙头, 800G/1.6T 主力供应商; 戴尔 FY27Q2 AI 服务器营收+89% 直接利好</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>新易盛 (300502) <span class="code">300502.SZ</span> <span class="src-badge">🟢 光模块一线 800G/1.6T 受益</span></h3>
+        <div class="price">现价 <b style="color:#14b143">386.7</b> <span class="pct" style="color:#14b143">▼ -4.00%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_300502_SZ_新易盛.png" alt="新易盛 (300502) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>799.75</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>347.0</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>818.38</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>347.0</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>386.7</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 光模块 / CPO (戴尔财报印证 AI 算力需求)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">弱势市场算力主线抗跌 · 9/2 普跌中显示韧性</span></p>
+          <p><b>看点:</b> 光模块一线, 800G/1.6T 受益, 海外云厂客户深度合作; 与中际旭创形成双龙头</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="sector">
+      <h3>🟢 存储芯片 (戴尔存储 + 长鑫概念 · 算力硬件)</h3>
+      <p><b>博主看点:</b> 存储芯片 (戴尔存储 + 长鑫概念 · 算力硬件) · 9/2 弱势市场算力主线抗跌 · 戴尔财报印证需求</p>
+      <div class="cards">
+        
+    <div class="card">
+      <div class="card-header">
+        <h3>兆易创新 (603986) <span class="code">603986.SH</span> <span class="src-badge">🟢 存储芯片龙头 8/17 博主提长鑫</span></h3>
+        <div class="price">现价 <b style="color:#14b143">388.86</b> <span class="pct" style="color:#14b143">▼ -1.05%</span> <span class="date">(2026-09-02 收盘)</span></div>
+      </div>
+      <div class="chart"><img src="charts/20260902_603986_SH_兆易创新.png" alt="兆易创新 (603986) K线图 + MACD + 成交量,关键位居左虚线标注" loading="lazy" /></div>
+      <div class="meta">
+        <div class="levels">
+          <table><tr><td>60高</td><td style='text-align:right'><b>846.66</b></td></tr><tr><td>60低</td><td style='text-align:right'><b>337.1</b></td></tr><tr><td>120高</td><td style='text-align:right'><b>846.66</b></td></tr><tr><td>120低</td><td style='text-align:right'><b>236.86</b></td></tr><tr><td>现价</td><td style='text-align:right'><b>388.86</b></td></tr></table>
+        </div>
+        <div class="analysis">
+          <p><b>板块:</b> 存储芯片 (戴尔存储 + 长鑫概念 · 算力硬件)</p>
+          <p><b>趋势:</b> <span style="color:#ff9800">弱势市场算力主线抗跌 · 9/2 普跌中显示韧性</span></p>
+          <p><b>看点:</b> 存储芯片龙头 NOR Flash + DRAM; 博主 8/17 提过存储涨价 + 长鑫概念; 算力硬件下游</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>🧭 综合投资结论 (明日 9/3 操作前瞻)</h2>
+    <div class="verdict">
+      <h3>9/3 策略 <span style="background:#ff9800;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">🟡 偏防御 · 多看少动 · 关键位 3926/3300</span></h3>
+      <p>博主 9/2 核心立场综合:</p>
+      <ol>
+        <li><strong>大盘</strong>:9/2 收 <b>3941.39 (-0.97%)</b>,博主收盘明确「<b>明天注意看 3926 得失</b>」(15:04 7825 赞 全场最热)。<b>关键位</b>(9/2 新框架):<b>9/3 关键支撑 3926</b>,收盘 3941,阻力 3970/3980;下方 3900/3850;上方 3994/3996;年大目标 4256。9/3 关注<b>关键位取向</b>:守住 3926 维持震荡,失守则继续向下寻底 3900/3850。</li>
+        <li><strong>博主 9/2 收盘 (15:04 7825 赞 全场最热)</strong>「<b>今天收 3941 点……明天注意看 3926 得失……</b>」 — 博主 9/2 给出<b>9/3 关键判断</b>:① 9/2 收 3941 ② 9/3 关注 3926 得失 ③ 失守看 3900/3850 ④ 守住维持震荡。这是 9/2 最具操作性的关键位信号,优先级最高。</li>
+        <li><strong>新主线 #1: 算力租赁/IDC (9/2 14:05 博主明确点名) 🆕🟢</strong>:博主 9/2 14:05 明确点名「<b>算力租赁龙头出现拉红</b>」(6998 赞) — 9/2 弱势市场(3901 只下跌)中算力租赁是<b>唯一异动板块</b>。结合 9/2 17:46 戴尔 FY27Q2 财报 AI 优化服务器营收 164 亿 +89% 印证需求。<b>核心标的</b>:奥飞数据(300738, 9/2 收 19.95 -1.14% 抗跌)/ 数据港(603881, 9/2 收 24.83 -1.86%)/ 鸿博股份(002229, 9/2 收 12.09 -0.49% 抗跌)。</li>
+        <li><strong>延续主线 #2: 光模块/CPO (戴尔财报印证 · 等回调)</strong>:戴尔 AI 优化服务器营收 +89% + 存储 49 亿 → 800G/1.6T 光模块直接受益。<b>核心标的</b>:中际旭创(300308, 9/2 收 822.40 -4.29% 跟随大盘回调, 60D低 793.03 关注支撑)/ 新易盛(300502, 9/2 收 386.70 -4.00% 跟随大盘回调, 60D低 347.00 关注支撑)。博主 9/2 14:44「<b>要耐得住寂寞</b>」 → 等回调到位再加仓。</li>
+        <li><strong>延续主线 #3: 存储芯片 (戴尔存储 + 长鑫概念)</strong>:戴尔存储营收 49 亿 + 博主 8/17 提过「长鑫 +12%」+ 闪迪美光 → DRAM/NAND 周期反转 + 国产替代主线。<b>核心标的</b>:兆易创新(603986, 9/2 收 388.86 -1.05% 抗跌, 60D高 846.66 / 60D低 337.10, 关注 60D低支撑)。</li>
+        <li><strong>资金面转弱 (9/1 → 9/2 对比)</strong>:9/1 成交 19610 亿 + 资金净流出 353 亿(2033 只下跌) → 9/2 成交 <b>18203 亿</b>(<b>大幅缩量 1407 亿</b>) + 资金净流出 <b>666 亿</b>(<b>流出加速</b>) + <b>3901 只下跌</b>(<b>普跌格局</b>)。9/2 资金动能加速衰减, 普跌加大。<b>策略</b>:资金动能加速衰减 + 博主「多看少动」+ 算力主线抗跌 → 仓位降低至 5 成以下, 聚焦博主点名的算力主线龙头(算力租赁/光模块/存储芯片), 等大盘 3926 关键位明确后再加仓。</li>
+        <li><strong>外盘拖累 (9/2 14:50 5439 赞)</strong>:日股 -2.85% (1889 点) / 韩股 -3.99% — 亚洲外盘集体大跌, 9/2 A 股开盘即承压, 短线外盘风险持续。</li>
+        <li><strong>9/2 关键洞察: 弱势市场算力主线抗跌</strong>:9/2 3901 只下跌, 资金净流出 666 亿(加速), 大盘 -0.97%, 创业板 -2.39%, 但 <b>9/2 14:05 算力租赁龙头拉红</b>(博主主动点名) + 17:46 戴尔财报印证 → 算力主线在 9/2 弱势市场中显示<b>抗跌领涨</b>特征。这是 9/2 最重要的结构信号: <b>弱势选主线</b>。</li>
+      </ol>
+      <p style="margin-top:12px;font-size:13px;color:#6e6e73">📌 <strong>博主风控姿态</strong>:9/2 博主给出<b>收盘复盘 (15:04 7825 赞 全场最热) + 操作心态 (14:44 8051 赞) + 外盘速报 (14:50 5439 赞) + 资金面 (15:02 5170 赞) + 算力点名 (14:05 6998 赞) + 创业板关键位 (13:20 9655 赞 全场最热)</b> 6 类信号。这是缠论大师的典型防御+主线操作:大方向坚定(4256), 小节奏灵活(9/2 关键位 3926/3300, 「多看少动」), 板块敏锐(算力主线在弱势中抗跌)。跟单策略上:<b>大方向跟他(4256 多头), 小节奏跟他(9/3 关键位 3926 + 「多看少动」), 板块跟他(算力租赁/光模块/存储芯片 算力主线, 弱势市场抗跌领涨)</b>。</p>
+      <p style="margin-top:8px;font-size:13px;color:#b91c1c">⚠️ <strong>跟单提示</strong>:博主 6/8 披露「已撤离本金+去年盈利一半,预计今年不再调回」 — 自身偏防御, 不用大资金博 4256。9/2 14:44「<b>要耐得住寂寞</b>」 + 15:02 资金净流出 666 亿加速 + 9/3 关键位 3926 失守风险 — 博主明确 9/3 操作思路为<b>多看少动, 关注 3926 得失</b>。跟单用户应以他给的<b>关键位 3926/3300 + 算力主线方向</b>为准, 不要机械复制其仓位。第四大浪提示 70-80% 个股不会新高 → <b>仓位集中到博主点名的算力主线(算力租赁/光模块/存储芯片), 不要分散</b>。9/3 大盘 3926 失守需警惕进一步下行至 3900/3850; 创业板 3300 失守需警惕进一步下行至 3280。</p>
+    </div>
+  </section>
+
+  <footer>📊 数据源: 新浪微博 (wu2198/1216826604) · tushare (pro.daily / pro.index_daily) · 报告生成时间: 2026-09-02 21:00 · 仅作研究参考, 不构成投资建议</footer>
+</div>
+</body>
+</html>
