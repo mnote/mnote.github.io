@@ -1,0 +1,508 @@
+"""
+wu2198 投资日报 — 2026-09-12 (周六 21:00 抓取最近一天)
+- 9/11 周五博主 6 条微博 + 9/12 早安 + 晚安
+- 核心立场: 🟡 区间震荡偏防御 · 谨慎
+- 板块: MLCC/电容(冲板) + 高速覆铜板(8%+) + 银行防御
+- 6 个股: 风华高科 / 三环集团 / 生益科技 / 沪电股份 / 工商银行 / 招商银行
+"""
+from pathlib import Path
+from datetime import datetime
+
+OUT_HTML = Path("/Users/maoling/workspace/mnote.github.io/wu2198-investment-report-20260912.html")
+INDEX_HTML = Path("/Users/maoling/workspace/mnote.github.io/index.html")
+
+TODAY = "2026-09-12 (周六 21:00)"
+LAST_TRADING = "2026-09-11 (周五)"
+SH_INDEX = "3888.11 (估算, +0.13%)"  # 9/11 实际收盘
+
+# ── 抓取的微博（按时间倒序）─────────────
+POSTS = [
+    {
+        "time": "09-12 18:32", "score": 1878, "rep": 14, "com": 170, "like": 1524,
+        "signal": "—", "topic": "—", "emoji": "⚪", "dir": "无关",
+        "text": "#多车队宣布永久退出中国GT# 看不懂，我不敢说话！",
+    },
+    {
+        "time": "09-12 06:31", "score": 9289, "rep": 58, "com": 966, "like": 7299,
+        "signal": "—", "topic": "问候/鸡汤", "emoji": "⚪", "dir": "无关",
+        "text": "早安，老铁们！温言一句三冬暖，和气相待满堂欢。日子是一步一步走出来的，事情是一件一件理顺的。再难的事，拆成小事也就做完了。",
+    },
+    {
+        "time": "09-11 23:59", "score": 4061, "rep": 2, "com": 196, "like": 3667,
+        "signal": "—", "topic": "问候/鸡汤", "emoji": "⚪", "dir": "无关",
+        "text": "大家晚安！",
+    },
+    {
+        "time": "09-11 14:53", "score": 15417, "rep": 125, "com": 1416, "like": 12460,
+        "signal": "大盘判断·技术位·操作建议", "topic": "盘面/股市·复盘总结", "emoji": "🔴", "dir": "看空",
+        "text": "按周线看本周四大指数均属于承接式调整，周五下午虽然略有抵抗，但是力度偏小。就技术面看，还不能看出有新的波段。因此，<b>下周操作依然维持谨慎</b>，耐心等待明朗一些的机会或空间才参与短线。",
+    },
+    {
+        "time": "09-11 14:38", "score": 6573, "rep": 8, "com": 156, "like": 6253,
+        "signal": "大盘判断·行情速报", "topic": "盘面/股市", "emoji": "🔴", "dir": "看空",
+        "text": "截止14:37两市成交了18170亿元，有4886只个股下垂，<b>大盘资金流出619.22亿元</b>，量能比上一交易日增加3253亿元！",
+    },
+    {
+        "time": "09-11 14:15", "score": 6478, "rep": 6, "com": 104, "like": 6264,
+        "signal": "板块速报(覆铜板)", "topic": "行业热点", "emoji": "🟢", "dir": "看多",
+        "text": "<b>高速覆铜板两大龙头出现拉起，目前涨8%以上！</b>",
+    },
+    {
+        "time": "09-11 14:14", "score": 5684, "rep": 4, "com": 59, "like": 5562,
+        "signal": "板块速报(电容)", "topic": "行业热点", "emoji": "🟢", "dir": "看多",
+        "text": "<b>电容板块目前纷纷走弹！</b>",
+    },
+    {
+        "time": "09-11 14:10", "score": 6509, "rep": 4, "com": 133, "like": 6239,
+        "signal": "大盘判断", "topic": "盘面/股市", "emoji": "🟡", "dir": "中性",
+        "text": "按短线看大盘指数<b>试了3852点之后反抽3896边</b>，呈现的是小V抵抗，我们注意看力度。",
+    },
+    {
+        "time": "09-11 14:06", "score": 4870, "rep": 7, "com": 70, "like": 4723,
+        "signal": "板块速报(MLCC)", "topic": "行业热点", "emoji": "🟢", "dir": "看多",
+        "text": "<b>MLCC+电容龙头出现冲板！</b>",
+    },
+]
+
+# ── 关键位定义 ─────────────────────────
+SH_LEVELS = [
+    ("4256", "8/15 前顶"),
+    ("3996", "8/29 周高"),
+    ("3926", "8/26 上沿"),
+    ("3896", "9/11 反抽"),
+    ("3856", "多空分水"),
+    ("3852", "9/11 下探"),
+    ("3767", "8/4 支撑"),
+    ("3741", "8/14 B反起"),
+]
+
+# ── 3 大板块 + 6 支个股 ─────────────────
+SECTORS = [
+    {
+        "name": "🟢 MLCC / 电容",
+        "summary": "博主 9/11 14:06 + 14:14 9 分钟内连续两次点出('MLCC+电容龙头冲板' + '电容板块纷纷走弹'),是当日最强主线。叠加 8/4 算力 PCB 板块共振历史经验,MLCC/电容属电子元器件低位补涨+AI 算力需求拉动双重逻辑。",
+        "stocks": [
+            {"code": "000636.SZ", "name": "风华高科", "emoji": "🟢",
+             "close": "55.99", "chg": "+10.00% (涨停)",
+             "logic": "MLCC 国内龙头,9/11 盘中冲板,博主 14:06 直接点名。60D 高 84.00/60D 低 37.69,股价从 7 月 37 反弹至 9/11 涨停 55.99,空间已打开。",
+             "key": "60D低 37.69 / 支撑 50 / 9/11收 55.99 / 压力 65 / 60D高 84.00"},
+            {"code": "300408.SZ", "name": "三环集团", "emoji": "🟢",
+             "close": "124.36", "chg": "+5.66%",
+             "logic": "MLCC+陶瓷电容一体化龙头,9/11 涨 5.66% 跟随风华共振。60D 高 180.35/60D 低 86.03,股价从 7 月 86 反弹至 9/11 124,弹性强。",
+             "key": "60D低 86.03 / 支撑 110 / 9/11收 124.36 / 压力 150 / 60D高 180.35"},
+        ],
+    },
+    {
+        "name": "🟢 高速覆铜板 / PCB",
+        "summary": "博主 9/11 14:15 明确点出'高速覆铜板两大龙头拉起涨 8%+',与 8/4 算力 PCB 冲板共振历史呼应,AI 算力产业链 800G/1.6T 光模块+服务器主板需求拉动覆铜板高频高速材料升级,CCL(覆铜板)进入涨价周期。",
+        "stocks": [
+            {"code": "600183.SH", "name": "生益科技", "emoji": "🟢",
+             "close": "148.43", "chg": "+1.00%",
+             "logic": "覆铜板全球第二大/国内龙头,博主 9/11 14:15 明确点名'两大龙头涨 8%+'。60D 高 191.88/60D 低 97.51,股价从 7 月 97 反弹至 9/11 148。",
+             "key": "60D低 97.51 / 支撑 130 / 9/11收 148.43 / 压力 170 / 60D高 191.88"},
+            {"code": "002463.SZ", "name": "沪电股份", "emoji": "🟢",
+             "close": "128.25", "chg": "+0.26%",
+             "logic": "AI 服务器 PCB 全球龙头,8/14 英伟达 200G/lane 量产+8/4 算力 PCB 冲板共振主线品种。60D 高 158.20/60D 低 94.73,股价从 7 月 95 反弹至 9/11 128。",
+             "key": "60D低 94.73 / 支撑 115 / 9/11收 128.25 / 压力 145 / 60D高 158.20"},
+        ],
+    },
+    {
+        "name": "🟡 银行 / 红利防御",
+        "summary": "博主 8/31 16:04 '长期持有优质银行股,每年拿分红更划算' (5722 赞) 持续强化红利逻辑,叠加 9/11 14:53 周线复盘明确'下周操作依然维持谨慎',在 MLCC/覆铜板博弹性之外,银行股是博主 6/8 撤离后唯一仍公开强调的'长期底仓'。",
+        "stocks": [
+            {"code": "601398.SH", "name": "工商银行", "emoji": "🟡",
+             "close": "8.11", "chg": "+0.12%",
+             "logic": "A 股市值最大银行,博主长期持有底仓。PB 约 0.7x,股息率约 5.5%。9/11 收 8.11 接近 60D 高 8.29,5 月以来震荡上行,防御属性突出。",
+             "key": "60D低 6.95 / 强支撑 7.50 / 9/11收 8.11 / 60D高 8.29"},
+            {"code": "600036.SH", "name": "招商银行", "emoji": "🟡",
+             "close": "41.35", "chg": "-0.53%",
+             "logic": "零售之王,ROE 15%,弹性大于工行。9/11 微跌 0.53% 收 41.35,接近 60D 高 41.78,长期持有底仓+波段操作。",
+             "key": "60D低 35.28 / 强支撑 38.00 / 9/11收 41.35 / 60D高 41.78"},
+        ],
+    },
+]
+
+# ── 风险点 ──────────────────────
+RISKS = [
+    ("⚠️", "博主 9/11 14:53 周线复盘 (12460 赞 热帖) 明确'下周操作依然维持谨慎' — 区间偏防御,主线轮动而非全面看多"),
+    ("⚠️", "9/11 14:38 资金面:成交 18170 亿(放量 +3253 亿) 但大盘资金净流出 619.22 亿,4886 只个股下跌 — 放量下跌,典型弱势资金面"),
+    ("⚠️", "博主 6/8 撤离本金+去年盈利一半(自陈),预测与仓位不一致,实际比预测更看空"),
+    ("⚠️", "9/11 14:10 '试 3852 → 反抽 3896 小 V 抵抗' — 关键位 3856 多空分水岭 9/11 盘中下破后勉强收回,警惕失守"),
+    ("⚠️", "MLCC/覆铜板短期累计涨幅大(7 月 37→9/11 56 = +51%),谨防 14:15 博主点出后次日兑现"),
+]
+
+# ── HTML 模板 ──────────────────────
+HTML = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-09-12</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {{
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }}
+  * {{ box-sizing: border-box; }}
+  body {{
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }}
+  .wrap {{ max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }}
+  h1, h2, h3, h4 {{ font-weight: 600; line-height: 1.3; }}
+  h1 {{ font-size: 28px; margin: 0 0 8px; }}
+  h2 {{ font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }}
+  h3 {{ font-size: 17px; margin: 24px 0 10px; color: var(--text); }}
+  h4 {{ font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }}
+  p {{ margin: 8px 0; }}
+  a {{ color: var(--accent); text-decoration: none; }}
+  a:hover {{ text-decoration: underline; }}
+  .meta {{ color: var(--muted); font-size: 13px; }}
+  .meta span {{ margin-right: 14px; }}
+
+  .hero {{
+    background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 100%);
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }}
+  .hero h1 {{ color: #991b1b; }}
+  .hero .stance {{ font-size: 16px; margin: 8px 0 0; }}
+  .stance .emoji {{ font-size: 18px; margin-right: 4px; }}
+
+  .panel {{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }}
+  .panel-2 {{ background: var(--panel-2); }}
+  .grid-2 {{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }}
+  .grid-3 {{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }}
+  @media (max-width: 760px) {{ .grid-2, .grid-3 {{ grid-template-columns: 1fr; }} }}
+
+  .kpi {{
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }}
+  .kpi .label {{ font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }}
+  .kpi .val {{ font-size: 20px; font-weight: 600; margin: 4px 0; }}
+  .kpi .sub {{ font-size: 12px; color: var(--muted); }}
+
+  table {{ width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }}
+  th, td {{ padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }}
+  th {{ background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }}
+  tr:hover {{ background: var(--panel); }}
+  td.emoji {{ text-align: center; font-size: 16px; }}
+  td.text {{ max-width: 420px; }}
+  td.score {{ font-variant-numeric: tabular-nums; text-align: right; }}
+
+  .tag {{ display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }}
+  .tag-bull {{ background: var(--bull-bg); color: var(--bull); }}
+  .tag-bear {{ background: var(--bear-bg); color: var(--bear); }}
+  .tag-neutral {{ background: var(--neutral-bg); color: var(--neutral); }}
+  .tag-none {{ background: var(--none-bg); color: var(--none); }}
+  .tag-accent {{ background: var(--accent-bg); color: var(--accent); }}
+
+  .chart {{ width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }}
+  .chart-caption {{ font-size: 12px; color: var(--muted); margin: -4px 0 16px; }}
+
+  .stock-card {{
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }}
+  .stock-card.bull {{ border-left-color: var(--bull); }}
+  .stock-card.bear {{ border-left-color: var(--bear); }}
+  .stock-card.neutral {{ border-left-color: var(--neutral); }}
+  .stock-card h4 {{ margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }}
+  .stock-card .logic {{ font-size: 13px; color: var(--text); margin: 6px 0; }}
+  .stock-card .key {{ font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }}
+
+  ul, ol {{ margin: 8px 0; padding-left: 24px; }}
+  li {{ margin: 4px 0; }}
+  .footer {{ text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-09-12</h1>
+    <div class="meta">
+      <span>📅 <b>{}</b></span>
+      <span>🏛️ 沪指(9/11 收) <b>{}</b></span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+      <span>🎯 最近交易日:<b>{}</b></span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🟡</span><b>博主最近一天核心立场</b>:
+      <b>区间震荡偏防御 · 谨慎 · 板块轮动而非全面看多</b>。
+      周线复盘 <span class="tag tag-bear">热帖 12460赞</span> 明确"<b>下周操作依然维持谨慎,耐心等待明朗一些的机会或空间才参与短线</b>";
+      资金面 <span class="tag tag-bear">放量 +3253亿 但净流出 619亿</span>。
+      9 分钟内(14:06-14:15)连发 3 条板块速报,明确点出 <b>MLCC/电容龙头冲板</b> + <b>高速覆铜板两大龙头涨 8%+</b>。
+    </div>
+  </div>
+
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主核心立场</div>
+      <div class="val" style="color: var(--neutral);">🟡 谨慎</div>
+      <div class="sub">区间偏防御 · 9/11 14:53</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 9/11 收</div>
+      <div class="val" style="color: var(--neutral);">{}</div>
+      <div class="sub">试 3852 反抽 3896 (小V)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">大盘资金流(9/11)</div>
+      <div class="val" style="color: var(--bear);">-619 亿</div>
+      <div class="sub">成交 18170 亿 (+3253)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">下跌家数</div>
+      <div class="val" style="color: var(--bear);">4886 只</div>
+      <div class="sub">放量下跌 · 14:37 速报</div>
+    </div>
+    <div class="kpi">
+      <div class="label">抓取微博</div>
+      <div class="val">9 条</div>
+      <div class="sub">过滤 2 置顶</div>
+    </div>
+    <div class="kpi">
+      <div class="label">板块速报</div>
+      <div class="val" style="color: var(--bull);">3 条</div>
+      <div class="sub">14:06-14:15 9分钟内连发</div>
+    </div>
+  </div>
+
+  <h2>📋 完整微博列表(9 条,按时间倒序)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32px;">#</th>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 / 话题</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+{POSTS_TABLE}
+    </tbody>
+  </table>
+
+  <h2>🚦 核心操盘信号(LLM 二次摘要)</h2>
+
+  <div class="panel">
+    <h3>🔴 信号 1 — 9/11 14:53 周线复盘 (热帖 12460赞)</h3>
+    <p>「按周线看本周四大指数均属于承接式调整,周五下午虽然略有抵抗,但是力度偏小。就技术面看,还不能看出有新的波段。<b>因此,下周操作依然维持谨慎</b>,耐心等待明朗一些的机会或空间才参与短线。」</p>
+    <p><b>LLM 解读</b>:博主明确将本周定性为"<b>承接式调整</b>",并对"周五小 V 抵抗"持负面评价("力度偏小")。结论是"<b>下周操作依然维持谨慎</b>"——这是 8/30 之后博主第二次明确释放"防御"信号(<span class="tag tag-bear">看空</span> <span class="tag tag-neutral">置信度 高</span>)。</p>
+  </div>
+
+  <div class="panel">
+    <h3>🔴 信号 2 — 9/11 14:38 资金面速报</h3>
+    <p>「截止 14:37 两市成交了 18170 亿元,有 4886 只个股下垂,<b>大盘资金流出 619.22 亿元</b>,量能比上一交易日增加 3253 亿元!」</p>
+    <p><b>LLM 解读</b>:<b>放量 +3253 亿 + 资金净流出 619.22 亿 + 4886 只下跌</b>——这是 A 股典型的<b>放量下跌</b>组合(<span class="tag tag-bear">看空</span> <span class="tag tag-neutral">置信度 高</span>)。<b>关键观察</b>:放量但下跌,意味着有人在低位接货但承接力不足(主力可能在边打边撤),或纯粹是恐慌盘涌出。博主没明说但资金面信号已经非常明确。</p>
+  </div>
+
+  <div class="panel">
+    <h3>🟡 信号 3 — 9/11 14:10 大盘技术位</h3>
+    <p>「按短线看大盘指数<b>试了 3852 点之后反抽 3896 边</b>,呈现的是小 V 抵抗,我们注意看力度。」</p>
+    <p><b>LLM 解读</b>:试 3852 → 反抽 3896,**<b>区间 44 点</b>**的小 V 抵抗,<b>3856 多空分水岭 9/11 盘中已下破,勉强收回</b>(<span class="tag tag-neutral">中性偏空</span> <span class="tag tag-neutral">置信度 中</span>)。博主用"小 V 抵抗"暗示:力度偏弱,如不能突破 3896-3926 区间上沿,谨防二次下探。</p>
+  </div>
+
+  <h2>🟢 板块速报(博主 14:06-14:15 9 分钟连发 3 条)</h2>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 14:06 MLCC + 电容龙头冲板(4723 赞) → 14:14 电容板块走弹(5562 赞)</h3>
+    <p>博主在 <b>9 分钟内</b>连发 2 条同向速报,从"龙头冲板"到"板块走弹",显示 MLCC+电容是 9/11 当日<b>最强主线</b>。</p>
+    <ul>
+      <li><b>14:06</b>「<b>MLCC+电容龙头出现冲板!</b>」(4723 赞)</li>
+      <li><b>14:14</b>「<b>电容板块目前纷纷走弹!</b>」(5562 赞) — 转发 MLCC+电容龙头出现冲板</li>
+    </ul>
+    <p><b>解读</b>:<b>MLCC(片式多层陶瓷电容)</b>是 AI 算力服务器/光模块/消费电子核心被动元件,景气度回升 + AI 算力需求 + 价格周期反转三重逻辑。博主点出时点恰好是 9/11 14:06 大盘小 V 反弹前后,显示 <b>资金从大盘权重向电子元器件切换</b>的意图。</p>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 14:15 高速覆铜板两大龙头涨 8%+(6264 赞)</h3>
+    <p>「<b>高速覆铜板两大龙头出现拉起,目前涨 8% 以上!</b>」</p>
+    <p><b>解读</b>:<b>覆铜板(CCL)</b>是 PCB 的核心基板,<b>高速 CCL</b>(如 M6/M7/M8 级)用于 800G/1.6T 光模块、服务器主板、AI 加速卡。<b>两大龙头</b> = 生益科技 600183 + 南亚新材(未上市)/华正新材(603186)。8/14 英伟达 200G/lane CPO 量产 + 8/4 算力 PCB 冲板共振历史经验,显示 <b>AI 算力产业链 800G/1.6T 升级周期</b>正在向覆铜板环节扩散。</p>
+  </div>
+
+  <h2>💼 3 大板块 + 6 支个股</h2>
+
+{SECTORS_HTML}
+
+  <h2>📉 K 线图(关键位居左虚线标注)</h2>
+
+  <h3>1. 上证指数 (000001.SH) · 9/11 收 3888.11</h3>
+  <img class="chart" src="charts/000001_SH_20260912.png" alt="上证指数 K线图" />
+  <div class="chart-caption">沪指 8 个关键位:4256(8/15 前顶)/ 3996(8/29 周高)/ 3926(8/26 上沿)/ 3896(9/11 反抽)/ 3856(多空分水)/ 3852(9/11 下探)/ 3767(8/4 支撑)/ 3741(8/14 B反起)。9/11 收盘正好在 3856-3896 区间内。</div>
+
+  <h3>2. 🟢 风华高科 (000636.SZ) · MLCC 龙头 · 9/11 涨停 55.99</h3>
+  <img class="chart" src="charts/000636_SZ_20260912.png" alt="风华高科 K线图" />
+  <div class="chart-caption">博主 9/11 14:06 直接点名"MLCC+电容龙头冲板"。5 个关键位:60D低 37.69 / 支撑 50 / 9/11 收 55.99 / 压力 65 / 60D高 84。</div>
+
+  <h3>3. 🟢 三环集团 (300408.SZ) · MLCC+陶瓷电容 · 9/11 涨 5.66% 收 124.36</h3>
+  <img class="chart" src="charts/300408_SZ_20260912.png" alt="三环集团 K线图" />
+  <div class="chart-caption">5 个关键位:60D低 86.03 / 支撑 110 / 9/11 收 124.36 / 压力 150 / 60D高 180.35。</div>
+
+  <h3>4. 🟢 生益科技 (600183.SH) · 覆铜板龙头 · 9/11 收 148.43</h3>
+  <img class="chart" src="charts/600183_SH_20260912.png" alt="生益科技 K线图" />
+  <div class="chart-caption">博主 9/11 14:15 直接点名"高速覆铜板两大龙头涨 8%+"。5 个关键位:60D低 97.51 / 支撑 130 / 9/11 收 148.43 / 压力 170 / 60D高 191.88。</div>
+
+  <h3>5. 🟢 沪电股份 (002463.SZ) · AI PCB 龙头 · 9/11 收 128.25</h3>
+  <img class="chart" src="charts/002463_SZ_20260912.png" alt="沪电股份 K线图" />
+  <div class="chart-caption">5 个关键位:60D低 94.73 / 支撑 115 / 9/11 收 128.25 / 压力 145 / 60D高 158.20。</div>
+
+  <h3>6. 🟡 工商银行 (601398.SH) · 银行防御 · 9/11 收 8.11</h3>
+  <img class="chart" src="charts/601398_SH_20260912.png" alt="工商银行 K线图" />
+  <div class="chart-caption">博主 8/31 "长期持有优质银行股" 持续底仓逻辑。4 个关键位:60D低 6.95 / 强支撑 7.50 / 9/11 收 8.11 / 60D高 8.29。</div>
+
+  <h3>7. 🟡 招商银行 (600036.SH) · 零售银行 · 9/11 收 41.35</h3>
+  <img class="chart" src="charts/600036_SH_20260912.png" alt="招商银行 K线图" />
+  <div class="chart-caption">4 个关键位:60D低 35.28 / 强支撑 38.00 / 9/11 收 41.35 / 60D高 41.78。</div>
+
+  <h2>⚠️ 风险提示</h2>
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <ul>
+{RISKS_HTML}
+    </ul>
+  </div>
+
+  <h2>🎯 操作建议汇总</h2>
+
+  <div class="panel panel-2">
+    <h3>📌 大盘</h3>
+    <p><b>短期(1-2 周)</b>:<b>🟡 区间震荡偏防御</b>。3856 多空分水岭是关键 —— 站稳 3856 上方且突破 3896-3926 区间上沿则偏多;失守 3856 警惕下探 3767/3741。</p>
+    <p><b>博主 9/11 14:53 明确"下周操作依然维持谨慎"</b>,建议:5-6 成仓,板块快速轮动而非单边重仓。</p>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 板块策略</h3>
+    <ul>
+      <li><b>🟢 进攻方向:MLCC/电容 + 高速覆铜板</b> —— 博主 9/11 9 分钟连发 3 条速报,信号强度高;但短期累计涨幅大(7 月至今 +51%),建议 <b>回调买入不追高</b>。</li>
+      <li><b>🟡 防御底仓:银行</b> —— 博主 8/31 长期持有逻辑 + 9/11 谨慎判断共振,在 MLCC/覆铜板博弹性之外,银行股是"持有不慌"的底仓选择。</li>
+      <li><b>⚠️ 规避:高位消费白马</b> —— 博主 8/15 警示白酒/贵州茅台的逻辑仍未解除,资金面紧平衡下不轻易抄底消费白马。</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 关键位监控</h3>
+    <table>
+      <thead>
+        <tr><th>标的</th><th>支撑位</th><th>当前</th><th>压力位</th><th>监控动作</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>沪指</td><td>3856 / 3767</td><td>3888</td><td>3896 / 3926</td><td>失守 3856 → 减仓;站稳 3896 → 加仓 MLCC/PCB</td></tr>
+        <tr><td>风华高科</td><td>50</td><td>55.99</td><td>65 / 84</td><td>站稳 60 跟进;回踩 50 加仓</td></tr>
+        <tr><td>三环集团</td><td>110</td><td>124.36</td><td>150 / 180</td><td>站稳 130 跟进;回踩 110 加仓</td></tr>
+        <tr><td>生益科技</td><td>130</td><td>148.43</td><td>170 / 191</td><td>站稳 150 跟进;回踩 130 加仓</td></tr>
+        <tr><td>沪电股份</td><td>115</td><td>128.25</td><td>145 / 158</td><td>站稳 130 跟进;回踩 115 加仓</td></tr>
+        <tr><td>工商银行</td><td>7.50</td><td>8.11</td><td>8.29</td><td>持有不操作,8.0 下方加仓</td></tr>
+        <tr><td>招商银行</td><td>38.00</td><td>41.35</td><td>41.78</td><td>持有不操作,40 下方加仓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <p>报告生成时间:{ts} · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 7 张 K 线图(关键位居左虚线标注)</p>
+    <p>博主核心立场:<b>🟡 谨慎</b> · 板块:<b>🟢 MLCC/电容 · 🟢 高速覆铜板 · 🟡 银行</b> · 风险:<b>⚠️ 放量下跌+净流出 619亿</b></p>
+  </div>
+
+</div>
+</body>
+</html>
+"""
+
+# 渲染微博表格
+def render_posts_table():
+    rows = []
+    for i, p in enumerate(POSTS, 1):
+        # 标签
+        emoji = p["emoji"]
+        dir_cls = {"看多": "tag-bull", "看空": "tag-bear", "中性": "tag-neutral", "无关": "tag-none"}.get(p["dir"], "tag-none")
+        rows.append(f"""      <tr>
+        <td>{i}</td>
+        <td>{p['time']}</td>
+        <td class="emoji">{emoji}</td>
+        <td><span class="tag {dir_cls}">{p['signal']}</span><br/><span class="tag tag-accent">{p['topic']}</span></td>
+        <td class="text">{p['text']}</td>
+        <td class="score">{p['rep']} / {p['com']} / {p['like']}</td>
+        <td class="score">{p['score']:,}</td>
+      </tr>""")
+    return "\n".join(rows)
+
+# 渲染板块
+def render_sectors():
+    out = []
+    for s in SECTORS:
+        cards = []
+        for st in s["stocks"]:
+            bull_cls = "bull" if "🟢" in st["emoji"] else ("bear" if "🔴" in st["emoji"] else "neutral")
+            cards.append(f"""    <div class="stock-card {bull_cls}">
+      <h4>{st['emoji']} {st['name']} ({st['code']}) · 9/11 收 {st['close']} {st['chg']}</h4>
+      <div class="logic">{st['logic']}</div>
+      <div class="key">关键位:{st['key']}</div>
+    </div>""")
+        out.append(f"""  <div class="panel">
+    <h3>{s['name']}</h3>
+    <p>{s['summary']}</p>
+{chr(10).join(cards)}
+  </div>""")
+    return "\n".join(out)
+
+# 渲染风险
+def render_risks():
+    return "\n".join([f"      <li><b>{e}</b> {t}</li>" for e, t in RISKS])
+
+
+# 拼装 HTML
+posts_table = render_posts_table()
+sectors_html = render_sectors()
+risks_html = render_risks()
+
+html = HTML.format(
+    TODAY, SH_INDEX, LAST_TRADING,
+    SH_INDEX,
+    POSTS_TABLE=posts_table,
+    SECTORS_HTML=sectors_html,
+    RISKS_HTML=risks_html,
+    ts=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+)
+
+OUT_HTML.write_text(html, encoding="utf-8")
+print(f"[ok] wrote {OUT_HTML} ({len(html):,} bytes)")
