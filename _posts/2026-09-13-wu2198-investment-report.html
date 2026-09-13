@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-09-12</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 100%);
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 18px 0 8px;
+  }
+  .hero h1 { color: #991b1b; margin-bottom: 6px; }
+  .hero .stand {
+    display: inline-block;
+    background: var(--bear);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+
+  .verdict {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0 8px;
+  }
+  .verdict .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .verdict .card .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .verdict .card .val { font-size: 22px; font-weight: 600; margin-top: 4px; }
+  .verdict .card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .verdict .bear .val { color: var(--bear); }
+  .verdict .bull .val { color: var(--bull); }
+
+  .takeaway {
+    background: var(--accent-bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+  .takeaway strong { color: var(--accent); }
+  .takeaway ol { margin: 8px 0 0 0; padding-left: 20px; }
+  .takeaway li { margin: 4px 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  th { background: var(--panel); font-weight: 600; color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 2px;
+  }
+  .pill.bull { color: var(--bull); background: var(--bull-bg); }
+  .pill.bear { color: var(--bear); background: var(--bear-bg); }
+  .pill.neutral { color: var(--neutral); background: var(--neutral-bg); }
+  .pill.none { color: var(--none); background: var(--none-bg); }
+  .pill.key { color: var(--key); background: #ede9fe; }
+
+  .sectors { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+  .sector { border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; background: #fff; }
+  .sector.up { border-left: 4px solid var(--bull); }
+  .sector.down { border-left: 4px solid var(--bear); }
+  .sector h4 { color: var(--text); margin-top: 0; }
+  .sector ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .sector li { margin: 4px 0; font-size: 14px; }
+
+  .stock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .stock-card h4 { color: var(--text); margin: 0 0 4px 0; font-size: 16px; }
+  .stock-card .price { font-size: 22px; font-weight: 600; color: var(--bear); margin: 6px 0 4px; font-variant-numeric: tabular-nums; }
+  .stock-card .lev { font-size: 12px; color: var(--muted); margin: 2px 0; }
+  .stock-card .why { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 13px; }
+
+  .chart-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 12px 0 24px;
+  }
+  .chart-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 12px; }
+  .chart-head h3 { margin: 0 0 4px 0; }
+  .chart-head .meta { font-size: 12px; }
+  .levels-mini { font-size: 12px; }
+  .levels-mini div { margin: 2px 0; }
+  img.chart { width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--border); }
+
+  .risk {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 4px solid var(--neutral);
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 14px 0;
+  }
+  .risk h3 { color: var(--neutral); margin-top: 0; }
+  .risk ul { margin: 8px 0; padding-left: 20px; }
+  .risk li { margin: 4px 0; }
+
+  .check { list-style: none; padding: 0; margin: 12px 0; }
+  .check li { padding: 6px 12px; margin: 4px 0; border-radius: 6px; }
+  .check li.do { background: #ecfdf5; border-left: 3px solid var(--bull); }
+  .check li.dont { background: #fef2f2; border-left: 3px solid var(--bear); }
+  .check li.do::before { content: "✅ "; }
+  .check li.dont::before { content: "🚫 "; }
+
+  .timeline { margin: 16px 0; }
+  .tl-item { display: grid; grid-template-columns: 100px 100px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .tl-sig { font-size: 12px; }
+  .tl-body .sum { color: var(--text); }
+  .tl-body .src { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .weibo-row { padding: 10px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 100px 100px 1fr; gap: 10px; align-items: start; }
+  .weibo-row .time { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .weibo-row .eng { color: var(--muted); font-size: 11px; }
+  .weibo-row .text { color: var(--text); font-size: 13px; }
+  .weibo-row .text.snippet { color: var(--muted); font-style: italic; }
+
+  .note-bar {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #92400e;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+  }
+  footer p { margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>wu2198 投资观点日报 · 2026-09-12</h1>
+  <p class="meta">
+    <span>📅 最近一个交易日 (2026-09-11 周五)</span>
+    <span>👤 <a href="https://m.weibo.cn/u/1216826604" target="_blank">@wu2198</a> · 47.3w 粉丝</span>
+    <span>📊 周末博主休息无新操盘贴(9-12 / 9-13 微博均为鸡汤/转发/无关)</span>
+    <span>🕒 生成于 2026-09-13 21:10</span>
+  </p>
+</header>
+
+<!-- Hero 当日立场 -->
+<div class="hero">
+  <h1><span class="stand">🔴 偏空 · 延续</span>博主周末休息无新观点,沿用 9-04 关键位 + 9-11 收盘复盘</h1>
+  <p>9-12 / 9-13 周末两天博主无操盘贴,10 条微博均为鸡汤、转发、问候、评论(《天道》/ 苹果 18 / 葫芦爷爷 / 敬一丹 / 多车队退中国 GT / 吃得越狠老得越慢 等)。本报告沿用 9-04 关键位体系(博主最近一次明确表态),对照 9-11 收盘状态做<strong>周末复盘</strong>。<strong>关键发现:</strong>9-11 大盘收 3888.11 已跌破 3915 支撑,逼近 8/28 周线支撑 3850;创业板收 3322.04 在 3286 支撑上方;权重红利(中国神华)突破 45 阻力,但工行/茅台等防御龙头同步走弱,显示市场情绪分化明显。</p>
+</div>
+
+<div class="note-bar">
+  ⚠️ <strong>数据基础说明:</strong>本报告关键位采用博主最近一次明确表态 (9-04 周三 ~ 9-05 周四),K 线数据为 9-11 (周五) 收盘后的最新状态。9-08 ~ 9-11 期间博主微博数据因访客系统限速未完整抓取,如有 9-08 ~ 9-11 中间任何关键位更新,以 9-12 报告的沿用版为基准、待后续报告补全。
+</div>
+
+<!-- 核心结论卡片 -->
+<div class="verdict">
+  <div class="card bear">
+    <div class="lbl">博主立场 (沿用 9-04)</div>
+    <div class="val">🔴 偏空</div>
+    <div class="sub">4 空 / 2 中 / 1 无</div>
+  </div>
+  <div class="card bear">
+    <div class="lbl">大盘 9/11 收盘</div>
+    <div class="val">3888.11</div>
+    <div class="sub">🔻 跌破 3915 支撑 · 逼近 3850</div>
+  </div>
+  <div class="card">
+    <div class="lbl">创业板 9/11 收盘</div>
+    <div class="val">3322.04</div>
+    <div class="sub">稳在 3286 支撑上方 · 上摸 3375 未破</div>
+  </div>
+  <div class="card bear">
+    <div class="lbl">周末博主动态</div>
+    <div class="val">10 条全无关</div>
+    <div class="sub">9-12 / 9-13 鸡汤 · 转发 · 互动</div>
+  </div>
+</div>
+
+<!-- 投资建议(先讲结论) -->
+<h2>🎯 投资建议(先看结论)</h2>
+<div class="takeaway">
+  <strong>核心结论:博主 9-04 的"调整未完 + 资金涌向大权重"立场,在 9-11 收盘得到市场印证 — 大盘已跌破 3915 支撑,逼近 3850 关键位。</strong>
+  <ol>
+    <li><strong>仓位:</strong>维持谨慎,新资金不进场;存量降杠杆(博主此前反复强调"无技术不参与短线"+"只做防御")。</li>
+    <li><strong>大盘:</strong>3888 已破 3915,3850 是最后一道关键支撑。破 3850 警惕加速下行;若 3850 守住仍有反抽 3915 / 3996 的可能。</li>
+    <li><strong>创业板:</strong>3322 仍在 3286 支撑上方,3266 是底线。破 3266 警惕调整加长;3375 仍是反抽目标。</li>
+    <li><strong>权重红利分化:</strong>煤炭(中国神华 47.51 已突破 45 阻力) + 银行(工行 8.11 已破 8.60 支撑) — 同板块内部分化,资金避风港逻辑有松动迹象。</li>
+    <li><strong>回避:</strong>科技成长 / 创业板(博主"市场太软"+"第四大浪 ABC 调整结构未完")。</li>
+    <li><strong>关注:</strong>防御性方向(银行/证券/保险/白酒/煤炭)— 权重红利 + 拉指数 4 大主力,但需要精选个股 + 严格止损。</li>
+  </ol>
+</div>
+
+<!-- 关键位体系 -->
+<h2>📐 关键位体系(沿用 9-04 · 9-11 收盘对照)</h2>
+
+<h3>大盘 — 上证指数 (000001.SH) · 收 3888.11 <span class="pill bear">🔻 跌破 3915</span></h3>
+<table>
+  <thead><tr><th style="width:100px;">来源</th><th style="width:160px;">关键位</th><th>意义</th><th style="width:140px;">9-11 收盘状态</th></tr></thead>
+  <tbody>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bear'>阻力 3996.00</span></td><td>B反目标3996</td><td>— 远离</td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bear'>支撑 3915.00 (已破)</span></td><td>9/4反抽试3915</td><td class='num'><strong style="color:var(--bear)">🔻 9-11 收 3888 (破 26 点)</strong></td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bear'>支撑 3850.00 (关键!)</span></td><td>8/28周线支撑3850</td><td class='num'><strong style="color:var(--bear)">⚠️ 距 3850 仅 38 点</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>参考 3700.00</span></td><td>关口3700</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3741.11</span></td><td>60D低</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>参考 3800.00</span></td><td>关口3800</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>参考 3900.00</span></td><td>关口3900</td><td>— 9-11 已破</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3912.44</span></td><td>MA50</td><td class='num'><strong style="color:var(--bear)">🔻 已破</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3934.80</span></td><td>MA20</td><td class='num'><strong style="color:var(--bear)">🔻 已破</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3941.72</span></td><td>MA60</td><td class='num'><strong style="color:var(--bear)">🔻 已破</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>参考 4000.00</span></td><td>关口4000</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bear'>阻力 4175.35</span></td><td>60D高</td><td>— 远离</td></tr>
+  </tbody>
+</table>
+
+<h3>创业板指 (399006.SZ) · 收 3322.04 <span class="pill bull">🟢 守住 3286</span></h3>
+<table>
+  <thead><tr><th style="width:100px;">来源</th><th style="width:160px;">关键位</th><th>意义</th><th style="width:140px;">9-11 收盘状态</th></tr></thead>
+  <tbody>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bear'>阻力 3375.00</span></td><td>反抽目标3375</td><td>— 未达</td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bull'>支撑 3286.00</span></td><td>试破不收破3286</td><td class='num'><strong style="color:var(--bull)">🟢 守在上方 +36</strong></td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bull'>支撑 3266.00</span></td><td>9/4下试3266</td><td>— 守住</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>参考 3100.00</span></td><td>关口3100</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3158.14</span></td><td>60D低</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>参考 3200.00</span></td><td>关口3200</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>参考 3300.00</span></td><td>关口3300</td><td>— 9-11 收 3322 上方</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3430.98</span></td><td>MA20</td><td>— 9-11 收 3322 下方</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3532.61</span></td><td>MA50</td><td>— 9-11 收 3322 下方</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3647.62</span></td><td>MA60</td><td>— 9-11 收 3322 下方</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bear'>阻力 4380.41</span></td><td>60D高</td><td>— 远离</td></tr>
+  </tbody>
+</table>
+
+<!-- 板块观察 -->
+<h2>🔍 板块观察(博主 9-04 立场 + 9-11 收盘印证)</h2>
+<div class="sectors">
+  <div class="sector up">
+    <h4>🟢 防御 / 权重 / 拉指数</h4>
+    <ul>
+      <li><strong>银行</strong> — 8/28 9/1 反复提及"银行股 B 反持续走强,改写新高" <span class="meta">(⚠️ 但 9-11 工行 8.11 已破 8.60 支撑)</span></li>
+      <li><strong>证券 / 保险</strong> — 9/1 提及"银行、证券、保险、白酒 4 大权重拉指数" <span class="meta">(9-11 中信 26.92 接近 26.00 支撑,中国平安 54.83 仍在 52-60 区间)</span></li>
+      <li><strong>煤炭</strong> — 8/31 提及"银行、煤炭、石油化工推动收红" <span class="meta">(✅ 9-11 神华 47.51 已突破 45 阻力,煤炭强势)</span></li>
+      <li><strong>白酒</strong> — 同上(防御属性) <span class="meta">(❌ 9-11 茅台 1275.16 已破 1380 支撑,逼近 60D 低 1151)</span></li>
+    </ul>
+    <p class="meta" style="margin-top:8px;">资金从科技成长回流低估值蓝筹 + 高股息红利,但板块内部分化明显 — 煤炭强势 / 银行白酒同步走弱。</p>
+  </div>
+  <div class="sector down">
+    <h4>🔴 领跌 / 博主点名回避</h4>
+    <ul>
+      <li><strong>科技成长 / 创业板</strong> — 9/4"创业板市场太软"+"第四大浪 ABC 调整结构未完"</li>
+      <li><strong>追高 / 短线</strong> — 博主历次强调"无技术不参与短线"</li>
+      <li><strong>举债 / 杠杆</strong> — 博主风控底线,禁举债/禁杠杆</li>
+    </ul>
+    <p class="meta" style="margin-top:8px;">第四大浪调整未完,科技成长全面退潮,只做防御不重仓追。9-11 创业板虽守住 3286,但 MA20/50/60 全部失守,中期趋势走弱。</p>
+  </div>
+</div>
+
+<!-- 推荐 3 板块 + 6 个股 -->
+<h2>🏆 最值得投资的 3 个板块 + 6 支个股</h2>
+<p class="meta">板块选择基于 wu2198 8/28-9/4 多次提及的"拉指数 4 大权重" + "银行股 B 反持续走强" + "煤炭/石油化工推动收红"等观点;个股为各板块龙头标的,综合考虑流动性、估值水平和防御属性。<strong>9-11 收盘状态已显示分化</strong>(煤炭强势 / 银行白酒走弱),实际买入需要更严格的止损纪律。</p>
+
+<h3>板块 1: 银行(防御/红利)— 9/1 资金面最强方向 (⚠️ 9-11 已分化)</h3>
+<div class="stock-grid">
+  <div class="stock-card">
+    <h4>工商银行 <span class="meta">(601398.SH)</span></h4>
+    <p class="meta">板块龙头 · 沪深 300 权重</p>
+    <div class="price">¥8.11</div>
+    <div class="lev">📌 阻力 9.30 (B反压力) / 支撑 8.60 (近期支撑)</div>
+    <div class="lev">系统: MA60 7.64 / 60D高 8.29 / 60D低 6.95</div>
+    <div class="why">🟡 <strong>推荐理由:</strong> 板块绝对龙头,但 9-11 收 8.11 <strong style="color:var(--bear)">已破 8.60 支撑 0.49</strong>,B 反结构出现松动。若 8.60 不能快速收复,警惕加速下行;若 8.00 整数关口失守则止损。</div>
+  </div>
+  <div class="stock-card">
+    <h4>农业银行 <span class="meta">(601288.SH)</span></h4>
+    <p class="meta">国有大行 · 高股息 · 防御首选</p>
+    <div class="price">¥6.97</div>
+    <div class="lev">📌 阻力 7.20 (B反新高区) / 支撑 6.40 (60日线附近)</div>
+    <div class="lev">系统: MA60 6.56 / 60D高 7.11 / 60D低 5.79</div>
+    <div class="why">🟡 <strong>推荐理由:</strong> 国有大行高股息防御标的,9-11 收 6.97 已 <strong style="color:var(--bear)">跌破 6.40 关键支撑 (B 反新高区 7.20 也失守)</strong>。博主 9-04 体系已部分失效,需等待 6.40 / MA60 6.56 区域能否企稳再判断。</div>
+  </div>
+</div>
+
+<h3>板块 2: 证券 + 保险(拉指数 4 大权重之二) — 9-11 接近支撑</h3>
+<div class="stock-grid">
+  <div class="stock-card">
+    <h4>中信证券 <span class="meta">(600030.SH)</span></h4>
+    <p class="meta">券商龙头 · 拉指数主力</p>
+    <div class="price">¥26.92</div>
+    <div class="lev">📌 阻力 32.0 (9/1反抽压力) / 支撑 26.0 (近期调整支撑)</div>
+    <div class="lev">系统: MA60 28.02 / 60D高 29.88 / 60D低 26.38</div>
+    <div class="why">🟢 <strong>推荐理由:</strong> 9/1 博主明确提及"银行、证券、保险、白酒是 4 大权重板块拉指数"。9-11 收 26.92 <strong style="color:var(--neutral)">距 26.00 关键支撑仅 0.92</strong>,已逼近 60D 低 26.38 — 这是最后的支撑防线。若 26.00 失守,板块防御逻辑全面失效。</div>
+  </div>
+  <div class="stock-card">
+    <h4>中国平安 <span class="meta">(601318.SH)</span></h4>
+    <p class="meta">保险龙头 · 综合金融</p>
+    <div class="price">¥54.83</div>
+    <div class="lev">📌 阻力 60.0 (B反压力区) / 支撑 52.0 (近期支撑)</div>
+    <div class="lev">系统: MA60 52.81 / 60D高 58.99 / 60D低 46.90</div>
+    <div class="why">🟢 <strong>推荐理由:</strong> 保险板块龙头,9-11 收 54.83 仍在 52-60 区间内运行,但 <strong style="color:var(--neutral)">MA20 55.15 已失守</strong>,短期承压。52.0 是关键支撑,守住则维持 B 反结构;破 52.0 警惕下试 MA60 52.81。</div>
+  </div>
+</div>
+
+<h3>板块 3: 白酒 + 煤炭(防御/权重红利) — 内部分化最明显</h3>
+<div class="stock-grid">
+  <div class="stock-card">
+    <h4>贵州茅台 <span class="meta">(600519.SH)</span></h4>
+    <p class="meta">白酒龙头 · 防御标杆</p>
+    <div class="price">¥1,275.16</div>
+    <div class="lev">📌 阻力 1500 (整数关口) / 支撑 1380 (近期底部)</div>
+    <div class="lev">系统: MA60 1278 / 60D高 1363 / 60D低 1151</div>
+    <div class="why">🔴 <strong>推荐理由:</strong> 9/1 拉指数 4 大权重之一,历次调整中防御属性最强。但 9-11 收 1275 <strong style="color:var(--bear)">已破 1380 支撑 105 元</strong>,距离 60D 低 1151 仅剩 124 元空间。博主 9-04 体系已明确失效,白酒防御逻辑需要重估。下一关键观察位:1151 (60D 低) / 1300 整数关口。</div>
+  </div>
+  <div class="stock-card">
+    <h4>中国神华 <span class="meta">(601088.SH)</span></h4>
+    <p class="meta">煤炭龙头 · 高股息红利</p>
+    <div class="price">¥47.51</div>
+    <div class="lev">📌 阻力 45.0 (B反压力) / 支撑 38.0 (近期支撑)</div>
+    <div class="lev">系统: MA60 44.41 / 60D高 49.48 / 60D低 38.73</div>
+    <div class="why">🟢 <strong>推荐理由:</strong> 8/31 博主提及"银行、煤炭、石油化工推动收红"。9-11 收 47.51 <strong style="color:var(--bull)">已突破 45 阻力 +2.51</strong> — <strong>8 个标的中唯一在博主 9-04 体系内保持强势的</strong>。煤炭 + 高股息 + 红利属性,防御阶段首选。</div>
+  </div>
+</div>
+
+<!-- K 线图区 -->
+<h2>📈 K 线 + MACD + 成交量图(关键位虚线标注)</h2>
+<p class="meta">半年线视图(2026-03-15 ~ 2026-09-11,周五收盘)。<strong style="color:#c0392b">红色虚线 📌</strong> = wu2198 关键位(居左标注,沿用 9-04 体系),<strong style="color:#7f8c8d">灰色虚线</strong> = 系统自动识别(MA/60D 高低/整数关口)。</p>
+
+<h3>大盘 — 上证指数</h3>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>上证指数 <span class="meta">(000001.SH) · 大盘</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">3888.11</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>B反目标3996 3996.00</span> <span class='pill bear'>9/4反抽试3915 3915.00 (已破)</span> <span class='pill bear'>8/28周线支撑3850 3850.00 (关键!)</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill neutral'>关口3700 3700.00</span> <span class='pill bull'>60D低 3741.11</span> <span class='pill neutral'>关口3800 3800.00</span> <span class='pill neutral'>关口3900 3900.00</span> <span class='pill bull'>MA50 3912.44</span> <span class='pill bull'>MA20 3934.80</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/000001_SH_20260912.png" alt="上证指数 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。关键位以<strong style="color:#c0392b">红色虚线</strong>居左标注(📌),系统识别以<strong style="color:#7f8c8d">灰色虚线</strong>标注。<strong style="color:var(--bear)">9-11 收盘 3888.11 已跌破 3915 关键支撑 26 点,逼近 3850 周线支撑 38 点</strong>。</p>
+</div>
+
+
+<h3>大盘 — 创业板指</h3>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>创业板指 <span class="meta">(399006.SZ) · 大盘(创业板)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bull)">3322.04</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>反抽目标3375 3375.00 (未达)</span> <span class='pill bull'>试破不收破3286 3286.00 (守住)</span> <span class='pill bull'>9/4下试3266 3266.00</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill neutral'>关口3200 3200.00</span> <span class='pill bull'>60D低 3158.14</span> <span class='pill neutral'>关口3300 3300.00</span> <span class='pill bull'>MA20 3430.98 (已失守)</span> <span class='pill bull'>MA50 3532.61 (已失守)</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/399006_SZ_20260912.png" alt="创业板指 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。关键位以<strong style="color:#c0392b">红色虚线</strong>居左标注(📌),系统识别以<strong style="color:#7f8c8d">灰色虚线</strong>标注。<strong style="color:var(--bull)">9-11 收盘 3322.04 仍在 3286 关键支撑上方,但 MA20/50/60 全部失守,中期趋势走弱</strong>。</p>
+</div>
+
+
+<h3>6 只个股</h3>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>工商银行 <span class="meta">(601398.SH) · 银行(防御/红利)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">8.11</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>B反压力 9.30 (远离)</span> <span class='pill bear'>近期支撑 8.60 (已破)</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D低 6.95</span> <span class='pill bull'>MA60 7.64</span> <span class='pill bull'>MA20 7.94</span> <span class='pill bear'>60D高 8.29 (已破)</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/601398_SH_20260912.png" alt="工商银行 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9-11 收 8.11 已破 8.60 支撑 0.49 元 + 60D 高 8.29 0.18 元</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>农业银行 <span class="meta">(601288.SH) · 银行(防御/红利)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">6.97</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>B反新高区 7.20 (已破)</span> <span class='pill bear'>60日线附近 6.40 (已破)</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D低 5.79</span> <span class='pill bull'>MA60 6.56</span> <span class='pill bull'>MA20 6.84</span> <span class='pill bear'>60D高 7.11 (已破)</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/601288_SH_20260912.png" alt="农业银行 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9-11 收 6.97 已破 7.20 阻力 + 6.40 支撑,博主 9-04 体系完全失效</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>中信证券 <span class="meta">(600030.SH) · 券商(拉指数四大权重之一)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--neutral)">26.92</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>9/1反抽压力 32.00 (远离)</span> <span class='pill bear'>近期调整支撑 26.00 (临近)</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D低 26.38</span> <span class='pill bull'>MA20 27.51 (失守)</span> <span class='pill bull'>MA60 28.02 (失守)</span> <span class='pill bear'>60D高 29.88 (远离)</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/600030_SH_20260912.png" alt="中信证券 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--neutral)">9-11 收 26.92 距 26.00 关键支撑仅 0.92 元,逼近 60D 低 26.38 — 最后的支撑防线</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>中国平安 <span class="meta">(601318.SH) · 保险(拉指数四大权重之一)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--neutral)">54.83</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>B反压力区 60.00 (远离)</span> <span class='pill bull'>近期支撑 52.00 (还有空间)</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D低 46.90</span> <span class='pill bull'>MA60 52.81</span> <span class='pill bull'>MA20 55.15 (失守)</span> <span class='pill bear'>60D高 58.99 (远离)</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/601318_SH_20260912.png" alt="中国平安 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--neutral)">9-11 收 54.83 仍在 52-60 区间内,但 MA20 55.15 已失守,短期承压</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>贵州茅台 <span class="meta">(600519.SH) · 白酒(防御/拉指数)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">1275.16</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>整数关口1500 1500.00 (远离)</span> <span class='pill bear'>近期底部 1380.00 (已破)</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D低 1151.01</span> <span class='pill bull'>MA60 1278.01 (已破)</span> <span class='pill bull'>MA20 1298.32 (已破)</span> <span class='pill bull'>关口1300 (已破)</span> <span class='pill bear'>60D高 1363.35 (已破)</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/600519_SH_20260912.png" alt="贵州茅台 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9-11 收 1275.16 已破 1380 支撑 105 元,所有均线失守,逼近 60D 低 1151(还剩 124 元空间) — 白酒防御逻辑需要重估</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>中国神华 <span class="meta">(601088.SH) · 煤炭(权重红利)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bull)">47.51</strong> · 截至 2026-09-11 · 半年线视图</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bull'>B反压力 45.00 (已突破)</span> <span class='pill bull'>近期支撑 38.00 (还有空间)</span> </div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D低 38.73</span> <span class='pill bull'>MA60 44.41 (已突破)</span> <span class='pill bull'>MA20 47.09 (已突破)</span> <span class='pill bear'>60D高 49.48</span> </div>
+    </div>
+  </div>
+  <img class="chart" src="charts/601088_SH_20260912.png" alt="中国神华 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bull)">9-11 收 47.51 已突破 45 阻力 +2.51,MA20/60 全部突破 — 8 个标的中唯一保持强势的防御标的,煤炭红利逻辑继续</strong>。</p>
+</div>
+
+
+<!-- 操盘信号汇总 -->
+<h2>📊 操盘信号汇总(周末博主无新观点,沿用 9-04 + 9-11 收盘印证)</h2>
+
+<div class="note-bar">
+  ⚠️ 9-12 / 9-13 周末两天博主微博数据抓取到 10 条,经分类识别 <strong>0 条操盘信号</strong>(全部为鸡汤/转发/问候/无关内容)。本节展示 9-11 收盘后博主 9-04 关键位的"市场印证"情况 — 这是基于"博主立场 + 市场行为"的双向信号。
+</div>
+
+<h3>🔴 看空印证(8 个标的中 4 个关键位失守)</h3>
+<table>
+  <thead><tr><th style="width:200px;">标的 / 关键位</th><th>9-11 状态</th><th>印证强度</th></tr></thead>
+  <tbody>
+    <tr><td>上证 / 3915 (9/4反抽试)</td><td>9-11 收 3888.11,跌破 26 点</td><td><span class="pill bear">🔴 强</span></td></tr>
+    <tr><td>上证 / MA20 3934.80 / MA50 3912.44 / MA60 3941.72</td><td>三条均线全部失守</td><td><span class="pill bear">🔴 强</span></td></tr>
+    <tr><td>工商银行 / 8.60 支撑 + 60D 高 8.29</td><td>9-11 收 8.11,支撑 + 60D 高均失守</td><td><span class="pill bear">🔴 强</span></td></tr>
+    <tr><td>农业银行 / 7.20 阻力 + 6.40 支撑</td><td>9-11 收 6.97,博主 9-04 体系完全失效</td><td><span class="pill bear">🔴 强</span></td></tr>
+    <tr><td>贵州茅台 / 1380 支撑 + 1300 关口</td><td>9-11 收 1275,白酒防御逻辑需重估</td><td><span class="pill bear">🔴 强</span></td></tr>
+  </tbody>
+</table>
+
+<h3>🟡 中性观察(2 个标的接近关键位,需要密切跟踪)</h3>
+<table>
+  <thead><tr><th style="width:200px;">标的 / 关键位</th><th>9-11 状态</th><th>印证强度</th></tr></thead>
+  <tbody>
+    <tr><td>上证 / 3850 (8/28周线支撑)</td><td>9-11 收 3888,距 3850 仅 38 点</td><td><span class="pill neutral">🟡 关键</span></td></tr>
+    <tr><td>中信证券 / 26.00 支撑 + 60D 低 26.38</td><td>9-11 收 26.92,最后支撑防线</td><td><span class="pill neutral">🟡 关键</span></td></tr>
+    <tr><td>中国平安 / 52.00 支撑 + MA20 55.15</td><td>9-11 收 54.83,在区间内但 MA20 失守</td><td><span class="pill neutral">🟡 关注</span></td></tr>
+  </tbody>
+</table>
+
+<h3>🟢 看多印证(8 个标的中 1 个保持强势)</h3>
+<table>
+  <thead><tr><th style="width:200px;">标的 / 关键位</th><th>9-11 状态</th><th>印证强度</th></tr></thead>
+  <tbody>
+    <tr><td>中国神华 / 45 阻力 + MA60 44.41 + MA20 47.09</td><td>9-11 收 47.51,突破阻力 + 站上所有均线</td><td><span class="pill bull">🟢 强</span></td></tr>
+  </tbody>
+</table>
+
+<h3>⚪ 无显著信号(创业板守在支撑上方,但均线全失守)</h3>
+<table>
+  <thead><tr><th style="width:200px;">标的 / 关键位</th><th>9-11 状态</th><th>印证强度</th></tr></thead>
+  <tbody>
+    <tr><td>创业板 / 3286 支撑</td><td>9-11 收 3322,守在上方 36 点</td><td><span class="pill none">⚪ 守住但弱势</span></td></tr>
+  </tbody>
+</table>
+
+<!-- 风险 -->
+<div class="risk">
+  <h3>⚠️ 风险提示(博主历次风控原话精华 + 9-11 收盘补充)</h3>
+  <ul>
+    <li>投资股市只适合利用自己的<strong>空闲资金</strong>,量力而为,风险永远放在第一位。</li>
+    <li>不要举债,不要用杠杆。</li>
+    <li>理性 + 价值 + 组合式投资相结合,将风险控制在自己能承受的范围之内。</li>
+    <li>无技术不要参与短线(博主反复强调)。</li>
+    <li>9-04 博主最终判断:整体势头是调整格局,顺势原趋势 — <strong>第四大浪 ABC 调整结构</strong>。</li>
+    <li><strong style="color:var(--bear)">9-11 收盘补充:</strong>大盘已跌破 3915 关键支撑,逼近 3850 周线支撑 — 博主"调整未完"立场得到市场印证。博主 9-04 关键位体系在 8 个标的中 4 个完全失守(上证/工行/农行/茅台),仅 1 个保持强势(神华),板块内部分化明显。</li>
+    <li><strong style="color:var(--bear)">跟单警示:</strong>博主 9-04 关键位已部分失效,新资金建议观望;存量持仓以 3850 (大盘) / 26.00 (中信) / 1151 (茅台 60D 低) 为最后防线,任何一破立即减仓。</li>
+  </ul>
+</div>
+
+<!-- 跟单 checklist -->
+<h2>✅ 跟单 Checklist(基于 9-04 博主观点 + 9-11 收盘状态)</h2>
+<ul class="check">
+  <li class="do">维持谨慎仓位,新资金不进场</li>
+  <li class="do">存量降杠杆至舒适水位</li>
+  <li class="do">下周重点关注大盘 3850 关键支撑 — 距 9-11 收盘仅 38 点</li>
+  <li class="do">创业板关注 3286 支撑 — 9-11 仍守住 36 点</li>
+  <li class="do">中国神华:博主 9-04 体系内唯一保持强势,继续持有但 60D 高 49.48 警惕</li>
+  <li class="do">中信证券:26.00 是最后支撑,守住可继续持有,破 26.00 立即减仓</li>
+  <li class="do">中国平安:52.00 支撑区域持有观察,破 52.00 警惕加速</li>
+  <li class="dont">不抄底科技成长 / 创业板(博主"市场太软"+"第四大浪未完")</li>
+  <li class="dont">不接刀中小盘追高品种</li>
+  <li class="dont">工商银行/农业银行:博主 9-04 关键位已破,等待 6.40(农行)/8.00(工行) 整数关口企稳再判断</li>
+  <li class="dont">贵州茅台:博主 9-04 体系完全失效,等待 60D 低 1151 区域能否止跌</li>
+  <li class="dont">不参与短线(博主反复强调"无技术不参与")</li>
+  <li class="dont">不举债、不加杠杆(博主风控底线)</li>
+</ul>
+
+<!-- 完整时间线 -->
+<h2>📜 9-12 ~ 9-13 周末博主微博(10 条,均无操盘信号)</h2>
+<div class="timeline">
+
+  <div class="tl-item">
+    <div class="tl-time">09-13 13:22</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">骨气啊!👍</div>
+      <div class="src">日常互动贴 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-13 12:49</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">《天道》最残忍的内核:丁元英悟透了别人的天道,却渡不过自己的情关……</div>
+      <div class="src">《天道》感悟贴 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-13 09:50</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">#敬一丹去世#致敬焦点访谈金牌主持人……一路走好</div>
+      <div class="src">社会新闻转发 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-13 08:29</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">《天道》:大海里不缺水,但水都往大海里流,富人不缺钱,但钱都往富人口袋里进……</div>
+      <div class="src">《天道》感悟贴 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-13 07:41</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">高人讲真诚,小人玩心眼。善者独来独往,恶人成群结队……</div>
+      <div class="src">鸡汤/人生感悟 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-13 07:13</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">#吃得越狠老得越慢#又骗我吃东西?</div>
+      <div class="src">日常互动贴 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-12 22:31</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">大家晚安!🙏</div>
+      <div class="src">问候贴 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-12 21:53</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">#葫芦爷爷重新挂出葫芦#老爷爷你,眨一下眼睛?</div>
+      <div class="src">社会新闻互动 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-12 21:03</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">#苹果18 抢不到#遥遥领先!</div>
+      <div class="src">消费电子互动 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-time">09-12 18:32</div>
+    <div class="tl-sig"><span class="pill none">⚪ 无</span></div>
+    <div class="tl-body">
+      <div class="sum snippet">#多车队宣布永久退出中国GT#看不懂,我不敢说话!</div>
+      <div class="src">赛车新闻互动 · 无操盘意义 · <a href="https://m.weibo.cn/u/1216826604" target="_blank">[原帖]</a></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>数据来源: 新浪微博 @wu2198(UID 1216826604) · tushare pro daily / index_daily</p>
+  <p>本报告由 Mavis 自动生成,基于 wu2198 公开微博观点 + 技术分析,不构成任何投资建议。</p>
+  <p>关键位红色虚线 = wu2198 主观判断(沿用 9-04) · 灰色虚线 = 系统识别(MA/60D 高低/整数关口)</p>
+  <p>报告生成时间: 2026-09-13 21:10:32 · 数据基准日: 2026-09-11 (周五收盘)</p>
+</footer>
+
+</div>
+</body>
+</html>
