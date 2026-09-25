@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-09-25</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 22px 0 10px; }
+  h4 { font-size: 15px; margin: 14px 0 6px; color: var(--text); }
+  p { margin: 8px 0; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+  header { padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  .hero {
+    background: var(--panel);
+    border-left: 4px solid var(--bear);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+  .hero .stand {
+    display: inline-block;
+    background: var(--bear-bg);
+    color: var(--bear);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  .note-bar {
+    background: #fff8e1;
+    border: 1px solid #f6e05e;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #92400e;
+  }
+  .verdict { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0 28px; }
+  .verdict .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .verdict .lbl { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+  .verdict .val { font-size: 22px; font-weight: 700; margin: 4px 0; }
+  .verdict .sub { font-size: 12px; color: var(--muted); }
+  .verdict .card.bear { border-left: 4px solid var(--bear); }
+  .verdict .card.bull { border-left: 4px solid var(--bull); }
+  .verdict .card.neutral { border-left: 4px solid var(--neutral); }
+  .takeaway {
+    background: linear-gradient(135deg, #fef2f2, #fff7ed);
+    border: 1px solid #fed7aa;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+  .takeaway ol { margin: 8px 0 8px 22px; }
+  .takeaway li { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th { background: var(--panel); text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); font-weight: 600; }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  td.num { font-family: 'SF Mono', Menlo, monospace; text-align: right; }
+  .pill {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .pill.bull { background: var(--bull-bg); color: var(--bull); }
+  .pill.bear { background: var(--bear-bg); color: var(--bear); }
+  .pill.neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .pill.none { background: var(--none-bg); color: var(--none); }
+  .pill.key { background: #ede9fe; color: var(--key); }
+  .chart-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin: 16px 0;
+  }
+  .chart-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+  }
+  .chart-head h3 { margin: 0 0 4px 0; }
+  .levels-mini { font-size: 12px; max-width: 700px; }
+  .levels-mini div { margin: 3px 0; }
+  img.chart {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+  .weibo-list { background: var(--panel); border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  .weibo-item { border-bottom: 1px dashed var(--border); padding: 8px 0; font-size: 13px; }
+  .weibo-item:last-child { border-bottom: none; }
+  .weibo-time { color: var(--muted); font-size: 11px; font-family: 'SF Mono', Menlo, monospace; }
+  .weibo-text { color: var(--text); margin-top: 2px; }
+  .weibo-text strong { color: var(--bear); }
+  .reasons li { margin: 6px 0; }
+  footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+  }
+  footer p { margin: 4px 0; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 14px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 14px 0; }
+  .box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .box h4 { margin-top: 0; color: var(--accent); }
+  .box ul { margin: 6px 0 0 18px; }
+  .box li { margin: 4px 0; font-size: 13px; }
+  @media (max-width: 768px) {
+    .verdict, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .chart-head { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>wu2198 投资观点日报 · 2026-09-25(中秋)</h1>
+  <p class="meta">
+    <span>📅 数据截至 2026-09-24(节前最后交易日)</span>
+    <span>👤 <a href="https://m.weibo.cn/u/1216826604" target="_blank">@wu2198</a> · 47.3w 粉丝 · 技术派(缠论/波浪)</span>
+    <span>📊 中秋节博主休息:9/24-9/25 共 11 条微博,均为节日祝福/社会新闻/转发,无新操盘观点</span>
+    <span>🕒 生成于 2026-09-25 21:05</span>
+  </p>
+</header>
+
+<!-- Hero 当日立场 -->
+<div class="hero">
+  <h1><span class="stand">⚪ 中性 · 等待</span>中秋博主休息无新观点,沿用 8/4 关键位 + 9/24 收盘复盘</h1>
+  <p>9/24(周三)~ 9/25(周四 中秋)博主共发布 11 条微博,内容全部为节日祝福、社会新闻转发、互动。<strong>唯一隐含信号:</strong>9/24 17:41 转发并附"讲得很清楚……明白666过节了!",被转发内容为<strong style="color:var(--bear)">"反弹几天,就忘记了本质!"</strong> — 隐含<strong>看空/警惕</strong>立场。本报告沿用博主最近一次完整观点 (<strong>8/4 周二</strong>:创业板 A 杀 3160 / B 反 3486 / 目标 3590;大盘 3856 / 3886 B 浪明朗条件),对照 9/24 节前收盘做复盘。</p>
+</div>
+
+<div class="note-bar">
+  ⚠️ <strong>数据基础说明:</strong>本报告关键位采用博主最近一次明确表态 (<strong>8/4 周二</strong>),K 线数据为 9/24(节前最后交易日)收盘后的最新状态。今天 9/25 中秋节 A 股休市,9/26 周五恢复交易。博主长期立场:缠论/波浪术语,"第四大浪 ABC 调整结构未完";6/8 已撤离本金+去年盈利一半;风控底线:不举债/不杠杆/只用闲钱/无技术不参与短线。
+</div>
+
+<!-- 核心结论卡片 -->
+<div class="verdict">
+  <div class="card neutral">
+    <div class="lbl">博主立场(沿用 8/4 + 9/24 隐含信号)</div>
+    <div class="val">⚪ 中性偏空</div>
+    <div class="sub">9/24 17:41 转发"反弹几天就忘记本质"</div>
+  </div>
+  <div class="card bear">
+    <div class="lbl">大盘 9/24 收盘</div>
+    <div class="val">3888.37</div>
+    <div class="sub">🔻 跌 1.22% · 失守 3886</div>
+  </div>
+  <div class="card bear">
+    <div class="lbl">创业板 9/24 收盘</div>
+    <div class="val">3288.95</div>
+    <div class="sub">🔻 跌 2.68% · 失守 3286 关键支撑</div>
+  </div>
+  <div class="card neutral">
+    <div class="lbl">9/24-9/25 微博</div>
+    <div class="val">11 条</div>
+    <div class="sub">节日祝福 · 社会新闻 · 1 条隐含看空</div>
+  </div>
+</div>
+
+<!-- 投资建议(先讲结论) -->
+<h2>🎯 投资建议(先看结论)</h2>
+<div class="takeaway">
+  <strong>核心结论:</strong>博主中秋节期间未发布新操盘观点。唯一可推断信号是 9/24 17:41 转发"反弹几天,就忘记了本质!",延续博主一贯的<strong>看空/警惕</strong>立场。9/24 节前最后交易日,A 股全线下跌 — 上证 3888 失守博主 8/4 给出的"B 浪明朗"位 3886,创业板 3289 跌穿 3286 关键支撑,8 个观察标的中 6 个跌幅超 2%。节前资金避险情绪明显,博主长期"第四大浪未完"判断再次得到市场印证。
+  <ol>
+    <li><strong>仓位:</strong>维持谨慎,新资金不进场;存量继续降低杠杆(博主 6/8 已自陈撤离本金+去年盈利一半,实际行动比预测更看空)。</li>
+    <li><strong>大盘:</strong>3888 已失守博主 8/4 给出的 3886(B 浪明朗条件),3856 是关键支撑位(博主 8/4 体系内下一目标)。破 3856 警惕加速下行;若 3856 守住仍有反抽 3915 的可能。</li>
+    <li><strong>创业板:</strong>3289 已跌破博主 8/4 给出的 3286"试破不收破"位,3160(A 杀完成位)是下一关键支撑。9/24 跌穿 3286 意味着博主 8/4 "B 反结构明朗"判断需要重估 — 若 3160 失守,B 反失败,警惕博主"第四大浪未完"被强化。</li>
+    <li><strong>板块观察:</strong>博主 8/4 关注的 PCB / 光模块 / 覆铜板 / 创新药四大方向,9/24 全线下跌(沪电 -3.16% / 中际旭创 -2.89% / 生益科技 -4.34% / 天孚通信 -2.71%) — 节前资金避险,但这四个板块中期逻辑未变(AI 服务器/光通信/CPO/创新药)。</li>
+    <li><strong>关注:</strong>节后(9/26 周五)是否有修复行情;若博主节后首日发新观点,关键看是否给新的"收复位"(3886/3486)或者"加速下行位"(3856/3160)。</li>
+    <li><strong>回避:</strong>节前最后一个交易日已经显出避险情绪;博主 8/4 已警示"市场是存量资金在折腾",不参与短线追高。</li>
+  </ol>
+</div>
+
+<!-- 关键位体系 -->
+<h2>📐 关键位体系(沿用 8/4 · 9/24 收盘对照)</h2>
+
+<h3>大盘 — 上证指数 (000001.SH) · 收 3888.37 <span class="pill bear">🔻 跌 1.22% · 失守 3886</span></h3>
+<table>
+  <thead><tr><th style="width:100px;">来源</th><th style="width:160px;">关键位</th><th>意义</th><th style="width:160px;">9/24 收盘状态</th></tr></thead>
+  <tbody>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill key'>阻力 3996.00</span></td><td>B 反目标 3996</td><td>— 远离</td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bear'>支撑 3886.00 (已破)</span></td><td>8/4 B 浪明朗位</td><td class='num'><strong style="color:var(--bear)">🔻 9/24 收 3888 (破 2.37 点)</strong></td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill key'>支撑 3856.00 (关键!)</span></td><td>8/4 B 浪条件位</td><td class='num'><strong style="color:var(--bear)">⚠️ 距 3856 仅 32 点</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>关口 3800.00</span></td><td>整数关口</td><td>— 远离</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3856.79</span></td><td>60D 低</td><td class='num'>守住中(差 0.79)</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>关口 3900.00</span></td><td>整数关口</td><td class='num'><strong style="color:var(--bear)">🔻 已失守</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3934.80</span></td><td>MA20</td><td class='num'><strong style="color:var(--bear)">🔻 已破</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3912.44</span></td><td>MA50</td><td class='num'><strong style="color:var(--bear)">🔻 已破</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3941.72</span></td><td>MA60</td><td class='num'><strong style="color:var(--bear)">🔻 已破</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bear'>阻力 3996.00</span></td><td>60D 高</td><td>— 远离</td></tr>
+  </tbody>
+</table>
+
+<h3>大盘 — 创业板指 (399006.SZ) · 收 3288.95 <span class="pill bear">🔻 跌 2.68% · 跌穿 3286 关键支撑</span></h3>
+<table>
+  <thead><tr><th style="width:100px;">来源</th><th style="width:160px;">关键位</th><th>意义</th><th style="width:160px;">9/24 收盘状态</th></tr></thead>
+  <tbody>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill key'>阻力 3590.00</span></td><td>8/4 B 反目标</td><td>— 远离</td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bear'>阻力 3486.00</span></td><td>8/4 B 反收复位</td><td>— 远离 197 点</td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill bear'>支撑 3286.00 (已破!)</span></td><td>8/4 试破不收破位</td><td class='num'><strong style="color:var(--bear)">🔻 9/24 收 3289 (跌穿)</strong></td></tr>
+    <tr><td>📌 wu2198</td><td class='num'><span class='pill key'>支撑 3160.00 (关键!)</span></td><td>8/4 A 杀完成位</td><td class='num'><strong style="color:var(--bear)">⚠️ 距 3160 仅 129 点</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill neutral'>关口 3300.00</span></td><td>整数关口</td><td class='num'><strong style="color:var(--bear)">🔻 已失守</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3158.14</span></td><td>60D 低 (8/4 A 杀实测)</td><td class='num'>守住中(差 131)</td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3430.98</span></td><td>MA20</td><td class='num'><strong style="color:var(--bear)">🔻 已破 142 点</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3532.61</span></td><td>MA50</td><td class='num'><strong style="color:var(--bear)">🔻 已破 244 点</strong></td></tr>
+    <tr><td>系统识别</td><td class='num'><span class='pill bull'>支撑 3647.62</span></td><td>MA60</td><td class='num'><strong style="color:var(--bear)">🔻 已破 359 点</strong></td></tr>
+  </tbody>
+</table>
+
+<!-- 微博原文摘录 -->
+<h2>📝 wu2198 最近 1 天微博(9/24 ~ 9/25 中秋)原文摘录</h2>
+<p class="meta">说明:博主中秋节期间未发操盘观点,以下为全部 11 条微博原文,按时间倒序排列。<strong style="color:var(--bear)">唯一隐含信号:</strong>9/24 17:41 转发内容"反弹几天,就忘记了本质!"。</p>
+
+<div class="weibo-list">
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/25 21:02] (repost)</div>
+  <div class="weibo-text">愿老铁们,余生平安喜乐,所念皆如愿! <span class="meta">RT: 今天中秋节,千里相思同一月……</span></div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/25 20:19]</div>
+  <div class="weibo-text">尝月饼!事事如意哈!</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/25 14:54]</div>
+  <div class="weibo-text"><span class="pill key">#交公粮56年饱受争议#</span>1949年到2006年,整整56年里,中国农民肩上的扁担没轻过。一担担公粮从田埂走到粮站,垒起了国家工业化的基石。有人算过,这期间农民们总共缴了7000多亿斤粮食,按现在的价折算,得值两万多个亿。</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/25 07:50]</div>
+  <div class="weibo-text">今天中秋节,千里相思同一月,万里清光共此天。无论身处何方,今晚我们共赏同一轮月……愿老铁们,余生平安喜乐,所念皆如愿!</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/25 06:22]</div>
+  <div class="weibo-text"><span class="pill key">#继父回应在女儿童年时性侵其8年#</span>真的希望法律责任能给她一个公道!</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/25 06:20]</div>
+  <div class="weibo-text"><span class="pill key">#养了17年发现儿子非亲生后自缢#</span>打击太大了!</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/24 23:00]</div>
+  <div class="weibo-text">大家晚安!</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/24 21:43]</div>
+  <div class="weibo-text"><span class="pill key">#国乒女团金牌#</span>中国队以3:0战胜日本队成功卫冕,连续第六次在亚运会上夺得该项目金牌。</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time">[9/24 20:52]</div>
+  <div class="weibo-text">今晚约不,我带身份证和月饼了!</div>
+</div>
+
+<div class="weibo-item">
+  <div class="weibo-time" style="background:var(--bear-bg); color:var(--bear); font-weight:600;">[9/24 17:41] ⚠️ 唯一隐含信号</div>
+  <div class="weibo-text">讲得很清楚……明白666过节了! <span class="meta">RT: </span><strong style="color:var(--bear); font-size:14px;">反弹几天,就忘记了本质!</strong></div>
+</div>
+
+</div>
+
+<p class="meta" style="margin-top:8px;">📌 <strong>解读:</strong>11 条微博中,9 条为节日祝福/晚安/节日玩笑,2 条为社会新闻转发(#继父性侵/#养17年儿子非亲生自缢),1 条转发国乒女团金牌,1 条转发 #交公粮56年饱受争议#。唯一与投资相关的内容是 9/24 17:41 的转发 <strong style="color:var(--bear)">"反弹几天,就忘记了本质!"</strong> — 博主加注"讲得很清楚……明白666过节了!" 显示认同。这一表态延续博主长期看空/警惕立场,与 8/4 给出的关键位体系(3856/3886 大盘 / 3160 创业板)一致。</p>
+
+<!-- 板块观察 -->
+<h2>🔍 板块观察(基于博主 8/4 立场 + 9/24 收盘印证)</h2>
+
+<div class="grid-3">
+  <div class="box">
+    <h4>📉 节前避险情绪明显</h4>
+    <p class="meta">9/24 节前最后一个交易日,A 股全线下跌。</p>
+    <ul>
+      <li>上证 3888.37 -1.22%</li>
+      <li>创业板 3288.95 -2.68%</li>
+      <li>科创 50 -3.07%</li>
+      <li>深证 -2.09%</li>
+      <li>两市成交 2.05 万亿(放大)</li>
+    </ul>
+    <p class="meta">博主 8/4 15:02 "市场是存量资金在折腾" 观点得到印证。</p>
+  </div>
+  <div class="box">
+    <h4>🤖 AI/科技/PCB 全线调整</h4>
+    <p class="meta">博主 8/4 关注的 PCB / 光模块 / 覆铜板 9/24 全线下跌。</p>
+    <ul>
+      <li>生益科技 -4.34%</li>
+      <li>深南电路 -4.89%</li>
+      <li>沪电股份 -3.16%</li>
+      <li>中际旭创 -2.89%</li>
+      <li>天孚通信 -2.71%</li>
+      <li>恒瑞医药 -1.58%</li>
+    </ul>
+    <p class="meta">节后是否有修复行情是关键观察点。</p>
+  </div>
+  <div class="box">
+    <h4>⚠️ 博主长期立场</h4>
+    <p class="meta">技术派/缠论/波浪术语</p>
+    <ul>
+      <li>第四大浪 ABC 调整结构未完</li>
+      <li>6/8 撤离本金+去年盈利一半</li>
+      <li>不举债/不杠杆/只用闲钱</li>
+      <li>无技术不参与短线</li>
+      <li>风险永远放在第一位</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 推荐 3 板块 + 6 个股 -->
+<h2>🏆 最值得投资的 3 个板块 + 6 支个股</h2>
+<p class="meta">板块选择基于 wu2198 <strong>8/4 周二</strong> 的明确表态("电容、算力、PCB、光纤、CPO、创新药均有冲板效应" + "目前覆铜板、电子布等龙头冲板了" + "交换机板块主力自救" + "创业板 A 杀后搏击点");个股为各板块龙头标的。<strong>9/24 节前全线下跌是避险情绪,非基本面恶化</strong> — AI 服务器/光通信/CPO/创新药的中期逻辑未变,博主长期关注的方向(PCB/光模块/CPO/创新药)仍是节后首选。</p>
+
+<h3>板块 1: PCB / 覆铜板(AI 服务器上游) — 8/4 "目前覆铜板、电子布等龙头冲板了"</h3>
+<p class="meta">PCB 和覆铜板是 AI 服务器的核心上游,8/4 博主明确点名"覆铜板、电子布冲板",9/12/9/13 报告也强调"高速覆铜板两大龙头涨 8%+"。9/24 节前虽然全线下跌,但博主 8/4 提到的"冲板龙头"中期逻辑未变。</p>
+
+<div class="grid-2">
+  <div class="box">
+    <h4>🟢 沪电股份 (002463.SZ)</h4>
+    <p class="meta">PCB 龙头 · AI 服务器核心</p>
+    <ul>
+      <li><strong>9/24 收 124.05 元 · -3.16%</strong></li>
+      <li>半年支撑 60 · 近期支撑 72</li>
+      <li>近期高点 130 · B 反目标 110(博主体系)</li>
+      <li>MACD 红柱缩短,短线偏弱</li>
+      <li>博主 8/4 关注方向核心标的</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h4>🟢 生益科技 (600183.SH)</h4>
+    <p class="meta">覆铜板龙头 · 高速覆铜板</p>
+    <ul>
+      <li><strong>9/24 收 137.33 元 · -4.34%</strong></li>
+      <li>半年支撑 22 · 近期支撑 30</li>
+      <li>近期高点 48 · B 反目标 60(博主体系)</li>
+      <li>博主 8/4 "覆铜板冲板"直接对应</li>
+      <li>高速覆铜板 9/12/9/13 涨 8%+ 印证逻辑</li>
+    </ul>
+  </div>
+</div>
+
+<h3>板块 2: 光模块 / CPO(AI 算力基础设施) — 8/4 "CPO、光纤有冲板效应"</h3>
+<p class="meta">光模块和 CPO 是 AI 数据中心的关键硬件,8/4 博主明确点名"CPO、光纤有冲板效应"。9/24 节前虽然下跌,但 1.6T 光模块升级周期、AI 数据中心扩容的中期逻辑未变。</p>
+
+<div class="grid-2">
+  <div class="box">
+    <h4>🟢 中际旭创 (300308.SZ)</h4>
+    <p class="meta">光模块龙头 · CPO 核心受益</p>
+    <ul>
+      <li><strong>9/24 收 895.86 元 · -2.89%</strong></li>
+      <li>半年支撑 250 · 近期支撑 320</li>
+      <li>近期高点 450 · B 反目标 520(博主体系)</li>
+      <li>博主 8/4 "CPO 有冲板"直接对应</li>
+      <li>1.6T 光模块龙头,业绩兑现期</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h4>🟢 天孚通信 (300394.SZ)</h4>
+    <p class="meta">光模块核心器件 · CPO 上游</p>
+    <ul>
+      <li><strong>9/24 收 267.93 元 · -2.71%</strong></li>
+      <li>半年支撑 90 · 近期支撑 120</li>
+      <li>近期高点 190 · B 反目标 230(博主体系)</li>
+      <li>博主 8/4 "光纤有冲板" 直接对应</li>
+      <li>光器件平台型公司,客户覆盖主要光模块厂</li>
+    </ul>
+  </div>
+</div>
+
+<h3>板块 3: 创新药(防御/政策催化) — 8/4 "创新药龙头涨停"</h3>
+<p class="meta">博主 8/4 18:46 明确"今天创新药龙头涨停,连续大跌+利空连连的时候才 36.36 元"。创新药板块具有防御属性 + 政策催化(医保谈判/创新药出海),9/24 节前虽然下跌,但博主"大跌才出机会"的逻辑仍然适用。</p>
+
+<div class="grid-2">
+  <div class="box">
+    <h4>🟢 恒瑞医药 (600276.SH)</h4>
+    <p class="meta">创新药龙头 · 出海标杆</p>
+    <ul>
+      <li><strong>9/24 收 44.86 元 · -1.58%</strong></li>
+      <li>博主 8/4 体系关键位 36.36(创新药龙头跌停价)上方</li>
+      <li>近期支撑 55 · 近期高点 75</li>
+      <li>B 反目标 90(博主体系)</li>
+      <li>创新药出海 + PD-1 双逻辑</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h4>🟢 深南电路 (002916.SZ)</h4>
+    <p class="meta">PCB / 封装基板龙头</p>
+    <ul>
+      <li><strong>9/24 收 394.50 元 · -4.89%</strong></li>
+      <li>半年支撑 80 · 近期支撑 110</li>
+      <li>近期高点 160 · B 反目标 190(博主体系)</li>
+      <li>封装基板国产替代核心</li>
+      <li>博主 8/4 "PCB 冲板"直接对应</li>
+    </ul>
+  </div>
+</div>
+
+<!-- K 线图区 -->
+<h2>📈 K 线 + MACD + 成交量图(关键位虚线标注)</h2>
+<p class="meta">半年线视图(2026-03-01 ~ 2026-09-24,节前最后交易日)。<strong style="color:#c0392b">红色/绿色虚线 📌</strong> = wu2198 关键位(<strong>居左标注</strong>,沿用 8/4 体系)。关键位标注在 K 线图左侧,以虚线呈现。</p>
+
+<h3>大盘 — 上证指数</h3>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>上证指数 <span class="meta">(000001.SH) · 大盘</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">3888.37</strong> · 截至 2026-09-24 · 半年线视图 · 跌 1.22%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>B 反目标 3996 3996.00</span> <span class='pill bear'>8/4 B 浪位 3886.00 (已破)</span> <span class='pill bear'>8/4 B 浪条件 3856.00 (关键!)</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D 低 3856.79</span> <span class='pill neutral'>关口 3900.00</span> <span class='pill bull'>MA20 3934.80</span> <span class='pill bull'>MA50 3912.44</span> <span class='pill bull'>MA60 3941.72</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/000001_SH_20260925.png" alt="上证指数 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:#c0392b">关键位以红色虚线 📌 居左标注</strong>(博客 8/4 体系)。<strong style="color:var(--bear)">9/24 收 3888.37 已失守博主 8/4 给出的 B 浪位 3886,距 3856 关键支撑仅 32 点</strong>。</p>
+</div>
+
+<h3>大盘 — 创业板指</h3>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>创业板指 <span class="meta">(399006.SZ) · 大盘(创业板)</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">3288.95</strong> · 截至 2026-09-24 · 半年线视图 · 跌 2.68%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bear'>B 反目标 3590 3590.00</span> <span class='pill bear'>B 反收复 3486.00</span> <span class='pill bear'>试破不收破 3286.00 (已破!)</span> <span class='pill bear'>A 杀完成 3160.00 (关键!)</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>60D 低 3158.14</span> <span class='pill bull'>MA20 3430.98 (已失守)</span> <span class='pill bull'>MA50 3532.61 (已失守)</span> <span class='pill bull'>MA60 3647.62 (已失守)</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/399006_SZ_20260925.png" alt="创业板指 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:#c0392b">关键位以红色虚线 📌 居左标注</strong>(博客 8/4 体系)。<strong style="color:var(--bear)">9/24 收 3288.95 已跌破博主 8/4 给出的 3286"试破不收破"位,距 A 杀位 3160 仅 129 点,B 反结构岌岌可危</strong>。</p>
+</div>
+
+<h3>6 只个股</h3>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>沪电股份 <span class="meta">(002463.SZ) · PCB 龙头</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">124.05</strong> · 截至 2026-09-24 · 半年线视图 · 跌 3.16%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bull'>半年支撑 60</span> <span class='pill bull'>近期支撑 72</span> <span class='pill bear'>9/24 收盘 124.05</span> <span class='pill bear'>近期高点 130</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>MA20 / MA60</span> <span class='pill neutral'>整数关口 100 / 120</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/002463_SZ_20260925.png" alt="沪电股份 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9/24 收 124.05 节前跌 3.16%,博主 8/4 "PCB 冲板"对应方向</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>生益科技 <span class="meta">(600183.SH) · 覆铜板龙头</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">137.33</strong> · 截至 2026-09-24 · 半年线视图 · 跌 4.34%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bull'>半年支撑 22</span> <span class='pill bull'>近期支撑 30</span> <span class='pill bear'>9/24 收盘 137.33</span> <span class='pill bear'>近期高点 48</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>MA20 / MA60</span> <span class='pill neutral'>整数关口 50</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/600183_SH_20260925.png" alt="生益科技 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9/24 收 137.33 节前跌 4.34%,博主 8/4 18:42 "覆铜板冲板" 直接对应方向</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>中际旭创 <span class="meta">(300308.SZ) · 光模块/CPO 龙头</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">895.86</strong> · 截至 2026-09-24 · 半年线视图 · 跌 2.89%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bull'>半年支撑 250</span> <span class='pill bull'>近期支撑 320</span> <span class='pill bear'>9/24 收盘 895.86</span> <span class='pill bear'>近期高点 450</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>MA20 / MA60</span> <span class='pill neutral'>整数关口 1000</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/300308_SZ_20260925.png" alt="中际旭创 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9/24 收 895.86 节前跌 2.89%,博主 8/4 "CPO 冲板"对应方向</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>天孚通信 <span class="meta">(300394.SZ) · 光模块核心器件</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">267.93</strong> · 截至 2026-09-24 · 半年线视图 · 跌 2.71%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bull'>半年支撑 90</span> <span class='pill bull'>近期支撑 120</span> <span class='pill bear'>9/24 收盘 267.93</span> <span class='pill bear'>近期高点 190</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>MA20 / MA60</span> <span class='pill neutral'>整数关口 250 / 300</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/300394_SZ_20260925.png" alt="天孚通信 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9/24 收 267.93 节前跌 2.71%,博主 8/4 "光纤有冲板"对应方向</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>恒瑞医药 <span class="meta">(600276.SH) · 创新药龙头</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">44.86</strong> · 截至 2026-09-24 · 半年线视图 · 跌 1.58%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bull'>8/4 跌停 36.36 上方</span> <span class='pill bull'>近期支撑 55</span> <span class='pill bear'>9/24 收盘 44.86</span> <span class='pill bear'>近期高点 75</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>MA20 / MA60</span> <span class='pill neutral'>整数关口 50</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/600276_SH_20260925.png" alt="恒瑞医药 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9/24 收 44.86 节前跌 1.58%,博主 8/4 18:46 "创新药龙头涨停 36.36 上方"直接对应方向</strong>。</p>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head">
+    <div>
+      <h3>深南电路 <span class="meta">(002916.SZ) · PCB / 封装基板</span></h3>
+      <p class="meta">收盘 <strong style="color:var(--bear)">394.50</strong> · 截至 2026-09-24 · 半年线视图 · 跌 4.89%</p>
+    </div>
+    <div class="levels-mini">
+      <div><strong>📌 wu2198 关键位:</strong> <span class='pill bull'>半年支撑 80</span> <span class='pill bull'>近期支撑 110</span> <span class='pill bear'>9/24 收盘 394.50</span> <span class='pill bear'>近期高点 160</span></div>
+      <div><strong>系统识别:</strong> <span class='pill bull'>MA20 / MA60</span> <span class='pill neutral'>整数关口 400</span></div>
+    </div>
+  </div>
+  <img class="chart" src="charts/002916_SZ_20260925.png" alt="深南电路 K线图" />
+  <p class="meta" style="margin-top:6px;">K线 + MA(5/20/60) + 成交量 + MACD。<strong style="color:var(--bear)">9/24 收 394.50 节前跌 4.89%(8 个标的中跌幅最大),博主 8/4 "PCB 冲板"对应方向</strong>。</p>
+</div>
+
+<!-- 风险提示 + Checklist -->
+<h2>⚠️ 风险提示 + 跟单 Checklist</h2>
+<div class="takeaway">
+  <strong>风险提示:</strong>
+  <ol>
+    <li><strong>博主中秋节未发新观点</strong>,所有结论基于 8/4 最近一次表态 + 9/24 节前收盘印证 — 节后(9/26)首日博主是否有新观点是关键。</li>
+    <li><strong>博主 6/8 已自陈撤离本金+去年盈利一半</strong>,实际行动比预测更看空。</li>
+    <li><strong>博主长期风控底线</strong>:不举债、不加杠杆、只用闲钱、无技术不参与短线 — 本报告所有建议均不构成短线交易建议。</li>
+    <li><strong>9/24 节前最后一个交易日全线下跌</strong>,8 个观察标的 6 个跌幅超 2%,节后(9/26 周五)能否止跌是关键观察点。</li>
+    <li><strong>博主 8/4 体系在 9/24 部分失效</strong>:大盘 3888 已失守 3886(B 浪明朗条件);创业板 3289 已跌穿 3286(试破不收破位) — 博主 8/4 "B 反结构明朗"判断需要重估。</li>
+    <li><strong>创业板下一关键位</strong>:3160(A 杀完成位)。若 3160 失守,博主 8/4 "A 杀完成 → B 反" 框架彻底失效,需要警惕博主"第四大浪未完"判断被强化。</li>
+  </ol>
+
+  <strong style="margin-top:16px; display:block;">✅ 跟单 Checklist(基于博主立场 + 节前市场状态):</strong>
+  <ul>
+    <li>✅ 维持谨慎仓位,新资金不进场(博主 9-04/8/4 反复强调 + 6/8 已撤离本金)</li>
+    <li>✅ 存量继续降杠杆,等待节后(9/26)市场方向明朗</li>
+    <li>✅ 关注大盘 3856(博主 8/4 B 浪条件)与创业板 3160(A 杀完成位) — 关键支撑</li>
+    <li>✅ 9/26 节后首日重点关注博主是否发新观点;若博主仍不发,沿用 8/4 体系</li>
+    <li>✅ PCB / 光模块 / CPO / 创新药四大方向:博主 8/4 明确关注,9/24 节前下跌是避险情绪,中期逻辑未变</li>
+    <li>🚫 不抄底创业板(博主"第四大浪未完" + 9/24 失守 3286 关键位)</li>
+    <li>🚫 不参与短线追高(博主反复强调"无技术不参与")</li>
+    <li>🚫 不举债、不加杠杆(博主风控底线)</li>
+    <li>🚫 节前最后一个交易日资金避险情绪明显,不应过度解读为基本面恶化</li>
+  </ul>
+</div>
+
+<!-- 数据来源 -->
+<footer>
+  <p><strong>数据来源:</strong></p>
+  <p>• 微博数据:weibo-watcher skill(UID 1216826604,2026-09-25 21:00 抓取,page 1 共 11 条 + 2 条置顶已过滤)</p>
+  <p>• 行情数据:Tushare Pro(截至 2026-09-24 收盘,覆盖 2026-03-01 ~ 2026-09-24 共 144 个交易日)</p>
+  <p>• 关键位来源:博主 8/4 周二最近一次完整操盘观点(创业板 A 杀 3160 / B 反 3486 / 目标 3590,大盘 3856/3886)</p>
+  <p>• 博主长期立场:缠论/波浪术语,"第四大浪 ABC 调整结构未完";6/8 撤离本金+去年盈利一半;风控底线:不举债/不杠杆/只用闲钱</p>
+  <p>• <strong>本报告所有内容仅供参考,不构成任何投资建议。投资有风险,入市需谨慎。</strong></p>
+  <p style="margin-top:12px; color:var(--muted);">报告生成:Mavis (MiniMax Code) · 生成时间 2026-09-25 21:05</p>
+</footer>
+
+</div>
+</body>
+</html>
