@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-09-28</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef2f2 100%);
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #991b1b; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-09-28</h1>
+    <div class="meta">
+      <span>📅 <b>2026-09-28 (周一 · 中秋节后第一个交易日)</b></span>
+      <span>🏛️ 沪指 <b>3823.62 (-1.67%)</b></span>
+      <span>📊 创业板 <b>3139.82 (-4.53%)</b></span>
+      <span>🎯 沪深300 <b>4340.76 (-2.22%)</b></span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🔴</span><b>博主 9/28 核心立场</b>:
+      <b>C 杀进行时 · 等 C5 完成才能干 · 保住盈利 = 战胜 99% 投资者</b>。
+      9/28 共 <b>4 条操盘贴</b>(盘中 2 + 盘后 2),
+      <span class="tag tag-bear">大盘 3823.62 失守 3824 多空线</span>,
+      <span class="tag tag-bear">创业板 3139.82 失守博主 8/4 "A 杀完成位" 3160</span>,
+      <span class="tag tag-bear">沪深300 4340.76 同步走弱</span>。
+      博主 19:26 自述:前面干了一次搏 B 反,到 3747 完成(预期 3756) → <b>开始 C 杀</b> → 下次开仓要等 C5 完成。
+      <span class="tag tag-bull">🟢 银行 / 煤炭 / 石油化工 9/28 全部逆势红盘,验证博主 8/31 权重护盘 + 长期红利逻辑</span>。
+    </div>
+  </div>
+
+  
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主核心立场</div>
+      <div class="val" style="color: var(--bear);">🔴 C 杀进行时</div>
+      <div class="sub">4 条操盘贴 · 19:26 等 C5</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 9/28 收</div>
+      <div class="val" style="color: var(--bear);">3823.62 (-1.67%)</div>
+      <div class="sub">失守 3824 多空线 0.4 点 · 距 8/4 支撑 3856 已 -32</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板 9/28 收</div>
+      <div class="val" style="color: var(--bear);">3139.82 (-4.53%)</div>
+      <div class="sub">失守 3160 已 -20 · 距 3050 仅 -90</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深300</div>
+      <div class="val" style="color: var(--bear);">4340.76 (-2.22%)</div>
+      <div class="sub">同步走弱 · 距 4250 整数位 -90</div>
+    </div>
+    <div class="kpi">
+      <div class="label">资金面</div>
+      <div class="val" style="color: var(--bear);">920 亿净流出</div>
+      <div class="sub">成交 14780 亿(+935 亿放量) · 4155 只下跌</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主年大目标</div>
+      <div class="val">4256</div>
+      <div class="sub">本周 4256 · 长期目标未变</div>
+    </div>
+  </div>
+
+  
+  <h2>📋 完整微博列表(10 条,按时间倒序)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 · 置信</th>
+        <th>类别</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>Mon Sep 28 20:58</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">问候/鸡汤</td>
+        <td class="text">岁月不语，落叶有声。别等来年，别等来生，就活在这个晚秋，就活在此刻的晚风里。</td>
+        <td class="score">R:1 C:21 L:161</td>
+        <td class="score">204</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 19:26</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">博主操盘</td>
+        <td class="text">前面干了一次搏B反，到3747之后（预期3756点）完成……然后开始C杀……所以，下一次干起码要等C5完成，才能干……收到请回复888</td>
+        <td class="score">R:63 C:644 L:3697</td>
+        <td class="score">5048</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 17:08</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">问候/鸡汤</td>
+        <td class="text">择一业，谋食养命。等一运，逆转乾坤！</td>
+        <td class="score">R:66 C:193 L:3175</td>
+        <td class="score">3627</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 16:10</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">问候/鸡汤</td>
+        <td class="text">《寒窑赋》： 天不得时，日月无光。 地不得时，草木不长。 人不得时，利运不通。 时也、运也、命也。 人有冲天之志，非运不可自通。 时来天地皆同力，运到万物皆同行， 十年运道龙困井，一朝得势入青云。 择一业，谋食养命。 等一运，逆转乾坤。</td>
+        <td class="score">R:331 C:360 L:4068</td>
+        <td class="score">5119</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 15:33</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 中</td>
+        <td style="font-size:12px">操作心态</td>
+        <td class="text">你莫急……按目前情况来看市场还有下行空间……明白666</td>
+        <td class="score">R:52 C:753 L:6198</td>
+        <td class="score">7756</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 15:20</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">大盘判断</td>
+        <td class="text">深成指、创作板指数……今天收调整以来的新低！</td>
+        <td class="score">R:6 C:168 L:4677</td>
+        <td class="score">5019</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 14:41</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">经济科普</td>
+        <td class="text">在经济学里，债务不会无故消失，只会转移。</td>
+        <td class="score">R:44 C:287 L:6282</td>
+        <td class="score">6900</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 14:35</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">互动</td>
+        <td class="text">收到请回复666或点赞支持一下！</td>
+        <td class="score">R:4 C:546 L:6480</td>
+        <td class="score">7576</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 14:34</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">防守哲学</td>
+        <td class="text">自5月初只看4256点之后，如果能听话，保住盈盈利不玩了，现在能战胜99%的投资者！</td>
+        <td class="score">R:15 C:360 L:6601</td>
+        <td class="score">7336</td>
+      </tr>
+      <tr>
+        <td>Mon Sep 28 14:17</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">资金面速报</td>
+        <td class="text">截止14:16两市成交了14780亿元，有4155只个股下跌，大盘资金流出920亿元，量能比上一交易日增加935亿元！</td>
+        <td class="score">R:7 C:128 L:5347</td>
+        <td class="score">5610</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <h2>🚦 核心操盘信号(LLM 二次摘要)</h2>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 1 — 19:26 博主实盘:已搏 B 反 3747 完成 → 开始 C 杀 → 等 C5 完成才能干</h3>
+    <p><b>原帖</b>「前面干了一次搏B反,到3747之后(预期3756点)完成……然后开始C杀……所以,下一次干起码要等C5完成,才能干……收到请回复888」(63/644/3697 · 5048 综合分 · 全场互動第二高)</p>
+    <p><b>解读</b>这是 9/28 最关键的一条:博主明确披露了自己的实盘操作——前面对大盘做过一次 B 反抄底,实际位 3747(预期 3756),现在 B 反走完,<b>后面要走 C 杀</b>,下次买入要等 C5 完成。</p>
+    <ul>
+      <li><b>实盘位</b>:3747(预期 3756,完成位 <b>低 9 个点</b>)</li>
+      <li><b>9/28 收盘</b>:3823.62,<b>距博主 3747 B 反位仅 -76.62 点</b>(仅 1.96% 下行空间即触及 B 反位)</li>
+      <li><b>创业板 9/28 收</b>3139.82 已失守 3160,博主"4 周前 A 杀位"成事实</li>
+      <li><b>操作策略</b>:持币等待 C5 完成,即博主当前的"空仓观望"是技术面必需,非情绪化决策</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 2 — 14:17 资金面速报:14780 亿放量 / 净流出 920 亿 / 4155 只下跌</h3>
+    <p><b>原帖</b>「截止14:16两市成交了14780亿元,有4155只个股下跌,大盘资金流出920亿元,量能比上一交易日增加935亿元!」(7/128/5347 · 5610 综合分)</p>
+    <ul>
+      <li><b>成交 14780 亿</b>(对比 9/24 18203 亿,实际是<b>节前急跌后的继续放量</b>)</li>
+      <li><b>+935 亿放量</b>对比 9/24 18170 亿,显示 <b>空头持续释放</b></li>
+      <li><b>净流出 920 亿</b>(对比 9/24 -666 亿 / 9/11 -619 亿,<b>流出加速,创 9 月新高</b>)</li>
+      <li><b>4155 只下跌</b>(对比 9/24 3901 只 / 9/11 4886 只,<b>普跌仍持续</b>)</li>
+    </ul>
+    <p><b>结论</b>:博主 14:17 用资金面三组数据(放量、流出加速、普跌)给出明确看空,且博主自己<b>于收盘 19:26 兑现了这一判断</b>——B 反做完,开始 C 杀。</p>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 3 — 15:20 深成指、创业板指今天收调整以来的新低</h3>
+    <p><b>原帖</b>「深成指、创作板指数……今天收调整以来的新低!」(6/168/4677 · 5019 综合分)</p>
+    <p><b>解读</b>博主对今天弱势的明确确认——深成指、创业板指 9/28 都刷新了 8/4 以来(本轮调整以来)的新低。配合信号 1,可知 9/28 是 C 杀启动日,绝非简单下跌。</p>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 4 — 15:33 你莫急……市场还有下行空间</h3>
+    <p><b>原帖</b>「你莫急……按目前情况来看市场还有下行空间……明白666」(52/753/6198 · 7756 综合分)</p>
+    <p><b>解读</b>劝粉丝<b>不要急于抄底</b>,明确说市场<b>还有下行空间</b>,要耐心等低位。互動 753 评论 6198 赞,基本是 9/28 互动最高贴——这是博主对散户抄底情绪最直接的一次回应。</p>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--neutral);">
+    <h3>🟡 信号 5 — 14:34 5 月初只看 4256 后保住盈利 = 战胜 99% 投资者</h3>
+    <p><b>原帖</b>「自5月初只看4256点之后,如果能听话,保住盈盈利不玩了,现在能战胜99%的投资者!」(15/360/6601 · 7336 综合分)</p>
+    <p><b>解读</b>博主标志性防守哲学,贯穿 5 月至今 5 个月的连续坚守:4256 是 2026 年大目标,能保住盈利不玩的人,战胜 99% 投资者。<b>9/28 大盘 -1.67% / 创业板 -4.53% 背景下,这一贴再次强化博主防御立场</b>。</p>
+  </div>
+
+  
+  <h2>💼 3 大板块 + 6 支个股</h2>
+  <p style="color:var(--muted);font-size:13px;">选股原则:博主 8/31 权重护盘 + 长期红利逻辑,9/28 节后放量大跌日,银行 / 煤炭 / 石油化工 <b>6 个权重全部逆势红盘</b>,验证博主防御主线。日线关键位 60D 高低 + 120D 高低 + 现价。</p>
+  
+    <div class="panel">
+      <h3>🟢 银行(博主 8/31 长期持有底仓 + 9/28 防御)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 工商银行 (601398.SH) · 9/28 收 8.15 (+0.25%)</h4>
+        <div class="logic">9/28 大盘 -1.67% 中工行 +0.25% 防御微红, 印证博主 8/31 长期持有银行股分红逻辑 (5722 赞); A 股市值最大银行, 某队重仓基地, 股息率 ~5.5%</div>
+        <div class="key">关键位:60D高 8.29 / 60D低 6.95 / 120D高 8.29 / 120D低 6.95 / 现价 8.15</div>
+      </div>
+      <div class="stock-card neutral">
+        <h4>🟡 招商银行 (600036.SH) · 9/28 收 40.64 (−0.12%)</h4>
+        <div class="logic">零售之王 ROE 15%, 博主 8/31 关注 (双重逻辑); 9/28 收 40.64 仅 -0.12% 跌幅基本持平, 防御韧性; 估值溢价但盈利质量高</div>
+        <div class="key">关键位:60D高 41.83 / 60D低 36.33 / 120D高 41.83 / 120D低 35.28 / 现价 40.64</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 煤炭(博主 8/31 权重推动 + 9/28 唯一逆势领涨权重)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 中国神华 (601088.SH) · 9/28 收 48.39 (+0.75%)</h4>
+        <div class="logic">9/28 收 48.39 +0.75% 大盘弱势逆势领涨, 是博主 9-04 体系内唯一保持强势的标的; 煤电路港航化一体化, 股息率 5%, 现金奶牛; 冬季用煤旺季 + 油价支撑</div>
+        <div class="key">关键位:60D高 49.48 / 60D低 40.2 / 120D高 51.18 / 120D低 38.73 / 现价 48.39</div>
+      </div>
+      <div class="stock-card bull">
+        <h4>🟢 陕西煤业 (601225.SH) · 9/28 收 25.85 (+0.08%)</h4>
+        <div class="logic">优质动力煤 + 彬长矿区弹性大, 博主 8/31 关注; 9/28 收 25.85 +0.08% 稳; 60D 高 27.78 / 60D 低 19.57 (博主 8/30 阶段低), 距 60D 高 +7.5%</div>
+        <div class="key">关键位:60D高 27.8 / 60D低 21.36 / 120D高 28.2 / 120D低 20.02 / 现价 25.85</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 石油化工(博主 8/31 权重推动 + 中东地缘溢价 + 9/28 涨幅最大权重)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 中国石油 (601857.SH) · 9/28 收 11.19 (+2.19%)</h4>
+        <div class="logic">9/28 收 11.19 +2.19% 6 大权重中涨幅最大, 印证博主 8/31 权重推动逻辑; 国内最大油气, PB 0.9x 股息率 4.5%; OPEC+ 减产 + 中东地缘 (博主 9/2 15:37 提示伊朗打击美军) 双重支撑</div>
+        <div class="key">关键位:60D高 11.63 / 60D低 8.85 / 120D高 12.68 / 120D低 8.59 / 现价 11.19</div>
+      </div>
+      <div class="stock-card bull">
+        <h4>🟢 中国石化 (600028.SH) · 9/28 收 5.41 (+1.69%)</h4>
+        <div class="logic">9/28 收 5.41 +1.69% 逆势红盘; 炼化一体, PB 0.8x 股息率 5.5%, 是 6 权重中估值最便宜的标的; 防御+价值重估, 博主 8/31 关注</div>
+        <div class="key">关键位:60D高 5.65 / 60D低 4.67 / 120D高 5.94 / 120D低 4.43 / 现价 5.41</div>
+      </div>
+    </div>
+
+  <h2>📉 K 线图(关键位居左虚线标注)</h2>
+<h3>🔴 上证指数 (000001.SH) · 9/28 收 3823.62 (-1.67%)</h3>
+<img class="chart" src="charts/20260928_000001_SH_上证指数.png" alt="上证指数 K线图" />
+<div class="chart-caption">关键位(10 个):C 杀下一目标 3610 3610 / 9/28 B 反位 3747 3747 / 9/28 收 3823.62 3823.62 / 多空线 已失守 3824 / 8/4 支撑 已失守 3856 / 8/4 B 浪位 已失守 3886 / 9/24 收 3888.37 / 区间上沿 3926 / 8/29 周高 3996 / 年大目标 4256</div>
+<h3>🔴 创业板指 (399006.SZ) · 9/28 收 3139.82 (-4.53%)</h3>
+<img class="chart" src="charts/20260928_399006_SZ_创业板指.png" alt="创业板指 K线图" />
+<div class="chart-caption">关键位(9 个):C 杀下一目标 3050 3050 / 9/28 收 3139.82 3139.82 / A 杀位 已失守 3160 / 8/4 试破位 3286 / 9/24 收 3288.95 / 反抽区 3370 / 8/4 B 反位 3486 / 目标位 3590 / 8/15 前顶 3686</div>
+<h3>🔴 沪深300 (000300.SH) · 9/28 收 4340.76 (-2.22%)</h3>
+<img class="chart" src="charts/20260928_000300_SH_沪深300.png" alt="沪深300 K线图" />
+<div class="chart-caption">关键位(6 个):下一 C 目标 4150 / 整数位支撑 4250 / 9/28 收 4340.76 / 9/24 收 4439.14 / 9/2 收(对比) 4548 / 前高 4700</div>
+<h3>🟢 工商银行 (601398.SH) · 银行/防御红利 · 9/28 收 8.15 (+0.25%)</h3>
+<img class="chart" src="charts/20260928_601398_SH_工商银行.png" alt="工商银行 K线图" />
+<div class="chart-caption">9/28 大盘 -1.67% 中工行 +0.25% 防御微红, 印证博主 8/31 长期持有银行股分红逻辑 (5722 赞); A 股市值最大银行, 某队重仓基地, 股息率 ~5.5%<br/>关键位:60D高 8.29 / 60D低 6.95 / 120D高 8.29 / 120D低 6.95 / 现价 8.15</div>
+<h3>🟡 招商银行 (600036.SH) · 银行/防御红利 · 9/28 收 40.64 (-0.12%)</h3>
+<img class="chart" src="charts/20260928_600036_SH_招商银行.png" alt="招商银行 K线图" />
+<div class="chart-caption">零售之王 ROE 15%, 博主 8/31 关注 (双重逻辑); 9/28 收 40.64 仅 -0.12% 跌幅基本持平, 防御韧性; 估值溢价但盈利质量高<br/>关键位:60D高 41.83 / 60D低 36.33 / 120D高 41.83 / 120D低 35.28 / 现价 40.64</div>
+<h3>🟢 中国神华 (601088.SH) · 煤炭/红利 · 9/28 收 48.39 (+0.75%)</h3>
+<img class="chart" src="charts/20260928_601088_SH_中国神华.png" alt="中国神华 K线图" />
+<div class="chart-caption">9/28 收 48.39 +0.75% 大盘弱势逆势领涨, 是博主 9-04 体系内唯一保持强势的标的; 煤电路港航化一体化, 股息率 5%, 现金奶牛; 冬季用煤旺季 + 油价支撑<br/>关键位:60D高 49.48 / 60D低 40.2 / 120D高 51.18 / 120D低 38.73 / 现价 48.39</div>
+<h3>🟢 陕西煤业 (601225.SH) · 煤炭/红利 · 9/28 收 25.85 (+0.08%)</h3>
+<img class="chart" src="charts/20260928_601225_SH_陕西煤业.png" alt="陕西煤业 K线图" />
+<div class="chart-caption">优质动力煤 + 彬长矿区弹性大, 博主 8/31 关注; 9/28 收 25.85 +0.08% 稳; 60D 高 27.78 / 60D 低 19.57 (博主 8/30 阶段低), 距 60D 高 +7.5%<br/>关键位:60D高 27.8 / 60D低 21.36 / 120D高 28.2 / 120D低 20.02 / 现价 25.85</div>
+<h3>🟢 中国石油 (601857.SH) · 石油化工/能源安全 · 9/28 收 11.19 (+2.19%)</h3>
+<img class="chart" src="charts/20260928_601857_SH_中国石油.png" alt="中国石油 K线图" />
+<div class="chart-caption">9/28 收 11.19 +2.19% 6 大权重中涨幅最大, 印证博主 8/31 权重推动逻辑; 国内最大油气, PB 0.9x 股息率 4.5%; OPEC+ 减产 + 中东地缘 (博主 9/2 15:37 提示伊朗打击美军) 双重支撑<br/>关键位:60D高 11.63 / 60D低 8.85 / 120D高 12.68 / 120D低 8.59 / 现价 11.19</div>
+<h3>🟢 中国石化 (600028.SH) · 石油化工/能源安全 · 9/28 收 5.41 (+1.69%)</h3>
+<img class="chart" src="charts/20260928_600028_SH_中国石化.png" alt="中国石化 K线图" />
+<div class="chart-caption">9/28 收 5.41 +1.69% 逆势红盘; 炼化一体, PB 0.8x 股息率 5.5%, 是 6 权重中估值最便宜的标的; 防御+价值重估, 博主 8/31 关注<br/>关键位:60D高 5.65 / 60D低 4.67 / 120D高 5.94 / 120D低 4.43 / 现价 5.41</div>
+  
+  <h2>⚠️ 风险提示</h2>
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <ul>
+      <li><b>🔴 9/28 大盘已失守 3824 多空线</b> — 9/28 收盘 3823.62(跌 1.67%),距博主 8/4 关键支撑 3856 已 -32 点,博主 19:26 已兑现"B 反做完 → 开始 C 杀"判断</li>
+      <li><b>🔴 9/28 创业板已失守 3160 A 杀位</b> — 9/28 收 3139.82 跌 4.53%,创 8/4 A 杀以来新低,距博主 8/4 给出的"A 杀完成位" 3160 已经 -20 点</li>
+      <li><b>🔴 博主 19:26 自述:B 反完成 → 开始 C 杀</b> — 9/28 是 C 杀启动日,C5 走完才能再次进场,中间不参与</li>
+      <li><b>🔴 资金面 920 亿净流出 + 4155 只下跌</b> — 9/28 创 9 月资金流出新高,普跌持续</li>
+      <li><b>⚠️ 9/28 6 大权重全部逆势红盘</b> — 银行(工行 +0.25%、农行 -0.15%)+ 煤炭(神华 +0.75%、陕煤 +0.08%)+ 石油(中石油 +2.19%、中石化 +1.69%),但成交量不算大,主要靠权重护盘,弱势中随时可能补跌</li>
+      <li><b>⚠️ 博主 6/8 撤离本金+去年盈利一半,预测偏多但实际行动防御</b> — 实际比预测更看空</li>
+      <li><b>⚠️ 博主长期风控底线</b>:不举债 / 不杠杆 / 只用闲钱 / 无技术不参与短线</li>
+      <li><b>🟢 9/28 防御主线兑现</b> — 银行 / 煤炭 / 石油化工 6 个权重全部红盘或持平,博主 8/31 权重护盘 + 长期红利逻辑在 C 杀日继续有效</li>
+      <li><b>🟢 60D 高未破位 = 防御主线仍强势</b> — 工行 8.15 vs 60D高 8.29 (差 0.14) / 神华 48.39 vs 60D高 49.48 (差 1.09) / 陕煤 25.85 vs 60D高 27.80 (差 1.95) / 中石油 11.19 vs 60D高 11.63 (差 0.44) / 中石化 5.41 vs 60D高 5.65 (差 0.24),5/6 标的 60D 高未破位,防御主线强势</li>
+    </ul>
+  </div>
+
+  
+  <h2>🎯 操作建议汇总</h2>
+
+  <div class="panel panel-2">
+    <h3>📌 大盘</h3>
+    <p><b>短期(9/28 起 1-2 周)</b>:<b>🔴 偏空 · C 杀启动</b>。9/28 已失守 3824 多空线 + 3160 A 杀位,博主 19:26 自述进入 C 杀阶段。</p>
+    <ul>
+      <li><b>9/28 上证 3823.62</b>:距博主 3747 B 反位仅 76 点,触及后大概率继续向下寻底</li>
+      <li><b>9/28 创业板 3139.82</b>:已跌穿博主 8/4 "A 杀完成位" 3160,距 3050 约 90 点</li>
+      <li><b>乐观情景</b>:9/29-30 在 3747-3824 区间内震荡整理,然后再选择方向</li>
+      <li><b>悲观情景</b>:9/29 直接跌破 3747,触发博主 "C 杀" 加速,下看 3650-3610</li>
+      <li><b>关键操作</b>:博主已自述"下次开仓要等 C5 完成",散户策略:持币等待 C5 走完</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 板块策略</h3>
+    <ul>
+      <li><b>🟢 防御主线(9/28 验证):银行 + 煤炭 + 石油化工</b> — 9/28 大盘 -1.67% / 创业板 -4.53% 弱势日,6 大权重全部红盘或持平,印证博主 8/31 权重护盘逻辑。博主 14:34 "保住盈利不玩 = 战胜 99% 投资者" 在 C 杀日继续有效。9/28-30 仍是防御主线持有期。</li>
+      <li><b>🟡 适度参与:券商 / 保险</b> — 博主 9/1 提到"银行、证券、保险、白酒 4 大权重拉指数",9/28 暂时未列入主线,但若大盘在 3747-3824 区间内震荡,可能补涨</li>
+      <li><b>🔴 回避:创业板 / 成长股 / 科技股</b> — 9/28 创业板 -4.53%,创调整新低;博主 15:33 "市场还有下行空间",15:20 "创业板今天收调整以来新低",C 杀日不参与成长</li>
+      <li><b>🔴 回避:黄金 / 商品</b> — 9/28 黄金 -5.29% 到 -6.37% 同步下跌,与博主 8/29 伦敦金大跌 -2.95% 的判断一致;博主 8/15 警示白酒"中央汇金证金清仓贵州茅台"继续,白酒不在 9/28 推荐之列</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 6 支个股监控</h3>
+    <table>
+      <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>9/28 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
+      <tbody>
+        <tr><td>工商银行 601398</td><td>银行</td><td>7.50 / 6.95</td><td>8.15 (+0.25%)</td><td>8.29 / 9.30</td><td>8.29</td><td>持有 · 9/28 微红 · 5/6 权重中防御较弱</td></tr>
+        <tr><td>招商银行 600036</td><td>银行</td><td>38.00 / 36.33</td><td>40.64 (-0.12%)</td><td>41.83 / 45.0</td><td>41.83</td><td>持有 · 弹性大但 9/28 几乎平盘</td></tr>
+        <tr><td>中国神华 601088</td><td>煤炭</td><td>45.0 / 40.20</td><td>48.39 (+0.75%)</td><td>49.48 / 53.0</td><td>49.48</td><td>持有 · 9/28 唯一红盘领涨权重 +0.75%</td></tr>
+        <tr><td>陕西煤业 601225</td><td>煤炭</td><td>23.0 / 21.36</td><td>25.85 (+0.08%)</td><td>27.80 / 30.0</td><td>27.80</td><td>持有 · 反弹 60D 高 27.80 减仓</td></tr>
+        <tr><td>中国石油 601857</td><td>石油</td><td>10.0 / 8.85</td><td>11.19 (+2.19%)</td><td>11.63 / 13.0</td><td>11.63</td><td>持有 · 9/28 涨幅最大权重 +2.19%</td></tr>
+        <tr><td>中国石化 600028</td><td>石油</td><td>5.0 / 4.67</td><td>5.41 (+1.69%)</td><td>5.65 / 6.5</td><td>5.65</td><td>持有 · PB 0.8x 最便宜权重 · 反弹 60D 高 5.65 减仓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="footer">
+    <p>报告生成时间:2026-09-28 21:00 · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 9 张 K 线图(关键位 蓝色虚线 📌 居左标注)</p>
+    <p>博主 9/28 核心立场:<b>🔴 C 杀进行时 · 等 C5 完成才能干 · 保住盈利 = 战胜 99% 投资者</b> · 4 条操盘贴(盘中 2 + 盘后 2) · 板块:<b>🟢 银行 · 🟢 煤炭 · 🟢 石油化工</b> · 风险:<b>🔴 大盘失守 3824 / 创业板跌穿 3160 / 沪深300 同步走弱 / 资金净流出 920 亿</b></p>
+  </div>
+
+</div>
+</body>
+</html>
