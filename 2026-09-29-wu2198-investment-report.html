@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-09-29</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fef3c7 0%, #fff7ed 100%);
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #92400e; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-09-29</h1>
+    <div class="meta">
+      <span>📅 <b>2026-09-29 (周二 · 国庆前最后一个交易日)</b></span>
+      <span>🏛️ 沪指 <b>3830.45 (+0.18%)</b></span>
+      <span>📊 创业板 <b>3142.56 (+0.09%)</b></span>
+      <span>🎯 沪深300 <b>4345.21 (+0.10%)</b></span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🟡</span><b>博主 9/29 核心立场</b>:
+      <b>3800 关卡多方组织小型抵抗 · 无操作空间 · 央行降息利好(PSL+再贷款)</b>。
+      9/29 共 <b>3 条带操盘信号</b>(防御 1 + 板块速报 2 + 政策 1),
+      <span class="tag tag-bull">大盘 3830.45 (+0.18%) 守住 3800</span>,
+      <span class="tag tag-bull">创业板 3142.56 (+0.09%) 守住 3160 A 杀位 17 点</span>,
+      <span class="tag tag-bull">沪深300 4345.21 (+0.10%) 同步微红</span>。
+      博主 09:45 「3800 关卡组织小型抵抗」(9220 赞全场最高), 10:39「无操作空间不要乱动」(8492 赞),
+      11:09 「四大行一直在提肩带」+ 11:01 「固态电池板块冲板」板块催化,
+      19:52 「央行下调 PSL 0.25bp + 扩大再贷款额度」宏观政策利好。
+      <span class="tag tag-bull">🟢 银行 (四大行验证) + 固态电池 (短线新催化) + 煤炭/石油 (防御红利延续)</span>。
+    </div>
+  </div>
+
+  
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主核心立场</div>
+      <div class="val" style="color: var(--neutral);">🟡 3800 抵抗</div>
+      <div class="sub">3 条操盘贴 · 防御 + 板块速报</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 9/29 收</div>
+      <div class="val" style="color: var(--bull);">3830.45 (+0.18%)</div>
+      <div class="sub">守住 3800 关卡 · 距 3747 B 反位 83 点</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板 9/29 收</div>
+      <div class="val" style="color: var(--bull);">3142.56 (+0.09%)</div>
+      <div class="sub">守住 3160 A 杀位 17 点 · 距 3050 仅 92</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深300</div>
+      <div class="val" style="color: var(--bull);">4345.21 (+0.10%)</div>
+      <div class="sub">同步微红 · 距 4250 整数位 95</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主板块速报</div>
+      <div class="val" style="color: var(--bull);">银行+固态电池</div>
+      <div class="sub">11:09 四大行提肩带 + 11:01 固态电池冲板</div>
+    </div>
+    <div class="kpi">
+      <div class="label">央行政策利好</div>
+      <div class="val" style="color: var(--bull);">PSL -25bp</div>
+      <div class="sub">六张网 + 科创再贷款 1.4 万亿 + 支农支小 4.85 万亿</div>
+    </div>
+  </div>
+
+  
+  <h2>📋 完整微博列表(10 条,按时间倒序)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 · 置信</th>
+        <th>类别</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>Tue Sep 29 19:52</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 中</td>
+        <td style="font-size:12px">宏观/政策</td>
+        <td class="text">中国人民银行进一步调整完善多项货币政策工具：下调PSL利率0.25个百分点至1.5%，扩大PSL支持领域至“六张网”建设；增加科技创新和技术改造再贷款额度2000亿元至1.4万亿元，支持比例提至100%；增加支农支小再贷款额度5000亿元至4.85万亿元。</td>
+        <td class="score">R:4 C:90 L:1429</td>
+        <td class="score">1613</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 16:55</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">问候/鸡汤</td>
+        <td class="text">炒股并非我本意，我炒的是农人生计！</td>
+        <td class="score">R:9 C:288 L:4061</td>
+        <td class="score">4646</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 15:57</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">操作心态</td>
+        <td class="text">前面和大家说了，可以中秋+国庆一起放假……没有行情可做……广西欢迎您！</td>
+        <td class="score">R:9 C:309 L:5117</td>
+        <td class="score">5744</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 12:54</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · 中</td>
+        <td style="font-size:12px">盘中观察</td>
+        <td class="text">下午还是看！</td>
+        <td class="score">R:15 C:683 L:9028</td>
+        <td class="score">10409</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 11:21</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · —</td>
+        <td style="font-size:12px">互动</td>
+        <td class="text">明白不？</td>
+        <td class="score">R:126 C:425 L:7032</td>
+        <td class="score">8008</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 11:09</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 高</td>
+        <td style="font-size:12px">板块速报/银行</td>
+        <td class="text">其实，四大行最近一直在提肩带！</td>
+        <td class="score">R:17 C:169 L:7099</td>
+        <td class="score">7454</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 11:01</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 中</td>
+        <td style="font-size:12px">板块速报/固态电池</td>
+        <td class="text">固态电池板块目前出现有几只冲板！</td>
+        <td class="score">R:7 C:181 L:7122</td>
+        <td class="score">7491</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 10:47</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">互动</td>
+        <td class="text">收到请回复666或点赞支持一下！</td>
+        <td class="score">R:18 C:695 L:8044</td>
+        <td class="score">9452</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 10:39</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">操作建议</td>
+        <td class="text">无操作空间，不要乱动……明白666</td>
+        <td class="score">R:23 C:759 L:8492</td>
+        <td class="score">10033</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 09:45</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · 高</td>
+        <td style="font-size:12px">大盘判断</td>
+        <td class="text">3800关卡附近，多方在组织小型抵抗！</td>
+        <td class="score">R:38 C:403 L:9220</td>
+        <td class="score">10064</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <h2>🚦 核心操盘信号(LLM 二次摘要)</h2>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 1 — 09:45 大盘 3800 关卡多方组织小型抵抗 (互动最高 9220 赞)</h3>
+    <p><b>原帖</b>「3800关卡附近, 多方在组织小型抵抗!」(38/403/9220 · 10064 综合分 · 全场互動最高)</p>
+    <p><b>解读</b>这是 9/29 最重要的一条(9220 赞 / 10064 综合分):博主明确披露 <b>3800 整数关卡是多空双方博弈的关键</b>。注意 9/28 收盘已跌穿 3824 多空线, 9/29 必须守住 3800 才能维持震荡格局。</p>
+    <ul>
+      <li><b>9/29 实际</b>:上证 3830.45 <b>+0.18%</b> 微红, <b>3800 关卡组织抵抗成功</b></li>
+      <li><b>创业板 9/29 收</b>3142.56 <b>+0.09%</b> 微红, 守住 3160 A 杀位 17 点</li>
+      <li><b>沪深300</b>4345.21 +0.10% 同步微红</li>
+      <li><b>操作策略</b>:3800 抵抗成功, 节前最后一个交易日多头守住关键位, 节后观察方向</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 2 — 10:39 无操作空间, 不要乱动</h3>
+    <p><b>原帖</b>「无操作空间, 不要乱动……明白666」(23/759/8492 · 10033 综合分 · 互动第二高)</p>
+    <p><b>解读</b>延续 9/28 "等 C5 完成" 防御立场 —— 即使 3800 抵抗成功, 博主明确说 <b>没有操作空间</b>, <b>不要乱动</b>。节前最后一个交易日, 博主选择观望不进场。</p>
+    <ul>
+      <li><b>暗示</b>:博主预期节前不会有大行情, 节后才考虑重新进场</li>
+      <li><b>与 15:57 节前清仓立场呼应</b>:「中秋+国庆一起放假……没有行情可做……广西欢迎您」</li>
+      <li><b>操作策略</b>:持币过节; 节后观察大盘方向</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 3 — 11:09 四大行最近一直在提肩带 (银行板块速报)</h3>
+    <p><b>原帖</b>「其实, 四大行最近一直在提肩带!」(17/169/7099 · 7454 综合分)</p>
+    <p><b>解读</b>博主 11:09 强化银行板块主线 —— 四大行(工行/农行/中行/建行)一直在 <b>提肩带</b>(=护盘/支撑大盘)。这是博主长期持有银行股分红逻辑的延续(8/31 5722 赞贴)。</p>
+    <ul>
+      <li><b>9/29 验证</b>:农业银行 <b>+1.17%</b>(银行板块涨幅第一, 六大行里表现最强); 工商银行 +0.12%</li>
+      <li><b>招商银行</b>-0.32% 微跌 (零售之王, 相对抗跌)</li>
+      <li><b>央行 19:52 利好</b>:PSL 下调 0.25bp 利好银行息差, 银行板块节后关注</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟡 信号 4 — 11:01 固态电池板块冲板 (短线新催化)</h3>
+    <p><b>原帖</b>「固态电池板块目前出现有几只冲板!」(7/181/7122 · 7491 综合分)</p>
+    <p><b>解读</b>博主 11:01 给出 <b>9/29 唯一非银板块速报</b>:固态电池板块几只股票冲板(封涨停)。这是博主 <b>首次在本轮调整中提到固态电池</b>。注意博主 9/29 11:01 与 11:09 间隔仅 8 分钟, 同时点出固态电池和银行。</p>
+    <ul>
+      <li><b>核心标的</b>:宁德时代 (300750) 是固态电池龙头</li>
+      <li><b>短线属性</b>:博主用「冲板」描述, 说明是短线催化而非主线</li>
+      <li><b>9/29 实际</b>:宁德时代收 286.80 <b>-1.78%</b> 回调, 板块分化; 关注 9/30 是否延续</li>
+      <li><b>操作策略</b>:短线博弈, 快进快出; 不要重仓 (博主主线仍是银行)</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 5 — 19:52 央行降息+扩信用 (宏观政策利好)</h3>
+    <p><b>原帖</b>「中国人民银行进一步调整完善多项货币政策工具:下调 PSL 利率 0.25 个百分点至 1.5%, 扩大 PSL 支持领域至'六张网'建设; 增加科技创新和技术改造再贷款额度 2000 亿元至 1.4 万亿元, 支持比例提至 100%; 增加支农支小再贷款额度 5000 亿元至 4.85 万亿元。」(4/90/1429 · 1613 综合分)</p>
+    <p><b>解读</b>央行 9/29 晚间发布三大货币政策利好(节前最后一条), 三大要点:</p>
+    <ul>
+      <li><b>① PSL 利率下调 0.25bp 至 1.5%</b> — 降低政策性贷款成本, 利好 <b>银行息差</b> + 基建「六张网」(物流网/能源网/水利网/市政管网/信息网/综合交通网)</li>
+      <li><b>② 科技创新和技术改造再贷款 +2000 亿至 1.4 万亿, 支持比例 100%</b> — 加码科创, 利好 <b>科技/科创板/创业板</b></li>
+      <li><b>③ 支农支小再贷款 +5000 亿至 4.85 万亿</b> — 加码中小微企业, 利好 <b>农业/小微/普惠金融</b></li>
+    </ul>
+    <p><b>节前情绪利好</b>:三大工具合计释放 <b>约 7000 亿 + PSL 利率成本下降</b>, 节后首日(10/9)关注银行/基建/科创板块表现。博主 9/29 19:52 把这条作为当天最后一条, 重要性高于互动贴。</p>
+  </div>
+
+  
+  <h2>💼 3 大板块 + 6 支个股</h2>
+  <p style="color:var(--muted);font-size:13px;">选股原则:博主 9/29 实际提及 + 央行政策利好 + 节前防御逻辑。<b>9/29 3800 关卡组织抵抗成功</b>, 银行板块四大行验证「提肩带」+1.17%/+0.12%, 固态电池板块冲板(短线), 煤炭/石油延续防御红利。</p>
+  
+    <div class="panel">
+      <h3>🟢 银行 (博主 11:09 四大行一直在提肩带 + 央行 19:52 PSL -25bp 利好息差)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 工商银行 (601398.SH) · 9/29 收 8.16 (+0.12%)</h4>
+        <div class="logic">9/29 收 8.16 +0.12% 微红, 博主长期持有银行股分红逻辑 (5722 赞延续); 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差; A 股市值最大银行, 某队重仓基地, 股息率 ~5.5%</div>
+        <div class="key">关键位:60D高 8.29 / 60D低 7.08 / 120D高 8.29 / 120D低 6.95 / 现价 8.16</div>
+      </div>
+      <div class="stock-card bull">
+        <h4>🟢 农业银行 (601288.SH) · 9/29 收 6.94 (+1.17%)</h4>
+        <div class="logic">9/29 收 6.94 +1.17% 银行板块涨幅第一, 印证博主 11:09 「四大行一直在提肩带」; 央行降息+再贷款利好国有大行; 国有大行高股息防御; 60D 高 7.11 / 60D 低 5.79</div>
+        <div class="key">关键位:60D高 7.11 / 60D低 5.91 / 120D高 7.29 / 120D低 5.79 / 现价 6.94</div>
+      </div>
+      <div class="stock-card neutral">
+        <h4>🟡 招商银行 (600036.SH) · 9/29 收 40.51 (−0.32%)</h4>
+        <div class="logic">零售之王 ROE 15%, 博主 8/31 关注; 9/29 收 40.51 -0.32% 微跌但相对抗跌; 央行降息影响净息差但零售业务韧性弱估值溢价; 60D 高 41.83 / 60D 低 36.33</div>
+        <div class="key">关键位:60D高 41.83 / 60D低 36.33 / 120D高 41.83 / 120D低 35.28 / 现价 40.51</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 固态电池 (博主 11:01 板块冲板 - 短线新催化, 注意快进快出)</h3>
+      
+      <div class="stock-card neutral">
+        <h4>🟡 宁德时代 (300750.SZ) · 9/29 收 286.80 (−1.78%)</h4>
+        <div class="logic">9/29 收 286.80 -1.78% 博主 11:01 「固态电池板块出现几只冲板」核心龙头标的; 固态电池产业化加速, 锂电产业链龙头; 60D 高 308 / 60D 低 235; 短线注意博主 11:09 后续是否继续板块催化</div>
+        <div class="key">关键位:60D高 410.0 / 60D低 285.74 / 120D高 468.75 / 120D低 285.74 / 现价 286.8</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 煤炭 (博主 8/31 权重推动 + 9/28 唯一红盘领涨权重 + 9/29 节前获利兑现)</h3>
+      
+      <div class="stock-card neutral">
+        <h4>🟡 中国神华 (601088.SH) · 9/29 收 47.30 (−2.25%)</h4>
+        <div class="logic">9/29 收 47.30 -2.25% 节前获利兑现; 博主 9-04 体系内唯一强势标的延续; 煤电路港航化一体化, 股息率 5%, 现金奶牛; 冬季用煤旺季 + 油价支撑; 60D 高 49.48 / 60D 低 38.73</div>
+        <div class="key">关键位:60D高 49.48 / 60D低 40.72 / 120D高 51.18 / 120D低 38.73 / 现价 47.3</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 石油化工 (博主 8/31 权重推动 + 9/28 涨幅最大权重 + 央行六张网建设利好基建用油)</h3>
+      
+      <div class="stock-card neutral">
+        <h4>🟡 中国石油 (601857.SH) · 9/29 收 11.12 (−0.63%)</h4>
+        <div class="logic">9/29 收 11.12 -0.63% 跟随指数回调; 博主 9/28 权重推动 + OPEC+ 减产 + 中东地缘双重支撑; 国内最大油气, PB 0.9x 股息率 4.5%; 央行 9/29 六张网建设利好基建用油; 60D 高 11.63 / 60D 低 8.85</div>
+        <div class="key">关键位:60D高 11.63 / 60D低 8.93 / 120D高 12.36 / 120D低 8.59 / 现价 11.12</div>
+      </div>
+    </div>
+
+  <h2>📉 K 线图(关键位居左虚线标注)</h2>
+<h3>🟢 上证指数 (000001.SH) · 9/29 收 3830.45 (+0.18%)</h3>
+<img class="chart" src="charts/20260929_000001_SH_上证指数.png" alt="上证指数 K线图" />
+<div class="chart-caption">关键位(12 个):C 杀下一目标 3610 3610 / 9/28 B 反位 3747 3747 / 9/29 多方抵抗关卡 3800 / 9/28 收 3823.62 / 多空线 3824 / 9/29 收 3830.45 3830.45 / 8/4 支撑 3856 / 8/4 B 浪位 3886 / 9/24 收 3888.37 / 区间上沿 3926 / 8/29 周高 3996 / 年大目标 4256</div>
+<h3>🟢 创业板指 (399006.SZ) · 9/29 收 3142.56 (+0.09%)</h3>
+<img class="chart" src="charts/20260929_399006_SZ_创业板指.png" alt="创业板指 K线图" />
+<div class="chart-caption">关键位(10 个):C 杀下一目标 3050 3050 / 9/28 收 3139.82 / 9/29 收 3142.56 3142.56 / A 杀位 3160 / 8/4 试破位 3286 / 9/24 收 3288.95 / 反抽区 3370 / 8/4 B 反位 3486 / 目标位 3590 / 8/15 前顶 3686</div>
+<h3>🟢 沪深300 (000300.SH) · 9/29 收 4345.21 (+0.10%)</h3>
+<img class="chart" src="charts/20260929_000300_SH_沪深300.png" alt="沪深300 K线图" />
+<div class="chart-caption">关键位(7 个):下一 C 目标 4150 / 整数位支撑 4250 / 9/28 收 4340.76 / 9/29 收 4345.21 4345.21 / 9/24 收 4439.14 / 9/2 收(对比) 4548 / 前高 4700</div>
+<h3>🟢 工商银行 (601398.SH) · 银行/防御红利 · 9/29 收 8.16 (+0.12%)</h3>
+<img class="chart" src="charts/20260929_601398_SH_工商银行.png" alt="工商银行 K线图" />
+<div class="chart-caption">9/29 收 8.16 +0.12% 微红, 博主长期持有银行股分红逻辑 (5722 赞延续); 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差; A 股市值最大银行, 某队重仓基地, 股息率 ~5.5%<br/>关键位:60D高 8.29 / 60D低 7.08 / 120D高 8.29 / 120D低 6.95 / 现价 8.16</div>
+<h3>🟢 农业银行 (601288.SH) · 银行/防御红利 · 9/29 收 6.94 (+1.17%)</h3>
+<img class="chart" src="charts/20260929_601288_SH_农业银行.png" alt="农业银行 K线图" />
+<div class="chart-caption">9/29 收 6.94 +1.17% 银行板块涨幅第一, 印证博主 11:09 「四大行一直在提肩带」; 央行降息+再贷款利好国有大行; 国有大行高股息防御; 60D 高 7.11 / 60D 低 5.79<br/>关键位:60D高 7.11 / 60D低 5.91 / 120D高 7.29 / 120D低 5.79 / 现价 6.94</div>
+<h3>🟡 招商银行 (600036.SH) · 银行/防御红利 · 9/29 收 40.51 (-0.32%)</h3>
+<img class="chart" src="charts/20260929_600036_SH_招商银行.png" alt="招商银行 K线图" />
+<div class="chart-caption">零售之王 ROE 15%, 博主 8/31 关注; 9/29 收 40.51 -0.32% 微跌但相对抗跌; 央行降息影响净息差但零售业务韧性弱估值溢价; 60D 高 41.83 / 60D 低 36.33<br/>关键位:60D高 41.83 / 60D低 36.33 / 120D高 41.83 / 120D低 35.28 / 现价 40.51</div>
+<h3>🟡 宁德时代 (300750.SZ) · 固态电池/新催化 · 9/29 收 286.80 (-1.78%)</h3>
+<img class="chart" src="charts/20260929_300750_SZ_宁德时代.png" alt="宁德时代 K线图" />
+<div class="chart-caption">9/29 收 286.80 -1.78% 博主 11:01 「固态电池板块出现几只冲板」核心龙头标的; 固态电池产业化加速, 锂电产业链龙头; 60D 高 308 / 60D 低 235; 短线注意博主 11:09 后续是否继续板块催化<br/>关键位:60D高 410.0 / 60D低 285.74 / 120D高 468.75 / 120D低 285.74 / 现价 286.8</div>
+<h3>🟡 中国神华 (601088.SH) · 煤炭/红利防御 · 9/29 收 47.30 (-2.25%)</h3>
+<img class="chart" src="charts/20260929_601088_SH_中国神华.png" alt="中国神华 K线图" />
+<div class="chart-caption">9/29 收 47.30 -2.25% 节前获利兑现; 博主 9-04 体系内唯一强势标的延续; 煤电路港航化一体化, 股息率 5%, 现金奶牛; 冬季用煤旺季 + 油价支撑; 60D 高 49.48 / 60D 低 38.73<br/>关键位:60D高 49.48 / 60D低 40.72 / 120D高 51.18 / 120D低 38.73 / 现价 47.3</div>
+<h3>🟡 中国石油 (601857.SH) · 石油化工/能源安全 · 9/29 收 11.12 (-0.63%)</h3>
+<img class="chart" src="charts/20260929_601857_SH_中国石油.png" alt="中国石油 K线图" />
+<div class="chart-caption">9/29 收 11.12 -0.63% 跟随指数回调; 博主 9/28 权重推动 + OPEC+ 减产 + 中东地缘双重支撑; 国内最大油气, PB 0.9x 股息率 4.5%; 央行 9/29 六张网建设利好基建用油; 60D 高 11.63 / 60D 低 8.85<br/>关键位:60D高 11.63 / 60D低 8.93 / 120D高 12.36 / 120D低 8.59 / 现价 11.12</div>
+  
+  <h2>⚠️ 风险提示</h2>
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <ul>
+      <li><b>🔴 9/29 节前清仓立场</b> — 博主 10:39「无操作空间不要乱动」+ 15:57「中秋+国庆一起放假……没有行情可做」, 节前博主已选持币过节</li>
+      <li><b>🔴 9/29 大盘仍弱于 9/28 多空线 3824</b> — 9/29 收 3830.45 虽微红 +0.18%, 但仍 < 9/28 收盘 3823.62 上方 6.83 点, 趋势未变; 9/28 已失守的多空线 3824 是新压力位</li>
+      <li><b>🔴 创业板仍失守 3160 A 杀位</b> — 9/29 收 3142.56 +0.09% 微红, 但仍未收复 3160(仍差 17 点), 创业板整体仍在 9/28 弱势结构内</li>
+      <li><b>🔴 博主 6/8 撤离本金+去年盈利一半, 预测偏多但实际行动更看空</b> — 实际仓位决策比预测更看空</li>
+      <li><b>⚠️ 博主 9/28 19:26 自述:等 C5 完成才能干</b> — 9/29 3800 抵抗成功仅是 <b>小型抵抗</b>, 不是反转; 节后 C 杀结构可能延续</li>
+      <li><b>⚠️ 博主长期风控底线</b>:不举债 / 不杠杆 / 只用闲钱 / 无技术不参与短线</li>
+      <li><b>🟢 9/29 银行板块验证博主「四大行提肩带」</b> — 农行 +1.17%(六大行涨幅第一) / 工行 +0.12%, 节前防御主线兑现; 央行 19:52 PSL -25bp 利好银行息差</li>
+      <li><b>🟢 央行 9/29 19:52 三大政策利好</b> — ① PSL -25bp (银行+基建) ② 科创再贷款 1.4 万亿 (科技+创业板) ③ 支农支小 4.85 万亿 (普惠), 节后 10/9 关注落地</li>
+      <li><b>🟢 6 大权重 60D 高未破位</b> — 工行 8.16 vs 60D高 8.29 (差 0.13) / 农行 6.94 vs 60D高 7.11 (差 0.17) / 招行 40.51 vs 60D高 41.83 (差 1.32) / 神华 47.30 vs 60D高 49.48 (差 2.18) / 中石油 11.12 vs 60D高 11.63 (差 0.51), 5/5 银行/能源权重 60D 高未破位</li>
+    </ul>
+  </div>
+
+  
+  <h2>🎯 操作建议汇总</h2>
+
+  <div class="panel panel-2">
+    <h3>📌 大盘</h3>
+    <p><b>短期(9/29 起 1-2 周 / 国庆假期)</b>:<b>🟡 节前 3800 抵抗成功 · 节后观察方向</b>。9/29 微红守住 3800, 但 9/28 多空线 3824 已失守成为新压力, 趋势未变。</p>
+    <ul>
+      <li><b>9/29 上证 3830.45 +0.18%</b>:守住 3800 关卡, 距博主 3747 B 反位 83 点; 3824 多空线是节后第一观察点</li>
+      <li><b>9/29 创业板 3142.56 +0.09%</b>:守住 3160 A 杀位 17 点; 距 3050 C 杀目标 92 点</li>
+      <li><b>乐观情景</b>:节后 10/9 在 3800-3850 区间震荡, 维持小型抵抗; 央行 19:52 利好落地</li>
+      <li><b>悲观情景</b>:节后直接跌破 3800, 触发博主「C 杀」加速, 下看 3747-3650</li>
+      <li><b>关键操作</b>:博主已自述「等 C5 完成才能干」+ 9/29「无操作空间不要乱动」, 散户策略:持币过节, 节后观察方向</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 板块策略</h3>
+    <ul>
+      <li><b>🟢 防御主线(9/29 验证):银行</b> — 博主 9/29 11:09「四大行一直在提肩带」, 9/29 农行 +1.17% 涨幅第一兑现; 央行 19:52 PSL -25bp 利好银行息差; 节前/节日后持有</li>
+      <li><b>🟢 短线:固态电池</b> — 博主 9/29 11:01「板块出现几只冲板」, 短线新催化; 注意快进快出; 9/30 是否延续是关键</li>
+      <li><b>🟢 防御红利(延续):煤炭 + 石油化工</b> — 博主 8/31 长期红利逻辑延续; 9/29 神华 -2.25% / 中石油 -0.63% 节前获利兑现, 长期红利逻辑不变</li>
+      <li><b>🟡 适度关注:券商 / 保险</b> — 博主 9/1 提到「银行、证券、保险、白酒 4 大权重拉指数」, 9/29 央行降息利好若落地, 券商可能有补涨</li>
+      <li><b>🔴 回避:创业板 / 成长股</b> — 9/29 收 3142.56 仍失守 3160 A 杀位; 博主 9/28 15:20 创业板调整以来新低确认</li>
+      <li><b>🔴 回避:黄金 / 商品</b> — 博主 8/29 伦敦金大跌 -2.95%, 8/15 警示白酒「中央汇金证金清仓贵州茅台」, 不在 9/29 推荐之列</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 6 支个股监控</h3>
+    <table>
+      <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>9/29 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
+      <tbody>
+        <tr><td>工商银行 601398</td><td>银行</td><td>7.50 / 7.08</td><td>8.16 (+0.12%)</td><td>8.29 / 9.30</td><td>8.29</td><td>持有 · 9/29 微红 · 60D 高 8.29 未破位 · 节前防御</td></tr>
+        <tr><td>农业银行 601288</td><td>银行</td><td>6.20 / 5.91</td><td><b style="color:var(--bull)">6.94 (+1.17%)</b></td><td>7.11 / 7.50</td><td>7.11</td><td>持有 · <b>验证博主「四大行提肩带」银行板块涨幅第一</b> · 60D 高未破位</td></tr>
+        <tr><td>招商银行 600036</td><td>银行</td><td>38.00 / 36.33</td><td>40.51 (-0.32%)</td><td>41.83 / 45.0</td><td>41.83</td><td>持有 · 零售之王 · 弹性大但 9/29 微跌 · 60D 高未破位</td></tr>
+        <tr><td>宁德时代 300750</td><td>固态电池</td><td>235 / 286</td><td>286.80 (-1.78%)</td><td>320 / 410</td><td>410</td><td><b>短线博弈</b> · 博主 11:01「板块冲板」 · 快进快出</td></tr>
+        <tr><td>中国神华 601088</td><td>煤炭</td><td>45.0 / 40.72</td><td>47.30 (-2.25%)</td><td>49.48 / 53.0</td><td>49.48</td><td>持有 · 节前回调 · 长期红利逻辑延续 · 60D 高 49.48 未破位</td></tr>
+        <tr><td>中国石油 601857</td><td>石油</td><td>10.0 / 8.93</td><td>11.12 (-0.63%)</td><td>11.63 / 13.0</td><td>11.63</td><td>持有 · 节前跟随指数回调 · 央行六张网建设利好 · 60D 高未破位</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="footer">
+    <p>报告生成时间:2026-09-29 21:00 · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 9 张 K 线图(关键位 蓝色虚线 📌 居左标注)</p>
+    <p>博主 9/29 核心立场:<b>🟡 3800 关卡多方组织小型抵抗 · 无操作空间 · 央行降息利好(PSL -25bp + 再贷款)</b> · 3 条带操盘信号(防御 + 板块速报 + 政策) · 板块:<b>🟢 银行 · 🟢 固态电池 · 🟢 煤炭/石油</b> · 风险:<b>🟡 3800 抵抗成功但 3824 多空线仍失守 / 创业板 3160 A 杀位未收复 / 节前清仓观望</b></p>
+  </div>
+
+</div>
+</body>
+</html>
