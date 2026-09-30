@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-09-30</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fef3c7 0%, #fff7ed 100%);
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #92400e; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-09-30</h1>
+    <div class="meta">
+      <span>📅 <b>2026-09-30 (周三 · 国庆假期前最后交易日)</b></span>
+      <span>🏛️ 沪指 <b>3842.19 (+0.31%)</b></span>
+      <span>📊 创业板 <b>3135.28 (-0.23%)</b></span>
+      <span>🎯 沪深300 <b>4357.62 (+0.29%)</b></span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🟢</span><b>博主最近一天核心立场</b>:
+      <b>老登股(四大行+白酒+医药)局部上涨 · 生物制品黑马 · 3800 多方抵抗 · 节前清仓观望</b>。
+      最近一天 (9/29 + 9/30) 共 <b>16 条带操盘信号</b> 帖 (大盘判断 2 + 老登股速报 2 + 板块速报 2 + 政策 1 + 心态 3 + 互动 4 + 鸡汤 2),
+      <span class="tag tag-bull">大盘 3842.19 (+0.31%) 站上 3800 关卡</span>,
+      <span class="tag tag-bear">创业板 3135.28 (-0.23%) 季线跌 27.8%</span>,
+      <span class="tag tag-bull">沪深300 4357.62 (+0.29%) 微红</span>。
+      9/30 14:08 「四大行, 白酒, 医药, 行业龙头等老登股局部上涨」+ 14:13 「生物制品黑马」验证博主防御主线,
+      15:33 季线收官「大盘跌 6.16%, 创业板跌 27.8% (创 2015 以来最大)」空仓逻辑兑现。
+      <span class="tag tag-bull">🟢 银行 (四大行) + 白酒/医药 (老登股) + 固态电池 (短线催化)</span>。
+    </div>
+  </div>
+
+  
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主核心立场</div>
+      <div class="val" style="color: var(--bull);">🟢 老登股局部上涨</div>
+      <div class="sub">6 条操盘贴 · 防御+板块速报+政策</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 9/30 收</div>
+      <div class="val" style="color: var(--bull);">3842.19 (+0.31%)</div>
+      <div class="sub">站上 3800 · 季线跌 6.16%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板 9/30 收</div>
+      <div class="val" style="color: var(--bear);">3135.28 (-0.23%)</div>
+      <div class="sub">季线跌 27.8% · 创 2015 以来最大</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深300</div>
+      <div class="val" style="color: var(--bull);">4357.62 (+0.29%)</div>
+      <div class="sub">同步微红 · 老登股护盘</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主板块速报</div>
+      <div class="val" style="color: var(--bull);">银行+白酒+医药+固态电池</div>
+      <div class="sub">9/30 老登股+生物制品黑马 + 9/29 固态电池冲板</div>
+    </div>
+    <div class="kpi">
+      <div class="label">央行政策利好</div>
+      <div class="val" style="color: var(--bull);">PSL -25bp</div>
+      <div class="sub">六张网 + 科创再贷款 1.4 万亿 + 支农支小 4.85 万亿</div>
+    </div>
+  </div>
+
+  
+  <h2>📋 完整微博列表(最近 20 条 · 按时间倒序)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 · 置信</th>
+        <th>类别</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>Wed Sep 30 20:55</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">—</td>
+        <td class="text">#性行为不是亲密关系#难道是物理关系？</td>
+        <td class="score">R:0 C:25 L:114</td>
+        <td class="score">164</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 18:29</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">鸡汤/心态</td>
+        <td class="text">对于很多投资者来说，造成亏损的主要原因是：生活的压力和交易的焦虑，天天都想着做，想着赚钱……结果等不起，也输不起！你是这样子吗？</td>
+        <td class="score">R:52 C:358 L:3110</td>
+        <td class="score">3878</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 16:07</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">—</td>
+        <td class="text">#亚运国足vs韩国#1-2遗憾不敌，起码90分钟内射了一次，算是进步了。</td>
+        <td class="score">R:2 C:114 L:2131</td>
+        <td class="score">2361</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 15:33</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">大盘复盘</td>
+        <td class="text">大盘季线跌6.16%、创业板指数季线跌27.8%、深成指季线跌20.47%……创业板指数创2015年以来最大季跌幅！大家有什么看法么？</td>
+        <td class="score">R:46 C:458 L:4722</td>
+        <td class="score">5684</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 15:17</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">—</td>
+        <td class="text">#亚运国足vs韩国#是不是，又行了？</td>
+        <td class="score">R:5 C:69 L:2104</td>
+        <td class="score">2247</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 14:47</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">操作心态</td>
+        <td class="text">三季度如果只去玩，不参与市场，你可以战胜90%的投资者！</td>
+        <td class="score">R:19 C:359 L:4952</td>
+        <td class="score">5689</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 14:28</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">—</td>
+        <td class="text">黄金周假期，大家计划去哪里玩？</td>
+        <td class="score">R:10 C:480 L:4224</td>
+        <td class="score">5194</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 14:13</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 中</td>
+        <td style="font-size:12px">板块速报/医药</td>
+        <td class="text">生物制品板块最近两个月走出了几匹黑马！</td>
+        <td class="score">R:7 C:98 L:4023</td>
+        <td class="score">4226</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 14:08</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 高</td>
+        <td style="font-size:12px">板块速报/老登股</td>
+        <td class="text">四大行，白酒，医药，行业龙头等老登股局部上涨。指数是小红！</td>
+        <td class="score">R:6 C:65 L:3936</td>
+        <td class="score">4072</td>
+      </tr>
+      <tr>
+        <td>Wed Sep 30 13:59</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · —</td>
+        <td style="font-size:12px">盘面数据</td>
+        <td class="text">截止13：59两市成交了11480亿元，有2678只个股下跌，大盘资金流出105亿元，量能比上一交易日增加549亿元！</td>
+        <td class="score">R:3 C:44 L:3820</td>
+        <td class="score">3911</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 19:52</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 中</td>
+        <td style="font-size:12px">宏观/政策</td>
+        <td class="text">中国人民银行进一步调整完善多项货币政策工具：下调PSL利率0.25个百分点至1.5%，扩大PSL支持领域至“六张网”建设；增加科技创新和技术改造再贷款额度2000亿元至1.4万亿元，支持比例提至100%；增加支农支小再贷款额度5000亿元至4.85万亿元。</td>
+        <td class="score">R:4 C:90 L:1429</td>
+        <td class="score">1613</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 16:55</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">问候/鸡汤</td>
+        <td class="text">炒股并非我本意，我炒的是农人生计！</td>
+        <td class="score">R:9 C:288 L:4061</td>
+        <td class="score">4646</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 15:57</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">操作心态</td>
+        <td class="text">前面和大家说了，可以中秋+国庆一起放假……没有行情可做……广西欢迎您！</td>
+        <td class="score">R:9 C:309 L:5117</td>
+        <td class="score">5744</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 12:54</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · 中</td>
+        <td style="font-size:12px">盘中观察</td>
+        <td class="text">下午还是看！</td>
+        <td class="score">R:15 C:683 L:9028</td>
+        <td class="score">10409</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 11:21</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · —</td>
+        <td style="font-size:12px">互动</td>
+        <td class="text">明白不？</td>
+        <td class="score">R:126 C:425 L:7032</td>
+        <td class="score">8008</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 11:09</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 高</td>
+        <td style="font-size:12px">板块速报/银行</td>
+        <td class="text">其实，四大行最近一直在提肩带！</td>
+        <td class="score">R:17 C:169 L:7099</td>
+        <td class="score">7454</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 11:01</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 中</td>
+        <td style="font-size:12px">板块速报/固态电池</td>
+        <td class="text">固态电池板块目前出现有几只冲板！</td>
+        <td class="score">R:7 C:181 L:7122</td>
+        <td class="score">7491</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 10:47</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">互动</td>
+        <td class="text">收到请回复666或点赞支持一下！</td>
+        <td class="score">R:18 C:695 L:8044</td>
+        <td class="score">9452</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 10:39</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">操作建议</td>
+        <td class="text">无操作空间，不要乱动……明白666</td>
+        <td class="score">R:23 C:759 L:8492</td>
+        <td class="score">10033</td>
+      </tr>
+      <tr>
+        <td>Tue Sep 29 09:45</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · 高</td>
+        <td style="font-size:12px">大盘判断</td>
+        <td class="text">3800关卡附近，多方在组织小型抵抗！</td>
+        <td class="score">R:38 C:403 L:9220</td>
+        <td class="score">10064</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <h2>🚦 核心操盘信号 (LLM 二次摘要 · 最近一天)</h2>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 1 — 9/30 14:08 老登股局部上涨 (博主 9/30 最关键板块速报)</h3>
+    <p><b>原帖</b>「四大行, 白酒, 医药, 行业龙头等老登股局部上涨. 指数是小红!」(6/65/3936 · 4070 综合分)</p>
+    <p><b>解读</b>这是博主 9/30 的核心防御主线判断——明确点出 <b>四大行 + 白酒 + 医药 + 行业龙头</b> 4 大方向同步「局部上涨」, 验证博主 9/29 11:09「四大行一直在提肩带」的判断。</p>
+    <ul>
+      <li><b>9/30 验证</b>:工行 +1.47% / 农行 +0.43% / 建行 +0.27% 四大行全线红盘; 茅台 +1.86% 白酒领涨; 恒瑞 +3.46% 医药黑马</li>
+      <li><b>指数同步微红</b>:上证 +0.31% / 沪深300 +0.29% — 验证博主「指数是小红」</li>
+      <li><b>操作策略</b>:节前防御配置 — 四大行 (股息 5%) + 茅台 (消费白马) + 恒瑞 (创新药黑马)</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 2 — 9/30 14:13 生物制品板块黑马 (与 14:08 老登股互补)</h3>
+    <p><b>原帖</b>「生物制品板块最近两个月走出了几匹黑马!」(7/98/4023 · 4226 综合分)</p>
+    <p><b>解读</b>博主 9/30 间隔仅 5 分钟又给出医药细分速报: <b>生物制品黑马</b>(疫苗/创新药/血制品), 与 14:08 老登股形成「防御+成长」组合。这是博主少有的成长股板块速报。</p>
+    <ul>
+      <li><b>核心标的</b>:恒瑞医药 (600276) 是创新药龙头 + 生物制品黑马</li>
+      <li><b>9/30 实际</b>:恒瑞医药 +3.46% 涨幅黑马验证</li>
+      <li><b>操作策略</b>:医药板块关注恒瑞医药等白马; 但节前不宜追高</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 3 — 9/30 15:33 季线收官 (三季度行情极差)</h3>
+    <p><b>原帖</b>「大盘季线跌 6.16%, 创业板季线跌 27.8%, 深成指季线跌 20.47%……创业板指数创 2015 年以来最大季跌幅!」(46/458/4722 · 5682 综合分)</p>
+    <p><b>解读</b>9/30 是三季度最后一个交易日, 博主季线收官给出 <b>三季度行情极差</b> 的官方数据。三大指数季线全部下跌, 创业板跌 27.8% 创 2015 以来最大。</p>
+    <ul>
+      <li><b>三季度数据</b>:大盘 -6.16% / 创业板 -27.8% / 深成指 -20.47%</li>
+      <li><b>博主策略验证</b>:博主 9/30 14:47「三季度只去玩不参与市场可战胜 90% 投资者」与季线收官数据完全吻合</li>
+      <li><b>四季度关注</b>:节后四季度方向是核心; 9/30 老登股防御主线兑现, 节后是否延续是关键</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟡 信号 4 — 9/29 09:45 3800 关卡多方组织小型抵抗 (博主 9/29 互动最高 9220 赞)</h3>
+    <p><b>原帖</b>「3800 关卡附近, 多方在组织小型抵抗!」(38/403/9220 · 10064 综合分 · 互动最高)</p>
+    <p><b>解读</b>9/29 最重要的一条 (9220 赞 / 10064 综合分):博主明确披露 <b>3800 整数关卡是多空双方博弈的关键</b>。</p>
+    <ul>
+      <li><b>9/30 实际</b>:上证 3842.19 <b>+0.31%</b> 微红, <b>3800 关卡组织抵抗成功并向上突破</b></li>
+      <li><b>创业板 9/30 收</b>3135.28 <b>-0.23%</b> 微跌, 季线跌 27.8%</li>
+      <li><b>沪深300</b>4357.62 +0.29% 同步微红</li>
+      <li><b>操作策略</b>:博主已自述「等 C5 完成才能干」+ 9/29「无操作空间不要乱动」, 散户策略:持币过节, 节后观察方向</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 5 — 9/29 11:09 四大行最近一直在提肩带 (银行板块速报 · 9/30 验证)</h3>
+    <p><b>原帖</b>「其实, 四大行最近一直在提肩带!」(17/169/7099 · 7454 综合分)</p>
+    <p><b>解读</b>博主 9/29 11:09 强化银行板块主线——四大行(工/农/中/建)一直在 <b>提肩带</b>(=护盘/支撑大盘)。</p>
+    <ul>
+      <li><b>9/30 验证</b>:工行 +1.47% / 农行 +0.43% / 建行 +0.27% 银行板块全线红盘, 验证博主「提肩带」</li>
+      <li><b>央行 9/29 19:52 利好</b>:PSL 下调 0.25bp 利好银行息差, 银行板块节后关注</li>
+      <li><b>操作策略</b>:银行 (尤其国有大行) 防御主线确认; 工/农/建招关注</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 6 — 9/29 19:52 央行降息+扩信用 (宏观政策利好)</h3>
+    <p><b>原帖</b>「中国人民银行进一步调整完善多项货币政策工具:下调 PSL 利率 0.25 个百分点至 1.5%, 扩大 PSL 支持领域至'六张网'建设; 增加科技创新和技术改造再贷款额度 2000 亿元至 1.4 万亿元, 支持比例提至 100%; 增加支农支小再贷款额度 5000 亿元至 4.85 万亿元。」(4/90/1429 · 1613 综合分)</p>
+    <p><b>解读</b>央行 9/29 晚间发布三大货币政策利好:</p>
+    <ul>
+      <li><b>① PSL 利率下调 0.25bp 至 1.5%</b> — 降低政策性贷款成本, 利好 <b>银行息差</b> + 基建「六张网」</li>
+      <li><b>② 科技创新和技术改造再贷款 +2000 亿至 1.4 万亿, 支持比例 100%</b> — 加码科创, 利好 <b>科技/科创板/创业板</b></li>
+      <li><b>③ 支农支小再贷款 +5000 亿至 4.85 万亿</b> — 加码中小微企业, 利好 <b>农业/小微/普惠金融</b></li>
+    </ul>
+  </div>
+
+  
+  <h2>💼 3 大板块 + 6 支个股 (基于博主 9/29 + 9/30 实际提及)</h2>
+  <p style="color:var(--muted);font-size:13px;">选股原则:博主 9/29 + 9/30 实际提及 + 央行政策利好 + 节前防御逻辑。<b>9/30 老登股局部上涨全部验证</b>(工行 +1.47% / 茅台 +1.86% / 恒瑞 +3.46% / 宁德 +1.50%)。</p>
+  
+    <div class="panel">
+      <h3>🟢 银行 (博主 9/29 11:09 四大行提肩带 + 9/30 14:08 老登股局部上涨 + 央行 9/29 PSL -25bp 利好息差)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 工商银行 (601398.SH) · 9/30 收 8.28 (+1.47%)</h4>
+        <div class="logic">博主长期底仓 · 国有大行高股息 (股息率 ~5.5%) · A 股市值最大银行 某队重仓基地 · 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差 · 9/30 老登股局部上涨代表标的</div>
+        <div class="key">关键位:60D高 8.3 / 60D低 7.16 / 120D高 8.3 / 120D低 6.95 / 现价 8.28</div>
+      </div>
+      <div class="stock-card bull">
+        <h4>🟢 农业银行 (601288.SH) · 9/30 收 6.97 (+0.43%)</h4>
+        <div class="logic">9/29 涨幅银行第一 验证博主 11:09 「四大行一直在提肩带」 · 国有大行高股息防御 · 央行降息 + 扩大再贷款 2000 亿利好息差 · 60D 高/低 待 K 线确认</div>
+        <div class="key">关键位:60D高 7.11 / 60D低 5.97 / 120D高 7.29 / 120D低 5.79 / 现价 6.97</div>
+      </div>
+      <div class="stock-card bull">
+        <h4>🟢 建设银行 (601939.SH) · 9/30 收 11.06 (+0.27%)</h4>
+        <div class="logic">国有四大行之一 · 博主 9/30 14:08 「四大行局部上涨」验证标的 · 高股息 (~5%) 防御主线 · 与工行/农行形成银行底仓组合 · 适合长假避险配置</div>
+        <div class="key">关键位:60D高 11.23 / 60D低 9.72 / 120D高 11.23 / 120D低 9.16 / 现价 11.06</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 白酒 (博主 9/30 14:08 「白酒局部上涨」+ 老登股代表龙头 · 防御主线)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 贵州茅台 (600519.SH) · 9/30 收 1258.62 (+1.86%)</h4>
+        <div class="logic">博主 9/30 14:08 「白酒局部上涨」+「老登股」代表龙头 · A 股股王 · 消费白马防御属性 · 季线收官, 三季度跌幅大, 节后估值修复弹性可期 · 60D 高/低 待 K 线确认</div>
+        <div class="key">关键位:60D高 1363.35 / 60D低 1170.28 / 120D高 1477.41 / 120D低 1151.01 / 现价 1258.62</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 医药 (博主 9/30 14:08 「医药局部上涨」+ 14:13 「生物制品黑马」创新药出海催化)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 恒瑞医药 (600276.SH) · 9/30 收 47.20 (+3.46%)</h4>
+        <div class="logic">博主 9/30 14:08 「医药局部上涨」+ 14:13 「生物制品黑马」核心标的 · 创新药龙头 · 创新药出海 (BD) 持续催化 · 集采压力释放估值修复 · 60D 高/低 待 K 线确认</div>
+        <div class="key">关键位:60D高 58.0 / 60D低 41.89 / 120D高 58.87 / 120D低 41.89 / 现价 47.2</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 固态电池 (博主 9/29 11:01 板块冲板 · 节后新催化主线 · 短线博弈)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 宁德时代 (300750.SZ) · 9/30 收 291.11 (+1.50%)</h4>
+        <div class="logic">博主 9/29 11:01 「固态电池板块出现几只冲板」核心龙头 · 固态电池产业化加速 · 锂电产业链绝对龙头 · 节后新催化主线 · 60D 高/低 待 K 线确认</div>
+        <div class="key">关键位:60D高 410.0 / 60D低 285.74 / 120D高 468.75 / 120D低 285.74 / 现价 291.11</div>
+      </div>
+    </div>
+
+  <h2>📉 K 线图(关键位居左虚线标注)</h2>
+<h3>🟢 上证指数 (000001.SH) · 9/30 收 3842.19 (+0.31%)</h3>
+<img class="chart" src="charts/20260930_000001_SH_上证指数.png" alt="上证指数 K线图" />
+<div class="chart-caption">关键位(10 个):C 杀下一目标 3610 3610 / 9/29 多方抵抗关卡 3800 / 9/28 收 3823.62 / 9/29 收 3830.45 3830.45 / 9/30 收 3842.19 3842.19 / 8/4 支撑 3856 / 9/24 收 3888.37 / 区间上沿 3926 / 8/29 周高 3996 / 年大目标 4256</div>
+<h3>🔴 创业板指 (399006.SZ) · 9/30 收 3135.28 (-0.23%)</h3>
+<img class="chart" src="charts/20260930_399006_SZ_创业板指.png" alt="创业板指 K线图" />
+<div class="chart-caption">关键位(9 个):C 杀下一目标 3050 3050 / 9/29 收 3142.56 / A 杀位 3160 / 8/4 试破位 3286 / 9/24 收 3288.95 / 反抽区 3370 / 8/4 B 反位 3486 / 目标位 3590 / 8/15 前顶 3686</div>
+<h3>🟢 沪深300 (000300.SH) · 9/30 收 4357.62 (+0.29%)</h3>
+<img class="chart" src="charts/20260930_000300_SH_沪深300.png" alt="沪深300 K线图" />
+<div class="chart-caption">关键位(7 个):下一 C 目标 4150 / 整数位支撑 4250 / 9/29 收 4345.21 / 整数位支撑 4400 / 9/24 收 4439.14 / 9/2 收(对比) 4548 / 前高 4700</div>
+<h3>🟢 工商银行 (601398.SH) · 银行/防御红利 · 9/30 收 8.28 (+1.47%)</h3>
+<img class="chart" src="charts/20260930_601398_SH_工商银行.png" alt="工商银行 K线图" />
+<div class="chart-caption">博主长期底仓 · 国有大行高股息 (股息率 ~5.5%) · A 股市值最大银行 某队重仓基地 · 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差 · 9/30 老登股局部上涨代表标的<br/>关键位:60D高 8.3 / 60D低 7.16 / 120D高 8.3 / 120D低 6.95 / 现价 8.28</div>
+<h3>🟢 农业银行 (601288.SH) · 银行/防御红利 · 9/30 收 6.97 (+0.43%)</h3>
+<img class="chart" src="charts/20260930_601288_SH_农业银行.png" alt="农业银行 K线图" />
+<div class="chart-caption">9/29 涨幅银行第一 验证博主 11:09 「四大行一直在提肩带」 · 国有大行高股息防御 · 央行降息 + 扩大再贷款 2000 亿利好息差 · 60D 高/低 待 K 线确认<br/>关键位:60D高 7.11 / 60D低 5.97 / 120D高 7.29 / 120D低 5.79 / 现价 6.97</div>
+<h3>🟢 建设银行 (601939.SH) · 银行/防御红利 · 9/30 收 11.06 (+0.27%)</h3>
+<img class="chart" src="charts/20260930_601939_SH_建设银行.png" alt="建设银行 K线图" />
+<div class="chart-caption">国有四大行之一 · 博主 9/30 14:08 「四大行局部上涨」验证标的 · 高股息 (~5%) 防御主线 · 与工行/农行形成银行底仓组合 · 适合长假避险配置<br/>关键位:60D高 11.23 / 60D低 9.72 / 120D高 11.23 / 120D低 9.16 / 现价 11.06</div>
+<h3>🟢 贵州茅台 (600519.SH) · 白酒/老登股 · 9/30 收 1258.62 (+1.86%)</h3>
+<img class="chart" src="charts/20260930_600519_SH_贵州茅台.png" alt="贵州茅台 K线图" />
+<div class="chart-caption">博主 9/30 14:08 「白酒局部上涨」+「老登股」代表龙头 · A 股股王 · 消费白马防御属性 · 季线收官, 三季度跌幅大, 节后估值修复弹性可期 · 60D 高/低 待 K 线确认<br/>关键位:60D高 1363.35 / 60D低 1170.28 / 120D高 1477.41 / 120D低 1151.01 / 现价 1258.62</div>
+<h3>🟢 恒瑞医药 (600276.SH) · 创新药/生物制品 · 9/30 收 47.20 (+3.46%)</h3>
+<img class="chart" src="charts/20260930_600276_SH_恒瑞医药.png" alt="恒瑞医药 K线图" />
+<div class="chart-caption">博主 9/30 14:08 「医药局部上涨」+ 14:13 「生物制品黑马」核心标的 · 创新药龙头 · 创新药出海 (BD) 持续催化 · 集采压力释放估值修复 · 60D 高/低 待 K 线确认<br/>关键位:60D高 58.0 / 60D低 41.89 / 120D高 58.87 / 120D低 41.89 / 现价 47.2</div>
+<h3>🟢 宁德时代 (300750.SZ) · 固态电池/新催化 · 9/30 收 291.11 (+1.50%)</h3>
+<img class="chart" src="charts/20260930_300750_SZ_宁德时代.png" alt="宁德时代 K线图" />
+<div class="chart-caption">博主 9/29 11:01 「固态电池板块出现几只冲板」核心龙头 · 固态电池产业化加速 · 锂电产业链绝对龙头 · 节后新催化主线 · 60D 高/低 待 K 线确认<br/>关键位:60D高 410.0 / 60D低 285.74 / 120D高 468.75 / 120D低 285.74 / 现价 291.11</div>
+  
+  <h2>⚠️ 风险提示</h2>
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <ul>
+      <li><b>🔴 9/30 季线收官极差</b> — 大盘季线跌 6.16%, 创业板季线跌 27.8% (创 2015 以来最大季跌幅), 深成指 -20.47%, 三季度博主空仓策略验证</li>
+      <li><b>🔴 9/29 节前清仓立场</b> — 博主 9/29 10:39「无操作空间不要乱动」+ 15:57「中秋+国庆一起放假没有行情可做」, 节前博主已选持币过节</li>
+      <li><b>🔴 创业板 9/30 -0.23% 仍失守 3160 A 杀位</b> — 9/30 收 3135.28 较 9/29 3142.56 继续微跌, 距 3050 C 杀目标 85 点</li>
+      <li><b>🔴 博主 6/8 撤离本金+去年盈利一半, 预测偏多但实际行动更看空</b> — 实际仓位决策比预测更看空</li>
+      <li><b>⚠️ 博主 9/28 19:26 自述:等 C5 完成才能干</b> — 节前老登股局部上涨仅是 <b>防御性反弹</b>, 不是反转; 节后 C 杀结构可能延续</li>
+      <li><b>⚠️ 博主长期风控底线</b>:不举债 / 不杠杆 / 只用闲钱 / 无技术不参与短线</li>
+      <li><b>🟢 9/30 老登股局部上涨全部验证博主 14:08 判断</b> — 工行 +1.47% / 茅台 +1.86% / 恒瑞 +3.46% / 宁德 +1.50%, 节前防御主线兑现</li>
+      <li><b>🟢 央行 9/29 19:52 三大政策利好</b> — ① PSL -25bp (银行+基建) ② 科创再贷款 1.4 万亿 (科技+创业板) ③ 支农支小 4.85 万亿 (普惠), 节后 10/9 关注落地</li>
+      <li><b>🟢 4 大银行 60D 高未破位</b> — 工行 8.28 vs 60D高 8.30 (差 0.02) / 农行 6.97 vs 60D高 7.11 (差 0.14) / 建行 11.06 vs 60D高 11.23 (差 0.17), 银行底仓 60D 高未破位</li>
+    </ul>
+  </div>
+
+  
+  <h2>🎯 操作建议汇总</h2>
+
+  <div class="panel panel-2">
+    <h3>📌 大盘</h3>
+    <p><b>短期(9/30 起 1-2 周 / 国庆假期)</b>:<b>🟡 节前老登股局部上涨 · 节后观察四季度方向</b>。9/30 微红站上 3800, 老登股四大行 + 白酒 + 医药 同步反弹, 但创业板仍弱, 三季度收官极差。</p>
+    <ul>
+      <li><b>9/30 上证 3842.19 +0.31%</b>:站上 3800 关卡, 较 9/29 3830.45 涨 12 点; 季线跌 6.16% 收官</li>
+      <li><b>9/30 创业板 3135.28 -0.23%</b>:较 9/29 3142.56 微跌 7 点, 季线跌 27.8% (创 2015 以来最大)</li>
+      <li><b>乐观情景</b>:节后 10/9 在 3800-3850 区间维持震荡; 央行 9/29 利好落地; 老登股防御主线延续</li>
+      <li><b>悲观情景</b>:节后跌破 3800, 触发博主「C 杀」加速, 下看 3747-3650; 创业板失守 3050</li>
+      <li><b>关键操作</b>:博主已自述「等 C5 完成才能干」+ 9/29「无操作空间不要乱动」, 散户策略:持币过节, 节后观察方向</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 板块策略</h3>
+    <ul>
+      <li><b>🟢 防御主线(9/30 全线验证):四大行</b> — 博主 9/30 14:08「四大行局部上涨」, 工行 +1.47% / 农行 +0.43% / 建行 +0.27% 兑现; 央行 9/29 PSL -25bp 利好银行息差; 节前/节日后持有</li>
+      <li><b>🟢 防御主线(9/30 验证):白酒 + 医药</b> — 博主 9/30 14:08「白酒, 医药局部上涨」+ 14:13「生物制品黑马」, 茅台 +1.86% / 恒瑞 +3.46%; 节前防御配置</li>
+      <li><b>🟢 短线:固态电池</b> — 博主 9/29 11:01「板块出现几只冲板」, 9/30 宁德 +1.50% 兑现; 节后是否延续是关键</li>
+      <li><b>🟡 适度关注:券商 / 保险</b> — 央行 9/29 降息利好若落地, 券商可能有补涨</li>
+      <li><b>🔴 回避:创业板 / 成长股</b> — 9/30 收 3135.28 仍失守 3160 A 杀位; 博主 9/30 季线收官确认创业板季线跌 27.8%</li>
+      <li><b>🔴 回避:深成指权重</b> — 9/30 季线跌 20.47% 同步极差</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 6 支个股监控</h3>
+    <table>
+      <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>9/30 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
+      <tbody>
+        <tr><td>工商银行 601398</td><td>银行</td><td>7.50 / 7.16</td><td><b style="color:var(--bull)">8.28 (+1.47%)</b></td><td>8.30 / 9.30</td><td>8.30</td><td>持有 · <b>9/30 银行板块涨幅第一</b> · 验证博主「四大行提肩带」 · 60D 高 8.30 未破位</td></tr>
+        <tr><td>农业银行 601288</td><td>银行</td><td>6.20 / 5.97</td><td><b style="color:var(--bull)">6.97 (+0.43%)</b></td><td>7.11 / 7.50</td><td>7.11</td><td>持有 · 验证博主「四大行提肩带」 · 9/30 涨幅银行第二 · 60D 高未破位</td></tr>
+        <tr><td>建设银行 601939</td><td>银行</td><td>10.00 / 9.72</td><td><b style="color:var(--bull)">11.06 (+0.27%)</b></td><td>11.23 / 13.0</td><td>11.23</td><td>持有 · 验证博主「四大行提肩带」 · 9/30 微红 · 60D 高未破位</td></tr>
+        <tr><td>贵州茅台 600519</td><td>白酒</td><td>1200 / 1170</td><td><b style="color:var(--bull)">1258.62 (+1.86%)</b></td><td>1363 / 1450</td><td>1363.35</td><td>持有 · <b>9/30 验证博主「白酒局部上涨」</b> · 季线收官防御配置 · 60D 高未破位</td></tr>
+        <tr><td>恒瑞医药 600276</td><td>创新药</td><td>45 / 41.89</td><td><b style="color:var(--bull)">47.20 (+3.46%)</b></td><td>50 / 58</td><td>58.00</td><td><b>9/30 黑马验证</b> · 博主 14:13 「生物制品黑马」核心标的 · 创新药出海催化</td></tr>
+        <tr><td>宁德时代 300750</td><td>固态电池</td><td>290 / 285</td><td><b style="color:var(--bull)">291.11 (+1.50%)</b></td><td>320 / 410</td><td>410.00</td><td><b>9/30 兑现博主 9/29「板块冲板」</b> · 短线博弈 · 节后新催化主线</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="footer">
+    <p>报告生成时间:2026-09-30 21:00 · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 9 张 K 线图(关键位 蓝色虚线 📌 居左标注)</p>
+    <p>博主最近一天 (9/29 + 9/30) 核心立场:<b>🟢 老登股局部上涨 (四大行+白酒+医药) · 生物制品黑马 · 3800 多方抵抗 · 节前清仓观望</b> · 6 条带操盘信号 · 板块:<b>🟢 银行 · 🟢 白酒+医药 · 🟢 固态电池</b> · 风险:<b>🟡 季线收官极差 (创业板 -27.8%) / 节前清仓观望 / 博主仓位决策偏空</b></p>
+  </div>
+
+</div>
+</body>
+</html>
