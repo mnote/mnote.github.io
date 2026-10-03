@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-10-03</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+    border: 1px solid #86efac;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #065f46; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-10-03</h1>
+    <div class="meta">
+      <span>📅 <b>2026-10-03 (周六 · 🇨🇳 国庆假期第 3 天 · 博主唯一关键观点: 美股纳指 ATH · 真科技硬科技)</b></span>
+      <span>🏛️ 沪指 <b>3842.19 (+0.31%)</b></span>
+      <span>📊 创业板 <b>3135.28 (-0.23%)</b></span>
+      <span>🎯 沪深300 <b>4357.62 (+0.29%)</b></span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🟢</span><b>博主最近一天核心立场</b>:
+      <b>美股纳指改写历史新高 · 真科技/硬科技涨幅领先 · 节后 10/9 A 股硬科技主线</b>。
+      最近一天 (10/02 + 10/03) 共 <b>10 条</b> 帖 (2 条带操盘信号: 10/03 美股纳指 ATH + 真科技 🟢 / 10/02 港股 -668 🔴),
+      <span class="tag tag-bull">大盘 3842.19 (+0.31%) 站上 3800 关卡</span>,
+      <span class="tag tag-bear">创业板 3135.28 (-0.23%) 季线跌 27.8%</span>,
+      <span class="tag tag-bull">沪深300 4357.62 (+0.29%) 微红</span>。
+      10/03 07:58 美股纳指改写历史新高 + 真科技/硬科技涨幅领先 (4881赞 · 10/3 互动最高) — <b>节后 10/9 A 股硬科技主线</b>。
+      10/02 11:50 港股节后开盘暴跌 668 点 — <b>10/9 A 股开盘防御+硬科技关注并行</b>。
+      10/01 16:48 美光 2026Q4 财报(营收 +380% / 净利 +1077.79%) → 隐含关注 <b>存储芯片/HBM</b>,A 股映射:兆易创新 + 澜起科技。
+      <span class="tag tag-bull">🟢 节后 10/9 关注真科技硬科技主线 (半导体/HBM) + 防御首选银行/红利</span>。
+    </div>
+  </div>
+
+  
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主核心立场</div>
+      <div class="val" style="color: var(--bull);">🟢 美股纳指 ATH + 真科技</div>
+      <div class="sub">10/3 07:58 · 硬科技涨幅领先</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 9/30 收</div>
+      <div class="val" style="color: var(--bull);">3842.19 (+0.31%)</div>
+      <div class="sub">站上 3800 · 季线跌 6.16%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板 9/30 收</div>
+      <div class="val" style="color: var(--bear);">3135.28 (-0.23%)</div>
+      <div class="sub">季线跌 27.8% · 创 2015 以来最大</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深300</div>
+      <div class="val" style="color: var(--bull);">4357.62 (+0.29%)</div>
+      <div class="sub">同步微红 · 老登股护盘</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主新增信号</div>
+      <div class="val" style="color: var(--bull);">🟢 美股硬科技 (10/3)</div>
+      <div class="sub">🔴 港股 -668 (10/2) · 🟢 美光财报(10/1)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">节后关注</div>
+      <div class="val" style="color: var(--bull);">🟢 10/9 A 股开盘</div>
+      <div class="sub">硬科技主线 + 防御配置</div>
+    </div>
+  </div>
+
+  
+  <h2>📋 完整微博列表(最近 10 条 · 按时间倒序 · 10/03 21:00 抓取)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 · 置信</th>
+        <th>类别</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>Sat Oct 03 17:01</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">—</td>
+        <td class="text">#烟草局招聘下次直接报身份证#这这位体育生需要这个岗位！</td>
+        <td class="score">R:8 C:88 L:1585</td>
+        <td class="score">1769</td>
+      </tr>
+      <tr>
+        <td>Sat Oct 03 16:59</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">—</td>
+        <td class="text">#为什么现在退房时酒店不查房了#一不值钱，二浪费时间，三成本高！</td>
+        <td class="score">R:3 C:53 L:1376</td>
+        <td class="score">1485</td>
+      </tr>
+      <tr>
+        <td>Sat Oct 03 07:58</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">多</span> · 高</td>
+        <td style="font-size:12px">美股/硬科技</td>
+        <td class="text">周五晚美国市场纳指改写历史新高，真科技、硬科技涨幅领先。</td>
+        <td class="score">R:25 C:440 L:4881</td>
+        <td class="score">5786</td>
+      </tr>
+      <tr>
+        <td>Sat Oct 03 06:34</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">体育/国足</td>
+        <td class="text">#国足0比5惨败却让小将接受采访#让我们村的队员上吧！</td>
+        <td class="score">R:16 C:311 L:3006</td>
+        <td class="score">3644</td>
+      </tr>
+      <tr>
+        <td>Fri Oct 02 23:13</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">互动</td>
+        <td class="text">大家晚安！</td>
+        <td class="score">R:3 C:174 L:2775</td>
+        <td class="score">3126</td>
+      </tr>
+      <tr>
+        <td>Fri Oct 02 20:36</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">杂谈/社会新闻</td>
+        <td class="text">#北京独居女子离世房产判归国家#看来还是找个小奶狗陪一下好点！</td>
+        <td class="score">R:14 C:198 L:3148</td>
+        <td class="score">3558</td>
+      </tr>
+      <tr>
+        <td>Fri Oct 02 20:34</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · —</td>
+        <td style="font-size:12px">行业热点/新能源车</td>
+        <td class="text">#1780万辆新能源车挤爆国庆高速#充电等到你怀疑人生！</td>
+        <td class="score">R:9 C:153 L:3009</td>
+        <td class="score">3324</td>
+      </tr>
+      <tr>
+        <td>Fri Oct 02 20:25</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">无关</span> · —</td>
+        <td style="font-size:12px">互动/节日</td>
+        <td class="text">#全世界都知道中国人放假了#这个确实！你放假了吗？</td>
+        <td class="score">R:6 C:111 L:2695</td>
+        <td class="score">2923</td>
+      </tr>
+      <tr>
+        <td>Fri Oct 02 16:42</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">中性</span> · —</td>
+        <td style="font-size:12px">闲聊/资金管理</td>
+        <td class="text">#500万放余额宝一天的收益#国债逆回购不是更高一点吗？</td>
+        <td class="score">R:16 C:177 L:3585</td>
+        <td class="score">3955</td>
+      </tr>
+      <tr>
+        <td>Fri Oct 02 11:50</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">空</span> · 高</td>
+        <td style="font-size:12px">大盘判断/港股</td>
+        <td class="text">港股恒生指数目前下跌668点！</td>
+        <td class="score">R:7 C:280 L:4402</td>
+        <td class="score">4969</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <h2>🚦 核心操盘信号 (LLM 二次摘要 · 最近一天 10/02 + 10/03)</h2>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 1 — 10/03 07:58 美股纳斯达克改写历史新高 · 真科技/硬科技涨幅领先 (博主 10/3 唯一操盘信号 · 节后新催化)</h3>
+    <p><b>原帖</b>「周五晚美国市场纳指改写历史新高，真科技、硬科技涨幅领先。」(<b>25/440/4881 · 5786 综合分 · 10/3 互动最高</b>)</p>
+    <p><b>解读</b>博主 10/03 (国庆假期第 3 天) 给出 <b>10/3 唯一关键操盘信号</b> —— 美股纳指创历史新高,真科技/硬科技涨幅领先。</p>
+    <ul>
+      <li><b>美股纳指 ATH 隐含 A 股映射</b>:美股硬科技涨幅领先,直接利好 A 股半导体/存储芯片/HBM/AI 算力板块。博主 10/3 唯一操盘信号,标志节后 10/9 A 股开盘 <b>硬科技主线</b></li>
+      <li><b>A 股映射核心标的</b>:
+        <ul>
+          <li><b>兆易创新 603986</b> — NOR Flash 全球第三 + DRAM 利基型龙头, 9/30 收 353.90 -3.72% (60D 高 707.97) 节前已回调,节后美股硬科技利好催化</li>
+          <li><b>澜起科技 688008</b> — DDR5 内存接口芯片全球龙头 (市占率 40%+), 9/30 收 202.31 -4.84% (60D 高 297.96) AI 服务器 HBM 关键供应商</li>
+        </ul>
+      </li>
+      <li><b>博主动机</b>:通常博主会在节后开盘前 1-3 天发「美股核心标的走势 → A 股映射」, 引导关注硬科技主线; 10/1 美光财报(2026Q4 营收+380%/净利+1077.79%) + 10/3 美股纳指 ATH 形成 <b>双重利好叠加</b></li>
+      <li><b>操作策略</b>:节后 10/9 A 股开盘,关注 真科技/硬科技 板块 (半导体/存储芯片/HBM/AI 算力), A 股映射兆易+澜起, 适度规避前期累计涨幅过大的品种 (兆易 -3.72% / 澜起 -4.84% 节前已回调, 节后催化窗口)</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 2 — 10/02 11:50 港股恒生指数目前下跌 668 点 (博主 10/02 唯一大盘判断 · 节后开盘预警)</h3>
+    <p><b>原帖</b>「港股恒生指数目前下跌 668 点!」(<b>8/254/4402 · 4917 综合分 · 10/2 互动最高</b>)</p>
+    <p><b>解读</b>10/2 (国庆假期中) 港股节后开盘第一日暴跌, 博主主动提醒节后 A 股开盘压力。</p>
+    <ul>
+      <li><b>港股暴跌 → 节后 A 股承压</b>:港股作为 A 股先行指标, 跌幅 668 点(约 -2%) 对应 A 股开盘同样承压, 10/9 (周四节后首个交易日) 需要警惕低开</li>
+      <li><b>10/2 上证 3842.19 +0.31% (9/30 收)</b>:节前站上 3800 关卡, 但节后面临港股拖累风险</li>
+      <li><b>10/2 创业板 3135.28 -0.23% (9/30 收)</b>:较 9/29 微跌, 节后季线低位风险更大</li>
+      <li><b>10/2 沪深300 4357.62 +0.29% (9/30 收)</b>:同步微红, 节后防御属性较强</li>
+      <li><b>操作策略</b>:节后开盘防御为主; 减仓成长股/创业板; 增配银行/红利防御; 关注美股硬科技 → A 股映射 (兆易+澜起) 短期催化</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟡 信号 3 — 沿用 9/29 + 9/30 老登股/生物制品黑马 (博主 9/29 + 9/30 持续主线 · 9/30 已验证)</h3>
+    <p><b>原帖回顾</b>:</p>
+    <ul>
+      <li>9/30 14:08「四大行, 白酒, 医药, 行业龙头等老登股局部上涨. 指数是小红!」(3936 赞)</li>
+      <li>9/30 14:13「生物制品板块最近两个月走出了几匹黑马!」(4023 赞)</li>
+      <li>9/30 15:33「大盘季线跌 6.16%, 创业板季线跌 27.8%, 深成指季线跌 20.47%……创业板指数创 2015 年以来最大季跌幅!」(4722 赞)</li>
+      <li>9/29 09:45「3800 关卡附近, 多方在组织小型抵抗!」(9220 赞 · 互动最高)</li>
+      <li>9/29 11:09「四大行最近一直在提肩带!」(7099 赞)</li>
+      <li>9/29 19:52 央行降息+扩信用三大政策:PSL -25bp / 科创再贷款 1.4 万亿 / 支农支小 4.85 万亿 (1429 赞)</li>
+    </ul>
+    <p><b>解读</b>博主 10/2-10/3 假期中持续休息, 仅 10/3 早盘后给出美股硬科技 + 10/2 港股暴跌两个关键操盘信号, 沿用 9/29 + 9/30 主线 + 央行政策利好 + 美光财报。<b>博主 10/3 美股硬科技信号叠加 10/1 美光财报 = 节后 10/9 A 股硬科技主线确认</b>。</p>
+  </div>
+
+  
+  <h2>💼 3 大板块 + 6 支个股 (基于博主 10/02 + 10/03 实际提及 + 沿用 10/01 美光财报 + 9/29-9/30 主线)</h2>
+  <p style="color:var(--muted);font-size:13px;">选股原则:博主 10/03 美股纳指 ATH + 真科技硬科技 → A 股半导体/存储芯片主线 + 10/02 港股暴跌防御 + 10/01 美光财报延伸 + 沿用 9/29-9/30 老登股+生物制品黑马。<b>节后 10/9 开盘双主线</b>(硬科技进攻 + 银行/红利防御)。</p>
+  
+    <div class="panel">
+      <h3>🟢 半导体/硬科技 (博主 10/03 07:58 美股纳指 ATH + 真科技/硬科技涨幅领先 (4881赞) + 10/01 美光财报超级景气 → A 股映射 兆易+澜起 · 节后 10/9 硬科技主线)</h3>
+      
+      <div class="stock-card bear">
+        <h4>🔴 兆易创新 (603986.SH) · 9/30 收 353.90 (−3.72%)</h4>
+        <div class="logic">博主 10/03 07:58 美股纳指改写历史新高 + 真科技/硬科技涨幅领先 (4881赞 · 10/3 互动最高 · 节后新催化) → A 股映射最直接品种 · NOR Flash 全球第三 + DRAM 利基型龙头 · 10/01 美光财报(2026Q4 营收+380%/净利+1077.79%) 双重利好 · 节后存储芯片/硬科技主线</div>
+        <div class="key">关键位:60D高 707.97 / 60D低 337.1 / 120D高 846.66 / 120D低 243.9 / 现价 353.9</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 DDR5 接口芯片 (博主 10/03 美股硬科技涨幅领先 → A 股 DDR5 接口芯片映射 · 澜起科技 DDR5 接口芯片全球龙头 + 美光 HBM 直接传导)</h3>
+      
+      <div class="stock-card bear">
+        <h4>🔴 澜起科技 (688008.SH) · 9/30 收 202.31 (−4.84%)</h4>
+        <div class="logic">博主 10/03 07:58 美股硬科技涨幅领先 → A 股 DDR5 接口芯片映射 · 全球 DDR5 内存接口芯片龙头 市占率 40%+ · AI 服务器 HBM 关键供应商 · 美光 HBM/DDR5 利好直接传导 · 节后 10/9 开盘硬科技主线</div>
+        <div class="key">关键位:60D高 297.96 / 60D低 180.25 / 120D高 332.9 / 120D低 136.66 / 现价 202.31</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 银行 (博主 9/29 11:09 四大行提肩带 + 9/30 14:08 老登股局部上涨 + 央行 9/29 PSL -25bp 利好息差 · 节后 10/2 港股暴跌防御主线 · 节前/节后持有)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 工商银行 (601398.SH) · 9/30 收 8.28 (+1.47%)</h4>
+        <div class="logic">博主长期底仓 · 国有大行高股息(股息率 ~5.5%)· A 股市值最大银行 某队重仓基地 · 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差 · 9/30 老登股局部上涨代表标的 (银行板块涨幅第一) · 节后港股 10/2 暴跌 -668 防御首选</div>
+        <div class="key">关键位:60D高 8.3 / 60D低 7.16 / 120D高 8.3 / 120D低 6.95 / 现价 8.28</div>
+      </div>
+      <div class="stock-card bull">
+        <h4>🟢 农业银行 (601288.SH) · 9/30 收 6.97 (+0.43%)</h4>
+        <div class="logic">9/29 涨幅银行第一 验证博主 11:09「四大行一直在提肩带」 · 国有大行高股息防御 · 央行降息 + 扩大再贷款 2000 亿利好息差 · 9/30 收 6.97 +0.43% · 节后港股暴跌防御配置</div>
+        <div class="key">关键位:60D高 7.11 / 60D低 5.97 / 120D高 7.29 / 120D低 5.79 / 现价 6.97</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 创新药 (博主 9/30 14:13 生物制品黑马 + 14:08 医药局部上涨 · 9/30 恒瑞 +3.46% 黑马验证 · 沿用主线)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 恒瑞医药 (600276.SH) · 9/30 收 47.20 (+3.46%)</h4>
+        <div class="logic">博主 9/30 14:13「生物制品黑马」+ 14:08「医药局部上涨」核心标的 · 创新药龙头 · 创新药出海 (BD) 持续催化 · 集采压力释放估值修复 · 9/30 收 47.20 +3.46% · 节后 10/9 开盘关注</div>
+        <div class="key">关键位:60D高 58.0 / 60D低 41.89 / 120D高 58.87 / 120D低 41.89 / 现价 47.2</div>
+      </div>
+    </div>
+  
+    <div class="panel">
+      <h3>🟢 创新药出海 (博主 9/30 14:08 医药局部上涨 · 百济神州 BD 海外营收占比 58% · 沿用主线)</h3>
+      
+      <div class="stock-card bull">
+        <h4>🟢 百济神州 (688235.SH) · 9/30 收 264.41 (+1.91%)</h4>
+        <div class="logic">博主 9/30 14:08「医药局部上涨」验证标的 · 创新药出海龙头 · 百泽安/百悦泽海外放量 · 海外营收占比 58% · 9/30 收 264.41 +1.91% · 节后 10/9 开盘关注</div>
+        <div class="key">关键位:60D高 314.85 / 60D低 244.23 / 120D高 314.85 / 120D低 205.51 / 现价 264.41</div>
+      </div>
+    </div>
+
+  <h2>📉 K 线图(关键位居左虚线标注)</h2>
+<h3>🟢 上证指数 (000001.SH) · 9/30 收 3842.19 (+0.31%)</h3>
+<img class="chart" src="charts/20261003_000001_SH_上证指数.png" alt="上证指数 K线图" />
+<div class="chart-caption">关键位(11 个):C 杀下一目标 3610 3610 / 9/28 B 反完成位 3747 / 9/29 多方抵抗关卡 3800 / 9/28 收 3823.62 / 9/29 收 3830.45 3830.45 / 9/30 收 3842.19 3842.19 / 8/4 支撑 3856 / 9/24 收 3888.37 / 区间上沿 3926 / 8/29 周高 3996 / 年大目标 4256</div>
+<h3>🔴 创业板指 (399006.SZ) · 9/30 收 3135.28 (-0.23%)</h3>
+<img class="chart" src="charts/20261003_399006_SZ_创业板指.png" alt="创业板指 K线图" />
+<div class="chart-caption">关键位(9 个):C 杀下一目标 3050 3050 / 9/29 收 3142.56 / A 杀位 3160 / 8/4 试破位 3286 / 9/24 收 3288.95 / 反抽区 3370 / 8/4 B 反位 3486 / 目标位 3590 / 8/15 前顶 3686</div>
+<h3>🟢 沪深300 (000300.SH) · 9/30 收 4357.62 (+0.29%)</h3>
+<img class="chart" src="charts/20261003_000300_SH_沪深300.png" alt="沪深300 K线图" />
+<div class="chart-caption">关键位(7 个):下一 C 目标 4150 / 整数位支撑 4250 / 9/29 收 4345.21 / 9/30 收 4357.62 / 9/24 收 4439.14 / 9/2 收(对比) 4548 / 前高 4700</div>
+<h3>🔴 兆易创新 (603986.SH) · 存储芯片/NOR+DRAM · 9/30 收 353.90 (-3.72%)</h3>
+<img class="chart" src="charts/20261003_603986_SH_兆易创新.png" alt="兆易创新 K线图" />
+<div class="chart-caption">博主 10/03 07:58 美股纳指改写历史新高 + 真科技/硬科技涨幅领先 (4881赞 · 10/3 互动最高 · 节后新催化) → A 股映射最直接品种 · NOR Flash 全球第三 + DRAM 利基型龙头 · 10/01 美光财报(2026Q4 营收+380%/净利+1077.79%) 双重利好 · 节后存储芯片/硬科技主线<br/>关键位:60D高 707.97 / 60D低 337.1 / 120D高 846.66 / 120D低 243.9 / 现价 353.9</div>
+<h3>🔴 澜起科技 (688008.SH) · 存储接口芯片/DDR5 · 9/30 收 202.31 (-4.84%)</h3>
+<img class="chart" src="charts/20261003_688008_SH_澜起科技.png" alt="澜起科技 K线图" />
+<div class="chart-caption">博主 10/03 07:58 美股硬科技涨幅领先 → A 股 DDR5 接口芯片映射 · 全球 DDR5 内存接口芯片龙头 市占率 40%+ · AI 服务器 HBM 关键供应商 · 美光 HBM/DDR5 利好直接传导 · 节后 10/9 开盘硬科技主线<br/>关键位:60D高 297.96 / 60D低 180.25 / 120D高 332.9 / 120D低 136.66 / 现价 202.31</div>
+<h3>🟢 工商银行 (601398.SH) · 银行/防御红利 · 9/30 收 8.28 (+1.47%)</h3>
+<img class="chart" src="charts/20261003_601398_SH_工商银行.png" alt="工商银行 K线图" />
+<div class="chart-caption">博主长期底仓 · 国有大行高股息(股息率 ~5.5%)· A 股市值最大银行 某队重仓基地 · 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差 · 9/30 老登股局部上涨代表标的 (银行板块涨幅第一) · 节后港股 10/2 暴跌 -668 防御首选<br/>关键位:60D高 8.3 / 60D低 7.16 / 120D高 8.3 / 120D低 6.95 / 现价 8.28</div>
+<h3>🟢 农业银行 (601288.SH) · 银行/防御红利 · 9/30 收 6.97 (+0.43%)</h3>
+<img class="chart" src="charts/20261003_601288_SH_农业银行.png" alt="农业银行 K线图" />
+<div class="chart-caption">9/29 涨幅银行第一 验证博主 11:09「四大行一直在提肩带」 · 国有大行高股息防御 · 央行降息 + 扩大再贷款 2000 亿利好息差 · 9/30 收 6.97 +0.43% · 节后港股暴跌防御配置<br/>关键位:60D高 7.11 / 60D低 5.97 / 120D高 7.29 / 120D低 5.79 / 现价 6.97</div>
+<h3>🟢 恒瑞医药 (600276.SH) · 创新药/生物制品 · 9/30 收 47.20 (+3.46%)</h3>
+<img class="chart" src="charts/20261003_600276_SH_恒瑞医药.png" alt="恒瑞医药 K线图" />
+<div class="chart-caption">博主 9/30 14:13「生物制品黑马」+ 14:08「医药局部上涨」核心标的 · 创新药龙头 · 创新药出海 (BD) 持续催化 · 集采压力释放估值修复 · 9/30 收 47.20 +3.46% · 节后 10/9 开盘关注<br/>关键位:60D高 58.0 / 60D低 41.89 / 120D高 58.87 / 120D低 41.89 / 现价 47.2</div>
+<h3>🟢 百济神州 (688235.SH) · 创新药/出海 · 9/30 收 264.41 (+1.91%)</h3>
+<img class="chart" src="charts/20261003_688235_SH_百济神州.png" alt="百济神州 K线图" />
+<div class="chart-caption">博主 9/30 14:08「医药局部上涨」验证标的 · 创新药出海龙头 · 百泽安/百悦泽海外放量 · 海外营收占比 58% · 9/30 收 264.41 +1.91% · 节后 10/9 开盘关注<br/>关键位:60D高 314.85 / 60D低 244.23 / 120D高 314.85 / 120D低 205.51 / 现价 264.41</div>
+  
+  <h2>⚠️ 风险提示</h2>
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <ul>
+      <li><b>🔴 10/2 港股恒指节后开盘暴跌 668 点 (博主 11:50 大盘判断 · 4917 综合分)</b> — 节后 10/9 A 股开盘承压, 港股作为先行指标, -2% 跌幅对应 A 股低开, 警惕低开走弱</li>
+      <li><b>🔴 9/30 季线收官极差</b> — 大盘季线跌 6.16%, 创业板季线跌 27.8% (创 2015 以来最大季跌幅), 三季度博主空仓策略验证</li>
+      <li><b>🔴 博主 10/02-10/03 操盘信号弱化(2 条)</b> — 假期中只发 1 条美股硬科技 + 1 条港股暴跌, 沿用 9/29-9/30 + 10/01 美光财报主线, 博主已选持币过节</li>
+      <li><b>🔴 博主 6/8 撤离本金+去年盈利一半, 预测偏多但实际行动更看空</b> — 实际仓位决策比预测更看空</li>
+      <li><b>⚠️ 博主 9/28 19:26 自述:等 C5 完成才能干</b> — 节前老登股局部上涨仅是 <b>防御性反弹</b>, 不是反转; 节后 C 杀结构可能延续</li>
+      <li><b>⚠️ 博主长期风控底线</b>:不举债 / 不杠杆 / 只用闲钱 / 无技术不参与短线</li>
+      <li><b>🟢 10/03 07:58 美股纳指改写历史新高 · 真科技/硬科技涨幅领先 (4881赞 · 10/3 互动最高)</b> — 节后 10/9 A 股硬科技主线, A 股映射兆易+澜起</li>
+      <li><b>🟢 10/01 美光财报隐含存储芯片</b> — 2026Q4 经调整营收 +380% / GAAP 净利 +1077.79%, HBM/存储芯片超级景气, A 股映射兆易+澜起</li>
+      <li><b>🟢 央行 9/29 19:19 三大政策利好</b> — ① PSL -25bp (银行+基建) ② 科创再贷款 1.4 万亿 (科技+创业板) ③ 支农支小 4.85 万亿 (普惠), 节后 10/9 关注落地</li>
+      <li><b>🟢 4 大银行 60D 高未破位</b> — 工行 8.28 vs 60D高 8.30 (差 0.02) / 农行 6.97 vs 60D高 7.11 (差 0.14), 银行底仓 60D 高未破位 · 节后防御首选</li>
+    </ul>
+  </div>
+
+  
+  <h2>🎯 操作建议汇总</h2>
+
+  <div class="panel panel-2">
+    <h3>📌 大盘</h3>
+    <p><b>短期(10/3 起 1-2 周 / 国庆假期至 10/9 节后开盘)</b>:<b>🟢 美股纳指 ATH 叠加 9/30 站上 3800 + 港股暴跌防御预警 · 节后硬科技进攻 + 银行防御双主线</b>。9/30 微红站上 3800, 老登股四大行 + 白酒 + 医药 同步反弹; 10/3 美股纳指 ATH + 真科技硬科技涨幅领先 → A 股硬科技映射; 10/2 港股暴跌 668 点, 节后 A 股开盘防御+硬科技关注并行。</p>
+    <ul>
+      <li><b>9/30 上证 3842.19 +0.31%</b>:站上 3800 关卡, 较 9/29 3830.45 涨 12 点; 季线跌 6.16% 收官</li>
+      <li><b>9/30 创业板 3135.28 -0.23%</b>:较 9/29 3142.56 微跌 7 点, 季线跌 27.8% (创 2015 以来最大)</li>
+      <li><b>10/3 美股纳指 ATH (博主 07:58 唯一关键观点)</b>:真科技/硬科技涨幅领先 → A 股半导体/存储芯片/HBM/AI 算力映射</li>
+      <li><b>10/2 港股 -668 点(博主大盘判断)</b>:港股节后开盘暴跌, 拖累节后 A 股开盘</li>
+      <li><b>乐观情景</b>:节后 10/9 央行 9/29 利好落地 + 美股硬科技叠加美光财报催化半导体 + 老登股防御主线延续</li>
+      <li><b>悲观情景</b>:节后港股拖累下破 3800, 触发博主「C 杀」加速, 下看 3747-3650; 创业板失守 3050</li>
+      <li><b>关键操作</b>:博主已自述「等 C5 完成才能干」+ 10/2 港股暴跌预警, 散户策略:节后双主线 — 硬科技进攻(兆易+澜起)+ 银行防御(工行+农行)</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 板块策略</h3>
+    <ul>
+      <li><b>🟢 节后进攻主线(10/3 博主新增):半导体 / 真科技 / 硬科技</b> — 博主 10/03 07:58 美股纳指改写历史新高 · 真科技/硬科技涨幅领先 (4881赞 · 10/3 互动最高), 叠加 10/01 美光财报(2026Q4 营收 +380% / 净利 +1077.79%), 节后 10/9 A 股映射兆易创新 (NOR Flash 全球第三) + 澜起科技 (DDR5 接口芯片全球龙头)</li>
+      <li><b>🟢 防御主线(节后 10/2 港股暴跌后首选):四大行</b> — 博主 9/30 14:08「四大行局部上涨」, 工行 +1.47% / 农行 +0.43% 兑现; 央行 9/29 PSL -25bp 利好银行息差; 节前/节后持有</li>
+      <li><b>🟢 沿用主线(9/30 验证):创新药/生物制品</b> — 博主 9/30 14:13「生物制品黑马」+ 14:08「医药局部上涨」, 恒瑞 +3.46% / 百济神州 +1.91% 验证; 节后持续关注</li>
+      <li><b>🟡 适度关注:券商 / 保险</b> — 央行 9/29 降息利好若落地, 券商可能有补涨</li>
+      <li><b>🔴 回避:创业板 / 成长股</b> — 9/30 收 3135.28 仍失守 3160 A 杀位; 博主 9/30 季线收官确认创业板季线跌 27.8% + 10/2 港股暴跌拖累</li>
+      <li><b>🔴 回避:深成指权重</b> — 9/30 季线跌 20.47% 同步极差</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 6 支个股监控</h3>
+    <table>
+      <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>9/30 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
+      <tbody>
+        <tr><td>兆易创新 603986</td><td>半导体/存储</td><td>340 / 337</td><td><b style="color:var(--bear)">353.90 (-3.72%)</b></td><td>500 / 708</td><td>707.97</td><td>关注 · <b>博主 10/3 美股硬科技 + 10/1 美光财报 → A 股映射最直接品种</b> · NOR Flash 全球第三 · 节前 -3.72% 已回调 · 节后硬科技主线催化</td></tr>
+        <tr><td>澜起科技 688008</td><td>DDR5 接口</td><td>180 / 200</td><td><b style="color:var(--bear)">202.31 (-4.84%)</b></td><td>250 / 298</td><td>297.96</td><td>关注 · <b>博主 10/3 美股硬科技 → DDR5 接口芯片全球龙头</b> · 美光 HBM 利好直接传导 · 9/30 跌幅最大 -4.84%</td></tr>
+        <tr><td>工商银行 601398</td><td>银行</td><td>7.50 / 7.16</td><td><b style="color:var(--bull)">8.28 (+1.47%)</b></td><td>8.30 / 9.30</td><td>8.30</td><td>持有 · <b>9/30 银行板块涨幅第一</b> · 验证博主「四大行提肩带」 · 60D 高 8.30 未破位 · 节后港股暴跌防御首选</td></tr>
+        <tr><td>农业银行 601288</td><td>银行</td><td>6.20 / 5.97</td><td><b style="color:var(--bull)">6.97 (+0.43%)</b></td><td>7.11 / 7.50</td><td>7.11</td><td>持有 · 验证博主「四大行提肩带」 · 9/30 涨幅银行第二 · 60D 高未破位 · 节后防御配置</td></tr>
+        <tr><td>恒瑞医药 600276</td><td>创新药</td><td>45 / 41.89</td><td><b style="color:var(--bull)">47.20 (+3.46%)</b></td><td>50 / 58</td><td>58.00</td><td>关注 · <b>9/30 黑马验证</b> · 博主 14:13「生物制品黑马」核心标的 · 创新药出海催化 · 沿用主线</td></tr>
+        <tr><td>百济神州 688235</td><td>创新药出海</td><td>244 / 247</td><td><b style="color:var(--bull)">264.41 (+1.91%)</b></td><td>285 / 315</td><td>314.85</td><td>关注 · 博主 9/30 14:08「医药局部上涨」验证标的 · 创新药出海龙头 · 海外营收占比 58% · 沿用主线</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="footer">
+    <p>报告生成时间:2026-10-03 21:00 · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 9 张 K 线图(关键位 蓝色虚线 📌 居左标注)</p>
+    <p>博主最近一天 (10/02 + 10/03) 核心立场:<b>🟢 美股纳指改写历史新高 (10/3 07:58) · 真科技/硬科技涨幅领先 · 节后 10/9 A 股硬科技主线</b> · 2 条带操盘信号 · 板块:<b>🟢 半导体/硬科技 · 🟢 银行 · 🟢 创新药</b> · 风险:<b>🔴 港股暴跌拖累节后开盘 / 季线收官极差 / 博主仓位决策偏空</b></p>
+  </div>
+
+</div>
+</body>
+</html>
