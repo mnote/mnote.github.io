@@ -1,0 +1,579 @@
+"""
+wu2198 投资日报 — 2026-10-06 (周二 21:00 · 🇨🇳 国庆假期倒数第 2 天 · 节后 10/8 周三开盘)
+- 博主最近一天(10/05 + 10/06)新增关键信号:
+  * 🟢 10/06 06:45 #中国空心光纤网速更快了#利好什么板块？(板块提问 → 光通信/光模块/光纤)
+  * 🟡 10/06 06:45 #未来几年能留住现金流最重要#(风控/防御)
+  * ⚪ 10/06 12:38 "过两天大A就营业了"(节后开盘提示)
+- 沿用主线: 10/3 美股纳指 ATH + 10/2 港股 -668 + 10/1 美光财报 + 9/29-9/30 老登股+生物制品黑马
+- 数据截至: 9/30 节前最后交易日(10/1-10/8 国庆休市)
+- 核心立场: 🟢 关注新板块(光通信) · 🔴 港股节后拖累预警 · ⚪ 沿用防御主线
+- 板块: 光通信/光模块 + 半导体/硬科技 + 银行/红利防御
+- 6 个股: 中际旭创 / 长飞光纤 / 兆易创新 / 澜起科技 / 工商银行 / 农业银行
+"""
+from pathlib import Path
+from datetime import datetime
+
+OUT_HTML = Path("/Users/maoling/workspace/mnote.github.io/2026-10-06-wu2198-investment-report.html")
+INDEX_HTML = Path("/Users/maoling/workspace/mnote.github.io/index.html")
+
+TODAY = "2026-10-06 (周二 21:00 · 🇨🇳 国庆假期倒数第 2 天)"
+LAST_TRADING = "2026-09-30 (周三 · 节前最后交易日 · 10/1-10/8 国庆休市)"
+SH_INDEX = "3842.19 (+0.31%)"
+CYB_INDEX = "3135.28 (-0.23%)"
+HS300_INDEX = "4357.62 (+0.29%)"
+
+# ── 抓取的微博 (10 条) ──────────────────────────────
+POSTS = [
+    {
+        "time": "10-06 16:31", "score": 2142, "rep": 9, "com": 189, "like": 1755,
+        "signal": "—", "topic": "娱乐/轻松", "emoji": "⚪", "dir": "无关",
+        "text": "卖水果也得有文化！",
+    },
+    {
+        "time": "10-06 12:38", "score": 5597, "rep": 16, "com": 363, "like": 4855,
+        "signal": "⚪ 节后开盘提示", "topic": "大盘/节后", "emoji": "⚪", "dir": "中性",
+        "text": "过两天大A就营业了,假期余额渐少,不必心生怅然。珍惜余下的悠闲,养足精神,心怀温柔,不管是出游还是居家,都愿你自在舒心。",
+    },
+    {
+        "time": "10-06 06:48", "score": 7071, "rep": 89, "com": 559, "like": 5864,
+        "signal": "—", "topic": "问候/鸡汤", "emoji": "⚪", "dir": "无关",
+        "text": "一夜凉风起,人间又一秋,时光不语,落叶有声,岁月以同样的方式,路过每一个人,而每一个人,都用自己独有的方式,走过流年,秋意藏着晚风,人生的故事写尽四季,愿这个晚秋,所有美好与收获,都与不期而遇。",
+    },
+    {
+        "time": "10-06 06:45", "score": 3862, "rep": 15, "com": 178, "like": 3505,
+        "signal": "🟢 板块提问/光通信", "topic": "行业热点", "emoji": "🟢", "dir": "多",
+        "text": "#中国空心光纤网速更快了#利好什么板块?",
+    },
+    {
+        "time": "10-06 06:45", "score": 5219, "rep": 50, "com": 274, "like": 4621,
+        "signal": "🟡 风控/现金为王", "topic": "风控/理念", "emoji": "🟡", "dir": "中性",
+        "text": "#未来几年能留住现金流最重要#一句话,如何活下来更重要。",
+    },
+    {
+        "time": "10-05 23:34", "score": 3449, "rep": 6, "com": 209, "like": 3027,
+        "signal": "—", "topic": "问候/鸡汤", "emoji": "⚪", "dir": "无关",
+        "text": "大家晚安！",
+    },
+    {
+        "time": "10-05 19:10", "score": 4119, "rep": 15, "com": 221, "like": 3667,
+        "signal": "—", "topic": "社会新闻", "emoji": "⚪", "dir": "无关",
+        "text": "#10万人涌进5万人口县城#不分点来广西么?",
+    },
+    {
+        "time": "10-05 11:54", "score": 8067, "rep": 17, "com": 865, "like": 6321,
+        "signal": "—", "topic": "互动", "emoji": "⚪", "dir": "无关",
+        "text": "人呢?",
+    },
+    {
+        "time": "10-04 21:39", "score": 6409, "rep": 14, "com": 561, "like": 5273,
+        "signal": "—", "topic": "问候/鸡汤", "emoji": "⚪", "dir": "无关",
+        "text": "大家晚安！",
+    },
+    {
+        "time": "10-04 07:33", "score": 10054, "rep": 61, "com": 825, "like": 8343,
+        "signal": "—", "topic": "问候/鸡汤", "emoji": "⚪", "dir": "无关",
+        "text": "早安,老铁们……缩小昨日的烦恼,放大今日的美好,保持接纳一切的心态,就会巧遇无数个惊喜!",
+    },
+]
+
+# ── 板块 + 个股 ───────────────────────────────────
+SECTORS = [
+    {
+        "name": "板块 1: 光通信 / 光模块 / 光纤",
+        "rationale": "博主 10/06 06:45 #中国空心光纤网速更快了# 主动提问「利好什么板块?」(3862综合分 · 3505赞) — 这是博主最近一天 <b>唯一一条带行业信号的提问贴</b>,直接利好 <b>光通信 / 光模块 / 光纤</b>。叠加节后 10/8 周三开盘,空心光纤是新型光通信基础设施,直接利好 1.6T 光模块龙头 + 光纤光缆龙头。",
+        "stocks": [
+            {"code": "300308.SZ", "name": "中际旭创", "close": "808.44", "chg": "—", "stance": "bull",
+             "logic": "博主 10/06 06:45「空心光纤利好什么板块」→ 1.6T 光模块龙头直接受益 · 全球高速光模块市占率第一 · AI 算力数据中心核心受益 · 9/30 收 808.44",
+             "levels": "60D高 1100 / 压力 950 / 现价 808.44 / 60D低 700"},
+            {"code": "601869.SH", "name": "长飞光纤", "close": "411.16", "chg": "—", "stance": "bull",
+             "logic": "博主 10/06 06:45「空心光纤利好什么板块」→ A 股光纤光缆龙头 · G.654.E 空心光纤技术布局领先 · 5G + 数据中心 + 海底光缆需求催化 · 9/30 收 411.16",
+             "levels": "60D高 530 / 压力 470 / 现价 411.16 / 60D低 340"},
+        ],
+    },
+    {
+        "name": "板块 2: 半导体 / 硬科技 / 存储芯片",
+        "rationale": "沿用博主 10/03 07:58「美股纳指改写历史新高 · 真科技/硬科技涨幅领先」(7125综合分 · 6139赞 · 10/03+10/04 互动最高) + 10/01 16:48 美光科技 2026Q4 财报(营收+380% / 净利+1077.79%) → A 股映射 <b>兆易+澜起</b>。节后 10/8 开盘硬科技主线催化。",
+        "stocks": [
+            {"code": "603986.SH", "name": "兆易创新", "close": "353.90", "chg": "−3.72%", "stance": "bull",
+             "logic": "沿用博主 10/3 美股硬科技 + 10/1 美光财报 → A 股存储芯片映射最直接品种 · NOR Flash 全球第三 + DRAM 利基型龙头 · 9/30 收 353.90 节前 -3.72% 已回调 · 节后硬科技主线催化",
+             "levels": "60D高 707.97 / 中线 500 / 现价 353.90 / 60D低 337.10"},
+            {"code": "688008.SH", "name": "澜起科技", "close": "202.31", "chg": "−4.84%", "stance": "bull",
+             "logic": "沿用博主 10/3 美股硬科技 → DDR5 内存接口芯片全球龙头 市占率 40%+ · AI 服务器 HBM 关键供应商 · 美光 HBM/DDR5 利好直接传导 · 9/30 收 202.31 节前 -4.84% 已深度回调",
+             "levels": "60D高 297.96 / 中线 240 / 现价 202.31 / 60D低 180.25"},
+        ],
+    },
+    {
+        "name": "板块 3: 银行 / 红利防御",
+        "rationale": "沿用博主 9/29 11:09「四大行一直在提肩带」(7099赞) + 9/30 14:08「老登股局部上涨」(3936赞) + 央行 9/29 19:52 PSL -25bp 利好息差 + 博主 10/06 06:45「未来几年留住现金流最重要」🟡风控 + 10/02 港股暴跌 -668 节后防御首选。",
+        "stocks": [
+            {"code": "601398.SH", "name": "工商银行", "close": "8.28", "chg": "+1.47%", "stance": "bull",
+             "logic": "博主长期底仓 · 9/30 银行板块涨幅第一 验证博主 9/29「四大行提肩带」+ 9/30「老登股局部上涨」 · A 股市值最大银行 某队重仓基地 · 股息率 ~5.5% · 节后港股暴跌防御首选",
+             "levels": "60D高/压 8.30 / 现价 8.28 / 中线支 7.50 / 60D低 7.16"},
+            {"code": "601288.SH", "name": "农业银行", "close": "6.97", "chg": "+0.43%", "stance": "bull",
+             "logic": "9/30 涨幅银行第二 验证博主 11:09「四大行一直在提肩带」 · 国有大行高股息防御 · 央行 9/29 降息+扩大再贷款 2000 亿利好息差 · 9/30 收 6.97 · 节后港股暴跌防御配置",
+             "levels": "60D高 7.11 / 现价 6.97 / 中线支 6.50 / 60D低 5.97"},
+        ],
+    },
+]
+
+# ── 风险提示 ─────────────────────────────────────
+RISKS = [
+    ("🔴 博主 10/06 06:45 「未来几年留住现金流最重要」(5219综合分 · 4621赞 · 10/06 互动最高)",
+     "博主主动表态未来几年风控第一,印证 6/8 撤离本金+去年盈利一半的实战仓位决策;同时叠加 10/02 港股暴跌 -668 节后 A 股开盘承压预警"),
+    ("🔴 10/02 港股恒指暴跌 668 点(博主大盘判断 · 4917综合分)",
+     "港股节后开盘第一日暴跌,博主主动提醒节后 A 股开盘压力;港股作为先行指标 -2% 拖累 A 股 10/8 节后开盘低开"),
+    ("🔴 9/30 季线收官极差 — 创业板季线跌 27.8%(创 2015 以来最大)",
+     "大盘季线跌 6.16% / 创业板 -27.8% / 深成指 -20.47%,博主三季度空仓策略验证"),
+    ("🔴 博主 10/05 + 10/06 共 10 条微博仅 2 条带信号(空心光纤 + 现金流)",
+     "博主假期纯鸡汤为主(6 条),互动高但信号弱;关键观点以「提问」+「风控」形式给出"),
+    ("🔴 博主 6/8 撤离本金+去年盈利一半 — 实际行动比预测更看空",
+     "9/29 14:34 防守哲学「保住盈利 = 战胜 99% 投资者」,博主本人已选持币过节"),
+    ("⚠️ 博主 9/28 19:26 自述:等 C5 完成才能干",
+     "节前老登股局部上涨仅是 <b>防御性反弹</b>,不是反转;节后 C 杀结构可能延续"),
+    ("⚠️ 博主长期风控底线:不举债 / 不杠杆 / 只用闲钱 / 无技术不参与短线",
+     "散户策略:节后双主线 — 光通信+硬科技进攻(中际+长飞+兆易+澜起) + 银行防御(工行+农行)"),
+    ("🟢 博主 10/06 06:45「#中国空心光纤网速更快了# 利好什么板块?」(3505赞)",
+     "博主最近一天 <b>唯一行业信号</b> → 光通信/光模块/光纤 板块新催化 · 节后 10/8 开盘直接利好 1.6T 光模块 + 光纤光缆龙头"),
+    ("🟢 博主 10/03 07:58「美股纳指改写历史新高 · 真科技/硬科技涨幅领先」(6139赞 · 7125综合分)",
+     "美股硬科技涨幅领先 → A 股半导体/存储芯片/HBM/AI 算力映射 · 沿用 10/01 美光财报超级景气"),
+    ("🟢 央行 9/29 19:52 三大政策利好(PSL -25bp + 科创再贷款 1.4 万亿 + 支农支小 4.85 万亿)",
+     "① PSL -25bp(银行+基建) ② 科创再贷款 1.4 万亿(科创+创业板) ③ 支农支小 4.85 万亿(普惠),节后 10/8 关注落地"),
+    ("🟢 4 大银行 60D 高未破位(工行/农行) · 节后港股暴跌防御首选",
+     "工行 8.28 vs 60D高 8.30 (差 0.02) / 农行 6.97 vs 60D高 7.11 (差 0.14) · 银行底仓 60D 高未破位"),
+]
+
+# ── HTML 渲染 ─────────────────────────────────────
+HTML_TEMPLATE = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-10-06</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+    border: 1px solid #86efac;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #065f46; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-10-06</h1>
+    <div class="meta">
+      <span>📅 <b>{TODAY}</b></span>
+      <span>🏛️ 沪指 <b>{SH_INDEX}</b></span>
+      <span>📊 创业板 <b>{CYB_INDEX}</b></span>
+      <span>🎯 沪深300 <b>{HS300_INDEX}</b></span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🟢</span><b>博主最近一天核心立场</b>:
+      <b>🟢 新增关注「光通信/光模块」(10/6 空心光纤提问) · 🟡 风控「未来几年留住现金流」 · 🔴 沿用 10/2 港股 -668 节后开盘预警</b>。
+      最近一天 (10/05 + 10/06) 共 <b>10 条</b> 帖 (2 条带信号: 10/6 06:45 空心光纤 🟢 + 10/6 06:45 现金流 🟡),
+      <span class="tag tag-bull">🟢 10/06 06:45「#中国空心光纤#利好什么板块?」(3862综合分 · 3505赞)</span>,
+      <span class="tag tag-neutral">🟡 10/06 06:45「未来几年留住现金流最重要」(5219综合分 · 4621赞 · 10/06 互动最高)</span>,
+      <span class="tag tag-bear">🔴 沿用 10/02 港股 -668 节后开盘预警</span>。
+      沿用 10/03 美股纳指 ATH + 真科技/硬科技(6139赞 · 7125综合分) + 10/01 美光财报(1760赞 · 2329综合分 · 营收+380%/+1077%) 主线。
+      <span class="tag tag-bull">🟢 节后 10/8 周三开盘双主线: 光通信新催化 (中际+长飞) + 硬科技进攻 (兆易+澜起) + 银行防御 (工行+农行)</span>。
+    </div>
+  </div>
+
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主核心立场</div>
+      <div class="val" style="color: var(--bull);">🟢 新增光通信</div>
+      <div class="sub">10/6 空心光纤提问 + 10/6 现金流风控</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 9/30 收</div>
+      <div class="val" style="color: var(--bull);">3842.19 (+0.31%)</div>
+      <div class="sub">站上 3800 · 季线跌 6.16%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板 9/30 收</div>
+      <div class="val" style="color: var(--bear);">3135.28 (-0.23%)</div>
+      <div class="sub">季线跌 27.8% · 创 2015 以来最大</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深300</div>
+      <div class="val" style="color: var(--bull);">4357.62 (+0.29%)</div>
+      <div class="sub">同步微红 · 老登股护盘</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主最近一天</div>
+      <div class="val" style="color: var(--bull);">🟢 2 条带信号</div>
+      <div class="sub">10/6 空心光纤 + 现金流风控</div>
+    </div>
+    <div class="kpi">
+      <div class="label">节后开盘</div>
+      <div class="val" style="color: var(--bull);">🟢 10/8 周三</div>
+      <div class="sub">光通信新催化 + 双主线回归</div>
+    </div>
+  </div>
+
+  <h2>📋 完整微博列表(最近 10 条 · 按时间倒序 · 10/06 21:00 抓取)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 · 置信</th>
+        <th>类别</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+      {POSTS_HTML}
+    </tbody>
+  </table>
+
+  <h2>🚦 核心操盘信号 (LLM 二次摘要 · 最近一天 10/05 + 10/06)</h2>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 1 — 10/06 06:45「#中国空心光纤网速更快了# 利好什么板块?」(博主最近一天唯一新增行业信号 · 节后 10/8 开盘新催化)</h3>
+    <p><b>原帖</b>「#中国空心光纤网速更快了#利好什么板块?」(<b>15/178/3505 · 3862 综合分</b>)</p>
+    <p><b>解读</b>博主 10/06 06:45 主动发帖带行业关键词提问,这是博主最近一天 <b>唯一一条新增行业信号</b>。空心光纤属于新型光通信基础设施,直接利好 <b>光通信 / 光模块 / 光纤</b> 三大方向。结合 10/08 周三 A 股节后开盘,这是节前最后一个交易日的关键催化。</p>
+    <ul>
+      <li><b>空心光纤 (新型光通信基础设施) → A 股映射</b>:
+        <ul>
+          <li><b>中际旭创 300308</b> — 1.6T 光模块全球龙头,AI 算力数据中心核心受益,9/30 收 808.44,空心光纤利好直接传导</li>
+          <li><b>长飞光纤 601869</b> — A 股光纤光缆龙头,G.654.E 空心光纤技术布局领先,5G + 数据中心 + 海底光缆需求催化,9/30 收 411.16</li>
+        </ul>
+      </li>
+      <li><b>博主动机</b>:博主在节前最后一日(10/6) 主动提问"利好什么板块",这是引导粉丝关注节后新主线,通常博主的"提问帖"会跟随盘面验证,10/8 节后开盘密切关注光通信板块表现</li>
+      <li><b>操作策略</b>:节后 10/8 关注 <b>光通信 + 光模块 + 光纤</b> 三方向,中际旭创(光模块)+ 长飞光纤(光纤光缆)是直接受益品种;若节后开盘光通信板块整体上涨,博主可能随后给出明确个股推荐</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--neutral);">
+    <h3>🟡 信号 2 — 10/06 06:45「#未来几年能留住现金流最重要#」(博主 10/06 互动最高 · 风控信号强化)</h3>
+    <p><b>原帖</b>「#未来几年能留住现金流最重要#一句话,如何活下来更重要。」(<b>50/274/4621 · 5219 综合分 · 10/06 互动最高</b>)</p>
+    <p><b>解读</b>博主 10/06 06:45 给出 <b>风控金句</b>,这是博主 10/06 互动最高的帖子(4621赞)。与博主 6/8 撤离本金+去年盈利一半的实际行动吻合,也与 9/29 14:34「保住盈利 = 战胜 99% 投资者」防守哲学一致。节后 10/8 开盘,博主倾向于 <b>持币过节</b> 而非积极加仓。</p>
+    <ul>
+      <li><b>博主风控框架</b>:未来几年能留住现金流 = 第一优先级 → 印证 6/8 撤离本金+去年盈利一半的仓位决策</li>
+      <li><b>风控底线</b>:不举债 / 不杠杆 / 只用闲钱 / 无技术不参与短线 — 散户策略: 节后谨慎参与,防御为主</li>
+      <li><b>与博主 10/06 06:45 空心光纤提问的关系</b>:提问"利好什么板块"是引导关注,但不一定是本人加仓,可能只是让粉丝知道方向 — <b>不亲自下场</b>,符合博主一贯"给别人方向、自己留现金"风格</li>
+      <li><b>操作策略</b>:节后 10/8 开盘,即使光通信板块上涨,博主大概率 <b>持币观望</b>,不轻易追高;防御性配置(银行)优于进攻性配置(光通信/硬科技)</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 信号 3 — 沿用 10/02 港股恒指暴跌 668 点(博主 10/02 大盘判断 · 节后 10/8 开盘预警)</h3>
+    <p><b>原帖</b>「港股恒生指数目前下跌 668 点!」(<b>7/280/4402 · 4969 综合分 · 10/2 互动最高</b>)</p>
+    <p><b>解读</b>10/2 (国庆假期中) 港股节后开盘第一日暴跌,博主主动提醒节后 A 股开盘压力。最近一天(10/05+10/06) 博主假期纯鸡汤为主,沿用此判断。</p>
+    <ul>
+      <li><b>港股暴跌 → 节后 A 股承压</b>:港股作为 A 股先行指标,跌幅 668 点(约 -2%) 对应 A 股开盘同样承压,10/8 (周三节后首个交易日) 需要警惕低开</li>
+      <li><b>9/30 上证 3842.19 +0.31%</b>:节前站上 3800 关卡,但节后面临港股拖累风险</li>
+      <li><b>9/30 创业板 3135.28 -0.23%</b>:较 9/29 微跌,节后季线低位风险更大</li>
+      <li><b>9/30 沪深300 4357.62 +0.29%</b>:同步微红,节后防御属性较强</li>
+      <li><b>操作策略</b>:节后开盘防御为主;减仓成长股/创业板;增配银行/红利防御;关注空心光纤 → A 股映射 (中际+长飞) 短期催化</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bull);">
+    <h3>🟢 信号 4 — 沿用 9/29 + 9/30 + 10/01 + 10/03 主线 (博主最近一周核心主线)</h3>
+    <p><b>原帖回顾</b>:</p>
+    <ul>
+      <li><b>10/03 07:58</b>「周五晚美国市场纳指改写历史新高,真科技、硬科技涨幅领先。」(<b>28/479/6139 · 7125 综合分 · 10/03+10/04 互动最高</b>) — 美股硬科技 → A 股半导体/存储芯片/HBM/AI 算力映射</li>
+      <li><b>10/01 16:48</b> 美光科技 2026Q4 财报(营收 +380% / 净利 +1077.79%) — <b>隐含关注存储芯片/HBM</b>,A 股映射:兆易 + 澜起</li>
+      <li><b>9/30 14:08</b>「四大行, 白酒, 医药, 行业龙头等老登股局部上涨. 指数是小红!」(3936 赞) — 银行板块涨幅第一</li>
+      <li><b>9/30 14:13</b>「生物制品板块最近两个月走出了几匹黑马!」(4023 赞) — 创新药主线</li>
+      <li><b>9/30 15:33</b>「大盘季线跌 6.16%, 创业板季线跌 27.8%, 深成指季线跌 20.47%……创业板指数创 2015 年以来最大季跌幅!」(4722 赞)</li>
+      <li><b>9/29 09:45</b>「3800 关卡附近, 多方在组织小型抵抗!」(9220 赞 · 9/29 互动最高)</li>
+      <li><b>9/29 11:09</b>「四大行最近一直在提肩带!」(7099 赞)</li>
+      <li><b>9/29 19:52</b> 央行降息+扩信用三大政策:PSL -25bp / 科创再贷款 1.4 万亿 / 支农支小 4.85 万亿 (1429 赞)</li>
+    </ul>
+    <p><b>解读</b>博主 10/06 06:45 新增 <b>空心光纤</b> 提问,与最近一周主线(美股硬科技 + 美光财报 + 四大行提肩带 + 老登股局部上涨 + 生物制品黑马) 形成节后 10/8 开盘 <b>完整三主线体系</b>:① 光通信新催化(中际+长飞) ② 半导体硬科技(兆易+澜起) ③ 银行防御(工行+农行)。</p>
+  </div>
+
+  <h2>💼 3 大板块 + 6 支个股 (基于博主 10/06 实际提及 + 沿用 10/03 + 10/01 + 9/29-9/30 主线)</h2>
+  <p style="color:var(--muted);font-size:13px;">选股原则:博主 10/06 06:45「#中国空心光纤# 利好什么板块?」→ <b>光通信 / 光模块 / 光纤</b> 板块(新主线)+ 10/03 美股纳指 ATH + 10/01 美光财报 → A 股半导体/存储芯片(沿用主线)+ 10/06 06:45「未来几年留住现金流最重要」 + 9/29-9/30 四大行提肩带 → 银行/红利防御(沿用主线)。<b>节后 10/8 周三开盘三主线</b>(光通信新催化 + 硬科技进攻 + 银行防御)。</p>
+
+  {SECTORS_HTML}
+
+  <h2>📉 K 线图(关键位居左虚线标注)</h2>
+  <h3>🟢 上证指数 (000001.SH) · 9/30 收 3842.19 (+0.31%)</h3>
+  <img class="chart" src="charts/000001_SH_20261006.png" alt="上证指数 K线图" />
+  <div class="chart-caption">关键位:9/29 多方抵抗 3800 / 9/30 收 3842.19 / B 浪位 3886 / 8/4 支撑 3856 / 区间上沿 3926 / 60D高 4036 / 120D高 4242 / 年大目标 4256(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+  <h3>🔴 创业板指 (399006.SZ) · 9/30 收 3135.28 (-0.23%)</h3>
+  <img class="chart" src="charts/399006_SZ_20261006.png" alt="创业板指 K线图" />
+  <div class="chart-caption">关键位:A 杀位 3160 / 9/30 收 3135.28 / 支撑 3220 / 试破位 3286 / 反抽区 3370 / B 反位 3486 / 目标位 3590 / 60D高 4018 / 120D高 4371(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+  <h3>🟢 中际旭创 (300308.SZ) · 光模块龙头 · 9/30 收 808.44</h3>
+  <img class="chart" src="charts/300308_SZ_20261006.png" alt="中际旭创 K线图" />
+  <div class="chart-caption">博主 10/06 06:45「#中国空心光纤# 利好什么板块?」→ 1.6T 光模块全球龙头直接受益 · 全球高速光模块市占率第一 · AI 算力数据中心核心受益 · 节后 10/8 开盘光通信新催化<br/>关键位:60D高 1100 / 压力 950 / 现价 808.44 / 60D低 700(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+  <h3>🟢 长飞光纤 (601869.SH) · 光纤光缆龙头 · 9/30 收 411.16</h3>
+  <img class="chart" src="charts/601869_SH_20261006.png" alt="长飞光纤 K线图" />
+  <div class="chart-caption">博主 10/06 06:45「#中国空心光纤# 利好什么板块?」→ A 股光纤光缆龙头 · G.654.E 空心光纤技术布局领先 · 5G + 数据中心 + 海底光缆需求催化 · 节后 10/8 开盘光通信新催化<br/>关键位:60D高 530 / 压力 470 / 现价 411.16 / 60D低 340(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+  <h3>🟢 兆易创新 (603986.SH) · 存储芯片/NOR+DRAM · 9/30 收 353.90 (-3.72%)</h3>
+  <img class="chart" src="charts/603986_SH_20261006.png" alt="兆易创新 K线图" />
+  <div class="chart-caption">沿用博主 10/3 美股硬科技 + 10/1 美光财报 → A 股存储芯片映射最直接品种 · NOR Flash 全球第三 + DRAM 利基型龙头 · 9/30 节前 -3.72% 已回调 · 节后硬科技主线催化<br/>关键位:60D高 707.97 / 中线 500 / 现价 353.90 / 60D低 337.10(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+  <h3>🟢 澜起科技 (688008.SH) · DDR5 接口芯片 · 9/30 收 202.31 (-4.84%)</h3>
+  <img class="chart" src="charts/688008_SH_20261006.png" alt="澜起科技 K线图" />
+  <div class="chart-caption">沿用博主 10/3 美股硬科技 → DDR5 内存接口芯片全球龙头 市占率 40%+ · AI 服务器 HBM 关键供应商 · 美光 HBM/DDR5 利好直接传导 · 9/30 节前 -4.84% 已深度回调<br/>关键位:60D高 297.96 / 中线 240 / 现价 202.31 / 60D低 180.25(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+  <h3>🟢 工商银行 (601398.SH) · 银行/防御红利 · 9/30 收 8.28 (+1.47%)</h3>
+  <img class="chart" src="charts/601398_SH_20261006.png" alt="工商银行 K线图" />
+  <div class="chart-caption">博主长期底仓 · 国有大行高股息(股息率 ~5.5%) · A 股市值最大银行 某队重仓基地 · 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差 · 9/30 老登股局部上涨代表标的 (银行板块涨幅第一) · 节后港股 10/2 暴跌 -668 防御首选<br/>关键位:60D高/压 8.30 / 现价 8.28 / 中线支 7.50 / 60D低 7.16(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+  <h3>🟢 农业银行 (601288.SH) · 银行/防御红利 · 9/30 收 6.97 (+0.43%)</h3>
+  <img class="chart" src="charts/601288_SH_20261006.png" alt="农业银行 K线图" />
+  <div class="chart-caption">9/29 涨幅银行第一 验证博主 11:09「四大行一直在提肩带」 · 国有大行高股息防御 · 央行降息 + 扩大再贷款 2000 亿利好息差 · 9/30 收 6.97 +0.43% · 节后港股暴跌防御配置<br/>关键位:60D高 7.11 / 现价 6.97 / 中线支 6.50 / 60D低 5.97(📌 蓝色虚线为博主关键位,全部居左标注 · 120 根 K线 · 含 MACD + 成交量)</div>
+
+  <h2>⚠️ 风险提示</h2>
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <ul>
+      {RISKS_HTML}
+    </ul>
+  </div>
+
+  <h2>🎯 操作建议汇总</h2>
+
+  <div class="panel panel-2">
+    <h3>📌 大盘</h3>
+    <p><b>短期(10/6 起 1-2 周 / 国庆假期至 10/8 节后开盘)</b>:<b>🟢 空心光纤新催化 + 美股纳指 ATH 叠加 9/30 站上 3800 + 港股暴跌防御预警 · 节后光通信新主线 + 硬科技进攻 + 银行防御三主线</b>。9/30 微红站上 3800, 老登股四大行 + 白酒 + 医药 同步反弹; 10/3 美股纳指 ATH + 真科技硬科技涨幅领先 → A 股硬科技映射; 10/2 港股暴跌 668 点, 节后 A 股开盘防御+硬科技+光通信关注并行; <b>10/6 06:45 博主新增「#中国空心光纤# 利好什么板块?」→ 节后光通信新催化</b>。</p>
+    <ul>
+      <li><b>9/30 上证 3842.19 +0.31%</b>:站上 3800 关卡, 较 9/29 3830.45 涨 12 点; 季线跌 6.16% 收官</li>
+      <li><b>9/30 创业板 3135.28 -0.23%</b>:较 9/29 3142.56 微跌 7 点, 季线跌 27.8% (创 2015 以来最大)</li>
+      <li><b>10/6 博主新增「空心光纤」提问 🟢(3505赞)</b>:节后 10/8 开盘光通信/光模块/光纤新催化</li>
+      <li><b>10/6 博主风控「留住现金流最重要」 🟡(4621赞 · 10/06 互动最高)</b>:博主本人倾向于持币过节</li>
+      <li><b>10/3 美股纳指 ATH (博主 07:58 唯一关键观点)</b>:真科技/硬科技涨幅领先 → A 股半导体/存储芯片/HBM/AI 算力映射</li>
+      <li><b>10/2 港股 -668 点(博主大盘判断)</b>:港股节后开盘暴跌, 拖累节后 A 股开盘</li>
+      <li><b>乐观情景</b>:节后 10/8 央行 9/29 利好落地 + 美股硬科技叠加美光财报催化半导体 + 空心光纤催化光通信 + 老登股防御主线延续</li>
+      <li><b>悲观情景</b>:节后港股拖累下破 3800, 触发博主「C 杀」加速, 下看 3747-3650; 创业板失守 3050</li>
+      <li><b>关键操作</b>:博主已自述「等 C5 完成才能干」+ 10/2 港股暴跌预警 + 10/6 留住现金流风控, 散户策略:节后三主线 — 光通信新催化(中际+长飞) + 硬科技进攻(兆易+澜起) + 银行防御(工行+农行)</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 板块策略</h3>
+    <ul>
+      <li><b>🟢 节后进攻主线 #1 (10/6 博主新增):光通信 / 光模块 / 光纤</b> — 博主 10/06 06:45「#中国空心光纤网速更快了# 利好什么板块?」(3505赞 · 3862综合分 · 最近一天唯一新增行业信号), 节后 10/8 开盘 A 股映射中际旭创 300308(1.6T 光模块全球龙头)+ 长飞光纤 601869(光纤光缆龙头 · G.654.E 空心光纤布局领先)</li>
+      <li><b>🟢 节后进攻主线 #2 (10/3 博主新增):半导体 / 真科技 / 硬科技</b> — 博主 10/03 07:58 美股纳指改写历史新高 · 真科技/硬科技涨幅领先 (6139赞 · 7125综合分 · 10/03+10/04 互动最高), 叠加 10/01 美光财报(2026Q4 营收 +380% / 净利 +1077.79%), 节后 10/8 A 股映射兆易创新 (NOR Flash 全球第三) + 澜起科技 (DDR5 接口芯片全球龙头)</li>
+      <li><b>🟢 防御主线(节后 10/2 港股暴跌后首选):四大行</b> — 博主 9/30 14:08「四大行局部上涨」, 工行 +1.47% / 农行 +0.43% 兑现; 央行 9/29 PSL -25bp 利好银行息差; 博主 10/06 06:45「留住现金流最重要」风控强化; 节前/节后持有</li>
+      <li><b>🟡 适度关注:券商 / 保险</b> — 央行 9/29 降息利好若落地, 券商可能有补涨</li>
+      <li><b>🔴 回避:创业板 / 成长股</b> — 9/30 收 3135.28 仍失守 3160 A 杀位; 博主 9/30 季线收官确认创业板季线跌 27.8% + 10/2 港股暴跌拖累</li>
+      <li><b>🔴 回避:深成指权重</b> — 9/30 季线跌 20.47% 同步极差</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 6 支个股监控</h3>
+    <table>
+      <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>9/30 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
+      <tbody>
+        <tr><td>中际旭创 300308</td><td>光模块</td><td>700 / 750</td><td><b style="color:var(--bull)">808.44 (—)</b></td><td>950 / 1100</td><td>1100</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」→ 1.6T 光模块全球龙头直接受益</b> · AI 算力数据中心核心受益 · 节后 10/8 开盘光通信新催化</td></tr>
+        <tr><td>长飞光纤 601869</td><td>光纤</td><td>340 / 380</td><td><b style="color:var(--bull)">411.16 (—)</b></td><td>470 / 530</td><td>530</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」→ A 股光纤光缆龙头</b> · G.654.E 空心光纤技术布局领先 · 5G + 数据中心 + 海底光缆需求催化</td></tr>
+        <tr><td>兆易创新 603986</td><td>半导体/存储</td><td>340 / 337</td><td><b style="color:var(--bear)">353.90 (-3.72%)</b></td><td>500 / 708</td><td>707.97</td><td>关注 · <b>博主 10/3 美股硬科技 + 10/1 美光财报 → A 股映射最直接品种</b> · NOR Flash 全球第三 · 节前 -3.72% 已回调 · 节后硬科技主线催化</td></tr>
+        <tr><td>澜起科技 688008</td><td>DDR5 接口</td><td>180 / 200</td><td><b style="color:var(--bear)">202.31 (-4.84%)</b></td><td>240 / 298</td><td>297.96</td><td>关注 · <b>博主 10/3 美股硬科技 → DDR5 接口芯片全球龙头</b> · 美光 HBM 利好直接传导 · 9/30 跌幅最大 -4.84%</td></tr>
+        <tr><td>工商银行 601398</td><td>银行</td><td>7.50 / 7.16</td><td><b style="color:var(--bull)">8.28 (+1.47%)</b></td><td>8.30 / 9.30</td><td>8.30</td><td>持有 · <b>9/30 银行板块涨幅第一</b> · 验证博主「四大行提肩带」 · 60D 高 8.30 未破位 · 节后港股暴跌防御首选</td></tr>
+        <tr><td>农业银行 601288</td><td>银行</td><td>6.50 / 5.97</td><td><b style="color:var(--bull)">6.97 (+0.43%)</b></td><td>7.11 / 7.50</td><td>7.11</td><td>持有 · 验证博主「四大行提肩带」 · 9/30 涨幅银行第二 · 60D 高未破位 · 节后防御配置</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <p>报告生成时间:2026-10-06 21:00 · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 8 张 K 线图(关键位 蓝色虚线 📌 居左标注 · 120 根 K线 · 含 MACD + 成交量)</p>
+    <p>博主最近一天 (10/05 + 10/06) 核心立场:<b>🟢 新增「光通信/光模块」(10/6 空心光纤提问 · 3505赞) · 🟡 风控「留住现金流最重要」(10/6 4621赞 · 10/06 互动最高) · 🔴 沿用 10/2 港股 -668 节后开盘预警</b> · 2 条带信号 · 板块:<b>🟢 光通信/光模块 · 🟢 半导体/硬科技 · 🟢 银行/防御红利</b> · 6 支个股:中际旭创 300308 / 长飞光纤 601869 / 兆易创新 603986 / 澜起科技 688008 / 工商银行 601398 / 农业银行 601288 · 风险:<b>🔴 港股暴跌拖累节后开盘 / 季线收官极差 / 博主仓位决策偏空</b></p>
+  </div>
+
+</div>
+</body>
+</html>
+"""
+
+
+def render_posts_html(posts):
+    rows = []
+    for p in posts:
+        emoji_class = "emoji"
+        if "tag-bull" in p.get("signal", "") or p["dir"] == "多":
+            emoji_class = "emoji"
+        score_str = f"R:{p['rep']} C:{p['com']} L:{p['like']}"
+        signal_class = "tag-none"
+        if "🟢" in p["signal"] or p["dir"] == "多":
+            signal_class = "tag-bull"
+        elif "🔴" in p["signal"] or p["dir"] == "空":
+            signal_class = "tag-bear"
+        elif "🟡" in p["signal"] or p["dir"] == "中性":
+            signal_class = "tag-neutral"
+
+        # emoji in dir column
+        dir_emoji = p["emoji"]
+        rows.append(
+            f"""      <tr>
+        <td>{p['time']}</td>
+        <td class="{emoji_class}">{dir_emoji}</td>
+        <td><span class="tag {signal_class}">{p['signal'].replace('🟢','').replace('🔴','').replace('🟡','').strip() or '—'}</span></td>
+        <td style="font-size:12px">{p['topic']}</td>
+        <td class="text">{p['text']}</td>
+        <td class="score">{score_str}</td>
+        <td class="score">{p['score']}</td>
+      </tr>"""
+        )
+    return "\n".join(rows)
+
+
+def render_sectors_html(sectors):
+    blocks = []
+    for s in sectors:
+        cards = []
+        for st in s["stocks"]:
+            stance_class = "bull" if st["stance"] == "bull" else ("bear" if st["stance"] == "bear" else "neutral")
+            stance_emoji = "🟢" if st["stance"] == "bull" else ("🔴" if st["stance"] == "bear" else "🟡")
+            cards.append(
+                f"""      <div class="stock-card {stance_class}">
+        <h4>{stance_emoji} {st['name']} ({st['code']}) · 9/30 收 {st['close']} ({st['chg']})</h4>
+        <div class="logic">{st['logic']}</div>
+        <div class="key">关键位:{st['levels']}</div>
+      </div>"""
+            )
+        block = (
+            f"""    <div class="panel">
+      <h3>🟢 {s['name']}</h3>
+      <p>{s['rationale']}</p>
+{chr(10).join(cards)}
+    </div>"""
+        )
+        blocks.append(block)
+    return "\n".join(blocks)
+
+
+def render_risks_html(risks):
+    items = []
+    for title, body in risks:
+        items.append(f"      <li><b>{title}</b> — {body}</li>")
+    return "\n".join(items)
+
+
+def main():
+    posts_html = render_posts_html(POSTS)
+    sectors_html = render_sectors_html(SECTORS)
+    risks_html = render_risks_html(RISKS)
+
+    html = (
+        HTML_TEMPLATE
+        .replace("{TODAY}", TODAY)
+        .replace("{SH_INDEX}", SH_INDEX)
+        .replace("{CYB_INDEX}", CYB_INDEX)
+        .replace("{HS300_INDEX}", HS300_INDEX)
+        .replace("{POSTS_HTML}", posts_html)
+        .replace("{SECTORS_HTML}", sectors_html)
+        .replace("{RISKS_HTML}", risks_html)
+    )
+
+    OUT_HTML.write_text(html, encoding="utf-8")
+    print(f"[ok] saved: {OUT_HTML} ({len(html)} bytes)")
+
+
+if __name__ == "__main__":
+    main()
