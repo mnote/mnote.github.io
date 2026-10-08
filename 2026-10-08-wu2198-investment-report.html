@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-10-08</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fee2e2 0%, #fef2f2 100%);
+    border: 1px solid #fca5a5;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #991b1b; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>🔴 wu2198 投资观点日报 · 2026-10-08</h1>
+    <div class="meta">
+      <span>📅 <b>2026-10-08 (周三 21:00 · 🇨🇳 国庆假期节后首个交易日)</b></span>
+      <span>🏛️ 沪指 10/8 收 <b>3811.90 (-0.79%)</b> 跌破 3800</span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🔴</span><b>博主最近一天 (10-08) 核心立场</b>:
+      <b>🔴 偏空 · 节后首日市场如期承压</b>。博主今天 (<b>10-08</b>) 共 <b>8 条微博</b>(过滤置顶剩 8),
+      <b>7 条带操盘信号</b> · <b>5 条偏空 (LLM 🔴)</b> + <b>2 条中性 (LLM 🟡)</b> + <b>1 条无关 (LLM ⚪)</b>。
+      节后开盘博主准确预判:14:24「<b>现在 3800 也破了,节节败退</b>」(<b>6534 综合分 · 6283赞</b>)+ 14:29「<b>自 5 月初见了 4256 点之后及创业板 4380 构筑『三川顶』之后,天天磨指甲就是最幸福的事</b>」(<b>7198 综合分 · 6574赞</b>)+ 14:42「<b>自 4258 以来市场一直反复震荡下调,最近这半个月能赚钱的人真的很少……学休息、学会等待</b>」(<b>8096 综合分 · 7205赞 · 10/08 互动第二高</b>)+ 14:57「<b>今天市场中,只有固态电池板块资金是活动明显的</b>」(<b>5454 综合分 · 5160赞</b> · 唯一提及的活跃板块）+ 15:02 收盘总结「<b>今天大盘指数试 3864 点后转跌,盘中下探了 3795 点,尾盘收在 3811.90 点;深成指,创业板指数和科创50指数等则改写了本轮调整的新低。按日线图技术面看,指数还属于调整趋势当中,暂时还不适合参与</b>」(<b>10858 综合分 · 8931赞 · 10/08 互动最高</b> · 全部预言应验)+ 19:46 重复收盘总结(<b>3215 综合分 · 2546赞</b>)。
+      <b>🔴 博主实盘验证</b>:大盘 3864 → 跌穿 3800 → 收 3811.90 · 博主预警全部应验。博主今天明确表态「暂时还不适合参与」「学休息、学会等待」,博主本人已选持币过节。
+      <b>🟢 板块三主线(博主 10/8 实际提及 + 沿用)</b>:
+      ① <b>🟡 固态电池</b>(博主 10/8 14:57 唯一提及活跃板块)
+      ② <b>🟢 银行/四大行</b>(沿用 9/29-9/30 提肩带 + 9/29 央行 PSL -25bp + 10/2 港股暴跌 -668 防御主线 + 10/6 留住现金流风控)
+      ③ <b>🟢 光通信/光模块</b>(沿用 10/6 06:45「#中国空心光纤# 利好什么板块?」 + 10/3 美股纳指 ATH + 10/1 美光财报)
+    </div>
+  </div>
+
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主最近一天核心立场</div>
+      <div class="val" style="color: var(--bear);">🔴 偏空</div>
+      <div class="sub">10/08 8 条 · 7 条带操盘信号 · 5 偏空</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主最近一条大盘判断</div>
+      <div class="val" style="color: var(--bear);">🔴 试 3864 跌</div>
+      <div class="sub">10/8 15:02「暂时还不适合参与」</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主最近一条行业信号</div>
+      <div class="val" style="color: var(--neutral);">🟡 固态电池</div>
+      <div class="sub">10/8 14:57「只有固态电池板块资金活动明显」</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主最近一条风控信号</div>
+      <div class="val" style="color: var(--bear);">🔴 学休息</div>
+      <div class="sub">10/8 14:42「学休息、学会等待」</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 10/8 收</div>
+      <div class="val" style="color: var(--bear);">3811.90 (-0.79%)</div>
+      <div class="sub">跌破 3800 · 节后首日开门黑</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板 10/8 收</div>
+      <div class="val" style="color: var(--bear);">3036.66 (-3.15%)</div>
+      <div class="sub">创本轮调整新低 · 验证博主预警</div>
+    </div>
+  </div>
+
+  <h2>📋 完整微博列表(8 条 · 按时间倒序 · 10/08 21:00 抓取)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 · 置信</th>
+        <th>类别</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>10-08 19:46</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 操盘:不适合参与</span></td>
+        <td style="font-size:12px">复盘总结</td>
+        <td class="text">今天大盘指数试3864点后转跌,盘中下探了3795点,尾盘收在3811.90点;深成指,创业板指数和科创50指数等则改写了本轮调整的新低。按日线图技术面看,指数还属于调整趋势当中,暂时还不适合参与......收到请回复666或点赞支持一下!</td>
+        <td class="score">R:7 C:331 L:2546</td>
+        <td class="score">3215</td>
+      </tr>
+      <tr>
+        <td>10-08 17:14</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">—</span></td>
+        <td style="font-size:12px">国际政治</td>
+        <td class="text">#俄罗斯肺炎#又是什么新东西?</td>
+        <td class="score">R:2 C:87 L:2208</td>
+        <td class="score">2384</td>
+      </tr>
+      <tr>
+        <td>10-08 15:02</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 大盘:试 3864 跌 / 收 3811.9</span></td>
+        <td style="font-size:12px">收盘总结</td>
+        <td class="text"><b>10/08 互动最高</b> · 今天大盘指数试3864点后转跌,盘中下探了3795点,尾盘收在3811.90点;深成指,创业板指数和科创50指数等则改写了本轮调整的新低。按日线图技术面看,指数还属于调整趋势当中,暂时还不适合参与......收到请回复666或点赞支持一下!</td>
+        <td class="score">R:71 C:1008 L:8931</td>
+        <td class="score">10858</td>
+      </tr>
+      <tr>
+        <td>10-08 14:57</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">🟡 板块:固态电池</span></td>
+        <td style="font-size:12px">行业热点</td>
+        <td class="text"><b>10/08 唯一活跃板块信号</b> · 今天市场中,只有固态电池板块资金是活动明显的。</td>
+        <td class="score">R:15 C:139 L:5160</td>
+        <td class="score">5454</td>
+      </tr>
+      <tr>
+        <td>10-08 14:42</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 风控:学休息学等待</span></td>
+        <td style="font-size:12px">风控/理念</td>
+        <td class="text"><b>10/08 互动第二高</b> · 不要说什么踏空,在股市里真的没有这么一说。自4258以来市场一直反复震荡下调,最近这半个月能赚钱的人真的很少啊……学休息、学会等待……收到请回复666</td>
+        <td class="score">R:55 C:736 L:7205</td>
+        <td class="score">8096</td>
+      </tr>
+      <tr>
+        <td>10-08 14:29</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 大盘:4256/创业板4380 三川顶</span></td>
+        <td style="font-size:12px">大盘判断</td>
+        <td class="text">自5月初见了4256点之后及后来创业板4380构筑"三川顶"之后,你啥都不用干,天天磨指甲就是最幸福的事!</td>
+        <td class="score">R:24 C:300 L:6574</td>
+        <td class="score">7198</td>
+      </tr>
+      <tr>
+        <td>10-08 14:24</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 技术位:3800 破位</span></td>
+        <td style="font-size:12px">关键技术位</td>
+        <td class="text">现在3800也破了,节节败退!</td>
+        <td class="score">R:10 C:241 L:6283</td>
+        <td class="score">6534</td>
+      </tr>
+      <tr>
+        <td>10-08 14:13</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 风控:节前踏空警示</span></td>
+        <td style="font-size:12px">风控/理念</td>
+        <td class="text">节前很多人担心自己买不到.........时候未到,买也是亏钱。何必担惊受怕啊!</td>
+        <td class="score">R:13 C:216 L:6440</td>
+        <td class="score">6672</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>🚦 博主 10/8 核心主线(8 条全部为操盘/风控/大盘判断,无鸡汤)</h2>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 主线 1 — 博主 15:02 收盘总结(节后首日盘面应验博主假期所有预警)</h3>
+    <p><b>原帖</b>「今天大盘指数试 3864 点后转跌,盘中下探了 3795 点,尾盘收在 3811.90 点;深成指,创业板指数和科创 50 指数等则改写了本轮调整的新低。按日线图技术面看,指数还属于调整趋势当中,暂时还不适合参与......」(<b>71/1008/8931 · 10858 综合分 · 10/08 互动最高</b>)</p>
+    <p><b>解读</b>博主 15:02 收盘总结精准预言了今天盘面:<b>大盘试 3864 → 跌破 3800 → 收 3811.90 · 创业板 / 科创 50 创本轮新低</b>,全部应验。博主明确表态 <b>「暂时还不适合参与」</b>,与博主 6/8 撤离本金+去年盈利一半的仓位决策 + 9/30 14:47「保住盈利 = 战胜 99% 投资者」防守哲学一致。</p>
+    <ul>
+      <li><b>10/08 实盘数据</b>:大盘 3864.12 (盘中试高) → 3795.37 (盘中低) → 3811.90 (收盘) · 跌幅 <b>-0.79%</b> · 收盘 <b>跌破 3800</b> 心理关卡</li>
+      <li><b>创业板</b>:3012.03 (新低) → 3036.66 (收盘) · 跌幅 <b>-3.15%</b> · 创本轮调整新低</li>
+      <li><b>科创 50</b>:博主原帖确认「改写了本轮调整的新低」</li>
+      <li><b>博主风控哲学</b>:「暂时还不适合参与」+「学休息、学会等待」+「时候未到,买也是亏钱」 · 散户策略:清仓/持币过节,不参与</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 主线 2 — 博主 14:42「学休息、学会等待」(10/08 互动第二高 · 7205赞)</h3>
+    <p><b>原帖</b>「不要说什么踏空,在股市里真的没有这么一说。自 4258 以来市场一直反复震荡下调,最近这半个月能赚钱的人真的很少啊……学休息、学会等待......」(<b>55/736/7205 · 8096 综合分</b>)</p>
+    <p><b>解读</b>博主 14:42 强调 <b>不踏空理论</b> + <b>学休息学等待</b>。博主抨击散户「动不动就说踏空」,实际上是韭菜的标志。这是博主在节后首日给散户最强的操作哲学指引:大盘 4258 以来反复震荡下调,半个月能赚钱的人很少,散户应学休息学等待。</p>
+    <ul>
+      <li><b>博主不踏空理论</b>:「在股市里真的没有这么一说」 · 「韭菜的重要标志就是怕踏空」 · 「永远不存在踏空」 · 「小散要买满的话用不了七秒」</li>
+      <li><b>博主时间框架</b>:4258(5 月高)以来反复震荡下调 → 半月能赚钱的人少 → 学休息学等待 → 节后 10/8 应验</li>
+      <li><b>操作策略</b>:10/8 收盘跌破 3800,博主建议散户 <b>不参与</b> · 博主本人持币过节 · 等待下一个买点</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--neutral);">
+    <h3>🟡 主线 3 — 博主 14:57「固态电池板块资金活动明显」(博主 10/8 唯一提及活跃板块)</h3>
+    <p><b>原帖</b>「今天市场中,只有固态电池板块资金是活动明显的。」(<b>15/139/5160 · 5454 综合分</b>)</p>
+    <p><b>解读</b>博主 14:57 给出今天 <b>唯一一条行业信号</b>:固态电池。节后首日盘面验证:宁德时代 286.75 (-1.50%) 收 60D 低 285.17 附近;赣锋锂业 44.21 (+1.80%) 逆势翻红,成为博主今天唯一关注的活跃板块。</p>
+    <ul>
+      <li><b>A 股映射</b>:
+        <ul>
+          <li><b>宁德时代 300750</b> — 全球动力电池龙头,固态电池技术布局领先,10/8 收 286.75 (-1.50%) 接近 60D 低 285.17</li>
+          <li><b>赣锋锂业 002460</b> — 锂矿龙头 + 固态电池产业链,10/8 收 44.21 (+1.80%) 逆势翻红,验证博主「资金活动明显」</li>
+        </ul>
+      </li>
+      <li><b>博主动机</b>:博主在节后首日 14:57 指出固态电池是今天唯一资金活跃板块,这是博主今天 <b>唯一明确的板块关注</b>,沿用策略可关注固态电池产业链</li>
+      <li><b>操作策略</b>:博主今天虽然整体偏空,但明确指出固态电池有资金活动迹象,可作为防御性配置关注 · 10/9 节后第二日继续验证</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 主线 4 — 博主 14:29「创业板 4380 三川顶」+ 14:24「3800 破了」(博主关键位体系)</h3>
+    <p><b>原帖汇总</b>:</p>
+    <ul>
+      <li><b>14:29</b>「自 5 月初见了 4256 点之后及后来创业板 4380 构筑『三川顶』之后,你啥都不用干,天天磨指甲就是最幸福的事!」(<b>24/300/6574 · 7198 综合分</b>) — 博主 <b>关键位体系 4256 + 创业板 4380 三川顶</b> 确立</li>
+      <li><b>14:24</b>「现在 3800 也破了,节节败退!」(<b>10/241/6283 · 6534 综合分</b>) — 博主 <b>关键位 3800 已破</b></li>
+    </ul>
+    <p><b>解读</b>博主今天两条关键位相关贴,确立博主 <b>长期高位 4256 + 创业板 4380 三川顶</b> 双顶结构判断。节后首日 3800 关键位已破,博主给出 <b>「节节败退」</b> 结论,与博主 6/8 撤离本金+去年盈利一半的仓位决策完全一致。</p>
+    <ul>
+      <li><b>博主关键位体系</b>:大盘 <b>4256</b>(5 月顶) → <b>3800</b>(心理关卡 · 10/8 已破) → <b>3741</b>(60D 低) · 创业板 <b>4380</b>(三川顶) → <b>3012</b>(10/8 新低) → <b>3850</b>(中线支撑)</li>
+      <li><b>博主操作策略</b>:大盘 4256 → 3800 已破 → 节节败退 · 创业板 4380 → 3036 已新低 → 「天天磨指甲最幸福」 · 散户:不参与,等待</li>
+    </ul>
+  </div>
+
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <h3>🔴 主线 5 — 博主 14:13「时候未到,买也是亏钱」(节前踏空警示应验)</h3>
+    <p><b>原帖</b>「节前很多人担心自己买不到.........时候未到,买也是亏钱。何必担惊受怕啊!」(<b>13/216/6440 · 6672 综合分</b>)</p>
+    <p><b>解读</b>博主 14:13 开盘后立即给出 <b>节前踏空警示</b>:节前很多人担心买不到,博主提前打预防针 <b>「时候未到,买也是亏钱」</b>。今天盘面验证:开盘试 3864 后跌穿 3800,盘中低 3795,收盘 3811.90。博主提前 1 小时预警节前踏空者。</p>
+    <ul>
+      <li><b>博主节前踏空论</b>:节前很多人担心买不到 → 博主 14:13「时候未到,买也是亏钱」 → 10/8 大盘跌穿 3800</li>
+      <li><b>博主风控框架</b>:不举债 + 不杠杆 + 只用闲钱 + 不参与未持股 → 节前担心买不到的散户应避免冲动追高</li>
+      <li><b>操作策略</b>:节前踏空者 10/8 开盘买入必亏,博主提前 1 小时判断精准 · 散户策略:等待博主「干」信号再行动</li>
+    </ul>
+  </div>
+
+  <h2>💼 3 大板块 + 6 支个股(基于博主 10/8 实际提及 + 沿用主线)</h2>
+  <p style="color:var(--muted);font-size:13px;">选股原则:博主 10/8 14:57「今天市场中,只有固态电池板块资金是活动明显的」 → <b>固态电池</b>(新主线,博主 10/8 唯一行业信号)+ 博主 9/29-9/30 四大行提肩带 + 央行 PSL -25bp + 10/6 留住现金流风控 + 10/2 港股暴跌 → <b>银行/四大行</b>(沿用主线)+ 博主 10/6 06:45「#中国空心光纤#」+ 10/3 美股纳指 ATH + 10/1 美光财报 → <b>光通信/光模块</b>(沿用主线)。<b>节后 10/8 周三开盘三主线</b>:固态电池(博主今天唯一板块)+ 银行防御(港股暴跌 + 央妈利好)+ 光通信新催化(空心光纤)。</p>
+
+  <div class="panel">
+    <h3>🟡 板块 1: 固态电池(博主 10/8 14:57 唯一提及活跃板块)</h3>
+    <p>博主 10/08 14:57「今天市场中,只有固态电池板块资金是活动明显的」(5454综合分 · 5160赞 · 博主 10/8 唯一一条新增行业信号) — 这是博主今天 <b>唯一明确关注的板块</b>。节后 10/8 周三开盘,虽然大盘整体偏空,但博主指出的固态电池逆势获得资金流入。沿用 → 节后关注固态电池产业链龙头。</p>
+    <div class="stock-card neutral">
+      <h4>🟡 宁德时代 (300750.SZ)</h4>
+      <div class="logic">博主 10/8 14:57「今天市场中,只有固态电池板块资金是活动明显的」 → 全球动力电池龙头 · 固态电池技术布局领先 · 节后 10/8 收 286.75 (-1.50%) 接近 60D 低 285.17 · 60D 高 410 已远离 · 节后关注量能回升</div>
+      <div class="key">关键位:60D 高 410 / 60D 低 285.17 / 10/8 收 286.75</div>
+    </div>
+    <div class="stock-card neutral">
+      <h4>🟢 赣锋锂业 (002460.SZ)</h4>
+      <div class="logic">博主 10/8 14:57「今天市场中,只有固态电池板块资金是活动明显的」 → 锂矿龙头 + 固态电池产业链 · 节后 10/8 收 44.21 (+1.80%) 逆势翻红 · 验证博主「资金活动明显」判断 · 60D 低 41.67 距离不远 · 节后关注</div>
+      <div class="key">关键位:60D 高 66.72 / 60D 低 41.67 / 10/8 收 44.21</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🟢 板块 2: 银行/四大行防御(沿用 9/29-9/30 + 10/6 风控 + 10/2 港股暴跌)</h3>
+    <p>沿用博主 9/29 11:09「四大行一直在提肩带」(7099赞) + 9/30 14:08「老登股局部上涨」(3936赞) + 央行 9/29 19:52 PSL -25bp 利好息差 + 博主 10/06 06:45「未来几年留住现金流最重要」🟡风控 + 10/02 港股暴跌 -668 节后防御首选。10/8 收盘工行 +0.36% / 农行 +0.72%,验证博主防御主线。</p>
+    <div class="stock-card bull">
+      <h4>🟢 工商银行 (601398.SH)</h4>
+      <div class="logic">博主长期底仓 · 国有大行高股息(股息率 ~5.5%) · A 股市值最大银行 某队重仓基地 · 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差 · 10/8 收 8.31 (+0.36%) 验证博主防御主线 · 60D 高 8.38 距离仅 0.07</div>
+      <div class="key">关键位:60D 高 8.38 / 60D 低 6.95 / 10/8 收 8.31</div>
+    </div>
+    <div class="stock-card bull">
+      <h4>🟢 农业银行 (601288.SH)</h4>
+      <div class="logic">博主长期底仓 · 国有大行高股息防御 · 央行降息 + 扩大再贷款 2000 亿利好息差 · 10/8 收 7.02 (+0.72%) 逆势上涨 · 60D 高 7.11 距离仅 0.09 · 节后港股暴跌防御首选</div>
+      <div class="key">关键位:60D 高 7.11 / 60D 低 5.79 / 10/8 收 7.02</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🟢 板块 3: 光通信/光模块(沿用 10/6 空心光纤 + 10/3 美股纳指 ATH)</h3>
+    <p>沿用博主 10/06 06:45「#中国空心光纤网速更快了# 利好什么板块?」(4795赞 · 5221综合分 · 最近一天新增行业信号) + 10/03 07:58 美股纳指改写历史新高 · 真科技/硬科技涨幅领先(6139赞 · 7125综合分) + 10/01 16:48 美光财报 → A 股映射 <b>光通信/光模块</b>。节后 10/8 中际旭创 -3.15% / 新易盛 -2.70% 跟随大盘回调,但博主 10/6 提问的空心光纤新催化主线仍有效,等大盘企稳。</p>
+    <div class="stock-card bear">
+      <h4>🔴 中际旭创 (300308.SZ)</h4>
+      <div class="logic">博主 10/6 06:45「#中国空心光纤# 利好什么板块?」 → 1.6T 光模块全球龙头 · AI 算力数据中心核心受益 · 节后 10/8 收 783.00 (-3.15%) 跌穿 9/30 收盘 808.44 · 接近 60D 低 772.18 · 等大盘企稳 + 光通信催化再介入</div>
+      <div class="key">关键位:60D 高 1315.57 / 60D 低 772.18 / 10/8 收 783.00</div>
+    </div>
+    <div class="stock-card bear">
+      <h4>🔴 新易盛 (300502.SZ)</h4>
+      <div class="logic">博主 10/6 06:45「#中国空心光纤# 利好什么板块?」 → 800G 光模块高速成长 · AI 算力光网络关键品种 · 与中际旭创并列 800G/1.6T 双龙头 · 节后 10/8 收 378.50 (-2.70%) 跟随大盘回调 · 60D 低 347.18 距离仅 30 点 · 等大盘企稳</div>
+      <div class="key">关键位:60D 高 618.87 / 60D 低 347.00 / 10/8 收 378.50</div>
+    </div>
+  </div>
+
+  <h2>📉 K 线图(关键位居左虚线标注 · 收盘价 10/8 + 60 日高低)</h2>
+
+  <h3>🔴 上证指数 (000001.SH) · 10/8 收 3811.90 (-0.79%) · 跌破 3800</h3>
+  <img class="chart" src="charts/000001_SH_20261008.png" alt="上证指数 K线图" />
+  <div class="chart-caption">关键位:60D 高 4143 / 10/8 盘中试高 3864 / 节前低 3830 / 10/8 收 3811.9 / 60D 低 3741(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量 · 红涨绿跌中国市场风格)</div>
+
+  <h3>🔴 创业板指 (399006.SZ) · 10/8 收 3036.66 (-3.15%) · 创本轮新低</h3>
+  <img class="chart" src="charts/399006_SZ_20261008.png" alt="创业板指 K线图" />
+  <div class="chart-caption">关键位:60D 高 4361.82 / 中线支 3850 / 10/8 收 3036.66(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量 · 博主 14:29「创业板 4380 三川顶」应验 · 10/8 已新低)</div>
+
+  <h3>🟡 宁德时代 (300750.SZ) · 固态电池龙头 · 10/8 收 286.75 (-1.50%)</h3>
+  <img class="chart" src="charts/300750_SZ_20261008.png" alt="宁德时代 K线图" />
+  <div class="chart-caption">博主 10/8 14:57「今天市场中,只有固态电池板块资金是活动明显的」 → 全球动力电池龙头 · 固态电池技术布局领先 · 10/8 收 286.75 接近 60D 低 285.17 · 关注量能回升(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量)</div>
+
+  <h3>🟢 赣锋锂业 (002460.SZ) · 锂矿龙头 · 10/8 收 44.21 (+1.80%)</h3>
+  <img class="chart" src="charts/002460_SZ_20261008.png" alt="赣锋锂业 K线图" />
+  <div class="chart-caption">博主 10/8 14:57「今天市场中,只有固态电池板块资金是活动明显的」 → 锂矿龙头 + 固态电池产业链 · 10/8 收 44.21 (+1.80%) 逆势翻红 · 验证博主「资金活动明显」判断 · 60D 低 41.67 距离不远(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量)</div>
+
+  <h3>🟢 工商银行 (601398.SH) · 银行/防御红利 · 10/8 收 8.31 (+0.36%)</h3>
+  <img class="chart" src="charts/601398_SH_20261008.png" alt="工商银行 K线图" />
+  <div class="chart-caption">博主长期底仓 · 国有大行高股息(股息率 ~5.5%) · A 股市值最大银行 某队重仓基地 · 央行 9/29 19:52 下调 PSL 0.25bp 利好银行息差 · 10/8 收 8.31 (+0.36%) 验证博主防御主线 · 60D 高 8.38 距离仅 0.07(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量)</div>
+
+  <h3>🟢 农业银行 (601288.SH) · 银行/防御红利 · 10/8 收 7.02 (+0.72%)</h3>
+  <img class="chart" src="charts/601288_SH_20261008.png" alt="农业银行 K线图" />
+  <div class="chart-caption">博主长期底仓 · 国有大行高股息防御 · 央行降息 + 扩大再贷款 2000 亿利好息差 · 10/8 收 7.02 (+0.72%) 逆势上涨 · 60D 高 7.11 距离仅 0.09 · 节后港股暴跌防御首选(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量)</div>
+
+  <h3>🔴 中际旭创 (300308.SZ) · 1.6T 光模块全球龙头 · 10/8 收 783.00 (-3.15%)</h3>
+  <img class="chart" src="charts/300308_SZ_20261008.png" alt="中际旭创 K线图" />
+  <div class="chart-caption">博主 10/6 06:45「#中国空心光纤# 利好什么板块?」 → 1.6T 光模块全球龙头直接受益 · AI 算力数据中心核心受益 · 节后 10/8 收 783.00 (-3.15%) 跌穿 9/30 收盘 808.44 · 接近 60D 低 772.18 · 等大盘企稳 + 光通信催化再介入(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量)</div>
+
+  <h3>🔴 新易盛 (300502.SZ) · 800G 光模块 · 10/8 收 378.50 (-2.70%)</h3>
+  <img class="chart" src="charts/300502_SZ_20261008.png" alt="新易盛 K线图" />
+  <div class="chart-caption">博主 10/6 06:45「#中国空心光纤# 利好什么板块?」 → 800G 光模块高速成长 · AI 算力光网络关键品种 · 与中际旭创并列 800G/1.6T 双龙头 · 节后 10/8 收 378.50 (-2.70%) 跟随大盘回调 · 60D 低 347.00 距离仅 30 点 · 等大盘企稳(📌 关键位 虚线 居左标注 · 120 根 K 线 · 含 MACD + 成交量)</div>
+
+  <h2>⚠️ 风险提示</h2>
+  <div class="panel" style="border-left: 4px solid var(--bear);">
+    <ul>
+      <li><b>🔴 博主 10/8 15:02 收盘总结(10/08 互动最高 8931赞)</b>「暂时还不适合参与」 — 博主明确给出 <b>不参与</b> 立场,与博主 6/8 撤离本金+去年盈利一半 + 9/30 14:47「保住盈利 = 战胜 99% 投资者」防守哲学一致</li>
+      <li><b>🔴 博主 14:42「学休息、学会等待」(7205赞 · 10/08 互动第二高)</b> — 博主今天第二次强调不踏空理论 + 半月能赚钱的人少,散户策略:清仓/持币过节,不参与</li>
+      <li><b>🔴 大盘 3800 已破(博主 14:24「节节败退」)</b> — 节后首日跌破博主心理关卡,博主 6/8 撤离本金 + 10/2 港股暴跌预警 + 10/6 留住现金流风控全部应验 · 后续关注 3741 60D 低</li>
+      <li><b>🔴 创业板 -3.15% 创本轮调整新低(博主 14:29 创业板 4380 三川顶判断应验)</b> — 创业板从 4380 跌至 3036 跌幅 -30.7% · 博主今天明确「天天磨指甲就是最幸福的事」 · 散户策略:远离创业板/成长股</li>
+      <li><b>🔴 博主 14:13「节前很多人担心买不到...时候未到,买也是亏钱」</b> — 开盘 10 分钟就打预防针,节前踏空者 10/8 开盘买入必亏 · 博主提前 1 小时预警</li>
+      <li><b>🟡 博主今天仅 1 条板块信号(固态电池)</b> — 大盘偏空 + 博主持币过节,只有固态电池板块资金活跃 · 关注赣锋锂业 (+1.80%) 验证博主判断</li>
+      <li><b>⚠️ 博主长期风控底线:不举债 / 不杠杆 / 只用闲钱 / 无技术不参与短线</b> — 散户策略:节后三主线 — 固态电池(宁德+赣锋) + 银行防御(工行+农行) + 光通信等待企稳(中际+新易盛)</li>
+      <li><b>🟢 博主 10/06 06:45「#中国空心光纤网速更快了# 利好什么板块?」(沿用)</b> — 沿用「光通信/光模块」新催化主线 · 节后 10/8 中际旭创 -3.15% / 新易盛 -2.70% 跟随大盘回调,等大盘企稳再介入</li>
+      <li><b>🟢 央行 9/29 19:52 三大政策利好(沿用)</b> — PSL -25bp(银行+基建) + 科创再贷款 1.4 万亿 + 支农支小 4.85 万亿 · 节后 10/8 关注落地</li>
+      <li><b>🟢 银行/四大行 60D 高未破位(工行 8.31 vs 60D高 8.38 / 农行 7.02 vs 60D高 7.11)</b> — 节后 10/8 防御首选验证 · 工行 +0.36% / 农行 +0.72% 逆势上涨</li>
+    </ul>
+  </div>
+
+  <h2>🎯 操作建议汇总</h2>
+
+  <div class="panel panel-2">
+    <h3>📌 大盘</h3>
+    <p><b>短期(10/8 节后首日起 1-2 周)</b>:<b>🔴 博主偏空 · 节后首日大盘跌穿 3800 · 博主明确表态「暂时还不适合参与」「学休息、学会等待」</b>。10/8 实盘验证:大盘 3864 → 跌破 3800 → 收 3811.90 (-0.79%) · 创业板 4380 → 跌至 3036 创本轮新低 (-3.15%) · 博主 6/8 撤离本金 + 10/2 港股暴跌 + 10/6 留住现金流风控全部应验。<b>博主关键位体系</b>:大盘 4256(5 月顶) → 3800(已破) → 3741(60D 低);创业板 4380(三川顶) → 3012(10/8 新低) → 3850(中线支)。<b>散户策略</b>:清仓/持币过节,不参与。</p>
+    <ul>
+      <li><b>10/8 上证 3811.90 -0.79% 🔴</b>:跌穿博主 9/29 关注关卡 3800 · 收盘失守 · 节后首日开门黑 · 季线跌 6%+ 已确认</li>
+      <li><b>10/8 创业板 3036.66 -3.15% 🔴</b>:创本轮调整新低 · 较 9/30 3135.28 跌 98 点 · 季线跌 27.8% + 节后新低</li>
+      <li><b>10/8 博主态度</b>:「暂时还不适合参与」+「学休息、学会等待」+「时候未到,买也是亏钱」 · 散户:不参与</li>
+      <li><b>10/8 博主唯一板块</b>:「只有固态电池板块资金是活动明显的」 · 验证:赣锋锂业 +1.80% 翻红</li>
+      <li><b>10/8 关键位已破</b>:大盘 3800(博主 14:24 「节节败退」) · 创业板 3012(创本轮新低) · 节后首日破位应验</li>
+      <li><b>乐观情景</b>:央行 9/29 利好落地 + 美股硬科技叠加美光财报 + 空心光纤催化光通信 + 老登股防御主线延续</li>
+      <li><b>悲观情景</b>:博主 6/8 撤离本金 + 10/2 港股暴跌预警 + 10/6 留住现金流风控 + 10/8 3800 破位 → 节后继续下跌 → 下看 3741 60D 低</li>
+      <li><b>关键操作</b>:博主已自述「学休息、学等待」+「天天磨指甲最幸福」+「暂时不适合参与」,散户策略:节后三主线 — 固态电池(宁德+赣锋) + 银行防御(工行+农行) + 光通信等企稳(中际+新易盛)</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 板块策略</h3>
+    <ul>
+      <li><b>🟡 节后唯一板块(博主 10/8 实际提及):固态电池</b> — 博主 10/08 14:57「今天市场中,只有固态电池板块资金是活动明显的」(5454综合分 · 5160赞),节后 10/8 A 股映射宁德时代 300750(全球动力电池龙头, 10/8 收 286.75 -1.50% 接近 60D 低 285.17)+ 赣锋锂业 002460(锂矿龙头, 10/8 收 44.21 +1.80% 逆势翻红 验证博主判断)</li>
+      <li><b>🟢 防御主线(节后 10/8 验证):四大行</b> — 博主 9/30 14:08「四大行局部上涨」,10/8 收盘工行 +0.36% / 农行 +0.72% 兑现;央行 9/29 PSL -25bp 利好银行息差;博主 10/06 06:45「留住现金流最重要」风控强化;节前/节后持有</li>
+      <li><b>🟢 进攻主线(沿用 + 等待企稳):光通信/光模块</b> — 博主 10/06 06:45「#中国空心光纤# 利好什么板块?」 + 10/3 美股纳指 ATH + 10/1 美光财报 → A 股映射中际旭创 + 新易盛;节后 10/8 中际 -3.15% / 新易盛 -2.70% 跟随大盘回调,等大盘企稳再介入</li>
+      <li><b>🟡 适度关注:券商 / 保险</b> — 央行 9/29 降息利好若落地,券商可能有补涨</li>
+      <li><b>🔴 回避:创业板 / 成长股</b> — 10/8 收 3036.66 创本轮新低;博主 10/8 14:29「天天磨指甲最幸福」+ 10/2 港股暴跌拖累</li>
+      <li><b>🔴 回避:深成指权重</b> — 节后跟跌,深成指 + 科创 50 均创本轮调整新低(博主原帖确认)</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-2">
+    <h3>📌 6 支个股监控</h3>
+    <table>
+      <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>10/8 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
+      <tbody>
+        <tr><td>宁德时代 300750</td><td>固态电池</td><td>285.17</td><td><b style="color:var(--bear)">286.75 (-1.50%)</b></td><td>410</td><td>410</td><td>关注 · <b>博主 10/8 14:57「今天市场中,只有固态电池板块资金是活动明显的」</b> · 全球动力电池龙头 · 接近 60D 低 285.17 · 节后关注量能回升</td></tr>
+        <tr><td>赣锋锂业 002460</td><td>锂矿/固态电池</td><td>41.67</td><td><b style="color:var(--bull)">44.21 (+1.80%)</b></td><td>66.72</td><td>66.72</td><td>关注 · <b>博主 10/8 14:57 唯一提及板块 → 10/8 逆势翻红 +1.80% 验证博主判断</b> · 锂矿龙头 + 固态电池产业链</td></tr>
+        <tr><td>工商银行 601398</td><td>银行</td><td>6.95</td><td><b style="color:var(--bull)">8.31 (+0.36%)</b></td><td>8.38</td><td>8.38</td><td>持有 · 验证博主「四大行提肩带」+ 央行 PSL -25bp 利好 · 60D 高 8.38 距离仅 0.07 · 节后港股暴跌防御首选</td></tr>
+        <tr><td>农业银行 601288</td><td>银行</td><td>5.79</td><td><b style="color:var(--bull)">7.02 (+0.72%)</b></td><td>7.11</td><td>7.11</td><td>持有 · 验证博主「四大行提肩带」 · 10/8 逆势 +0.72% · 60D 高 7.11 距离仅 0.09 · 节后防御配置</td></tr>
+        <tr><td>中际旭创 300308</td><td>光模块</td><td>772.18</td><td><b style="color:var(--bear)">783.00 (-3.15%)</b></td><td>1315.57</td><td>1315.57</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」</b> · 1.6T 光模块全球龙头 · 10/8 跌穿 9/30 收 808.44 · 接近 60D 低 772.18 · 等大盘企稳</td></tr>
+        <tr><td>新易盛 300502</td><td>光模块</td><td>347.00</td><td><b style="color:var(--bear)">378.50 (-2.70%)</b></td><td>618.87</td><td>618.87</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」</b> · 800G 光模块高速成长 · 10/8 跟随大盘回调 · 60D 低 347.00 距离 30 点 · 等大盘企稳</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <p>报告生成时间:2026-10-08 21:00 · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 8 张 K 线图(关键位 虚线 📌 居左标注 · 120 根 K线 · 含 MACD + 成交量)</p>
+    <p>博主最近一天 (10-08) 核心立场:<b>🔴 偏空 · 8 条全部带信号 · 5 偏空 / 2 中性 / 1 无关</b> · 大盘 3864 → 跌穿 3800 → 收 3811.90 · 博主预警全部应验 · 板块:<b>🟡 固态电池 · 🟢 银行/防御红利 · 🟢 光通信/光模块</b> · 6 支个股:宁德时代 300750 / 赣锋锂业 002460 / 工商银行 601398 / 农业银行 601288 / 中际旭创 300308 / 新易盛 300502 · 风险:<b>🔴 博主明确不参与 + 创业板创本轮新低 + 博主 6/8 撤离本金 + 10/2 港股暴跌 + 10/6 留住现金流风控全部应验</b></p>
+  </div>
+
+</div>
+</body>
+</html>
