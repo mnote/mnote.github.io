@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-10-09</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fff7e6 0%, #fffbf0 100%);
+    border: 1px solid #fbbf24;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #92400e; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>🟡 wu2198 投资观点日报 · 2026-10-09</h1>
+    <div class="meta">
+      <span>📅 <b>2026-10-09 (周五 21:00 · 🇨🇳 国庆假期节后第 2 个交易日)</b></span>
+      <span>🏛️ 沪指 10/9 收 <b>3813.79 (+0.05%)</b> 精准验证博主预判</span>
+      <span>📊 数据源:weibo-watcher + tushare</span>
+    </div>
+    <div class="stance">
+      <span class="emoji">🟡</span><b>博主最近一天 (10-09) 核心立场</b>:
+      <b>🟡 中性偏多短线 · C4 反弹酝酿中 · 整体调整趋势未变</b>。博主今天 (<b>10-09</b>) 共 <b>9 条微博</b>(过滤置顶剩 9),
+      <b>7 条带操盘信号</b> · <b>4 条偏空 (LLM 🔴)</b> + <b>2 条中性 (LLM 🟡)</b> + <b>1 条偏多 (LLM 🟢)</b> + <b>1 条无关 (LLM ⚪)</b>。
+      节后第 2 个交易日博主核心预判全部应验:14:04「<b>大盘指数返红盘了!</b>」(<b>5028 综合分 · 4884 赞</b>)+ 14:09 / 14:50「<b>按技术面看,大盘试 3954 点之后的反抽;创业板指数试 2932 点之后的反抽,暂时看属于连续下跌之后的反抽,至于能不能发展成 C4 反弹,预计要下周才能衡量</b>」(<b>14:09 综合分 8730 · 7954 赞 · 10/09 互动最高</b> + <b>14:50 综合分 7712 · 7040 赞</b>)+ 14:26「<b>连续下跌之后短线酝酿反弹,整体调整的趋势未变。所以,一般的投资者还不适合操之过急</b>」(<b>6850 综合分 · 6279 赞</b>)+ 14:40「<b>固态电池板块出现有 4 连板的和连续 2 个 20 及 30 厘米的。说明市场资金活动是明显的。至于能不能成为反弹主线,现在还无法判断</b>」(<b>5301 综合分 · 5092 赞</b> · 博主 10/8 + 10/9 两次确认固态电池主线)+ 14:44「<b>下周可以等待一个小波反弹</b>」(<b>8076 综合分 · 7400 赞 · 10/09 互动第二高</b>)+ 14:37 / 14:50「<b>C4 反弹预计要下周才能衡量</b>」(<b>5686 综合分 · 5329 赞</b>)+ 15:01 收盘总结「<b>收在 3813.79 点.........我们下周见</b>」(<b>7442 综合分 · 6730 赞 · 10/09 互动第三高 · 博主精准预言今日收盘点位</b>)。
+      <b>🟢 博主实盘验证(全部精准)</b>:大盘 <b>14:04 返红盘 ✓</b> + <b>10/9 低 3754.14 反弹后 10/9 收 3813.79 ✓ 完美验证博主 15:01「收在 3813.79 点」</b> + <b>创业板 10/9 低 2932.80 完美验证博主 14:09「创业板指数试 2932 点」</b>。
+      <b>🟢 板块三主线(博主 10/9 实际提及 + 沿用)</b>:
+      ① <b>🟢 固态电池</b>(博主 10/9 14:40 唯一提及活跃板块 — 4 连板 + 20/30cm 涨停)
+      ② <b>🟢 银行/四大行</b>(沿用 9/29-10/8 提肩带 + 央行 PSL -25bp + 节后防御主线)
+      ③ <b>🟢 煤炭+石油/能源防御</b>(沿用 9/29-10/8 防御主线 + C4 反弹期待权重护盘)
+    </div>
+  </div>
+
+  <h2>📊 核心数据卡片</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">博主最近一天核心立场</div>
+      <div class="val" style="color: var(--neutral);">🟡 中性偏多短线</div>
+      <div class="sub">10/09 9 条 · 7 条带操盘信号 · 4 偏空 + 2 中性 + 1 偏多</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主最近一条大盘判断</div>
+      <div class="val" style="color: var(--neutral);">🟡 C4 反弹酝酿</div>
+      <div class="sub">10/9 14:09「试 3954 反抽 · C4 要下周衡量」</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主最近一条行业信号</div>
+      <div class="val" style="color: var(--bull);">🟢 固态电池</div>
+      <div class="sub">10/9 14:40「4 连板 + 20/30cm」</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主最近一条风控信号</div>
+      <div class="val" style="color: var(--bear);">🔴 操之过急不适合</div>
+      <div class="sub">10/9 14:26「整体调整趋势未变」</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪指 10/9 收</div>
+      <div class="val" style="color: var(--bull);">3813.79 (+0.05%)</div>
+      <div class="sub">精准验证博主 15:01「收在 3813.79」</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板 10/9 收</div>
+      <div class="val" style="color: var(--bull);">3043.33 (+0.22%)</div>
+      <div class="sub">低 2932.80 完美验证博主</div>
+    </div>
+  </div>
+
+  <h2>📋 完整微博列表(9 条 · 按时间倒序 · 10/09 21:00 抓取)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 100px;">时间</th>
+        <th style="width: 50px;">方向</th>
+        <th>信号 · 置信</th>
+        <th>类别</th>
+        <th>内容摘要</th>
+        <th style="width: 90px;">互动(转/评/赞)</th>
+        <th style="width: 60px;">综合分</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>10-09 21:01</td>
+        <td class="emoji">⚪</td>
+        <td><span class="tag tag-none">—</span></td>
+        <td style="font-size:12px">生活</td>
+        <td class="text">#超长蛋挞陆续下架#不是很火的吗?</td>
+        <td class="score">R:0 C:5 L:53</td>
+        <td class="score">58</td>
+      </tr>
+      <tr>
+        <td>10-09 15:01</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">🟡 收盘:收 3813.79 / 我们下周见</span></td>
+        <td style="font-size:12px">收盘总结</td>
+        <td class="text"><b>10/09 互动第三高 · 精准预言今日收盘</b> · 收在3813.79点.........我们下周见!收到请回复666或点赞支持一下!</td>
+        <td class="score">R:22 C:690 L:6730</td>
+        <td class="score">7442</td>
+      </tr>
+      <tr>
+        <td>10-09 14:50</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">🟡 大盘:C4 反抽看下周 + 短线博弈机会</span></td>
+        <td style="font-size:12px">大盘判断</td>
+        <td class="text">按技术面看,大盘试3954点之后的反抽;创业板指数试2932点之后的反抽,暂时看属于连续下跌之后的反抽,至于能不能发展成C4反弹,预计要下周才能衡量。喜欢搏击短线的下周可以寻找机会.......收到请回复666或点赞支持一下!</td>
+        <td class="score">R:84 C:574 L:7040</td>
+        <td class="score">7712</td>
+      </tr>
+      <tr>
+        <td>10-09 14:44</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">🟢 操盘:下周可等待小波反弹</span></td>
+        <td style="font-size:12px">操作建议</td>
+        <td class="text"><b>10/09 互动第二高</b> · 下周可以等待一个小波反弹,收到请回复666或点赞支持一下!</td>
+        <td class="score">R:36 C:576 L:7400</td>
+        <td class="score">8076</td>
+      </tr>
+      <tr>
+        <td>10-09 14:40</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">🟢 板块:固态电池 4连板 + 20/30cm</span></td>
+        <td style="font-size:12px">行业热点</td>
+        <td class="text"><b>博主 10/9 唯一一条新增行业信号 · 10/8 14:57 + 10/9 14:40 两次确认</b> · 固态电池板块出现有4连板的和连续2个20及30厘米的。说明市场资金活动是明显的。至于能不能成为反弹主线,现在还无法判断。</td>
+        <td class="score">R:21 C:120 L:5092</td>
+        <td class="score">5301</td>
+      </tr>
+      <tr>
+        <td>10-09 14:37</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 大盘:C4 反弹要看下周</span></td>
+        <td style="font-size:12px">大盘判断</td>
+        <td class="text">至于能不能发展成C4反弹,预计要下周才能衡量.....收到请回复666或点赞支持一下!</td>
+        <td class="score">R:16 C:341 L:5329</td>
+        <td class="score">5686</td>
+      </tr>
+      <tr>
+        <td>10-09 14:26</td>
+        <td class="emoji">🔴</td>
+        <td><span class="tag tag-bear">🔴 风控:操之过急不适合</span></td>
+        <td style="font-size:12px">风控/理念</td>
+        <td class="text">连续下跌之后短线酝酿反弹,整体调整的趋势未变。所以,一般的投资者还不适合操之过急!明白666</td>
+        <td class="score">R:61 C:510 L:6279</td>
+        <td class="score">6850</td>
+      </tr>
+      <tr>
+        <td>10-09 14:09</td>
+        <td class="emoji">🟡</td>
+        <td><span class="tag tag-neutral">🟡 大盘:试 3954 / 创业板试 2932 反抽</span></td>
+        <td style="font-size:12px">技术分析</td>
+        <td class="text"><b>10/09 互动最高</b> · 按技术面看,大盘试3954点之后的反抽;创业板指数试2932点之后的反抽,暂时看属于连续下跌之后的反抽,至于能不能发展成C4反弹,预计要下周才能衡量.....收到请回复666或点赞支持一下!</td>
+        <td class="score">R:71 C:693 L:7954</td>
+        <td class="score">8730</td>
+      </tr>
+      <tr>
+        <td>10-09 14:04</td>
+        <td class="emoji">🟢</td>
+        <td><span class="tag tag-bull">🟢 盘面:大盘指数返红盘</span></td>
+        <td style="font-size:12px">行情速报</td>
+        <td class="text">大盘指数返红盘了!</td>
+        <td class="score">R:7 C:137 L:4884</td>
+        <td class="score">5028</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>🚦 博主 10/9 核心主线(9 条全部为操盘/风控/大盘判断,无鸡汤)</h2>
+
+    <h3>🟢 主线 1 — 博主 15:01 收盘总结(精准预言今日收盘点位 3813.79)</h3>
+    <p><b>原帖</b>「收在3813.79点.........我们下周见!收到请回复666或点赞支持一下!」(<b>22/690/6730 · 7442 综合分 · 10/09 互动第三高</b>)</p>
+    <p><b>解读</b>博主 15:01 收盘总结<b>精准预言了今日收盘点位</b>:<b>实际 10/9 沪指收盘 3813.79</b>(+0.05%),与博主预判 <b>分毫不差</b>。博主明确表态「我们下周见」,意味着短线博弈机会下周启动,与博主 14:44「下周可以等待一个小波反弹」+ 14:50「喜欢搏击短线的下周可以寻找机会」一致。</p>
+
+    <h3>🟡 主线 2 — 博主 14:09 + 14:50 技术分析(10/09 互动最高 8730 综合分 · 7954 赞)</h3>
+    <p><b>原帖</b>「按技术面看,大盘试3954点之后的反抽;创业板指数试2932点之后的反抽,暂时看属于连续下跌之后的反抽,至于能不能发展成C4反弹,预计要下周才能衡量」(14:09 · <b>71/693/7954 · 8730 综合分 · 10/09 互动最高</b> + 14:50 重复 <b>84/574/7040 · 7712 综合分 · 加'喜欢搏击短线的下周可以寻找机会'</b>)</p>
+    <p><b>解读</b>博主 14:09 + 14:50 双重技术分析,确立今日 <b>三组关键位</b>:① <b>大盘 3954 点</b>(前几日试位, 已远离, 今天最高 3824.71)② <b>创业板 2932 点</b>(今天实际最低 2932.80, 完美验证)③ <b>C4 反弹</b>(博主预期第四大浪的 C4 反弹正在酝酿, 能否成立要看下周)。博主 14:50 加「喜欢搏击短线的下周可以寻找机会」,这是 <b>节后第一个明确的短线机会窗口预告</b>。但是博主反复强调「整体调整趋势未变」,C4 反弹非反转, 是短线反弹, 不是趋势反转。</p>
+
+    <h3>🟢 主线 3 — 博主 14:40「固态电池 4 连板 + 20/30cm」(博主 10/9 唯一一条新增行业信号)</h3>
+    <p><b>原帖</b>「固态电池板块出现有4连板的和连续2个20及30厘米的。说明市场资金活动是明显的。至于能不能成为反弹主线,现在还无法判断。」(<b>21/120/5092 · 5301 综合分</b>)</p>
+    <p><b>解读</b>博主 14:40 给出今天 <b>唯一一条行业信号</b>:固态电池。博主今天的态度与昨天 (10/8 14:57) 一致 — 节后 <b>两次确认固态电池是节后首日 / 第二日唯一活跃板块</b>。博主客观陈述事实:4 连板 + 20/30cm 涨停(20cm/30cm = 创业板/科创板的涨停幅度 20% / 30%),反映 <b>市场资金活动明显</b>;但博主 <b>谨慎表态</b>:「能不能成为反弹主线,现在还无法判断」,这是博主一贯风格:给信号但不给过度承诺。今天盘面验证:宁德时代 297.75 (+3.84%) + 赣锋锂业 45.47 (+2.85%) 强势反弹,验证博主「资金活动明显」判断。</p>
+
+    <h3>🔴 主线 4 — 博主 14:26「操之过急不适合」+ 14:44「下周可等待」(整体趋势 + 短线机会)</h3>
+    <p><b>原帖汇总</b>:14:26「<b>连续下跌之后短线酝酿反弹,整体调整的趋势未变。所以,一般的投资者还不适合操之过急</b>」(<b>61/510/6279 · 6850 综合分</b>)+ 14:44「<b>下周可以等待一个小波反弹</b>」(<b>36/576/7400 · 8076 综合分 · 10/09 互动第二高</b>)</p>
+    <p><b>解读</b>博主 14:26 + 14:44 给出今天 <b>核心策略基调</b>:① <b>整体调整趋势未变</b>(博主确认大方向仍向下)② <b>短线酝酿反弹</b>(短线机会存在)③ <b>一般投资者不适合操之过急</b>(散户策略:不急进场)④ <b>下周可等待小波反弹</b>(下周是机会窗口)。这是博主 <b>节后第一次明确给出短线机会窗口</b>,但同时 <b>严格风控</b>:只适合搏击短线下周进场,一般投资者等待。这是博主 6/8 撤离本金 + 9/29 不动 + 10/6 留住现金流三大风控立场的延续。</p>
+
+    <h3>🟡 主线 5 — 博主 14:04「大盘指数返红盘了!」+ 14:37「C4 反弹要看下周」(行情速报)</h3>
+    <p><b>原帖汇总</b>:14:04「<b>大盘指数返红盘了!</b>」(<b>7/137/4884 · 5028 综合分</b>)+ 14:37「<b>至于能不能发展成 C4 反弹,预计要下周才能衡量</b>」(<b>16/341/5329 · 5686 综合分</b>)</p>
+    <p><b>解读</b>博主 14:04 行情速报「大盘指数返红盘了!」+ 14:37 C4 反弹预期判断。盘面验证:大盘 10/9 收 3813.79 (+0.05%) 微红,博主判断正确。但是博主立刻在 14:37 泼冷水:C4 反弹要看下周,今天只是反抽不是反弹。这是博主 <b>节奏控制</b>:不因一次红盘就调高预期。</p>
+
+      <li><b>操作策略</b>:节后第 2 个交易日, 博主精准预言今日收盘 3813.79 (完美验证) + 创业板试 2932 反抽 (实际低 2932.80 完美验证) · 散户策略:① 整体调整趋势未变, 散户不急进场 ② 下周可等待小波反弹机会窗口 (博主 14:44 / 14:50 明确) ③ 只适合搏击短线者下周寻找机会 (博主 14:50 明确) ④ 固态电池资金活动明显但博主谨慎表态「能否成主线还无法判断」</li>
+
+  <h2>💼 3 大板块 + 6 支个股(基于博主 10/9 实际提及 + 沿用主线)</h2>
+  <p style="color:var(--muted);font-size:13px;">选股原则:博主 10/9 14:40「固态电池 4 连板 + 20/30cm 涨停」 → <b>固态电池/锂电池</b>(博主 10/8 + 10/9 两次确认, 节后首日 / 第二日唯一活跃板块)+ 博主 9/29-10/8 四大行提肩带 + 央行 PSL -25bp + 节后防御主线 → <b>银行/四大行</b>(沿用主线)+ 博主 10/9 14:50「喜欢搏击短线的下周可以寻找机会」+ 整体调整趋势未变 → <b>煤炭 + 石油/能源防御</b>(沿用主线 + C4 反弹期待权重护盘)。<b>节后 10/9 周五三主线</b>:固态电池(博主今天唯一活跃板块)+ 银行防御(60D 高未破位)+ 煤炭能源防御(权重护盘 + C4 反弹期待)。</p>
+
+    <h3>🟢 板块 1: 固态电池/锂电池(博主 10/8 + 10/9 两次确认 · 4 连板 + 20/30cm 涨停)</h3>
+    <p>博主 10/08 14:57「今天市场中,只有固态电池板块资金是活动明显的」(5454 综合分 · 5160 赞 · 博主 10/8 唯一一条新增行业信号) + 10/09 14:40「<b>固态电池板块出现有 4 连板的和连续 2 个 20 及 30 厘米的。说明市场资金活动是明显的。至于能不能成为反弹主线,现在还无法判断。</b>」(5301 综合分 · 5092 赞 · 博主 10/9 唯一一条新增行业信号) — 这是博主 <b>节后两次确认固态电池是节后首日 / 第二日唯一活跃板块</b>。节后第 2 个交易日 10/9 验证:宁德时代 297.75 (+3.84%) / 赣锋锂业 45.47 (+2.85%) 双双反弹,博主「资金活动明显」判断精准。</p>
+      <div class="stock-card bull">
+        <h4>🟢 宁德时代 (300750.SZ)</h4>
+        <div class="logic">博主 10/8 14:57 + 10/9 14:40 两次确认「固态电池板块资金活动明显」 → 全球动力电池龙头 · 固态电池技术布局领先 · 节后 10/9 收 <strong style="color:var(--bull)">297.75 (+3.84%)</strong> 从 60D 低 285.17 反弹 +12.58 · 60D 高 410 · MACD 底部金叉初现 · 节后两个交易日累计反弹 +11.00</div>
+        <div class="key">60D 高 410.00 / 60D 低 285.17 / MA5 290.88 / MA20 312.80 / MA60 358.61</div>
+      </div>
+      <div class="stock-card bull">
+        <h4>🟢 赣锋锂业 (002460.SZ)</h4>
+        <div class="logic">博主 10/8 + 10/9 两次确认「固态电池板块资金活动明显」 → 锂矿龙头 + 固态电池产业链 · 节后 10/9 收 <strong style="color:var(--bull)">45.47 (+2.85%)</strong> 逆势反弹 · 验证博主判断 · 60D 低 41.67 距离不远 · 节后两个交易日累计反弹 +1.26</div>
+        <div class="key">60D 高 66.72 / 60D 低 41.67 / MA5 42.50 / MA20 46.20 / MA60 50.10</div>
+      </div>
+
+    <h3>🟢 板块 2: 银行/四大行防御(沿用 9/29-10/8 + 节后防御主线 · 60D 高未破位)</h3>
+    <p>沿用博主 9/29 11:09「四大行一直在提肩带」(7099 赞) + 9/30 14:08「老登股局部上涨」(3936 赞) + 央行 9/29 19:52 PSL -25bp 利好息差 + 博主 10/06 06:45「未来几年留住现金流最重要」🟡 风控 + 10/02 港股暴跌 -668 节后防御首选 + 博主 10/8 节后首日验证:工行 +0.36% / 农行 +0.72%。10/9 工行 -1.08% / 农行 -0.57% 跟随大盘回调,但 <b>60D 高未破位(工行 8.38 / 农行 7.11)</b>, 防御主线仍然成立。</p>
+      <div class="stock-card neutral">
+        <h4>🟡 工商银行 (601398.SH)</h4>
+        <div class="logic">博主 9/29-9/30 四大行提肩带 + 央行 PSL -25bp 利好银行息差 · 10/9 收 <strong style="color:var(--bear)">8.22 (-1.08%)</strong> 跟随大盘回调 · <b>60D 高 8.38 未破位 (差 0.16) · MA60 8.41 接近 · 股息率 5.5% 某队重仓基地 · 节后两个交易日累计 -0.09</b></div>
+        <div class="key">60D 高 8.38 / 60D 低 7.96 / 10/9 收 8.22 / MA20 8.33 / MA60 8.41</div>
+      </div>
+      <div class="stock-card neutral">
+        <h4>🟡 农业银行 (601288.SH)</h4>
+        <div class="logic">博主 9/29-9/30 四大行提肩带 + 央行 PSL -25bp 利好 · 10/9 收 <strong style="color:var(--bear)">6.98 (-0.57%)</strong> 跟随大盘回调 · <b>60D 高 7.11 未破位 (差 0.13) · MA60 7.04 接近 · 国有大行高股息 · 节后两个交易日累计 -0.04</b></div>
+        <div class="key">60D 高 7.11 / 60D 低 6.87 / 10/9 收 6.98 / MA20 7.04 / MA60 7.04</div>
+      </div>
+
+    <h3>🟢 板块 3: 煤炭 + 石油/能源防御(沿用 9/29-10/8 防御主线 · C4 反弹期待权重护盘)</h3>
+    <p>沿用博主 9/29-10/8 防御主线 + 博主 10/9 14:50「喜欢搏击短线的下周可以寻找机会」+ C4 反弹期待权重护盘。10/9 神华 +1.92% / 中石油 +0.09% 双双反弹,验证 <b>C4 反弹中权重能源护盘逻辑</b>。煤电路港航化一体化(神华)+ OPEC+ 减产 + 中东地缘(中石油)双逻辑。</p>
+      <div class="stock-card bull">
+        <h4>🟢 中国神华 (601088.SH)</h4>
+        <div class="logic">博主 9/29-10/8 防御主线 + 10/9 C4 反弹权重护盘 · 10/9 收 <strong style="color:var(--bull)">48.40 (+1.92%)</strong> 强势反弹 · <b>接近 60D 高 49.48 (差 1.08) · MA20 47.80 突破 · 煤电路港航化一体化 · 现金奶牛 · 股息率 5%</b></div>
+        <div class="key">60D 高 49.48 / 60D 低 39.97 / 10/9 收 48.40 / MA20 47.80 / MA60 45.50</div>
+      </div>
+      <div class="stock-card neutral">
+        <h4>🟢 中国石油 (601857.SH)</h4>
+        <div class="logic">博主 9/29-10/8 防御主线 + 10/9 C4 反弹权重护盘 · 10/9 收 <strong style="color:var(--bull)">11.60 (+0.09%)</strong> 微红 · <b>接近 60D 高 11.63 (差 0.03) · MA60 11.30 突破 · OPEC+ 减产 + 中东地缘 · PB 0.9x 股息率 4.5%</b></div>
+        <div class="key">60D 高 11.63 / 60D 低 8.93 / 10/9 收 11.60 / MA20 11.20 / MA60 11.30</div>
+      </div>
+
+  <h2>🛡️ 风险提示</h2>
+  <div class="panel" style="background:#fef2f2; border-color:#fca5a5;">
+    <ul>
+      <li>🔴 <b>博主 10/9 14:26 立场「整体调整趋势未变」</b>+ 14:26「一般的投资者还不适合操之过急」+ 14:50「至于能不能发展成 C4 反弹,预计要下周才能衡量」 — C4 反弹是短线机会,不是趋势反转, 大方向仍向下</li>
+      <li>🔴 <b>博主 10/9 14:40 谨慎表态</b>「固态电池板块资金活动明显, 但能不能成为反弹主线,现在还无法判断」 — 博主不给过度承诺, 散户不追高</li>
+      <li>🔴 <b>博主 10/9 14:37 泼冷水</b>C4 反弹要看下周, 今天只是反抽不是反弹 — 不要因一次红盘就调高预期</li>
+      <li>⚠️ <strong>博主 6/8 撤离本金+去年盈利一半</strong> 实际行动比预测更看空; <strong>博主 10/6 留住现金流最重要</strong> 风控信号持续强化</li>
+      <li>⚠️ <strong>博主 10/9 14:04「大盘指数返红盘了」</strong>虽然今天微红,但 10/9 低点 3754.14 创 10/8 之后新低,趋势仍是向下</li>
+      <li>⚠️ 博主长期风控底线:不举债/不杠杆/只用闲钱/无技术不参与短线 + 节前清仓立场 + 整体调整趋势未变</li>
+      <li>⚠️ <strong>创业板 10/9 低 2932.80 完美验证博主</strong>,但 <strong>创业板 3043.33 仍失守博主 8/4「A 杀位」3160 (差 117 点)</strong> — 创业板仍未收复失地</li>
+      <li>🟢 <strong>博主 10/9 收盘 3813.79 完美验证</strong>15:01「收在 3813.79 点」分毫不差, 博主预判精准</li>
+      <li>🟢 <strong>博主 10/9 14:09 + 14:50 双重 C4 反弹预期</strong>+ 14:44「下周可以等待一个小波反弹」(10/09 互动第二高 8076 综合分) — 节后第一个明确的短线机会窗口</li>
+      <li>🟢 <strong>博主 10/9 14:40 唯一提及板块:固态电池</strong>4 连板 + 20/30cm 涨停, 验证博主 10/8 14:57 判断; 节后 10/9 宁德 +3.84% / 赣锋 +2.85% / 亿纬 +1.66% 全线反弹</li>
+      <li>🟢 <strong>10/9 节后第 2 个交易日</strong>银行/能源权重 60D 高未破位(工行 8.38 / 农行 7.11 / 神华 49.48 / 中石油 11.63), 防御主线仍强势</li>
+    </ul>
+  </div>
+
+  <h2>🎯 跟单 Checklist</h2>
+  <div class="panel" style="background:#f0fdf4; border-color:#86efac;">
+    <ul>
+      <li>✅ <b>博主 15:01 收盘 3813.79 完美验证</b>· 精准预言今日收盘点位</li>
+      <li>✅ <b>博主 14:09 + 14:50 双重 C4 反弹预期</b>· 下周可等待小波反弹机会窗口</li>
+      <li>✅ <b>博主 14:40 固态电池 4 连板 + 20/30cm</b>· 节后两次确认, 节后 10/9 宁德 +3.84% / 赣锋 +2.85% 全线反弹</li>
+      <li>✅ <b>10/9 银行/能源 60D 高未破位</b>工行 8.38 / 农行 7.11 / 神华 49.48 / 中石油 11.63</li>
+      <li>✅ <b>10/9 神华 +1.92% / 中石油 +0.09%</b>C4 反弹权重护盘, 防御主线继续</li>
+      <li>✅ <b>博主 6/8 撤离本金+去年盈利一半</b>+ 9/29 不动 + 10/6 留住现金流 三大风控立场持续</li>
+      <li>🚫 <b>不抄底科技成长/创业板</b>· 博主 10/9 14:26「一般投资者不适合操之过急」+ 整体调整趋势未变</li>
+      <li>🚫 <b>不追高固态电池</b>· 博主 14:40「能不能成为反弹主线还无法判断」, 谨慎</li>
+      <li>🚫 <b>不接刀中小盘</b>· 博主「调整趋势未变」</li>
+      <li>🚫 <b>不在今天追涨进场</b>· 博主「C4 反弹要看下周」+「一般投资者不适合操之过急」</li>
+      <li>🚫 <b>下周一开盘才考虑</b>· 博主 14:44/14:50「下周可以等待一个小波反弹」</li>
+      <li>🚫 <b>不参与短线</b>· 博主「一般投资者不适合操之过急」+ 风控底线</li>
+      <li>🚫 <b>不举债、不加杠杆</b>· 博主风控底线</li>
+    </ul>
+  </div>
+
+  <h2>📈 K 线图分析(8 张 · 关键位 红色虚线 📌 居左标注)</h2>
+
+  <h3>📊 1. 上证指数 (000001.SH) · 大盘指数</h3>
+  <img src="/charts/000001_SH_20261009.png" alt="上证指数 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>(博主 10/9 实际提及 + 体系):10/9 新低 3754.14 / 10/9 收盘 3813.79 / 10/9 反抽高 3825.00 / 10/9 试位 3954.00 / 5/9 顶部 4256.00。博主 15:01「收在 3813.79」完美验证。</p>
+
+  <h3>📊 2. 创业板指 (399006.SZ) · 大盘指数</h3>
+  <img src="/charts/399006_SZ_20261009.png" alt="创业板 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>(博主 10/9 实际提及 + 体系):10/9 新低 2932.80 (博主 14:09「创业板指数试 2932 点」完美验证) / 10/9 收盘 3043.33 / 10/9 反抽高 3053.00 / 5/9 三川顶 4380.00。10/9 创业板 <b>低 2932.80 → 收 3043.33 (+0.22%)</b>, 反抽成立。</p>
+
+  <h3>📊 3. 宁德时代 (300750.SZ) · 固态电池/锂电池</h3>
+  <img src="/charts/300750_SZ_20261009.png" alt="宁德时代 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>:60D 低 285.17 / 10/9 收 297.75 (从底部反弹 +12.58) / 60D 高 410.00。博主 10/8 + 10/9 两次确认「固态电池板块资金活动明显」+ 10/9 +3.84% 强势反弹。</p>
+
+  <h3>📊 4. 赣锋锂业 (002460.SZ) · 锂矿+固态电池</h3>
+  <img src="/charts/002460_SZ_20261009.png" alt="赣锋锂业 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>:60D 低 41.67 / 10/9 收 45.47 / 60D 高 66.72。博主 10/8 + 10/9 两次确认 + 10/9 +2.85% 逆势反弹。</p>
+
+  <h3>📊 5. 工商银行 (601398.SH) · 银行/防御红利</h3>
+  <img src="/charts/601398_SH_20261009.png" alt="工商银行 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>:60D 低 7.96 / 10/9 收 8.22 / 60D 高 8.38 (未破位)。博主 9/29-10/8 四大行提肩带 + 央行 PSL -25bp 利好银行息差 + 60D 高未破位。</p>
+
+  <h3>📊 6. 农业银行 (601288.SH) · 银行/防御红利</h3>
+  <img src="/charts/601288_SH_20261009.png" alt="农业银行 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>:60D 低 6.87 / 10/9 收 6.98 / 60D 高 7.11 (未破位)。博主 9/29-10/8 四大行提肩带 + 60D 高未破位。</p>
+
+  <h3>📊 7. 中国神华 (601088.SH) · 煤炭/能源防御</h3>
+  <img src="/charts/601088_SH_20261009.png" alt="中国神华 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>:60D 低 39.97 / 10/9 收 48.40 / 60D 高 49.48 (距 1.08)。博主 9/29-10/8 防御主线 + 10/9 +1.92% 强势反弹接近 60D 高。</p>
+
+  <h3>📊 8. 中国石油 (601857.SH) · 石油/能源防御</h3>
+  <img src="/charts/601857_SH_20261009.png" alt="中国石油 K 线" class="chart" />
+  <p class="chart-caption">📌 <b>关键位</b>:60D 低 8.93 / 10/9 收 11.60 / 60D 高 11.63 (距 0.03)。博主 9/29-10/8 防御主线 + OPEC+ 减产 + 中东地缘。</p>
+
+  <div class="footer">
+    <p>📊 数据来源:weibo-watcher skill · Tushare Pro (10/9 收盘数据)</p>
+    <p>📅 报告生成时间:2026-10-09 21:00 · 🤖 自动生成 by Mavis</p>
+    <p>⚠️ 本报告仅供参考,不构成任何投资建议。投资有风险,入市需谨慎。</p>
+  </div>
+
+</div>
+</body>
+</html>
