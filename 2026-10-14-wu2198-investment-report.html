@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-10-14</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fff7e6 0%, #fffbf0 100%);
+    border: 1px solid #fbbf24;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #92400e; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .hero-turn {
+    background: linear-gradient(135deg, #fef2f2 0%, #fff7f7 100%);
+    border: 1px solid var(--bear);
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin: 18px 0;
+  }
+  .hero-turn h3 { color: #991b1b; margin-top: 0; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-10-14（周三）</h1>
+    <p class="meta">
+      <span>🕐 抓取时间 2026-10-14 21:00</span>
+      <span>👤 wu2198（UID 1216826604 · 47.3w 粉丝）</span>
+      <span>📊 数据源 weibo-watcher skill + Tushare Pro</span>
+      <span>📈 行情 10/14 收盘</span>
+    </p>
+    <p class="stance">
+      <span class="emoji">🟢</span>
+      <strong>博主全天四次强化 C4 反弹，14:51 措辞由「耐心等待」升级为「<strong>布局 C4</strong>」——但 C4 反弹当天即告失败，创业板暴跌 3.10%。</strong>
+    </p>
+  </div>
+
+  <div class="hero-turn">
+    <h3>⚠️ 今日核心矛盾：点位分毫不差，方向却判反了</h3>
+    <p>博主 09:36 预判「今天早上 <strong>3756 点</strong>左右等待反击」，15:06 预判「<strong>收 3767 点</strong>」——两个点位与实际行情几乎完全吻合（实际低 3761.96、收 3767.23）。</p>
+    <p>但当天走势是 <strong>高开冲高 3811.81 后一路回落</strong>，收盘 3767.23 恰好落在日内最低点附近。沪指 <strong>-0.88%</strong>、沪深300 <strong>-1.36%</strong>、创业板 <strong>-3.10%</strong>。</p>
+    <p style="margin-bottom:0"><strong>最值得警惕的一点：</strong>博主 10/13 自己定的硬门槛是「按力度看要<strong>收复 3836 点</strong>才算有力度」。10/14 最高仅 3811.81，<strong>门槛连续第二个交易日未满足</strong>——但他在 14:51 却直接喊出「布局 C4」。<strong>博主自己设定的验证条件没通过，就跳过了门槛，这是今日最大的操作风险。</strong></p>
+  </div>
+
+  <h2>📊 核心指标一览</h2>
+  <div class="grid-3">
+    <div class="kpi">
+      <div class="label">上证指数</div>
+      <div class="val" style="color:var(--bear)">3767.23</div>
+      <div class="sub">-0.88% · 高 3811.81 / 低 3761.96</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指</div>
+      <div class="val" style="color:var(--bear)">2866.76</div>
+      <div class="sub">-3.10% · 距 60D 低仅 +0.21%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深 300</div>
+      <div class="val" style="color:var(--bear)">4217.68</div>
+      <div class="sub">-1.36% · 距 60D 低仅 +0.09%</div>
+    </div>
+  </div>
+  <div class="grid-3" style="margin-top:12px">
+    <div class="kpi">
+      <div class="label">博主点位准确率</div>
+      <div class="val" style="color:var(--bull)">2 / 2</div>
+      <div class="sub">3756 低点 / 3767 收盘 全中</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主方向准确率</div>
+      <div class="val" style="color:var(--bear)">0 / 3</div>
+      <div class="sub">沪指 / 创业板 / 沪深300 全线下跌</div>
+    </div>
+    <div class="kpi">
+      <div class="label">今日最强主线</div>
+      <div class="val" style="color:var(--bull)">两桶油 +2.3%</div>
+      <div class="sub">中石油 / 神华 双双盘中创 60D 新高</div>
+    </div>
+  </div>
+
+  <h2>🧠 博主观点提炼（10/14 全部 8 条）</h2>
+  <table>
+    <thead>
+      <tr><th style="width:80px">时间</th><th style="width:60px">方向</th><th class="text">原文 / 摘要</th><th style="width:80px">点赞</th><th style="width:110px">类型</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>15:06</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「收3767点，今天不用评论……啵一个！」</strong><br /><span class="meta">当日互动最高（👍12636 💬934 🔁19）。收盘点位预测，实际 3767.23，分毫不差。</span></td>
+        <td class="score">12636</td>
+        <td><span class="tag tag-bull">大盘判断</span><span class="tag tag-neutral">收盘总结</span></td>
+      </tr>
+      <tr>
+        <td><strong>14:51</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「布局C4」</strong><br /><span class="meta">措辞由 10:56 的「耐心等待」直接升级为「布局」，是当日最激进的一句。但此时距收盘仅 9 分钟，沪指已在当日低位区。</span></td>
+        <td class="score">10696</td>
+        <td><span class="tag tag-bull">操作建议</span></td>
+      </tr>
+      <tr>
+        <td><strong>13:38</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text">「等待结果！」<br /><span class="meta">午后横盘时的犹豫表述，与 14:51 的「布局」形成鲜明对比。</span></td>
+        <td class="score">12807</td>
+        <td><span class="tag tag-neutral">行情速报</span></td>
+      </tr>
+      <tr>
+        <td><strong>13:03</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text">「反复折腾！」<br /><span class="meta">精准描述了当日 3741—3811 区间的宽幅震荡。</span></td>
+        <td class="score">9977</td>
+        <td><span class="tag tag-neutral">行情速报</span></td>
+      </tr>
+      <tr>
+        <td><strong>10:56</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text">「耐心等待C4反抽！」</td>
+        <td class="score">15003</td>
+        <td><span class="tag tag-bull">操作建议</span></td>
+      </tr>
+      <tr>
+        <td><strong>09:58</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「按短线技术结构看，市场在构筑C4反弹。收到请回复666或点赞支持一下！」</strong><br /><span class="meta">当日最高赞（👍19883）。C4 表述的第 4 次强化，与 10/13 的「正在组织」相比语气更确定。</span></td>
+        <td class="score">19883</td>
+        <td><span class="tag tag-bull">大盘判断</span></td>
+      </tr>
+      <tr>
+        <td><strong>09:36</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「今天早上3756点左右等侍反击……收到请回复888」</strong><br /><span class="meta">当日唯一明确的盘中点位预判。实际全天最低 3761.96，偏差 5.96 点（0.16%）。</span></td>
+        <td class="score">17246</td>
+        <td><span class="tag tag-bull">技术位</span></td>
+      </tr>
+      <tr>
+        <td><strong>09:19</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「铁几？」<br /><span class="meta">粉丝互动用语，无操盘信息。</span></td>
+        <td class="score">14313</td>
+        <td><span class="tag tag-none">无关</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="panel">
+    <strong>📌 信号统计</strong><br />
+    共 8 条 → 操盘/行情类 <strong>6 条</strong>（大盘判断 2 · 操作建议 2 · 技术位 1 · 行情速报 1），无关 2 条。<br />
+    方向分布：🟢 偏多 4 条 · 🟡 中性 2 条 · ⚪ 无关 2 条 —— <strong>较 10/13（多 5 / 空 2）进一步转多</strong>，措辞强度也从「组织」升级到「布局」。
+  </div>
+
+  <h2>✅ 博主预判验证</h2>
+  <table>
+    <thead>
+      <tr><th>标的</th><th>博主预判</th><th>实际（10/14）</th><th>偏差</th><th>结论</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>上证指数 早盘低点</td><td>3756（09:36）</td><td>3761.96</td><td>+5.96（0.16%）</td><td><span class="tag tag-bull">✓ 命中</span></td></tr>
+      <tr><td>上证指数 收盘</td><td>3767（15:06）</td><td>3767.23</td><td>+0.23（0.01%）</td><td><span class="tag tag-bull">✓ 命中</span></td></tr>
+      <tr><td>上证指数 收复门槛</td><td>收复 3836 才算有力度</td><td>最高 3811.81</td><td>差 24.19 点</td><td><span class="tag tag-bear">✗ 未达</span></td></tr>
+      <tr><td>C4 反弹方向</td><td>市场在构筑 C4 反弹</td><td>沪指 -0.88%</td><td>方向相反</td><td><span class="tag tag-bear">✗ 判反</span></td></tr>
+      <tr><td>创业板指</td><td>C4 反弹（同步）</td><td>2866.76（-3.10%）</td><td>暴跌</td><td><span class="tag tag-bear">✗ 判反</span></td></tr>
+    </tbody>
+  </table>
+  <div class="panel panel-2">
+    <strong>💡 一句话总结：</strong>博主是<strong>「点位精算师，方向乐观派」</strong>。他对盘中具体点位的把握极准（连续两日 8 个点位全部命中），但对方向的判断连续两日偏乐观。跟随时应<strong>只取点位、不取方向</strong>。
+  </div>
+
+  <h2>📈 大盘技术面（K线 + MACD + 成交量 · 关键位居左虚线标注）</h2>
+
+  <h3>1. 上证指数 收 3767.23 (-0.88%)</h3>
+  <img class="chart" src="charts/000001_SH_上证指数.png" alt="上证指数 K线 MACD 成交量" />
+  <p class="chart-caption">关键位：3741.11 60D低 / 3761.96 10/14低 / 3767.23 10/14收（博主预判 3767）/ 3798.21 MA5 / 3811.81 10/14高 / 3831.22 MA10 / 3836 博主收复门槛 / 3870.85 MA20</p>
+  <ul>
+    <li>全天走出「冲高回落」：最高 3811.81 → 收 3767.23，<strong>从日高回落 44.58 点（-1.17%）</strong>，收盘几乎贴近日低 3761.96。K 线为光头光脚的中大阴线。</li>
+    <li><strong>收盘 3767.23 跌破 MA5（3798.21）</strong>，MA5/MA10/MA20（3870.85）全部空头排列，且 60D 低 3741.11 仅在下方 0.70%。</li>
+    <li>MACD 绿柱再度放大（DIF -34.75 / DEA -22.79 / 柱 -23.91），<strong>零轴下方且死叉后继续走扩</strong>，无任何企稳信号。</li>
+    <li>量比 0.94，<strong>缩量下跌</strong>——不是恐慌抛售，但也说明承接盘缺席，反弹缺乏资金基础。</li>
+    <li>距 60D 高 3995.18 仍有 <strong>-5.70%</strong> 空间。</li>
+  </ul>
+
+  <h3>2. 创业板指 收 2866.76 (-3.10%) —— 今日真正的破位方</h3>
+  <img class="chart" src="charts/399006_SZ_创业板指.png" alt="创业板指 K线 MACD 成交量" />
+  <p class="chart-caption">关键位：2860.80 60D低 / 2863.71 10/14低 / 2866.76 10/14收 / 2962.73 10/14高 / 2973.78 MA5 / 3095.51 MA10</p>
+  <ul>
+    <li><strong>收盘 2866.76，距 60D 低 2860.80 仅剩 0.21%</strong>，日内最低 2863.71 已经贴到 60D 低上沿 —— 创业板是三大指数中<strong>最接近有效破位</strong>的一个。</li>
+    <li>单日 -3.10% 的跌幅远超沪指（-0.88%），<strong>成长股被单边抛弃</strong>，与博主「C4 反弹」的判断完全相反。</li>
+    <li>MACD 绿柱大幅走扩（DIF -126.14 / DEA -91.76 / 柱 -68.75），零轴下方深度负值，是三大指数中最弱的。</li>
+    <li>失守 MA5（2973.78）后已无任何短期均线支撑，距 60D 高 3905.31 有 <strong>-26.58%</strong>。</li>
+  </ul>
+
+  <h3>3. 沪深 300 收 4217.68 (-1.36%) —— 权重护盘结构瓦解</h3>
+  <img class="chart" src="charts/000300_SH_沪深300.png" alt="沪深300 K线 MACD 成交量" />
+  <p class="chart-caption">关键位：4214.01 60D低/10-14低 / 4217.68 10/14收 / 4281.46 10/14高 / 4281.77 MA5 / 4340.89 MA10</p>
+  <ul>
+    <li><strong>收盘 4217.68，距 60D 低 4214.01 仅 0.09%</strong>—— 今日最低 4214.01 已经<strong>精准触及 60 日新低</strong>，收在它上方不到 4 个点。</li>
+    <li>这是今日最重要的结构性信号：<strong>权重股（四大行 + 两桶油）之外，沪深300 的其他成分已开始补跌</strong>，说明「提肩带」护盘结构已经撑不住指数。</li>
+    <li>博主 10/12 设计的「四大行 + 两桶油提肩带」需要权重走强来托住指数；今天四大行冲高回落收绿，沪深300 直接探到 60D 低 —— <strong>提肩带失效</strong>。</li>
+    <li>MACD 绿柱走扩（DIF -84.27 / 柱 -36.02），零轴下方，无背离信号。</li>
+  </ul>
+
+  <h2>🏆 最值得关注的 3 大板块</h2>
+
+  <div class="panel" style="border-left:4px solid var(--bull)">
+    <h3 style="margin-top:0">板块 1 · 🟢 石油 / 能源（两桶油）—— 唯一逆势创新高主线</h3>
+    <table>
+      <thead><tr><th>个股</th><th>收盘</th><th>涨跌</th><th>量比</th><th>60D 高</th><th>MACD</th></tr></thead>
+      <tbody>
+        <tr><td><strong>中国石油 601857</strong></td><td>12.55</td><td style="color:var(--bull)"><strong>+2.45%</strong></td><td>1.11</td><td>12.57（<span style="color:var(--bull)">今日刷新</span>）</td><td>红柱 · 零轴上</td></tr>
+        <tr><td><strong>中国神华 601088</strong></td><td>50.55</td><td style="color:var(--bull)"><strong>+2.14%</strong></td><td>1.01</td><td>50.77（<span style="color:var(--bull)">今日刷新</span>）</td><td>红柱 · 零轴上</td></tr>
+      </tbody>
+    </table>
+    <p><strong>推荐逻辑：</strong>博主 10/12 提出的「四大行、两桶油等继续提肩带」在能源端<strong>连续第 3 个交易日兑现</strong>。今天大盘 -0.88%、创业板 -3.10% 的普跌中，两桶油是<strong>全场仅有的两个收创新高的品种</strong>，且量比 1.11 为放量上涨（区别于银行的缩量冲高回落）。</p>
+    <p style="margin-bottom:0"><strong>操作建议：</strong>趋势最完整，但已连涨两日，中石油距 60D 高 12.57 只剩 0.16%，<strong>不追高</strong>。回抽 MA5（11.98）再介入，跌破 MA20（11.16）离场。</p>
+  </div>
+
+  <div class="panel" style="border-left:4px solid var(--neutral)">
+    <h3 style="margin-top:0">板块 2 · 🟡 银行 / 四大行 —— 连续两日高位派发，提肩带角色弱化</h3>
+    <table>
+      <thead><tr><th>个股</th><th>收盘</th><th>涨跌</th><th>量比</th><th>60D 高</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td><strong>工商银行 601398</strong></td><td>8.45</td><td style="color:var(--bear)"><strong>-0.47%</strong></td><td>0.79</td><td>8.54（今日盘中触及）</td><td>缩量冲高回落</td></tr>
+        <tr><td><strong>农业银行 601288</strong></td><td>7.18</td><td style="color:var(--bear)"><strong>-0.97%</strong></td><td>0.95</td><td>7.31（今日盘中触及）</td><td>放量不足</td></tr>
+      </tbody>
+    </table>
+    <p><strong>逻辑：</strong>两只银行<strong>连续第 2 个交易日盘中触及 60 日新高后收绿</strong>（工行盘中 8.54 / 农行盘中 7.31），且工行量比仅 0.79 —— 高位派发的特征非常明确。10/12 它们是全场最强（全线收在 60D 高），10/14 已成为拖累项。</p>
+    <p style="margin-bottom:0"><strong>操作建议：</strong>守住 MA5（工行 8.38 / 农行 7.12）尚可持有，<strong>但不新增仓位</strong>。跌破 MA20（8.19 / 6.95）意味着「提肩带」彻底失效，需减仓。</p>
+  </div>
+
+  <div class="panel" style="border-left:4px solid var(--bear)">
+    <h3 style="margin-top:0">板块 3 · 🔴 固态电池 / 锂电 —— 破位确认，明确回避</h3>
+    <table>
+      <thead><tr><th>个股</th><th>收盘</th><th>涨跌</th><th>量比</th><th>60D 低</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td><strong>宁德时代 300750</strong></td><td>280.12</td><td style="color:var(--bear)"><strong>-3.11%</strong></td><td>0.82</td><td>280.12（<span style="color:var(--bear)">今日收盘即 60D 低</span>）</td><td><strong>完全破位</strong></td></tr>
+        <tr><td><strong>赣锋锂业 002460</strong></td><td>41.00</td><td style="color:var(--bear)"><strong>-2.22%</strong></td><td>0.65</td><td>40.78（距 0.54%）</td><td>逼近 60D 低</td></tr>
+      </tbody>
+    </table>
+    <p><strong>风险逻辑：</strong>博主从 10/8 起三次确认固态电池是活跃板块，但<strong>本人始终观望</strong>，并明确表态「我从来没有购买电车的想法」「起码等固态电池技术成熟之后吧」。今天的技术面给出了最彻底的答案：<strong>宁德时代收在 280.12，恰好等于当日最低价，也等于 60 日新低 —— 一根光头阴线直接砸穿前低</strong>。赣锋锂业距 60D 低 40.78 只剩 0.54%，且量比 0.65 缩量阴跌，说明无人接盘。</p>
+    <p style="margin-bottom:0"><strong>操作建议：不参与。</strong>博主的观望态度连续多日被验证是正确判断。宁德跌破 285 前低区后已无技术支撑，不存在「超跌反弹」依据。</p>
+  </div>
+
+  <h2>📦 6 支个股详解</h2>
+
+  <div class="stock-card bull">
+    <h4>🟢 1. 中国石油 601857.SH · 石油 · 收 12.55 (+2.45%) · <span style="color:var(--muted);font-weight:400">今日最强</span></h4>
+    <img class="chart" src="charts/601857_SH_中国石油.png" alt="中国石油 601857.SH K线 MACD 成交量" />
+    <p class="chart-caption">中国石油 601857.SH 日线 · K线 + MACD + 成交量 · 60 日窗口 · 关键位居左虚线标注</p>
+    <div class="logic">全场唯一<strong>放量创新高</strong>的品种（量比 1.11，盘中最高 12.57 直接刷新 60 日新高）。MACD 红柱在零轴上方运行，DIF 0.35 / DEA 0.19，均线 MA5（11.98）/MA10（11.51）/MA20（11.16）完整多头排列。从 6 月 8.7 一路涨到 12.55，60 日涨幅超 44%，是本轮调整中<strong>唯一的趋势主线</strong>。今日在大盘 -0.88% 时逆势 +2.45%，相对强度突出。</div>
+    <div class="key">支撑 11.98(MA5) · 11.51(MA10) · 11.16(MA20) ｜ 阻力 12.57(60D新高) ｜ 策略：不追高，回抽 11.98 关注，跌破 11.16 离场</div>
+  </div>
+
+  <div class="stock-card bull">
+    <h4>🟢 2. 中国神华 601088.SH · 煤炭 · 收 50.55 (+2.14%)</h4>
+    <img class="chart" src="charts/601088_SH_中国神华.png" alt="中国神华 601088.SH K线 MACD 成交量" />
+    <p class="chart-caption">中国神华 601088.SH 日线 · K线 + MACD + 成交量 · 60 日窗口 · 关键位居左虚线标注</p>
+    <div class="logic">盘中最高 50.77，<strong>同步刷新 60 日新高</strong>，收 50.55 几乎收在最高位，是今日 6 支个股中<strong>收盘强度最高</strong>的一只（收盘价 = 日内次高）。MACD 红柱零轴上方（DIF 0.77 / DEA 0.53），均线 MA5（49.06）/MA10（48.40）/MA20（47.72）多头排列完好。相比中石油已连涨两日，神华今日是<strong>首次放量启动</strong>，补涨空间相对更足。</div>
+    <div class="key">支撑 49.06(MA5) · 48.40(MA10) · 47.72(MA20) ｜ 阻力 50.77(60D新高) ｜ 策略：关注放量突破 50.77，跌破 47.72 离场</div>
+  </div>
+
+  <div class="stock-card neutral">
+    <h4>🟡 3. 工商银行 601398.SH · 银行 · 收 8.45 (-0.47%)</h4>
+    <img class="chart" src="charts/601398_SH_工商银行.png" alt="工商银行 601398.SH K线 MACD 成交量" />
+    <p class="chart-caption">工商银行 601398.SH 日线 · K线 + MACD + 成交量 · 60 日窗口 · 关键位居左虚线标注</p>
+    <div class="logic">盘中最高 8.54 触及 60 日新高后回落 0.09 元收绿，<strong>连续第 2 日高位派发</strong>。量比 0.79 是 6 支个股中最低之一，说明冲高没有资金承接。MACD 仍在零轴上方红柱（DIF 0.13 / DEA 0.10），均线全部站上（MA5 8.38 / MA10 8.27 / MA20 8.19），技术结构尚未破坏 —— 属于「高位震荡」而非「破位」，但已不具备新增配置价值。</div>
+    <div class="key">支撑 8.38(MA5) · 8.27(MA10) · 8.19(MA20) ｜ 阻力 8.54(60D高) ｜ 策略：持有不加仓，跌破 8.19 减仓</div>
+  </div>
+
+  <div class="stock-card neutral">
+    <h4>🟡 4. 农业银行 601288.SH · 银行 · 收 7.18 (-0.97%)</h4>
+    <img class="chart" src="charts/601288_SH_农业银行.png" alt="农业银行 601288.SH K线 MACD 成交量" />
+    <p class="chart-caption">农业银行 601288.SH 日线 · K线 + MACD + 成交量 · 60 日窗口 · 关键位居左虚线标注</p>
+    <div class="logic">同样冲高回落：盘中最高 7.31 触及 60 日新高后收 7.18，跌幅（-0.97%）大于工行，弹性品种回吐更多。量比 0.95 接近平量，说明昨日的放量已停止。MACD 红柱零轴上（DIF 0.09 / DEA 0.06），趋势仍在但动能明显弱化。四大行中本轮涨幅最大的品种，也是获利盘压力最大的品种。</div>
+    <div class="key">支撑 7.12(MA5) · 7.01(MA10) · 6.95(MA20) ｜ 阻力 7.31(60D高) ｜ 策略：持有不加仓，跌破 6.95 减仓</div>
+  </div>
+
+  <div class="stock-card bear">
+    <h4>🔴 5. 宁德时代 300750.SZ · 固态电池 · 收 280.12 (-3.11%) · <span style="color:var(--muted);font-weight:400">完全破位</span></h4>
+    <img class="chart" src="charts/300750_SZ_宁德时代.png" alt="宁德时代 300750.SZ K线 MACD 成交量" />
+    <p class="chart-caption">宁德时代 300750.SZ 日线 · K线 + MACD + 成交量 · 60 日窗口 · 关键位居左虚线标注</p>
+    <div class="logic"><strong>收盘价 = 当日最低价 = 60 日新低 280.12</strong>，一根光头阴线直接砸穿前低，没有任何下影线护盘。距 MA5（290.42）已远，MA20（304.44）/MA60（354.79）层层压制在上方。虽然 MACD 柱转正（+1.85）但 DIF（-17.95）仍在零轴下方，属于下跌中继的技术性红柱，<strong>不构成买入理由</strong>。博主从 10/10 起三次表态不碰电车，今日完全验证。</div>
+    <div class="key">阻力 290.42(MA5) · 304.44(MA20) ｜ 支撑：<strong>已无有效支撑，60D 低 280.12 为心理关口</strong> ｜ 策略：不参与</div>
+  </div>
+
+  <div class="stock-card bear">
+    <h4>🔴 6. 赣锋锂业 002460.SZ · 固态电池 · 收 41.00 (-2.22%)</h4>
+    <img class="chart" src="charts/002460_SZ_赣锋锂业.png" alt="赣锋锂业 002460.SZ K线 MACD 成交量" />
+    <p class="chart-caption">赣锋锂业 002460.SZ 日线 · K线 + MACD + 成交量 · 60 日窗口 · 关键位居左虚线标注</p>
+    <div class="logic">距 60 日新低 40.78 仅剩 0.54%，盘中最低 40.96 几乎贴到前低。量比 0.65 是全场最低，<strong>缩量阴跌 = 无人接盘</strong>，典型的主力出货末期形态。MACD 绿柱零轴下方（DIF -2.15 / DEA -2.05 / 柱 -0.20）。距 60D 高 56.89 已跌去 -27.9%。博主持「永不买电车」立场，从 10/8 板块活跃至今该股已累计大跌，规避正确。</div>
+    <div class="key">阻力 43.26(MA5) · 43.42(MA10) ｜ 支撑 40.78(60D低) ｜ 策略：不参与，跌破 40.78 打开下行空间</div>
+  </div>
+
+  <h2>🎯 今日操作建议汇总</h2>
+  <div class="panel">
+    <ol>
+      <li><strong>不要跟随博主 14:51 的「布局 C4」。</strong>他自己在 10/13 设定的「收复 3836 才算有力度」门槛连续两日未满足，创业板 -3.10% 说明反弹的<strong>同步性前提已经消失</strong>。C4 至少需要等创业板止跌在先。</li>
+      <li><strong>盯三个数字：</strong>创业板 2860.80、沪深300 4214.01、宁德 280.12 —— 任何一个有效跌破，都意味着打开新一轮下行空间。</li>
+      <li><strong>唯一可跟的是能源线，但不要追高。</strong>中石油 / 神华是全场仅有的创新高品种，趋势完好；等回抽 MA5（11.98 / 49.06）再考虑，跌破 MA20 止损。</li>
+      <li><strong>银行不加仓。</strong>连续两日冲高回落 + 沪深300 已探 60D 低，说明「提肩带」正在瓦解。守 MA5 可持有，破 MA20 减仓。</li>
+      <li><strong>固态电池继续回避。</strong>宁德收在 60D 低是本轮最明确的破位信号，博主的观望态度是对的。</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    <p>数据来源：weibo-watcher skill（新浪微博公开 API）· Tushare Pro 日线数据（前复权）· 抓取时间 2026-10-14 21:00</p>
+    <p>本报告为博主观点的技术面交叉验证，不构成投资建议。股市有风险，入市需谨慎。</p>
+    <p><a href="index.html">← 返回首页</a> · <a href="2026-10-13-wu2198-investment-report.html">← 昨日（10-13）日报</a></p>
+  </div>
+
+</div>
+</body>
+</html>
