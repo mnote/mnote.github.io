@@ -1,0 +1,347 @@
+{
+  "source": "weibo-watcher skill (m.weibo.cn 时间线 + 搜索接口)",
+  "uid": "1216826604",
+  "screen_name": "wu2198",
+  "fetched_at": "2026-11-05T23:00:00+08:00",
+  "window": "2026-11-04 13:50 → 2026-11-05 18:07",
+  "post_count": 18,
+  "signal_count": 10,
+  "keyword_signal_count": 9,
+  "fetch_notes": [
+    "m.weibo.cn 对未登录访客只开放时间线第 1 页(10 条 + 2 条置顶)",
+    "分页请求(page>=2 / since_id / 多种 containerid)一律返回 ok=-100,内置浏览器滚动加载亦跳转登录页 —— 访客硬上限",
+    "解法:改用 m.weibo.cn 搜索接口 containerid=100103type=1&q=<关键词>&feature=4(按时间排序) 采集作者本人帖,多条查询词并集去重",
+    "作者匹配技巧:查询词加上博主高频用词(点赞/明白666/收到/龙头/两连板 等)可显著提高本人帖召回,两轮共召回 97 条历史帖 + 时间线 10 条",
+    "合并去重后按时间过滤出 11/04 13:50 → 11/05 18:07 窗口,共 18 条(17 条属 11/05)",
+    "18:07 之后至 23:00 发稿时博主确无新帖(时间线第 1 页已确认最新一条即 18:07)",
+    "signal/category/direction 为人工标注;keyword_signal_count=9 为关键词分类器命中数,人工补充 15:02「端侧…龙头连续拉了2个板」1 条,合计 10 条操盘/行情信号"
+  ],
+  "timeline": [
+    {
+      "time": "11-04 13:50",
+      "text": "创业板指数己经返涨4% 了……不啵一口？",
+      "likes": 12200,
+      "comments": 988,
+      "reposts": 30,
+      "category": "大盘复盘·点位",
+      "signal": true,
+      "direction": "中性",
+      "note": "11/04 尾盘：创业板自 2376 低点反抽 4%，为 11/05 的延续反弹提供衔接",
+      "keyword_signals": [
+        "大盘判断"
+      ],
+      "keyword_topics": [
+        "盘面/股市"
+      ],
+      "hot_level": "热帖",
+      "url": "https://m.weibo.cn/detail/RpOD49t6H"
+    },
+    {
+      "time": "11-05 06:41",
+      "text": "昨晚美国市场是软科技大涨、存储芯片板块大跌，分化非常大！",
+      "likes": 10302,
+      "comments": 274,
+      "reposts": 25,
+      "category": "早安·外盘",
+      "signal": true,
+      "direction": "中性",
+      "note": "外盘软科技大涨/存储芯片大跌 —— 当天 A 股端侧强、存储弱的结构依据",
+      "keyword_signals": [
+        "行业板块"
+      ],
+      "keyword_topics": [
+        "国际政治",
+        "行业热点"
+      ],
+      "hot_level": "热帖",
+      "url": "https://m.weibo.cn/detail/RpVfIjr5o"
+    },
+    {
+      "time": "11-05 09:30",
+      "text": "低开不惧，轻仓可吸……支持的点赞！",
+      "likes": 14546,
+      "comments": 575,
+      "reposts": 97,
+      "category": "操作建议",
+      "signal": true,
+      "direction": "多",
+      "note": "低开不惧、轻仓可吸 —— 当日唯一明确买点，方向正确但收益空间仅 1.17%",
+      "keyword_signals": [
+        "操作建议"
+      ],
+      "keyword_topics": [
+        "复盘总结"
+      ],
+      "hot_level": "热帖",
+      "url": "https://m.weibo.cn/detail/RpWm2pptC"
+    },
+    {
+      "time": "11-05 10:02",
+      "text": "固态、端侧、算力租凭……目前继续领先！",
+      "likes": 9339,
+      "comments": 242,
+      "reposts": 20,
+      "category": "行业板块",
+      "signal": true,
+      "direction": "多",
+      "note": "固态、端侧、算力租赁三线领先 —— 当日板块排序与实际涨幅排序完全一致",
+      "keyword_signals": [
+        "行业板块"
+      ],
+      "keyword_topics": [
+        "行业热点"
+      ],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpWzah1J9"
+    },
+    {
+      "time": "11-05 10:19",
+      "text": "端侧龙头两连板，算力租凭龙二冲板。固态整体表现出色！",
+      "likes": 9996,
+      "comments": 298,
+      "reposts": 25,
+      "category": "行业板块",
+      "signal": true,
+      "direction": "多",
+      "note": "端侧龙头两连板、算力租赁龙二冲板、固态表现出色",
+      "keyword_signals": [
+        "行业板块"
+      ],
+      "keyword_topics": [
+        "行业热点"
+      ],
+      "hot_level": "热帖",
+      "url": "https://m.weibo.cn/detail/RpWGc5UZj"
+    },
+    {
+      "time": "11-05 11:07",
+      "text": "港股企鹅大涨6.5%！",
+      "likes": 6646,
+      "comments": 117,
+      "reposts": 10,
+      "category": "行情速报",
+      "signal": false,
+      "direction": "中性",
+      "note": "港股腾讯大涨 6.5%，外盘科技龙头佐证，无 A 股操作指向",
+      "keyword_signals": [],
+      "keyword_topics": [],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpWZFEGHN"
+    },
+    {
+      "time": "11-05 13:35",
+      "text": "人形机器人龙头这波反弹明显比大盘指数要提前，也强很多。",
+      "likes": 8593,
+      "comments": 171,
+      "reposts": 16,
+      "category": "行业板块",
+      "signal": true,
+      "direction": "多",
+      "note": "人形机器人龙头反弹明显提前于大盘且更强",
+      "keyword_signals": [
+        "大盘判断",
+        "操作建议",
+        "行业板块"
+      ],
+      "keyword_topics": [
+        "盘面/股市",
+        "行业热点"
+      ],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpXXG3prd"
+    },
+    {
+      "time": "11-05 13:54",
+      "text": "反弹行情是一个过程，不是一两天！明白666",
+      "likes": 11482,
+      "comments": 1129,
+      "reposts": 66,
+      "category": "操作建议",
+      "signal": true,
+      "direction": "多",
+      "note": "反弹是一个过程不是一两天 —— 同时是对 09:30 追涨的主动降温",
+      "keyword_signals": [
+        "操作建议"
+      ],
+      "keyword_topics": [],
+      "hot_level": "热帖",
+      "url": "https://m.weibo.cn/detail/RpY5hlSec"
+    },
+    {
+      "time": "11-05 14:19",
+      "text": "今天主要是CPO和存储芯片压创板指数，如果这两个权重板块尾盘有资金自救的话，指数有望收高！",
+      "likes": 7507,
+      "comments": 239,
+      "reposts": 30,
+      "category": "大盘判断",
+      "signal": true,
+      "direction": "中性",
+      "note": "CPO/存储压创板，押注尾盘资金自救收高 —— 指数兑现、板块证伪",
+      "keyword_signals": [
+        "大盘判断",
+        "行业板块"
+      ],
+      "keyword_topics": [
+        "盘面/股市",
+        "行业热点"
+      ],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpYfvusEX"
+    },
+    {
+      "time": "11-05 14:27",
+      "text": "其实，秘诀都在里面！",
+      "likes": 5089,
+      "comments": 222,
+      "reposts": 6,
+      "category": "粉丝互动",
+      "signal": false,
+      "direction": "无关",
+      "note": "配图互动贴，无新增信息",
+      "keyword_signals": [],
+      "keyword_topics": [],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpYiVEbNu"
+    },
+    {
+      "time": "11-05 14:36",
+      "text": "守股要比守着寡难！",
+      "likes": 8256,
+      "comments": 394,
+      "reposts": 15,
+      "category": "操作哲学",
+      "signal": false,
+      "direction": "中性",
+      "note": "守股比守寡难 —— 延续「留住现金流」的风控主线，无方向性",
+      "keyword_signals": [],
+      "keyword_topics": [],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpYmys16K"
+    },
+    {
+      "time": "11-05 14:41",
+      "text": "来股市要以投资理财的角度考虑，不要用赌博的方式！而且一定要用自有空闲的资金！明白888",
+      "likes": 9003,
+      "comments": 770,
+      "reposts": 33,
+      "category": "仓位管理",
+      "signal": false,
+      "direction": "中性",
+      "note": "不要用赌博的方式、用自有空闲资金 —— 与 09:30「轻仓」并读才是完整仓位态度",
+      "keyword_signals": [],
+      "keyword_topics": [],
+      "hot_level": "热帖",
+      "url": "https://m.weibo.cn/detail/RpYoiigkL"
+    },
+    {
+      "time": "11-05 14:50",
+      "text": "我怀疑主力看到这条微博了！",
+      "likes": 7836,
+      "comments": 307,
+      "reposts": 12,
+      "category": "粉丝互动",
+      "signal": false,
+      "direction": "无关",
+      "note": "配图互动贴，无新增信息",
+      "keyword_signals": [],
+      "keyword_topics": [],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpYrWi1i8"
+    },
+    {
+      "time": "11-05 15:02",
+      "text": "今天端侧非常“标土浮”……龙头连续拉了2个板，几只改写新高！",
+      "likes": 7881,
+      "comments": 299,
+      "reposts": 20,
+      "category": "行业板块",
+      "signal": true,
+      "direction": "多",
+      "note": "端侧标土浮、龙头连续拉了 2 个板、几只改写新高（关键词分类器未命中，人工补充）",
+      "keyword_signals": [],
+      "keyword_topics": [],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpYx3bSai"
+    },
+    {
+      "time": "11-05 15:08",
+      "text": "在外围大跌的情况下，今天两市均能低开震荡走强收红盘，说明大A市场构筑波段的步骤不变……收到请回复666或者点赞支持一下！",
+      "likes": 15666,
+      "comments": 1505,
+      "reposts": 80,
+      "category": "收盘总结",
+      "signal": true,
+      "direction": "多",
+      "note": "外围大跌下低开震荡走强收红盘、构筑波段步骤不变 —— 当日唯一没给数字的收盘总结",
+      "keyword_signals": [
+        "操作建议"
+      ],
+      "keyword_topics": [
+        "复盘总结"
+      ],
+      "hot_level": "热帖",
+      "url": "https://m.weibo.cn/detail/RpYzfDnUJ"
+    },
+    {
+      "time": "11-05 17:33",
+      "text": "#2027放假安排公布#大家好好看看！",
+      "likes": 3333,
+      "comments": 110,
+      "reposts": 8,
+      "category": "闲聊",
+      "signal": false,
+      "direction": "无关",
+      "note": "2027 春节放假安排",
+      "keyword_signals": [],
+      "keyword_topics": [],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpZwmomT1"
+    },
+    {
+      "time": "11-05 17:47",
+      "text": "春节9天！",
+      "likes": 3610,
+      "comments": 128,
+      "reposts": 3,
+      "category": "闲聊",
+      "signal": false,
+      "direction": "无关",
+      "note": "春节 9 天",
+      "keyword_signals": [],
+      "keyword_topics": [
+        "问候/鸡汤"
+      ],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpZBZFEbi"
+    },
+    {
+      "time": "11-05 18:07",
+      "text": "#2027放假安排公布#春节：2月5日（除夕、周五）至13日（正月初八、周六）放假调休，共9天。",
+      "likes": 3973,
+      "comments": 189,
+      "reposts": 9,
+      "category": "闲聊",
+      "signal": false,
+      "direction": "无关",
+      "note": "2027 春节放假安排明细",
+      "keyword_signals": [],
+      "keyword_topics": [
+        "问候/鸡汤"
+      ],
+      "hot_level": "小热",
+      "url": "https://m.weibo.cn/detail/RpZKb3vOR"
+    }
+  ],
+  "pinned_filtered": [
+    {
+      "time": "2024-09-24",
+      "text": "今年2月份大盘指数2635点时说了，上周2689时我依然坚持等第二条腿……",
+      "likes": 83147
+    },
+    {
+      "time": "2024-02-20",
+      "text": "投资股市只适合利用自己的空闲资金，而且一定要量力而为，风险永远放在第一位。不要举债，不要用杠杆……",
+      "likes": 81898
+    }
+  ]
+}
