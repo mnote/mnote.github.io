@@ -1,0 +1,450 @@
+[
+  {
+    "code": "000001.SH",
+    "name": "上证指数",
+    "sector": "大盘指数",
+    "tag": "index",
+    "last": 3649.18,
+    "prev": 3689.91,
+    "pct": -1.1,
+    "date": "2026-11-06",
+    "open": 3612.15,
+    "high": 3660.49,
+    "low": 3610.2,
+    "hi60": 3995.18,
+    "lo60": 3574.27,
+    "ma5": 3654.28,
+    "ma20": 3693.3,
+    "ma60": 3841.35,
+    "dif": -50.552,
+    "dea": -55.746,
+    "macd_bar": 10.388,
+    "chart": "/charts/000001_SH_20261106.png",
+    "wu2198_levels": [
+      {
+        "price": 3649.18,
+        "label": "11/6收盘 博主验证",
+        "kind": "ref"
+      },
+      {
+        "price": 3610.2,
+        "label": "11/6最低",
+        "kind": "support"
+      },
+      {
+        "price": 3689.91,
+        "label": "11/5收盘",
+        "kind": "resist"
+      },
+      {
+        "price": 3600.0,
+        "label": "整数关口",
+        "kind": "support"
+      }
+    ],
+    "auto_levels": [
+      {
+        "price": 3574.2712,
+        "label": "20D低",
+        "kind": "support",
+        "date": "2026-10-23"
+      },
+      {
+        "price": 3654.27788,
+        "label": "MA5",
+        "kind": "ref"
+      },
+      {
+        "price": 3693.3021400000007,
+        "label": "MA20",
+        "kind": "ref"
+      },
+      {
+        "price": 3828.2162,
+        "label": "20D高",
+        "kind": "resist",
+        "date": "2026-10-12"
+      },
+      {
+        "price": 3841.3539766666668,
+        "label": "MA60",
+        "kind": "ref"
+      },
+      {
+        "price": 3995.1751,
+        "label": "60D高",
+        "kind": "resist",
+        "date": "2026-09-01"
+      }
+    ]
+  },
+  {
+    "code": "399006.SZ",
+    "name": "创业板指",
+    "sector": "大盘指数",
+    "tag": "index",
+    "last": 2465.23,
+    "prev": 2566.8,
+    "pct": -3.96,
+    "date": "2026-11-06",
+    "open": 2438.72,
+    "high": 2506.97,
+    "low": 2438.72,
+    "hi60": 3747.53,
+    "lo60": 2376.28,
+    "ma5": 2485.42,
+    "ma20": 2648.26,
+    "ma60": 3142.17,
+    "dif": -176.061,
+    "dea": -185.263,
+    "macd_bar": 18.403,
+    "chart": "/charts/399006_SZ_20261106.png",
+    "wu2198_levels": [
+      {
+        "price": 2465.23,
+        "label": "11/6收盘",
+        "kind": "ref"
+      },
+      {
+        "price": 2438.72,
+        "label": "11/6最低",
+        "kind": "support"
+      },
+      {
+        "price": 2506.97,
+        "label": "11/6最高",
+        "kind": "resist"
+      }
+    ],
+    "auto_levels": [
+      {
+        "price": 2376.2826,
+        "label": "20D低",
+        "kind": "support",
+        "date": "2026-11-04"
+      },
+      {
+        "price": 2485.42304,
+        "label": "MA5",
+        "kind": "ref"
+      },
+      {
+        "price": 2648.2583499999996,
+        "label": "MA20",
+        "kind": "ref"
+      },
+      {
+        "price": 3049.3353,
+        "label": "20D高",
+        "kind": "resist",
+        "date": "2026-10-12"
+      },
+      {
+        "price": 3142.1744449999997,
+        "label": "MA60",
+        "kind": "ref"
+      },
+      {
+        "price": 3747.5284,
+        "label": "60D高",
+        "kind": "resist",
+        "date": "2026-08-18"
+      }
+    ]
+  },
+  {
+    "code": "000300.SH",
+    "name": "沪深300",
+    "sector": "大盘指数",
+    "tag": "index",
+    "last": 4054.28,
+    "prev": 4113.41,
+    "pct": -1.44,
+    "date": "2026-11-06",
+    "open": 4017.94,
+    "high": 4069.07,
+    "low": 4013.79,
+    "hi60": 4744.01,
+    "lo60": 3958.14,
+    "ma5": 4058.96,
+    "ma20": 4112.86,
+    "ma60": 4404.84,
+    "dif": -88.396,
+    "dea": -102.136,
+    "macd_bar": 27.48,
+    "chart": "/charts/000300_SH_20261106.png",
+    "wu2198_levels": [
+      {
+        "price": 4054.28,
+        "label": "11/6收盘",
+        "kind": "ref"
+      },
+      {
+        "price": 4013.79,
+        "label": "11/6最低",
+        "kind": "support"
+      },
+      {
+        "price": 4100.0,
+        "label": "整数关口",
+        "kind": "resist"
+      }
+    ],
+    "auto_levels": [
+      {
+        "price": 3958.1375,
+        "label": "20D低",
+        "kind": "support",
+        "date": "2026-10-23"
+      },
+      {
+        "price": 4058.9631600000002,
+        "label": "MA5",
+        "kind": "ref"
+      },
+      {
+        "price": 4112.8642500000005,
+        "label": "MA20",
+        "kind": "ref"
+      },
+      {
+        "price": 4334.2904,
+        "label": "20D高",
+        "kind": "resist",
+        "date": "2026-10-12"
+      },
+      {
+        "price": 4404.843066666667,
+        "label": "MA60",
+        "kind": "ref"
+      },
+      {
+        "price": 4744.0054,
+        "label": "60D高",
+        "kind": "resist",
+        "date": "2026-08-18"
+      }
+    ]
+  },
+  {
+    "code": "002929.SZ",
+    "name": "润建股份",
+    "sector": "算力租赁/算力运维",
+    "tag": "stock",
+    "last": 63.11,
+    "prev": 57.37,
+    "pct": 10.01,
+    "date": "2026-11-06",
+    "open": 59.72,
+    "high": 63.11,
+    "low": 59.2,
+    "hi60": 63.11,
+    "lo60": 40.1,
+    "ma5": 55.73,
+    "ma20": 51.06,
+    "ma60": 51.69,
+    "dif": 2.098,
+    "dea": 1.118,
+    "macd_bar": 1.961,
+    "chart": "/charts/002929_SZ_20261106.png",
+    "wu2198_levels": [
+      {
+        "price": 63.11,
+        "label": "11/6收盘2连板",
+        "kind": "ref"
+      },
+      {
+        "price": 57.37,
+        "label": "11/5收盘1板",
+        "kind": "ref"
+      },
+      {
+        "price": 49.58,
+        "label": "10/30起涨点",
+        "kind": "support"
+      },
+      {
+        "price": 55.93,
+        "label": "11/3高",
+        "kind": "support"
+      }
+    ],
+    "auto_levels": [
+      {
+        "price": 40.1,
+        "label": "20D低",
+        "kind": "support",
+        "date": "2026-10-15"
+      },
+      {
+        "price": 51.0555,
+        "label": "MA20",
+        "kind": "ref"
+      },
+      {
+        "price": 51.69233333333333,
+        "label": "MA60",
+        "kind": "ref"
+      },
+      {
+        "price": 55.73,
+        "label": "MA5",
+        "kind": "ref"
+      },
+      {
+        "price": 63.11,
+        "label": "20D高",
+        "kind": "resist",
+        "date": "2026-11-06"
+      }
+    ]
+  },
+  {
+    "code": "688521.SH",
+    "name": "芯原股份",
+    "sector": "端侧AI/半导体IP",
+    "tag": "stock",
+    "last": 105.3,
+    "prev": 113.0,
+    "pct": -6.81,
+    "date": "2026-11-06",
+    "open": 105.0,
+    "high": 111.61,
+    "low": 104.61,
+    "hi60": 231.97,
+    "lo60": 88.0,
+    "ma5": 102.31,
+    "ma20": 117.96,
+    "ma60": 167.76,
+    "dif": -18.092,
+    "dea": -19.18,
+    "macd_bar": 2.176,
+    "chart": "/charts/688521_SH_20261106.png",
+    "wu2198_levels": [
+      {
+        "price": 105.3,
+        "label": "11/6收盘",
+        "kind": "ref"
+      },
+      {
+        "price": 113.0,
+        "label": "11/5收盘创新高",
+        "kind": "resist"
+      },
+      {
+        "price": 104.61,
+        "label": "11/6最低",
+        "kind": "support"
+      }
+    ],
+    "auto_levels": [
+      {
+        "price": 88.0,
+        "label": "20D低",
+        "kind": "support",
+        "date": "2026-11-04"
+      },
+      {
+        "price": 102.31199999999998,
+        "label": "MA5",
+        "kind": "ref"
+      },
+      {
+        "price": 117.96399999999998,
+        "label": "MA20",
+        "kind": "ref"
+      },
+      {
+        "price": 150.18,
+        "label": "20D高",
+        "kind": "resist",
+        "date": "2026-10-12"
+      },
+      {
+        "price": 167.76016666666666,
+        "label": "MA60",
+        "kind": "ref"
+      },
+      {
+        "price": 231.97,
+        "label": "60D高",
+        "kind": "resist",
+        "date": "2026-08-07"
+      }
+    ]
+  },
+  {
+    "code": "300750.SZ",
+    "name": "宁德时代",
+    "sector": "固态电池/动力电池",
+    "tag": "stock",
+    "last": 254.22,
+    "prev": 264.06,
+    "pct": -3.73,
+    "date": "2026-11-06",
+    "open": 258.78,
+    "high": 269.89,
+    "low": 251.88,
+    "hi60": 400.99,
+    "lo60": 216.51,
+    "ma5": 252.13,
+    "ma20": 252.9,
+    "ma60": 315.6,
+    "dif": -14.462,
+    "dea": -19.831,
+    "macd_bar": 10.738,
+    "chart": "/charts/300750_SZ_20261106.png",
+    "wu2198_levels": [
+      {
+        "price": 254.22,
+        "label": "11/6收盘",
+        "kind": "ref"
+      },
+      {
+        "price": 269.89,
+        "label": "11/6最高 逆市翻红",
+        "kind": "resist"
+      },
+      {
+        "price": 251.88,
+        "label": "11/6最低",
+        "kind": "support"
+      }
+    ],
+    "auto_levels": [
+      {
+        "price": 216.51,
+        "label": "20D低",
+        "kind": "support",
+        "date": "2026-10-23"
+      },
+      {
+        "price": 252.13400000000001,
+        "label": "MA5",
+        "kind": "ref"
+      },
+      {
+        "price": 252.8955,
+        "label": "MA20",
+        "kind": "ref"
+      },
+      {
+        "price": 306.71,
+        "label": "20D高",
+        "kind": "resist",
+        "date": "2026-10-12"
+      },
+      {
+        "price": 315.6048333333334,
+        "label": "MA60",
+        "kind": "ref"
+      },
+      {
+        "price": 400.99,
+        "label": "60D高",
+        "kind": "resist",
+        "date": "2026-08-14"
+      }
+    ]
+  }
+]
