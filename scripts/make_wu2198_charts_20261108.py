@@ -36,6 +36,7 @@ MC_BBOX = "#dbeafe"
 C_BLOG = "#1f6feb"   # 博主点位
 C_MA = "#9ca3af"     # 均线
 C_EXT = "#e11d48"    # 极值 / 硬门槛
+C_PREV = "#334155"   # 昨收参考线（跳空缺口）· 深石板灰，与各均线色不冲突
 
 for fp in [
     "/System/Library/Fonts/PingFang.ttc",
@@ -129,10 +130,15 @@ def draw_levels(ax, levels, color="#1f6feb", min_gap_frac=0.048, n_cols=2):
 
     col_x = [-0.006, -0.135]
     for v, lbl in ordered:
-        lc = color
+        lc, ls = color, "--"
         if isinstance(lbl, tuple):
-            lbl, lc = lbl
-        ax.axhline(v, color=lc, linestyle="--", linewidth=0.9, alpha=0.85, zorder=1)
+            # 元组形式：(文字, 颜色[, 线型])
+            parts = lbl
+            lbl = parts[0]
+            lc = parts[1]
+            if len(parts) > 2:
+                ls = parts[2]
+        ax.axhline(v, color=lc, linestyle=ls, linewidth=0.9, alpha=0.85, zorder=1)
         c = col_of[v]
         y = pos[v]
         x = col_x[c]
@@ -208,14 +214,29 @@ def plot_one(ts_code: str, name: str, levels, out_path: Path, days: int = 60,
         extra = (hi_b - lo_b) * 0.045
         ax_main.set_ylim(lo_b - extra, hi_b + extra)
 
+    # 低开高走提示：收 > 开（阳线/红）但相对昨收下跌 —— 跳空缺口，读者容易误读
+    try:
+        _d = fetch_daily(ts_code, days=120)
+        if len(_d) >= 2:
+            _o, _c, _pc = _d["Open"].iloc[-1], _d["Close"].iloc[-1], _d["Close"].iloc[-2]
+            if _c >= _o and _c < _pc:
+                _gap = (_c / _pc - 1) * 100
+                ax_main.annotate(
+                    f"低开高走\n收>{_o:.2f} 但较昨收 {_gap:.2f}%",
+                    xy=(len(df) - 1, _d["High"].iloc[-1]),
+                    xytext=(len(df) - 9, _d["High"].iloc[-1] + (_d["High"].max() - _d["Low"].min()) * 0.10),
+                    fontsize=8.5, color="#b45309",
+                    bbox=dict(boxstyle="round,pad=0.32", fc="#fffbeb", ec="#f59e0b", lw=0.9),
+                    arrowprops=dict(arrowstyle="->", color="#f59e0b", lw=1.0),
+                    zorder=6,
+                )
+    except Exception:
+        pass
+
     if band:
         lo, hi, blbl = band
+        # 支撑带用浅蓝底纹表示；上下沿已在左侧标签中标注，不再叠加文字（避免遮挡）
         ax_main.axhspan(lo, hi, color="#bfdbfe", alpha=0.18, zorder=0)
-        ax_main.text(
-            1.008, (lo + hi) / 2, f"支撑带 {blbl}", va="center", ha="left",
-            fontsize=9, color="#1e40af", zorder=4,
-            transform=ax_main.get_yaxis_transform(),
-        )
     draw_levels(ax_main, levels)
 
     ax_vol = axes[2]
@@ -226,6 +247,15 @@ def plot_one(ts_code: str, name: str, levels, out_path: Path, days: int = 60,
         ax_vol.patches[i].set_alpha(0.85)
 
     axes[3].axhline(0, color="#9ca3af", linewidth=0.6, linestyle="-")
+
+    # 左侧只留给「关键点位」标签：主图价格刻度与轴标题移到右侧（A股行情软件惯例）
+    ax_main.yaxis.tick_right()
+    ax_main.yaxis.set_label_position("right")
+    # 三个面板整体右移，给轴外的关键位标签腾出空间（否则会压住 Y 轴刻度数字）
+    _shift = 0.075
+    for _ax in axes:
+        _pos = _ax.get_position()
+        _ax.set_position([_pos.x0 + _shift, _pos.y0, _pos.width - _shift, _pos.height])
     fig.savefig(out_path, dpi=120, facecolor=MC_FACE, bbox_inches="tight")
     plt.close(fig)
     print(f"  [ok] {out_path.name}  ({len(df)} 根 K线, 收 {last_close:.2f} {pct_s})")
@@ -255,32 +285,36 @@ if __name__ == "__main__":
     sufx = " (11/06 收 · 周末休市)"
     targets = [
         ("000001.SH", "上证指数",
-         [(3693.30, ("MA20", C_MA)), (3649.18, ("11/6收盘", C_BLOG)),
+         [(3689.91, ("昨收 11/5收", C_PREV, (0, (7, 3)))),
+          (3649.18, ("11/6收盘", C_BLOG)),
           (3610.20, ("11/6最低", C_MA)), (3600.00, ("整数关口", C_EXT)),
           (3574.27, ("60D低", C_EXT))],
          (3574.27, 3610.20, "3574-3610"), sufx),
         ("399006.SZ", "创业板指",
-         [(2648.26, ("MA20", C_MA)), (2506.97, ("11/6最高", C_MA)),
+         [(2566.80, ("昨收 11/5收", C_PREV, (0, (7, 3)))),
+          (2506.97, ("11/6最高", C_MA)),
           (2465.23, ("11/6收盘", C_BLOG)), (2438.72, ("11/6最低", C_MA))],
          (2438.72, 2465.23, "2439-2465"), sufx),
         ("000300.SH", "沪深300",
-         [(4112.86, ("MA20", C_MA)), (4069.07, ("11/6最高", C_MA)),
+         [(4113.41, ("昨收 11/5收", C_PREV, (0, (7, 3)))),
+          (4069.07, ("11/6最高", C_MA)),
           (4054.28, ("11/6收盘", C_BLOG)), (4013.79, ("11/6最低", C_MA)),
           (4100.00, ("整数关口", C_EXT))],
          (4013.79, 4054.28, "4014-4054"), sufx),
         ("002929.SZ", "润建股份",
-         [(51.06, ("MA20", C_MA)), (57.37, ("11/5收盘1板", C_MA)),
+         [(57.37, ("昨收 11/5收", C_PREV, (0, (7, 3)))),
           (63.11, ("11/6收盘2板", C_BLOG)), (59.20, ("11/6最低", C_MA))],
          (57.37, 59.20, "57.37-59.20"),
          " (11/06 收 · 算力租赁 两连板)"),
         ("300750.SZ", "宁德时代",
-         [(252.90, ("MA20", C_MA)), (269.89, ("11/6最高", C_MA)),
+         [(264.06, ("昨收 11/5收", C_PREV, (0, (7, 3)))),
+          (269.89, ("11/6最高", C_MA)),
           (254.22, ("11/6收盘", C_BLOG)), (251.88, ("11/6最低", C_MA))],
          (251.88, 254.22, "251.88-254.22"),
          " (11/06 收 · 固态电池 龙头)"),
         ("688521.SH", "芯原股份",
          [(104.61, ("11/6最低", C_MA)), (105.30, ("11/6收盘", C_BLOG)),
-          (113.00, ("11/5收盘新高", C_MA)), (111.61, ("11/6最高", C_MA))],
+          (113.00, ("昨收 11/5收", C_PREV, (0, (7, 3)))), (111.61, ("11/6最高", C_MA))],
          (104.61, 105.30, "104.61-105.30"),
          " (11/06 收 · 端侧AI 已被打回)"),
     ]
