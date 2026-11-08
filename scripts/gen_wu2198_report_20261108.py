@@ -1,0 +1,600 @@
+"""生成 2026-11-08 wu2198 投资观点日报 HTML。
+
+窗口：11/06 13:00 ~ 11/08 08:24（周末，无 A 股交易）
+关键新增（上期 11/06 报告未覆盖）：11/06 23:21「美国市场目前科技股出现报复性反弹，目前纳指涨425点」
+行情：Tushare Pro，11/06 收盘（周五最后交易日）
+"""
+from pathlib import Path
+
+OUT = Path("/Users/maoling/workspace/mnote.github.io/2026-11-08-wu2198-investment-report.html")
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>wu2198 投资观点日报 · 2026-11-08</title>
+<style>
+  :root {
+    --bg: #ffffff; --panel: #f8f9fb; --panel-2: #f1f3f6;
+    --border: #e5e7eb; --border-strong: #d1d5db;
+    --text: #1f2937; --muted: #6b7280;
+    --bull: #16a34a; --bull-bg: #dcfce7;
+    --bear: #dc2626; --bear-bg: #fee2e2;
+    --neutral: #d97706; --neutral-bg: #fef3c7;
+    --none: #6b7280; --none-bg: #f3f4f6;
+    --accent: #2563eb; --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero { background: linear-gradient(135deg, #fff7e6 0%, #fffbf0 100%); border: 1px solid #fbbf24; border-radius: 12px; padding: 24px 28px; margin-bottom: 28px; }
+  .hero h1 { color: #92400e; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .hero-turn { background: linear-gradient(135deg, #fef2f2 0%, #fff7f7 100%); border: 1px solid var(--bear); border-radius: 12px; padding: 18px 24px; margin: 18px 0; }
+  .hero-turn h3 { color: #991b1b; margin-top: 0; }
+  .hero-win { background: linear-gradient(135deg, #f0fdf4 0%, #f7fff9 100%); border: 1px solid var(--bull); border-radius: 12px; padding: 18px 24px; margin: 18px 0; }
+  .hero-win h3 { color: #14532d; margin-top: 0; }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 16px 0; }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 760px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .kpi { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: center; }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 400px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+  .tag-key { background: #ede9fe; color: var(--key); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .sector { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 18px 22px; margin: 18px 0; }
+  .sector.r1 { border-left-color: #16a34a; }
+  .sector.r2 { border-left-color: #d97706; }
+  .sector.r3 { border-left-color: #7c3aed; }
+  .sector h3 { margin-top: 0; }
+
+  .quote { background: var(--panel-2); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; border-left: 3px solid var(--border-strong); }
+  .quote .who { color: var(--muted); font-size: 12px; display: block; margin-bottom: 4px; }
+  .risk { background: var(--bear-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .action { background: var(--bull-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .verify { background: var(--accent-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .up { color: var(--bull); font-weight: 600; }
+  .down { color: var(--bear); font-weight: 600; }
+  .flat { color: var(--muted); font-weight: 600; }
+  .key-num { color: var(--key); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+  ul.tight { margin: 8px 0; padding-left: 22px; }
+  ul.tight li { margin: 4px 0; }
+  .divider { height: 1px; background: var(--border); margin: 26px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📈 wu2198 投资观点日报 · 2026-11-08（周日）</h1>
+  <div class="meta">
+    <span>🕘 抓取时间：2026-11-08 08:56</span>
+    <span>📡 数据源：weibo-watcher skill（访客 + 三轮搜索接口补采）</span>
+    <span>💹 行情：Tushare Pro（11/06 收盘 · 前复权）</span>
+  </div>
+  <p class="stance">
+    核心立场：🟡 <b>周末无新增操盘信号</b> —— 唯一有效增量是 11/06 23:21 那条<b>「美国市场科技股报复性反弹，纳指涨 425 点」</b>，
+    外盘指引由「暴跌」翻转为「反弹」；A 股方向沿用博主 11/06 定调：<b>「下周有望反弹」</b>。
+  </p>
+  <p class="meta">
+    抓取窗口 <b>11/06 13:00 → 11/08 08:24</b>，共 <b>13 条</b>微博（去重后）；
+    其中 <b>3 条带行情信号</b>（关键词分类器命中 2 条 + 人工补充 11/06 23:21 一条），
+    其余 10 条为立冬/晚安/人口话题等生活内容。
+  </p>
+</div>
+
+<div class="hero-turn">
+  <h3>⚠️ 本期最重要的一件事：上期报告漏掉了一条「翻转」信号</h3>
+  <p style="margin:0">
+    11/06 日报（窗口截到 20:12）写的是「🌐 隔夜纳指 -728 点，明天不接低开」。
+    但博主在 <b>23:21</b>（上期发稿后近 2 小时）又发了一条：
+    <b>「美国市场目前科技股出现报复性反弹，目前纳指涨 425 点……大家晚安！」</b>（👍7917 💬377）
+  </p>
+  <p style="margin:8px 0 0">
+    11/07 早安帖（👍9673）进一步给出收盘数：<b>「收盘道指下跌 237 点，纳指涨 264 点、标普上涨 23 点」</b>。
+    Tushare 美股指数实测：<b>DJI -237.33 / IXIC +264.42 / SPX +23.13</b> —— <b class="up">三个数字分毫不差</b>。
+    这是本系列里少见的「博主给收盘点位、实测完全对得上」的样本。
+  </p>
+</div>
+
+<div class="hero-win">
+  <h3>✅ 方向修正：外盘风险已部分解除，11/09 开盘预期由「防低开」翻转为「看反弹」</h3>
+  <p style="margin:0">
+    11/05 夜纳指暴跌 <b>-1421.51 点（-5.52%）</b> → 11/06 夜科技股报复性反弹 <b>+264.42 点（+1.09%）</b>。
+    博主 11/06 15:17 的周线定调「<b>连续大幅下跌之后的探低抵抗形态，从基本面看下周有望反弹</b>」，
+    与隔夜外盘翻转为同一方向 —— <b>这是本期最可执行的一条结论</b>。
+  </p>
+</div>
+
+<h2>一、窗口内全部微博与信号判定</h2>
+<table>
+  <thead>
+    <tr><th style="width:88px">时间</th><th style="width:70px">互动</th><th style="width:52px">信号</th><th>内容与判定</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>11/06 23:21</b></td>
+      <td class="score">👍7917<br>💬377</td>
+      <td class="emoji">🟢</td>
+      <td class="text">「美国市场目前科技股出现报复性反弹，目前纳指涨 425 点……大家晚安！」<br>
+        <span class="tag tag-bull">外盘·反弹</span> <span class="tag tag-key">本期唯一新增信号</span><br>
+        <b>人工补充（关键词词典未命中「报复性反弹」）</b>。盘中纳指一度涨 425 点，收盘回落到 +264.42 点。
+        这是博主在 11/05 22:53 发「纳指 -728 点」之后的<b>方向反转帖</b>。</td>
+    </tr>
+    <tr>
+      <td><b>11/07 07:02</b></td>
+      <td class="score">👍9673<br>💬697</td>
+      <td class="emoji">🟢</td>
+      <td class="text">「所有人早安……周五晚美国股市科技股出现反弹，收盘道指下跌 237 点，纳指涨 264 点、标普上涨 23 点。」<br>
+        <span class="tag tag-bull">外盘·收盘数据</span> <span class="tag tag-accent">实测分毫不差</span><br>
+        <b>本周最硬的一条数据帖</b>：Tushare 实测 DJI -237.33 / IXIC +264.42 / SPX +23.13，三项全中。</td>
+    </tr>
+    <tr>
+      <td><b>11/06 15:17</b></td>
+      <td class="score">👍18654<br>💬2118</td>
+      <td class="emoji">🟢</td>
+      <td class="text">「按周线看本周属于连续大幅下跌之后的探低抵抗形态，而今天遭遇外围股市大跌影响下跌。从基本面看下周有望反弹……收到请回复666，祝大家周末愉快！」<br>
+        <span class="tag tag-bull">周线定调</span> <span class="tag tag-accent">窗口内互动最高</span><br>
+        上期已覆盖，本期作为<b>下周一方向基准</b>继续生效。</td>
+    </tr>
+    <tr>
+      <td><b>11/06 13:14</b></td>
+      <td class="score">👍9181<br>💬193</td>
+      <td class="emoji">🟢</td>
+      <td class="text">「算力租凭龙头之一，连续拉2个板！」<br>
+        <span class="tag tag-bull">板块·点名</span><br>
+        上期已覆盖，11/06 实测<b>润建股份两连板封死</b>，继续作为板块 1 的锚。</td>
+    </tr>
+    <tr>
+      <td><b>11/07 08:47 / 10:46</b></td>
+      <td class="score">👍8760 / 7469</td>
+      <td class="emoji">⚪</td>
+      <td class="text">「早安，老铁们……今日立冬……」「今日立冬，秋尽江南叶半空……」<br>
+        <span class="tag tag-none">生活/节气</span> 无操盘信息</td>
+    </tr>
+    <tr>
+      <td><b>11/07 13:31</b></td>
+      <td class="score">👍5058</td>
+      <td class="emoji">⚪</td>
+      <td class="text">「#新出生人口规模掉得太快# 按数据看 65 岁+ 人口 2025 年达 2.24 亿，首次超过 0-14 岁少儿总和！」<br>
+        <span class="tag tag-none">宏观话题</span> 无操作指向</td>
+    </tr>
+    <tr>
+      <td><b>11/07 16:34</b></td>
+      <td class="score">👍4451</td>
+      <td class="emoji">⚪</td>
+      <td class="text">「中国历史上最励志的寒门崛起史诗。」<br>
+        <span class="tag tag-none">鸡汤/励志</span></td>
+    </tr>
+    <tr>
+      <td><b>11/07 21:31</b></td>
+      <td class="score">👍3551</td>
+      <td class="emoji">⚪</td>
+      <td class="text">「#梁文锋DeepSeek不止国运级# 年轻有为啊！」<br>
+        <span class="tag tag-none">产业话题</span> 无操作指向（DeepSeek 主题可留意，但博主未点名板块）</td>
+    </tr>
+    <tr>
+      <td><b>11/07 22:02 / 11/08 06:27</b></td>
+      <td class="score">👍3759 / 2222</td>
+      <td class="emoji">⚪</td>
+      <td class="text">「大家晚安！」「#8省份大到暴雪# 老铁们，注意保暖哈！」<br>
+        <span class="tag tag-none">生活</span></td>
+    </tr>
+    <tr>
+      <td><b>11/08 07:23 / 08:24</b></td>
+      <td class="score">👍2912 / 1138</td>
+      <td class="emoji">⚪</td>
+      <td class="text">「天冷了，一想到还有很多帅哥一个人睡……」「抖Y一个……不来啵一个？」<br>
+        <span class="tag tag-none">生活/互动</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divider"></div>
+
+<h2>二、大盘与个股关键点位（K 线 + MACD + 成交量）</h2>
+
+<p class="meta">
+  关键点位已在 K 线图 <b>左侧以虚线标注</b>（📌 博主相关位 / 支撑位 / 均线位），
+  技术位（MA5/MA10/MA20）以细灰虚线叠加。K 线、成交量柱、MACD 柱均为 <b>A 股惯例：红涨绿跌</b>。
+</p>
+
+<h3>🟡 上证指数 · 000001.SH</h3>
+<div class="grid-4">
+  <div class="kpi"><div class="label">11/06 收盘</div><div class="val down">3,649.18</div><div class="sub">-1.10%</div></div>
+  <div class="kpi"><div class="label">开 / 高 / 低</div><div class="val" style="font-size:15px">3612.15 / 3660.49 / 3610.20</div><div class="sub">低开 -2.11%</div></div>
+  <div class="kpi"><div class="label">MA5 / MA20</div><div class="val" style="font-size:16px">3654.28 / 3693.30</div><div class="sub">收盘在 MA5 下方</div></div>
+  <div class="kpi"><div class="label">MACD</div><div class="val" style="font-size:16px">DIF -50.96</div><div class="sub">DEA -56.34 · 柱 +10.76</div></div>
+</div>
+<div class="verify">
+  📌 11/06 低开 <b>-2.11%</b> 后全天弱势震荡，跌幅（-1.10%）远小于外围 —— 博主 11/06 09:27「大幅度低开，正好加仓」<b>方向成立</b>。
+  但收盘 3649.18 未能站回 MA5 3654.28（差 5.10 点），MACD 柱 +10.76 虽为正、DIF 仍在零轴下方。
+</div>
+<img class="chart" src="/charts/000001_SH_20261108.png" alt="上证指数 000001.SH 日线 K线 + MACD + 成交量">
+<p class="chart-caption">关键点位：11/6 收盘 3649.18（博主 15:05 报「收在3649点」分毫不差）· 11/6 最低 3610.20 · 整数关口 3600.00 · 60D 低 3574.27 · MA20 3693.30</p>
+
+<h3>🔴 创业板指 · 399006.SZ</h3>
+<div class="grid-4">
+  <div class="kpi"><div class="label">11/06 收盘</div><div class="val down">2,465.23</div><div class="sub">-3.96%</div></div>
+  <div class="kpi"><div class="label">开 / 高 / 低</div><div class="val" style="font-size:15px">2438.72 / 2506.97 / 2438.72</div><div class="sub">开盘=全天最低</div></div>
+  <div class="kpi"><div class="label">MA5 / MA20</div><div class="val" style="font-size:16px">2485.42 / 2648.26</div><div class="sub">跌破 MA5/MA10</div></div>
+  <div class="kpi"><div class="label">MACD</div><div class="val" style="font-size:16px">DIF -175.54</div><div class="sub">DEA -184.49 · 柱 +17.90</div></div>
+</div>
+<div class="verify">
+  📌 <b>三大指数中最惨</b>：开盘即全天最低 2438.72，尾盘拉到 2506.97 后回落收 2465.23（-3.96%）。
+  高成长赛道对外围冲击最敏感 —— 博主推荐的<b>端侧 + 算力租赁两条线当天全部被砸</b>。
+</div>
+<img class="chart" src="/charts/399006_SZ_20261108.png" alt="创业板指 399006.SZ 日线 K线 + MACD + 成交量">
+<p class="chart-caption">关键点位：11/6 收盘 2465.23 · 11/6 最低 2438.72 · 11/6 最高 2506.97 · MA20 2648.26</p>
+
+<h3>🟡 沪深300 · 000300.SH</h3>
+<div class="grid-4">
+  <div class="kpi"><div class="label">11/06 收盘</div><div class="val down">4,054.28</div><div class="sub">-1.44%</div></div>
+  <div class="kpi"><div class="label">开 / 高 / 低</div><div class="val" style="font-size:15px">4017.94 / 4069.07 / 4013.79</div><div class="sub">—</div></div>
+  <div class="kpi"><div class="label">MA5 / MA20</div><div class="val" style="font-size:16px">4058.96 / 4112.86</div><div class="sub">收盘在 MA5 下方</div></div>
+  <div class="kpi"><div class="label">MACD</div><div class="val" style="font-size:16px">DIF -88.43</div><div class="sub">DEA -102.18 · 柱 +27.50</div></div>
+</div>
+<div class="verify">
+  📌 跌幅小于创业板（-1.44% vs -3.96%），权重相对抗跌；MACD 柱 +27.50 为三大指数中最强，DIF 仍在零轴下方。
+  <b>距 60D 低 3958.14 仅 -2.37%</b> —— 权重护盘弹药接近打光。
+</div>
+<img class="chart" src="/charts/000300_SH_20261108.png" alt="沪深300 000300.SH 日线 K线 + MACD + 成交量">
+<p class="chart-caption">关键点位：11/6 收盘 4054.28 · 11/6 最低 4013.79 · 11/6 最高 4069.07 · 整数关口 4100.00 · MA20 4112.86</p>
+
+<h3>🟢 科创50 · 000688.SH（补充）</h3>
+<p>11/06 收 <b class="down">1253.20（-2.60%）</b>，开 1221.67 / 高 1288.38 / 低 1219.53。
+从 11/03 的 1151.28 三日累计 <b class="up">+8.85%</b>，是本轮反弹里最陡的指数 —— 但博主自设的
+「科创50 1100 才是理想搏击点」已连续第 3 个交易日被跳过（最低 1219.53，还差 <b>10.9%</b>）。</p>
+
+<h3>📊 11/06 全市场情绪（东财 + Tushare 实测）</h3>
+<div class="grid-4">
+  <div class="kpi"><div class="label">全 A 成交额</div><div class="val">16,716 亿</div><div class="sub">增量 -4,635 亿</div></div>
+  <div class="kpi"><div class="label">涨 / 跌 家数</div><div class="val"><span class="up">758</span> / <span class="down">4741</span></div><div class="sub">跌家占 85%</div></div>
+  <div class="kpi"><div class="label">涨停 / 跌停</div><div class="val">32 / 15</div><div class="sub">前日 84 / 0</div></div>
+  <div class="kpi"><div class="label">20cm 涨停</div><div class="val">4</div><div class="sub">前日 10</div></div>
+</div>
+<div class="risk">
+  ⚠️ <b>情绪断崖</b>：成交额从 21,351 亿缩到 16,716 亿（<b>-4,635 亿，缩量 21.7%</b>），涨停家数从 84 家砍到 32 家，
+  跌停从 0 家到 15 家，4,741 家下跌。反弹燃料在 11/06 一天之内明显消耗。
+</div>
+
+<div class="divider"></div>
+
+<h2>三、最值得投资的 3 个板块 + 3 支个股</h2>
+
+<p class="meta">
+  排序依据：博主 11/05-11/06 期间实际点名的 3 个方向（算力租赁 / 端侧AI / 固态电池），
+  用 Tushare 11/06 实测数据逐一验证真实性，再叠加 11/06 23:21 + 11/07 07:02 两条外盘翻转帖作为方向修正。
+  <b>本期无新增点名，3 个板块沿用上期主线，但排序按「隔夜外盘映射度」重排。</b>
+</p>
+
+<div class="sector r1">
+  <h3>板块 1 · 🟢 算力租赁 / 算力运维 —— 最强主线，隔夜映射最直接</h3>
+  <div class="quote">
+    <span class="who">📌 博主原话 · 11/06 13:14（👍9181）</span>
+    「算力租凭龙头之一，连续拉2个板！」
+  </div>
+  <p><b>实测印证（11/06）</b>：润建股份 <b class="up">+10.01%</b> 封死涨停，11/05 已 +10.01%，
+  <b>两连板与博主描述分毫不差</b>。这是全市场 32 只涨停里唯一的两连板主线票。</p>
+  <p><b>板块强度</b>：6 只样本均值 <b class="up">-0.89%</b> —— 在全 A 跌 85% 家数、创业板 -3.96% 的背景下
+  显著抗跌（<b>跑赢创业板 3.07 个百分点</b>）。但除龙头外全部下跌：
+  润泽 -3.70%、数据港 -3.60%、首都在线 -3.43%。</p>
+  <div class="verify">
+    ✅ <b>隔夜加分项</b>：美股科技股报复性反弹 +264.42 点，是三条主线里<b>对美股映射最直接</b>的一条
+    （算力租赁 = AI 资本开支的直接承接方）。上期报告写「11/06 这条线最可能先挨打」，
+    <b>隔夜外盘已把这条线的压制解除</b>。
+  </div>
+  <div class="risk">
+    ⚠️ <b>风险</b>：<b>只有龙头在涨</b> —— 板块均值仍是负的，说明这是<b>资金高度抱团</b>而非全面启动。
+    连板高位股一旦情绪继续退潮，<b>开板回撤幅度远大于指数</b>（11/06 全 A 已缩量 21.7%、跌停 15 家）。
+    且 11/06 是周五，<b>周末发酵的溢价 + 隔夜外盘反弹，容易在 11/09 高开被兑现</b>。
+  </div>
+  <div class="action">
+    👉 <b>操作建议</b>：只做龙头不碰跟风。润建股份若 11/09 高开不追，
+    <b>回踩 57.37（11/5 收盘 = 1 板价）不破，可当第一观察位</b>；跌破 57.37 则两连板结构算力线降温。
+    看板块扩散则看 <b>润泽科技 300442</b> 能否站稳 MA5 54.74（11/06 收 57.57，已站上）。
+  </div>
+</div>
+
+<div class="sector r2">
+  <h3>板块 2 · 🟡 端侧AI / SoC —— 已兑现且已破位，等企稳</h3>
+  <div class="quote">
+    <span class="who">📌 博主原话 · 11/05 15:02（👍8073，上期已覆盖）</span>
+    「今天端侧非常"标土浮"……龙头连续拉了2个板，几只改写新高！」
+  </div>
+  <p><b>实测印证</b>：瑞芯微 11/04 +10.00% → 11/05 +10.00% 两连板，11/05 收 217.81 为区间新高，
+  与博主描述一致。但 <b>11/06 已被打回</b>：瑞芯微 -2.36%、博通集成 -5.22%、芯原股份 -6.81%，
+  10 只样本均值 <b class="down">-3.21%</b>。</p>
+  <div class="verify">
+    📌 <b>值得注意的分化</b>：11/06 端侧样本 10 只里 <b>只有汇顶科技 603160 收红（+0.70%）</b>，
+    而前期涨幅最大的芯原（-6.81%）、博通（-5.22%）跌最多 —— <b>典型的「涨得多的先补跌」</b>，
+    说明这波端侧行情已进入获利了结阶段而非趋势中段。
+  </div>
+  <div class="risk">
+    ⚠️ <b>风险</b>：博主本人在 11/06 之后<b>未再更新端侧观点</b>（周末 13 条帖子里没有一条提端侧）。
+    芯原股份 11/06 收 105.30，<b>跌破 11/05 的 113.00 新高，也跌破 MA10 106.61 和 MA20 117.96</b>，
+    短线结构已破坏。前期两连板 + 创新高的涨幅尚未消化。
+  </div>
+  <div class="action">
+    👉 <b>操作建议</b>：<b>降级为观察，不参与</b>。要重新确认需同时满足两个条件：
+    ① 芯原股份<b>站回 111.61（11/6 高点）</b>；② 瑞芯微<b>站回 217.81（11/5 涨停价）</b>。
+    在此之前，任何端侧的反弹都当<b>反抽</b>看待，不当<b>反转</b>。
+  </div>
+</div>
+
+<div class="sector r3">
+  <h3>板块 3 · 🟢 固态电池 / 动力电池 —— 逆市唯一红盘方向，位置最低</h3>
+  <div class="quote">
+    <span class="who">📌 博主原话 · 11/06 09:31（上期已覆盖）</span>
+    「固态电池现在逆市返红了！」
+  </div>
+  <p><b>实测印证</b>：宁德时代 11/06 开 258.78、最低下探 251.88、盘中最高拉到 <b class="up">269.89（+2.21%）</b>，
+  确为逆市翻红。8 只样本均值 <b class="down">-2.71%</b>，
+  <b>好于端侧 -3.21%、远好于 CPO -7.24%</b>，但绝对值仍为负 —— 博主说的是「盘中返红」而非「收盘站稳」，
+    这个区别在 11/06 被验证了：<b>尾盘全部回吐，收 254.22（-3.73%）</b>。</p>
+  <div class="verify">
+    ✅ <b>隔夜最抗跌的一条</b>：固态电池靠<b>产业逻辑</b>而非美股映射。
+    11/05 纳指 -5.52% 的隔夜冲击里，博主推荐的端侧 + 算力租赁都被映射，
+    <b>唯独固态电池靠自身产业逻辑，跌幅最小</b>（11/05 宁德 +4.42%、赣锋 +6.27%）。
+    这个「不依赖外盘」的属性，在 11/09 外盘反弹的环境下意味着<b>它涨得少但跌得也少</b>。
+  </div>
+  <div class="risk">
+    ⚠️ <b>风险</b>：宁德时代 11/06 收 254.22，<b>MACD 柱 +10.72 转正但 DIF -14.45 仍在零轴下方</b>，
+    处于底部修复初期而非趋势反转。周末博主发帖提到
+    「<b>65 岁+ 人口 2025 年达 2.24 亿，首次超过少儿总和</b>」，
+    <b>养老/银发经济的中期叙事在强化</b>，但这是宏观话题帖、不是板块指令，
+    <b>不构成对固态或医药的操作依据</b>。
+  </div>
+  <div class="action">
+    👉 <b>操作建议</b>：<b>只做低吸不做追高</b>。<b>251.88（11/6 低点）</b>是短线防守位，
+    跌破则看 <b>20D 低 216.51</b> 的更深支撑；站上 MA20 252.90 后再看 269.89。
+    隔夜外盘反弹环境下，<b>固态是三条线里最不需要看外盘脸色的一条</b>。
+  </div>
+</div>
+
+<div class="panel panel-2">
+  <h3 style="margin-top:0">🔴 附加对照：CPO / 光模块 —— 博主押注两次，两次证伪</h3>
+  <p>博主 11/05 14:19 押「CPO 和存储芯片尾盘资金自救，指数有望收高」—— 11/06 答案：<b class="down">-9.19%</b>。</p>
+  <table>
+    <thead><tr><th>标的</th><th>11/05</th><th>11/06</th><th>两日累计</th><th>11/06 成交额</th></tr></thead>
+    <tbody>
+      <tr><td>中际旭创 300308</td><td class="down">-7.51%</td><td class="down">-9.19%</td><td class="down"><b>-16.02%</b></td><td>239.7 亿</td></tr>
+      <tr><td>新易盛 300502</td><td class="down">-5.54%</td><td class="down">-7.28%</td><td class="down"><b>-12.42%</b></td><td>152.8 亿</td></tr>
+      <tr><td>天孚通信 300394</td><td class="down">-4.78%</td><td class="down">-5.79%</td><td class="down"><b>-10.29%</b></td><td>63.6 亿</td></tr>
+      <tr><td>源杰科技 688498</td><td class="down">-1.06%</td><td class="down">-8.43%</td><td class="down"><b>-9.40%</b></td><td>40.2 亿</td></tr>
+    </tbody>
+  </table>
+  <p><b>5 只样本均值 -7.24%</b> —— 全线暴跌、持续放量杀跌。这条线<b>是拖累创业板的那条线</b>，
+  博主押它「自救」而它继续崩。<b>隔夜纳指反弹给了 CPO 一个反抽窗口，但两日 -16% 的放量杀跌说明抛压是真实的，不宜参与。</b></p>
+</div>
+
+<div class="divider"></div>
+
+<h2>四、3 支个股 K 线与技术位</h2>
+
+<h3>🟢 润建股份 002929.SZ —— 算力租赁龙头 · 两连板</h3>
+<div class="grid-4">
+  <div class="kpi"><div class="label">11/06 收盘</div><div class="val up">63.11</div><div class="sub">+10.01% 两连板</div></div>
+  <div class="kpi"><div class="label">开 / 高 / 低</div><div class="val" style="font-size:15px">59.72 / 63.11 / 59.20</div><div class="sub">收=全天最高</div></div>
+  <div class="kpi"><div class="label">MA5 / MA20</div><div class="val" style="font-size:16px">55.73 / 51.05</div><div class="sub">站上全部均线</div></div>
+  <div class="kpi"><div class="label">MACD</div><div class="val" style="font-size:16px">DIF 2.08</div><div class="sub">DEA 1.08 · 柱 +1.99</div></div>
+</div>
+<div class="verify">
+  ✅ <b>博主 11/06 13:14「连续拉2个板」分毫不差</b>。MACD 在零轴上方金叉、DIF 2.08 &gt; DEA 1.08，
+  动能仍在上行，是三条线里<b>唯一 MACD 零轴上方的标的</b>。成交 26.0 亿（前日 10.9 亿，<b>放量 2.4 倍</b>）。
+</div>
+<img class="chart" src="/charts/002929_SZ_20261108.png" alt="润建股份 002929.SZ 日线 K线 + MACD + 成交量">
+<p class="chart-caption">关键点位：11/6 收盘 2 板 63.11 · 11/6 最低 59.20 · 11/5 收盘 1 板 57.37 · MA20 51.05</p>
+
+<h3>🟡 宁德时代 300750.SZ —— 固态电池龙头 · 位置最低</h3>
+<div class="grid-4">
+  <div class="kpi"><div class="label">11/06 收盘</div><div class="val down">254.22</div><div class="sub">-3.73%</div></div>
+  <div class="kpi"><div class="label">开 / 高 / 低</div><div class="val" style="font-size:15px">258.78 / 269.89 / 251.88</div><div class="sub">盘中最高 +2.21%</div></div>
+  <div class="kpi"><div class="label">MA5 / MA20</div><div class="val" style="font-size:16px">252.13 / 252.90</div><div class="sub">仅差 0.77 点</div></div>
+  <div class="kpi"><div class="label">MACD</div><div class="val" style="font-size:16px">DIF -14.45</div><div class="sub">DEA -19.81 · 柱 +10.72</div></div>
+</div>
+<div class="verify">
+  📌 成交 <b>147.9 亿</b>，是三只里最重的。MACD 柱 +10.72 转正、DIF -14.45 仍在零轴下方 → <b>底部修复初期</b>。
+  <b>距 60D 高 400.99 还有 -36.6% 空间，是三条线里位置最低、赔率最厚的。</b>
+</div>
+<img class="chart" src="/charts/300750_SZ_20261108.png" alt="宁德时代 300750.SZ 日线 K线 + MACD + 成交量">
+<p class="chart-caption">关键点位：11/6 收盘 254.22 · 11/6 最低 251.88 · 11/6 最高 269.89 · MA20 252.90</p>
+
+<h3>🟡 芯原股份 688521.SH —— 端侧AI · 已破位，对照组</h3>
+<div class="grid-4">
+  <div class="kpi"><div class="label">11/06 收盘</div><div class="val down">105.30</div><div class="sub">-6.81%</div></div>
+  <div class="kpi"><div class="label">开 / 高 / 低</div><div class="val" style="font-size:15px">105.00 / 111.61 / 104.61</div><div class="sub">几乎收在全天最低</div></div>
+  <div class="kpi"><div class="label">MA5 / MA20</div><div class="val" style="font-size:16px">102.31 / 117.96</div><div class="sub">远低于 MA20</div></div>
+  <div class="kpi"><div class="label">MACD</div><div class="val" style="font-size:16px">DIF -18.06</div><div class="sub">DEA -19.13 · 柱 +2.15</div></div>
+</div>
+<div class="risk">
+  ⚠️ <b>博主信号已失效</b>：11/05 收 113.00 为区间新高（对应博主「改写新高」），11/06 收 105.30
+  <b>跌破新高价 7.7 点、跌破 MA10 106.61 和 MA20 117.96</b>，几乎收在全天最低 104.61。
+  成交 25.2 亿放量下跌 —— <b>结构破坏，不参与</b>。
+</div>
+<img class="chart" src="/charts/688521_SH_20261108.png" alt="芯原股份 688521.SH 日线 K线 + MACD + 成交量">
+<p class="chart-caption">关键点位：11/6 收盘 105.30 · 11/6 最低 104.61 · 11/6 最高 111.61 · 11/5 收盘新高 113.00</p>
+
+<div class="divider"></div>
+
+<h2>五、周线视角：博主「下周有望反弹」的技术核对</h2>
+<div class="grid-2">
+  <div class="panel">
+    <h3 style="margin-top:0">📊 上证指数周线</h3>
+    <p>近 6 周收盘：3842 → 3814 → 3716 → 3690 → <b>3599 → 3649</b></p>
+    <p>周线 DIF <b class="down">-80.33</b> / DEA <b class="down">-49.95</b> / 柱 <b class="down">-60.76</b>（上周 -62.19）</p>
+    <p>👉 <b>方向对，位置不对</b>：周线 MACD 柱虽收窄 1.43 点，但 <b>DIF 与 DEA 仍双双深在零轴下方</b>，
+    属下跌后的首次钝化，不是趋势转正。博主的「探低抵抗形态」描述在周线成立，
+    但「反弹」而非「反转」这一定性，与周线指标一致 —— <b>两者说的是同一件事</b>。</p>
+  </div>
+  <div class="panel">
+    <h3 style="margin-top:0">📊 创业板指周线</h3>
+    <p>近 6 周收盘：3135 → 3043 → 2772 → 2684 → <b>2414 → 2465</b></p>
+    <p>周线 DIF <b class="down">-249.61</b> / DEA <b class="down">-124.36</b> / 柱 <b class="down">-250.49</b></p>
+    <p>👉 创业板周线跌幅更陡（6 周 -21.4%），MACD 柱几乎无改善（-250.06 → -250.49）。
+    <b>成长股周线比主板弱得多</b>，这正是 11/06 创业板 -3.96% 的周线背景。
+    若 11/09 反弹，<b>主板（沪深300 距 60D 低仅 -2.37%）的赔率优于创业板</b>。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>六、下周一（11/09）操作建议</h2>
+<div class="panel">
+  <h3 style="margin-top:0">🎯 第 0 步：开盘前先看隔夜 —— 方向已翻转</h3>
+  <ul class="tight">
+    <li><b>外盘风险已解除</b>：11/06 夜纳指 +264.42（+1.09%）、标普 +23.13、道指 -237.33。
+      上期「不接低开、等 10 点后」的防御姿态<b>可以取消</b>。</li>
+    <li>但注意<b>结构分化</b>：道指反而跌 237 点 —— <b>涨的是科技，跌的是传统权重</b>。
+      对应 A 股：<b>成长/科技（端侧、算力、CPO）有映射，权重（银行、白酒、地产）没有</b>。
+      这与 11/06 上证50 -0.84% 跑赢、创业板 -3.96% 跑输的 11 月 6 日结构正好相反，下周一可能重演一次风格切换。</li>
+  </ul>
+</div>
+
+<div class="grid-3">
+  <div class="panel">
+    <h3 style="margin-top:0">🟢 优先级 1：算力租赁</h3>
+    <p>龙头<b>润建股份 002929</b> 是唯一 MACD 零轴上方 + 两连板封死的标的，也是隔夜美股反弹映射最直接的方向。</p>
+    <p><b>但</b>：板块均值仍是 -0.89%（只有龙头在涨），且 11/09 大概率高开 —— <b>高开不追</b>。</p>
+    <p>👉 回踩 <span class="key-num">57.37</span>（11/5 一板价）不破可观察；跌破则该线降温。</p>
+  </div>
+  <div class="panel">
+    <h3 style="margin-top:0">🟢 优先级 2：固态电池</h3>
+    <p><b>宁德时代 300750</b> 是唯一「靠产业逻辑、不看外盘脸色」的一条线，
+    距 60D 高还有 -36.6% 空间，位置最低、赔率最厚。</p>
+    <p><b>但</b>：11/06 盘中翻红尾盘回吐，MACD DIF 仍在零轴下方，只做修复不做反转。</p>
+    <p>👉 <span class="key-num">251.88</span>（11/6 低点）不破可低吸；站上 MA20 252.90 转强。</p>
+  </div>
+  <div class="panel">
+    <h3 style="margin-top:0">🟡 优先级 3：主板权重</h3>
+    <p>博主唯一点名的大盘方向是<b>「下周有望反弹」</b>（周线探低抵抗）。</p>
+    <p>沪深300 距 60D 低 3958.14 仅 -2.37%，周线 MACD 柱三大指数中最强（+27.50），
+      <b>且道指下跌意味着权重不在外盘反弹的受益名单里 —— 靠的是自身超跌修复</b>。</p>
+    <p>👉 盯 <span class="key-num">4013.79</span>（11/6 低）不破；站上 MA5 4058.96 转强。</p>
+  </div>
+</div>
+
+<div class="panel panel-2">
+  <h3 style="margin-top:0">🚫 明确不参与</h3>
+  <ul class="tight">
+    <li><b>端侧AI</b>（芯原 688521 -6.81%、瑞芯微 -2.36%）：跌破新高价与 MA20，结构破坏，等站回 111.61 / 217.81 再看。</li>
+    <li><b>CPO / 光模块</b>（中际旭创两日 -16.02%）：博主两次押「自救」两次证伪，且是拖累创业板的那条线。</li>
+    <li><b>追高任何连板股</b>：11/06 全 A 已缩量 4,635 亿、跌停 15 家，情绪处于退潮初期，周一高开大概率是兑现位。</li>
+  </ul>
+</div>
+
+<div class="divider"></div>
+
+<h2>七、信号质量评估与本期方法说明</h2>
+<div class="grid-2">
+  <div class="panel">
+    <h3 style="margin-top:0">✅ 本期验证通过的</h3>
+    <ul class="tight">
+      <li><b>外盘收盘点位 3/3 全中</b>：博主 11/07 早安帖「道指 -237 点、纳指涨 264 点、标普涨 23 点」
+        vs Tushare 实测 <b>DJI -237.33 / IXIC +264.42 / SPX +23.13</b> —— 三项分毫不差，
+        <b>本系列迄今最准的一次点位播报</b>。</li>
+      <li><b>算力租赁两连板</b>：11/06 13:14「连续拉2个板」→ 润建股份两连板封死。</li>
+      <li><b>低开方向</b>：11/06 09:27「大幅度低开，正好加仓」→ 沪指实际低开 -2.11%，跌幅 -1.10% 远小于外围。</li>
+      <li><b>周线定性</b>：「探低抵抗形态」与周线 MACD 首次钝化（柱 -62.19 → -60.76）一致。</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3 style="margin-top:0">⚠️ 需要打折的</h3>
+    <ul class="tight">
+      <li><b>「下周有望反弹」是方向判断，不是点位</b>：周线 DIF -80.33 仍在零轴下方，
+        反弹 ≠ 反转，幅度参考上期经验 —— 11/05 沪指全天振幅仅 55 点（1.49%）。</li>
+      <li><b>周末无任何 A 股板块新指令</b>：13 条帖子里 10 条是生活内容，
+        3 个板块全部沿用上期主线 —— <b>本期的新信息只在美股方向</b>。</li>
+      <li><b>11/07 13:31 人口帖、21:31 DeepSeek 帖</b>是宏观/产业话题，
+        <b>博主未点名任何板块，不构成操作依据</b>，本报告不做延伸解读。</li>
+      <li><b>情绪面</b>：缩量 4,635 亿 + 跌停 15 家 + 跌家占 85%，
+        反弹窗口存在，但<b>接盘资金不足的证据是硬的</b>。</li>
+    </ul>
+  </div>
+</div>
+
+<div class="panel">
+  <h3 style="margin-top:0">🔧 本期方法改进（相对 11/06 期）</h3>
+  <ul class="tight">
+    <li><b>补上了一条关键信号</b>：上期报告窗口截到 20:12，<b>漏掉了 23:21 的外盘翻转帖</b>。
+      本期新增两轮定向搜索（<code>fetch_weibo_search2.py</code> / <code>fetch_weibo_search3.py</code>），
+      用「报复性反弹 / 收盘了 / 明日 / 下周 / 隔夜 / 外围 / 纳指 / 道指 / 缩量 / 连板 / 炸板」等
+      41 个词表扫 11/06 19:00 之后的空档，<b>成功捞出这条漏网帖</b>。
+      教训：<b>时间线第 1 页 + 通用词表不够，收盘后时段需要专门的词表单独扫一遍。</b></li>
+    <li><b>美股点位用 Tushare <code>index_global</code> 独立核验</b>，博主报的
+      道指 -237 / 纳指 +264 / 标普 +23 与实测 DJI -237.33 / IXIC +264.42 / SPX +23.13 完全一致 ——
+      这条播报<b>可以直接采信</b>，是可跟单信号。</li>
+    <li><b>板块强度改用「样本均值 vs 指数」对比</b>，而不是看个股涨跌幅 ——
+      算力租赁均值 -0.89% 跑赢创业板 3.07 个百分点，才看得出「只有龙头在涨」这个关键事实。</li>
+    <li><b>周线维度单列一节</b>，用周频 MACD 核对博主的周线定性，避免把「反弹」当「反转」。</li>
+  </ul>
+</div>
+
+<div class="foot">
+  <p><b>数据来源与口径</b></p>
+  <ul class="tight">
+    <li>微博：weibo-watcher skill（访客模式时间线 + 三轮搜索接口补采），UID 1216826604「wu2198」，
+      窗口 11/06 13:00 ~ 11/08 08:24，去重后 13 条。</li>
+    <li>A 股行情：Tushare Pro <code>index_daily</code> / <code>daily</code> / <code>adj_factor</code>，
+      截至 <b>11/06 收盘</b>（周五最后交易日），个股前复权。</li>
+    <li>美股行情：Tushare Pro <code>index_global</code>（DJI / IXIC / SPX），11/06 收盘。</li>
+    <li>涨停/跌停家数：东方财富涨停板/跌停板池（11/06 口径，不含 ST，ST 当日为 0）；全 A 成交额与涨跌家数为 Tushare 全市场汇总。</li>
+    <li>K 线图：matplotlib + mplfinance，<b>红涨绿跌（A 股惯例）</b>，关键点位居左虚线标注，
+      成交量柱与 MACD 柱同步红涨绿跌。脚本：<code>scripts/make_wu2198_charts_20261108.py</code>。</li>
+    <li>板块样本均值：算力租赁 6 只 / 端侧AI 10 只 / 固态电池 8 只 / CPO 对照 5 只，11/06 单日涨跌幅算术平均。</li>
+  </ul>
+  <p style="margin-top:14px">
+    ⚠️ 本报告为博主观点整理与技术面核对，<b>不构成投资建议</b>。博主看空表述历史上多集中于外盘，
+    A 股基本面方向未见看空，但其周线判断需自行验证。股市有风险，入市需谨慎。
+  </p>
+</div>
+
+</div>
+</body>
+</html>
+"""
+
+OUT.write_text(HTML, encoding="utf-8")
+print(f"[ok] {OUT}  ({len(HTML):,} bytes)")
