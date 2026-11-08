@@ -159,8 +159,8 @@ h = h.replace(
 
 # ── 8) 页脚 ────────────────────────────────────────────────────────────
 h = h.replace(
-    "<p>数据来源：weibo-watcher skill（m.weibo.cn 时间线 + 搜索接口）· Tushare Pro（11/05 收盘，前复权）· 图表由 <code>scripts/make_wu2198_charts_20261105.py</code> 生成</p>",
-    "<p>数据来源：weibo-watcher skill（m.weibo.cn 时间线 + 搜索接口，19 条）· Tushare Pro（11/05 收盘，前复权）· 图表由 <code>scripts/make_wu2198_charts_20261105.py</code> 生成</p>",
+    "<p>数据来源：weibo skill（m.weibo.cn 时间线 + 搜索接口）· Tushare Pro（11/05 收盘，前复权）· 图表由 <code>scripts/make_wu2198_charts_20261105.py</code> 生成</p>",
+    "<p>数据来源：weibo skill（m.weibo.cn 时间线 + 搜索接口，19 条）· Tushare Pro（11/05 收盘，前复权）· 图表由 <code>scripts/make_wu2198_charts_20261105.py</code> 生成</p>",
 )
 
 REPORT.write_text(h, encoding="utf-8")

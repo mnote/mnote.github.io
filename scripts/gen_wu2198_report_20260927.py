@@ -280,7 +280,7 @@ HTML = """<!DOCTYPE html>
     <div class="meta">
       <span>📅 <b>{TODAY}</b></span>
       <span>🏛️ 沪指(9/24 收) <b>{SH_INDEX}</b></span>
-      <span>📊 数据源:weibo-watcher + tushare</span>
+      <span>📊 数据源:weibo + tushare</span>
       <span>🎯 最近交易日:<b>{LAST_TRADING}</b></span>
       <span>🌕 A 股:9/25-9/27 中秋休市 · 9/28 周一恢复</span>
     </div>
@@ -479,7 +479,7 @@ HTML = """<!DOCTYPE html>
   </div>
 
   <div class="footer">
-    <p>报告生成时间:{ts} · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 8 张 K 线图(关键位 📌 蓝色虚线 居左标注,沿用博主 8/4 关键位体系)</p>
+    <p>报告生成时间:{ts} · 数据源:weibo skill (UID 1216826604) + tushare Pro · 8 张 K 线图(关键位 📌 蓝色虚线 居左标注,沿用博主 8/4 关键位体系)</p>
     <p>博主最近一天核心立场:<b>⚪ 中性偏空 · 沿用 8/4 关键位体系</b> · 0 条新操盘贴 · 数据截至 9/24 节前最后交易日 · 板块:<b>🟢 PCB/覆铜板 · 🟢 光模块/CPO · 🟢 创新药</b> · 风险:<b>🔴 大盘失守 3886 / 创业板跌穿 3286 / 节后 9/28 开盘是关键</b></p>
   </div>
 

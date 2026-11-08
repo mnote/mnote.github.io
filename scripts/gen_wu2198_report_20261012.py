@@ -4,7 +4,7 @@
 生成 2026-10-12 wu2198 投资日报 HTML（10/12 周一收盘 · 国庆节后第 3 个交易日）
 
 数据来源：
-  - 微博：weibo-watcher skill，UID 1216826604，2026-10-12 21:00 抓取 9 条（过滤置顶）
+  - 微博：weibo skill，UID 1216826604，2026-10-12 21:00 抓取 9 条（过滤置顶）
   - 行情：Tushare Pro，index_daily / daily + adj_factor（前复权）
   - 图表：scripts/make_wu2198_charts_20261012.py 产出的 9 张 PNG
 
@@ -201,7 +201,7 @@ HTML = f"""<!DOCTYPE html>
     <div class="meta">
       <span>📅 <b>2026-10-12 (周一 21:00 · 🇨🇳 国庆节后第 3 个交易日)</b></span>
       <span>🏛️ 沪指 10/12 收 <b style="color:var(--bear)">3797.24 (-0.43%)</b></span>
-      <span>📊 数据源:weibo-watcher + tushare</span>
+      <span>📊 数据源:weibo + tushare</span>
     </div>
     <div class="stance">
       <span class="emoji">🔴</span><b>博主 10/12 核心立场</b>:
@@ -446,7 +446,7 @@ HTML = f"""<!DOCTYPE html>
   <p class="chart-caption">📌 <b>关键位</b>:60D 高 56.89 / MA60 49.68 / MA20 45.82 / 10/12 高 45.78 / MA10 44.42 / MA5 44.03 / <b>10/12 收 43.68 (-3.94%)</b> / <b>60D 低 41.67</b>。<b>跌破全部短期均线,逼近 60D 低</b> — 与宁德 +0.21% 严重分化,板块跟风股退潮,10/12 最明确的回避信号。</p>
 
   <div class="footer">
-    <p>📊 数据来源:weibo-watcher skill (UID 1216826604 · 10/12 21:00 抓取 9 条) · Tushare Pro (10/12 收盘 · 个股前复权)</p>
+    <p>📊 数据来源:weibo skill (UID 1216826604 · 10/12 21:00 抓取 9 条) · Tushare Pro (10/12 收盘 · 个股前复权)</p>
     <p>📈 图表:120 根日线 K 线 + MACD(12/26/9) + 成交量 · 关键位居左蓝色虚线标注(密集区自动双列错落防重叠)</p>
     <p>📅 报告生成时间:2026-10-12 21:00 · 🤖 自动生成 by Mavis</p>
     <p>⚠️ 本报告仅供参考,不构成任何投资建议。投资有风险,入市需谨慎。</p>

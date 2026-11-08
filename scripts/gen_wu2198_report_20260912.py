@@ -260,7 +260,7 @@ HTML = """<!DOCTYPE html>
     <div class="meta">
       <span>📅 <b>{}</b></span>
       <span>🏛️ 沪指(9/11 收) <b>{}</b></span>
-      <span>📊 数据源:weibo-watcher + tushare</span>
+      <span>📊 数据源:weibo + tushare</span>
       <span>🎯 最近交易日:<b>{}</b></span>
     </div>
     <div class="stance">
@@ -439,7 +439,7 @@ HTML = """<!DOCTYPE html>
   </div>
 
   <div class="footer">
-    <p>报告生成时间:{ts} · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 7 张 K 线图(关键位居左虚线标注)</p>
+    <p>报告生成时间:{ts} · 数据源:weibo skill (UID 1216826604) + tushare Pro · 7 张 K 线图(关键位居左虚线标注)</p>
     <p>博主核心立场:<b>🟡 谨慎</b> · 板块:<b>🟢 MLCC/电容 · 🟢 高速覆铜板 · 🟡 银行</b> · 风险:<b>⚠️ 放量下跌+净流出 619亿</b></p>
   </div>
 

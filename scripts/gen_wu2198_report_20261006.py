@@ -273,7 +273,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <span>🏛️ 沪指 <b>{SH_INDEX}</b></span>
       <span>📊 创业板 <b>{CYB_INDEX}</b></span>
       <span>🎯 沪深300 <b>{HS300_INDEX}</b></span>
-      <span>📊 数据源:weibo-watcher + tushare</span>
+      <span>📊 数据源:weibo + tushare</span>
     </div>
     <div class="stance">
       <span class="emoji">🟢</span><b>博主最近一天核心立场</b>:
@@ -482,7 +482,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   </div>
 
   <div class="footer">
-    <p>报告生成时间:2026-10-06 21:00 · 数据源:weibo-watcher skill (UID 1216826604) + tushare Pro · 8 张 K 线图(关键位 蓝色虚线 📌 居左标注 · 120 根 K线 · 含 MACD + 成交量)</p>
+    <p>报告生成时间:2026-10-06 21:00 · 数据源:weibo skill (UID 1216826604) + tushare Pro · 8 张 K 线图(关键位 蓝色虚线 📌 居左标注 · 120 根 K线 · 含 MACD + 成交量)</p>
     <p>博主最近一天 (10/05 + 10/06) 核心立场:<b>🟢 新增「光通信/光模块」(10/6 空心光纤提问 · 3505赞) · 🟡 风控「留住现金流最重要」(10/6 4621赞 · 10/06 互动最高) · 🔴 沿用 10/2 港股 -668 节后开盘预警</b> · 2 条带信号 · 板块:<b>🟢 光通信/光模块 · 🟢 半导体/硬科技 · 🟢 银行/防御红利</b> · 6 支个股:中际旭创 300308 / 长飞光纤 601869 / 兆易创新 603986 / 澜起科技 688008 / 工商银行 601398 / 农业银行 601288 · 风险:<b>🔴 港股暴跌拖累节后开盘 / 季线收官极差 / 博主仓位决策偏空</b></p>
   </div>
 

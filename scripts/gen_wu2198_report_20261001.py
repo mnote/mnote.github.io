@@ -287,7 +287,7 @@ HTML = """<!DOCTYPE html>
     <div class="meta">
       <span>📅 <b>{TODAY}</b></span>
       <span>🏛️ 沪指(9/30 收) <b>{SH_INDEX}</b></span>
-      <span>📊 数据源:weibo-watcher + tushare</span>
+      <span>📊 数据源:weibo + tushare</span>
       <span>🎯 最近交易日:<b>{LAST_TRADING}</b></span>
       <span>🇨🇳 A 股:10/1-10/8 国庆休市 · 10/9 周五恢复</span>
     </div>
@@ -549,7 +549,7 @@ HTML = """<!DOCTYPE html>
 
   <div class="footer">
     <p>本报告基于 <b>wu2198 (UID 1216826604)</b> 公开微博观点整理,所有判断仅反映博主立场,不构成投资建议。<br/>
-    数据源:<b>weibo-watcher skill</b>(微博抓取与分类)+ <b>tushare</b>(日线行情 + K 线 + MACD + 成交量)。<br/>
+    数据源:<b>weibo skill</b>(微博抓取与分类)+ <b>tushare</b>(日线行情 + K 线 + MACD + 成交量)。<br/>
     关键位标注 · 60D 高/低 · 120D 高/低 · 博主历史关键位综合 · 2026-10-01 21:00 自动生成。</p>
     <p><a href="index.html">← 返回首页</a></p>
   </div>
