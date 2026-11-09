@@ -1,0 +1,47 @@
+{
+ "上证指数": {
+  "code": "000001.SH",
+  "close": 3660.79,
+  "pct": 0.32,
+  "amount_yi": 6825.3,
+  "prev_amount_yi": 7726.3,
+  "vol": 427722257,
+  "prev_vol": 477042561
+ },
+ "深证成指": {
+  "code": "399001.SZ",
+  "close": 11145.49,
+  "pct": -0.27,
+  "amount_yi": 3960.3,
+  "prev_amount_yi": 4649.8,
+  "vol": 161068651,
+  "prev_vol": 189388819
+ },
+ "创业板指": {
+  "code": "399006.SZ",
+  "close": 2458.56,
+  "pct": -0.27,
+  "amount_yi": 1678.0,
+  "prev_amount_yi": 1951.4,
+  "vol": 29287043,
+  "prev_vol": 34565022
+ },
+ "沪深300": {
+  "code": "000300.SH",
+  "close": 4056.11,
+  "pct": 0.05,
+  "amount_yi": 3952.1,
+  "prev_amount_yi": 4788.4,
+  "vol": 158374872,
+  "prev_vol": 192152012
+ },
+ "科创50": {
+  "code": "000688.SH",
+  "close": 1256.96,
+  "pct": 0.3,
+  "amount_yi": 717.3,
+  "prev_amount_yi": 896.3,
+  "vol": 8228867,
+  "prev_vol": 11262095
+ }
+}

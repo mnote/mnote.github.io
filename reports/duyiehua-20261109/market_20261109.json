@@ -1,0 +1,94 @@
+{
+ "breadth": {
+  "trade_date": "2026-11-09",
+  "total": 5573,
+  "up": 2242,
+  "down": 3148,
+  "flat": 183,
+  "zt_est": 70,
+  "dt_est": 6,
+  "amount_yi": 14945.5,
+  "median_pct": -0.307,
+  "avg_pct": 0.106,
+  "zt_em": 54,
+  "dt_em": 1
+ },
+ "sectors": {
+  "机器人": {
+   "code": "BK1408",
+   "pct": 2.7,
+   "up": 22,
+   "down": 0,
+   "leader": "宇树科技-W",
+   "leader_pct": 9.04
+  },
+  "元件": {
+   "code": "BK0459",
+   "pct": 2.49,
+   "up": 59,
+   "down": 8,
+   "leader": "世运电路",
+   "leader_pct": 9.99
+  },
+  "燃料电池": {
+   "code": "BK1305",
+   "pct": 1.98,
+   "up": 1,
+   "down": 0,
+   "leader": "亿华通-U",
+   "leader_pct": 1.98
+  },
+  "光学元件": {
+   "code": "BK1334",
+   "pct": 1.4,
+   "up": 20,
+   "down": 6,
+   "leader": "奥来德",
+   "leader_pct": 6.92
+  },
+  "消费电子零部件及组装": {
+   "code": "BK1338",
+   "pct": 1.24,
+   "up": 57,
+   "down": 28,
+   "leader": "信维通信",
+   "leader_pct": 12.77
+  },
+  "消费电子": {
+   "code": "BK1037",
+   "pct": 1.2,
+   "up": 65,
+   "down": 31,
+   "leader": "信维通信",
+   "leader_pct": 12.77
+  },
+  "被动元件": {
+   "code": "BK1339",
+   "pct": 1.02,
+   "up": 15,
+   "down": 4,
+   "leader": "艾华集团",
+   "leader_pct": 3.1
+  },
+  "品牌消费电子": {
+   "code": "BK1337",
+   "pct": 0.9,
+   "up": 8,
+   "down": 3,
+   "leader": "奥尼电子",
+   "leader_pct": 5.89
+  }
+ },
+ "yang": [
+  {
+   "ts_code": "300740.SZ",
+   "name": "水羊股份",
+   "industry": "日用化工"
+  },
+  {
+   "ts_code": "001317.SZ",
+   "name": "三羊马",
+   "industry": "铁路"
+  }
+ ]
+}
