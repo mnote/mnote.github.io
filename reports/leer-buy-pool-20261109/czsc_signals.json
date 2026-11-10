@@ -1,0 +1,112 @@
+{
+ "凯莱英": {
+  "name": "凯莱英",
+  "code": "002821.SZ",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "北特科技": {
+  "name": "北特科技",
+  "code": "603009.SH",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "新富能": {
+  "name": "新富能",
+  "code": "300593.SZ",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "新凤鸣": {
+  "name": "新凤鸣",
+  "code": "603225.SH",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "桂冠电力": {
+  "name": "桂冠电力",
+  "code": "600236.SH",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "四川成渝": {
+  "name": "四川成渝",
+  "code": "601107.SH",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "中国石化": {
+  "name": "中国石化",
+  "code": "600028.SH",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "平安银行": {
+  "name": "平安银行",
+  "code": "000001.SZ",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "中文在线": {
+  "name": "中文在线",
+  "code": "300364.SZ",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "无锡振华": {
+  "name": "无锡振华",
+  "code": "605319.SH",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ },
+ "瀚蓝环境": {
+  "name": "瀚蓝环境",
+  "code": "600323.SH",
+  "日线": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  },
+  "30分钟": {
+   "error": "config derive_signals_config() got an unexpected keyword argument 'di'"
+  }
+ }
+}

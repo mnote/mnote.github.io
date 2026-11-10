@@ -1,0 +1,242 @@
+{
+  "index": {
+    "上证指数": {
+      "name": "上证指数",
+      "code": "000001",
+      "price": 3668.93,
+      "high": 3683.73,
+      "low": 3665.92,
+      "open": 3682.04,
+      "prev": 3660.79,
+      "amount_yi": 3036.11965846,
+      "pct": 0.22,
+      "chg": 8.14,
+      "secid": "1.000001",
+      "gap_pct": 0.58,
+      "from_high_pct": -0.4
+    },
+    "深证成指": {
+      "name": "深证成指",
+      "code": "399001",
+      "price": 11246.54,
+      "high": 11315.53,
+      "low": 11217.01,
+      "open": 11313.32,
+      "prev": 11145.49,
+      "amount_yi": 3744.664133878243,
+      "pct": 0.91,
+      "chg": 101.05,
+      "secid": "0.399001",
+      "gap_pct": 1.51,
+      "from_high_pct": -0.61
+    },
+    "创业板指": {
+      "name": "创业板指",
+      "code": "399006",
+      "price": 2501.37,
+      "high": 2520.01,
+      "low": 2490.51,
+      "open": 2518.44,
+      "prev": 2458.56,
+      "amount_yi": 1909.6724192538,
+      "pct": 1.74,
+      "chg": 42.81,
+      "secid": "0.399006",
+      "gap_pct": 2.44,
+      "from_high_pct": -0.74
+    },
+    "科创50": {
+      "name": "科创50",
+      "code": "000688",
+      "price": 1273.06,
+      "high": 1291.09,
+      "low": 1268.22,
+      "open": 1286.7,
+      "prev": 1256.96,
+      "amount_yi": 285.921453352,
+      "pct": 1.28,
+      "chg": 16.1,
+      "secid": "1.000688",
+      "gap_pct": 2.37,
+      "from_high_pct": -1.4
+    },
+    "中证500": {
+      "name": "中证 500",
+      "code": "399905",
+      "price": 6651.96,
+      "high": 6686.28,
+      "low": 6633.36,
+      "open": 6675.23,
+      "prev": 6586.18,
+      "amount_yi": 1115.985997395,
+      "pct": 1.0,
+      "chg": 65.78,
+      "secid": "0.399905",
+      "gap_pct": 1.35,
+      "from_high_pct": -0.51
+    },
+    "沪深300": {
+      "name": "沪深300",
+      "code": "000300",
+      "price": 4064.63,
+      "high": 4090.38,
+      "low": 4061.64,
+      "open": 4089.05,
+      "prev": 4056.11,
+      "amount_yi": 1621.493317681,
+      "pct": 0.21,
+      "chg": 8.52,
+      "secid": "1.000300",
+      "gap_pct": 0.81,
+      "from_high_pct": -0.63
+    }
+  },
+  "concept_n": 531,
+  "concept_hits": [
+    {
+      "name": "短剧互动游戏",
+      "code": "BK1151",
+      "pct": 3.72,
+      "amount_yi": 258.18,
+      "up": 47,
+      "down": 3,
+      "main_net_yi": 17.77
+    },
+    {
+      "name": "影视概念",
+      "code": "BK0847",
+      "pct": 3.56,
+      "amount_yi": 224.73,
+      "up": 61,
+      "down": 2,
+      "main_net_yi": 13.24
+    },
+    {
+      "name": "AIGC概念",
+      "code": "BK1111",
+      "pct": 2.89,
+      "amount_yi": 445.97,
+      "up": 124,
+      "down": 9,
+      "main_net_yi": 19.54
+    },
+    {
+      "name": "ChatGPT概念",
+      "code": "BK1126",
+      "pct": 2.77,
+      "amount_yi": 230.18,
+      "up": 57,
+      "down": 4,
+      "main_net_yi": 7.81
+    },
+    {
+      "name": "网络游戏",
+      "code": "BK0509",
+      "pct": 2.73,
+      "amount_yi": 202.16,
+      "up": 64,
+      "down": 1,
+      "main_net_yi": 8.35
+    },
+    {
+      "name": "CPO概念",
+      "code": "BK1128",
+      "pct": 2.69,
+      "amount_yi": 715.5,
+      "up": 96,
+      "down": 3,
+      "main_net_yi": 34.48
+    },
+    {
+      "name": "多模态AI",
+      "code": "BK1153",
+      "pct": 2.31,
+      "amount_yi": 248.55,
+      "up": 82,
+      "down": 8,
+      "main_net_yi": 5.14
+    },
+    {
+      "name": "AI应用",
+      "code": "BK1629",
+      "pct": 2.14,
+      "amount_yi": 552.04,
+      "up": 278,
+      "down": 26,
+      "main_net_yi": 15.0
+    },
+    {
+      "name": "AIPC",
+      "code": "BK1164",
+      "pct": 2.03,
+      "amount_yi": 170.55,
+      "up": 59,
+      "down": 3,
+      "main_net_yi": 3.41
+    },
+    {
+      "name": "液冷服务器",
+      "code": "BK1138",
+      "pct": 2.02,
+      "amount_yi": 467.21,
+      "up": 175,
+      "down": 15,
+      "main_net_yi": 3.65
+    },
+    {
+      "name": "算力概念",
+      "code": "BK1134",
+      "pct": 1.94,
+      "amount_yi": 729.11,
+      "up": 218,
+      "down": 27,
+      "main_net_yi": 26.04
+    },
+    {
+      "name": "人工智能",
+      "code": "BK0800",
+      "pct": 1.88,
+      "amount_yi": 1301.41,
+      "up": 661,
+      "down": 84,
+      "main_net_yi": 23.38
+    },
+    {
+      "name": "DRG/DIP",
+      "code": "BK1054",
+      "pct": 1.88,
+      "amount_yi": 11.9,
+      "up": 16,
+      "down": 0,
+      "main_net_yi": 0.22
+    },
+    {
+      "name": "IPv6",
+      "code": "BK0897",
+      "pct": 1.77,
+      "amount_yi": 54.48,
+      "up": 16,
+      "down": 2,
+      "main_net_yi": 0.42
+    },
+    {
+      "name": "数据中心",
+      "code": "BK0922",
+      "pct": 1.64,
+      "amount_yi": 677.1,
+      "up": 295,
+      "down": 36,
+      "main_net_yi": 8.74
+    },
+    {
+      "name": "IPO受益",
+      "code": "BK0697",
+      "pct": 0.94,
+      "amount_yi": 74.93,
+      "up": 32,
+      "down": 19,
+      "main_net_yi": -1.04
+    }
+  ],
+  "focus_trend": []
+}

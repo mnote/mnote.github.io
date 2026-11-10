@@ -1,0 +1,447 @@
+{
+ "行业": {
+  "影视院线": {
+   "name": "影视院线",
+   "code": "BK1222",
+   "pct": 7.05,
+   "amount_yi": 180.7,
+   "up": 17,
+   "down": 1,
+   "main_net_yi": 14.65
+  },
+  "数字媒体": {
+   "name": "数字媒体",
+   "code": "BK1221",
+   "pct": 4.84,
+   "amount_yi": 205.8,
+   "up": 14,
+   "down": 1,
+   "main_net_yi": 13.8
+  },
+  "消费电子零部件及组装": {
+   "name": "消费电子零部件及组装",
+   "code": "BK1338",
+   "pct": 4.44,
+   "amount_yi": 482.2,
+   "up": 87,
+   "down": 1,
+   "main_net_yi": 21.37
+  },
+  "广告营销": {
+   "name": "广告营销",
+   "code": "BK1220",
+   "pct": 4.4,
+   "amount_yi": 205.3,
+   "up": 30,
+   "down": 0,
+   "main_net_yi": 14.29
+  },
+  "自动化设备": {
+   "name": "自动化设备",
+   "code": "BK1237",
+   "pct": 3.47,
+   "amount_yi": 398.5,
+   "up": 91,
+   "down": 5,
+   "main_net_yi": 8.08
+  },
+  "出版": {
+   "name": "出版",
+   "code": "BK1218",
+   "pct": 3.43,
+   "amount_yi": 108.8,
+   "up": 26,
+   "down": 2,
+   "main_net_yi": 0.94
+  },
+  "半导体": {
+   "name": "半导体",
+   "code": "BK1036",
+   "pct": 2.97,
+   "amount_yi": 1800.3,
+   "up": 172,
+   "down": 15,
+   "main_net_yi": 40.62
+  },
+  "通信设备": {
+   "name": "通信设备",
+   "code": "BK0448",
+   "pct": 2.72,
+   "amount_yi": 915.8,
+   "up": 86,
+   "down": 8,
+   "main_net_yi": 32.25
+  },
+  "元件": {
+   "name": "元件",
+   "code": "BK0459",
+   "pct": 2.69,
+   "amount_yi": 785.4,
+   "up": 65,
+   "down": 2,
+   "main_net_yi": 11.83
+  },
+  "汽车零部件": {
+   "name": "汽车零部件",
+   "code": "BK0481",
+   "pct": 2.56,
+   "amount_yi": 547.7,
+   "up": 252,
+   "down": 25,
+   "main_net_yi": 20.02
+  },
+  "通用设备": {
+   "name": "通用设备",
+   "code": "BK0545",
+   "pct": 2.52,
+   "amount_yi": 602.8,
+   "up": 235,
+   "down": 21,
+   "main_net_yi": 18.4
+  },
+  "专用设备": {
+   "name": "专用设备",
+   "code": "BK0910",
+   "pct": 2.08,
+   "amount_yi": 306.9,
+   "up": 182,
+   "down": 24,
+   "main_net_yi": 6.91
+  },
+  "光伏发电": {
+   "name": "光伏发电",
+   "code": "BK1375",
+   "pct": 2.03,
+   "amount_yi": 25.1,
+   "up": 10,
+   "down": 3,
+   "main_net_yi": 0.12
+  },
+  "光伏辅材": {
+   "name": "光伏辅材",
+   "code": "BK1316",
+   "pct": 1.81,
+   "amount_yi": 47.7,
+   "up": 14,
+   "down": 5,
+   "main_net_yi": -0.18
+  },
+  "光伏电池组件": {
+   "name": "光伏电池组件",
+   "code": "BK1315",
+   "pct": 1.71,
+   "amount_yi": 107.3,
+   "up": 13,
+   "down": 6,
+   "main_net_yi": 1.03
+  },
+  "光伏设备": {
+   "name": "光伏设备",
+   "code": "BK1031",
+   "pct": 1.44,
+   "amount_yi": 318.9,
+   "up": 47,
+   "down": 18,
+   "main_net_yi": 3.12
+  },
+  "医疗器械": {
+   "name": "医疗器械",
+   "code": "BK1041",
+   "pct": 1.03,
+   "amount_yi": 149.9,
+   "up": 103,
+   "down": 35,
+   "main_net_yi": 0.73
+  },
+  "光伏加工设备": {
+   "name": "光伏加工设备",
+   "code": "BK1317",
+   "pct": 1.02,
+   "amount_yi": 54.4,
+   "up": 9,
+   "down": 2,
+   "main_net_yi": 0.46
+  },
+  "食品饮料": {
+   "name": "食品饮料",
+   "code": "BK0438",
+   "pct": 0.95,
+   "amount_yi": 260.2,
+   "up": 81,
+   "down": 45,
+   "main_net_yi": -0.67
+  },
+  "光伏主材": {
+   "name": "光伏主材",
+   "code": "BK1318",
+   "pct": 0.33,
+   "amount_yi": 14.8,
+   "up": 1,
+   "down": 1,
+   "main_net_yi": 0.57
+  },
+  "银行": {
+   "name": "银行",
+   "code": "BK1283",
+   "pct": 0.16,
+   "amount_yi": 235.7,
+   "up": 21,
+   "down": 15,
+   "main_net_yi": -1.26
+  },
+  "电力": {
+   "name": "电力",
+   "code": "BK0428",
+   "pct": -0.03,
+   "amount_yi": 200.3,
+   "up": 35,
+   "down": 70,
+   "main_net_yi": -0.45
+  }
+ },
+ "概念": {
+  "传媒": {
+   "name": "传媒",
+   "code": "BK0486",
+   "pct": 4.53,
+   "amount_yi": 872.0,
+   "up": 123,
+   "down": 5,
+   "main_net_yi": 46.88
+  },
+  "消费电子": {
+   "name": "消费电子",
+   "code": "BK1037",
+   "pct": 4.28,
+   "amount_yi": 531.6,
+   "up": 96,
+   "down": 3,
+   "main_net_yi": 23.11
+  },
+  "智能音箱": {
+   "name": "智能音箱",
+   "code": "BK1766",
+   "pct": 6.11,
+   "amount_yi": 169.1,
+   "up": 19,
+   "down": 0,
+   "main_net_yi": 13.49
+  },
+  "短剧互动游戏": {
+   "name": "短剧互动游戏",
+   "code": "BK1151",
+   "pct": 5.48,
+   "amount_yi": 514.4,
+   "up": 47,
+   "down": 3,
+   "main_net_yi": 31.65
+  },
+  "影视概念": {
+   "name": "影视概念",
+   "code": "BK0847",
+   "pct": 5.03,
+   "amount_yi": 436.8,
+   "up": 61,
+   "down": 3,
+   "main_net_yi": 20.55
+  },
+  "AI视频": {
+   "name": "AI视频",
+   "code": "BK1761",
+   "pct": 4.6,
+   "amount_yi": 395.2,
+   "up": 26,
+   "down": 2,
+   "main_net_yi": 14.46
+  },
+  "AI眼镜": {
+   "name": "AI眼镜",
+   "code": "BK1178",
+   "pct": 4.55,
+   "amount_yi": 957.2,
+   "up": 137,
+   "down": 6,
+   "main_net_yi": 42.59
+  },
+  "AI语料": {
+   "name": "AI语料",
+   "code": "BK1172",
+   "pct": 4.54,
+   "amount_yi": 379.7,
+   "up": 37,
+   "down": 1,
+   "main_net_yi": 23.66
+  },
+  "快手概念": {
+   "name": "快手概念",
+   "code": "BK0972",
+   "pct": 4.52,
+   "amount_yi": 225.3,
+   "up": 34,
+   "down": 2,
+   "main_net_yi": 16.52
+  },
+  "智能穿戴": {
+   "name": "智能穿戴",
+   "code": "BK0641",
+   "pct": 4.03,
+   "amount_yi": 988.7,
+   "up": 128,
+   "down": 4,
+   "main_net_yi": 45.23
+  },
+  "虚拟数字人": {
+   "name": "虚拟数字人",
+   "code": "BK1055",
+   "pct": 3.87,
+   "amount_yi": 575.8,
+   "up": 80,
+   "down": 6,
+   "main_net_yi": 25.26
+  },
+  "AIGC概念": {
+   "name": "AIGC概念",
+   "code": "BK1111",
+   "pct": 3.86,
+   "amount_yi": 908.9,
+   "up": 124,
+   "down": 8,
+   "main_net_yi": 35.67
+  },
+  "人形机器人": {
+   "name": "人形机器人",
+   "code": "BK1184",
+   "pct": 3.7,
+   "amount_yi": 1792.5,
+   "up": 315,
+   "down": 16,
+   "main_net_yi": 57.7
+  },
+  "Kimi概念": {
+   "name": "Kimi概念",
+   "code": "BK1169",
+   "pct": 3.66,
+   "amount_yi": 162.4,
+   "up": 15,
+   "down": 2,
+   "main_net_yi": 9.46
+  },
+  "AI手机": {
+   "name": "AI手机",
+   "code": "BK1162",
+   "pct": 3.46,
+   "amount_yi": 179.8,
+   "up": 28,
+   "down": 1,
+   "main_net_yi": 9.42
+  },
+  "AIPC": {
+   "name": "AIPC",
+   "code": "BK1164",
+   "pct": 3.32,
+   "amount_yi": 420.5,
+   "up": 62,
+   "down": 0,
+   "main_net_yi": 18.7
+  },
+  "ChatGPT概念": {
+   "name": "ChatGPT概念",
+   "code": "BK1126",
+   "pct": 3.3,
+   "amount_yi": 473.0,
+   "up": 58,
+   "down": 4,
+   "main_net_yi": 18.27
+  },
+  "机器人执行器": {
+   "name": "机器人执行器",
+   "code": "BK1145",
+   "pct": 3.28,
+   "amount_yi": 282.3,
+   "up": 39,
+   "down": 1,
+   "main_net_yi": 9.84
+  },
+  "多模态AI": {
+   "name": "多模态AI",
+   "code": "BK1153",
+   "pct": 3.03,
+   "amount_yi": 534.5,
+   "up": 78,
+   "down": 12,
+   "main_net_yi": 13.63
+  },
+  "机器人概念": {
+   "name": "机器人概念",
+   "code": "BK1090",
+   "pct": 2.92,
+   "amount_yi": 3021.4,
+   "up": 736,
+   "down": 82,
+   "main_net_yi": 94.63
+  },
+  "AI应用": {
+   "name": "AI应用",
+   "code": "BK1629",
+   "pct": 2.83,
+   "amount_yi": 1205.2,
+   "up": 282,
+   "down": 23,
+   "main_net_yi": 27.89
+  },
+  "CPO概念": {
+   "name": "CPO概念",
+   "code": "BK1128",
+   "pct": 2.79,
+   "amount_yi": 1489.3,
+   "up": 94,
+   "down": 4,
+   "main_net_yi": 50.91
+  },
+  "光通信模块": {
+   "name": "光通信模块",
+   "code": "BK1136",
+   "pct": 2.76,
+   "amount_yi": 1513.0,
+   "up": 118,
+   "down": 6,
+   "main_net_yi": 44.59
+  },
+  "算力概念": {
+   "name": "算力概念",
+   "code": "BK1134",
+   "pct": 2.6,
+   "amount_yi": 1551.4,
+   "up": 218,
+   "down": 32,
+   "main_net_yi": 27.05
+  },
+  "液冷服务器": {
+   "name": "液冷服务器",
+   "code": "BK1138",
+   "pct": 2.55,
+   "amount_yi": 1050.6,
+   "up": 176,
+   "down": 13,
+   "main_net_yi": 8.33
+  },
+  "数据中心": {
+   "name": "数据中心",
+   "code": "BK0922",
+   "pct": 2.17,
+   "amount_yi": 1533.1,
+   "up": 294,
+   "down": 36,
+   "main_net_yi": 14.72
+  },
+  "光伏概念": {
+   "name": "光伏概念",
+   "code": "BK0588",
+   "pct": 1.44,
+   "amount_yi": 1408.3,
+   "up": 340,
+   "down": 136,
+   "main_net_yi": -13.15
+  }
+ }
+}

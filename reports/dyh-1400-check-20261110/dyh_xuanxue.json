@@ -1,0 +1,680 @@
+{
+  "20261106": [
+    {
+      "ts_code": "920175.BJ",
+      "name": "东方碳素",
+      "close": 8.45,
+      "pct_chg": 18.85,
+      "amount": 152063.81
+    },
+    {
+      "ts_code": "300118.SZ",
+      "name": "东方日升",
+      "close": 10.27,
+      "pct_chg": 15.26,
+      "amount": 2237074.59
+    },
+    {
+      "ts_code": "600327.SH",
+      "name": "大东方",
+      "close": 4.91,
+      "pct_chg": 10.09,
+      "amount": 864708.28
+    },
+    {
+      "ts_code": "600278.SH",
+      "name": "东方创业",
+      "close": 7.12,
+      "pct_chg": 10.05,
+      "amount": 359469.15
+    },
+    {
+      "ts_code": "002889.SZ",
+      "name": "东方嘉盛",
+      "close": 14.91,
+      "pct_chg": 10.04,
+      "amount": 508073.19
+    },
+    {
+      "ts_code": "603366.SH",
+      "name": "日出东方",
+      "close": 8.99,
+      "pct_chg": 10.04,
+      "amount": 486933.35
+    },
+    {
+      "ts_code": "002086.SZ",
+      "name": "东方海洋",
+      "close": 3.97,
+      "pct_chg": 9.97,
+      "amount": 2576110.02
+    },
+    {
+      "ts_code": "002310.SZ",
+      "name": "东方新能",
+      "close": 2.32,
+      "pct_chg": 9.95,
+      "amount": 278521.81
+    },
+    {
+      "ts_code": "603706.SH",
+      "name": "东方环宇",
+      "close": 18.35,
+      "pct_chg": 6.38,
+      "amount": 127585.06
+    },
+    {
+      "ts_code": "300217.SZ",
+      "name": "东方电热",
+      "close": 4.26,
+      "pct_chg": 5.19,
+      "amount": 384572.47
+    },
+    {
+      "ts_code": "600637.SH",
+      "name": "东方明珠",
+      "close": 8.08,
+      "pct_chg": 4.8,
+      "amount": 1144236.7
+    },
+    {
+      "ts_code": "002611.SZ",
+      "name": "东方精工",
+      "close": 13.91,
+      "pct_chg": 3.96,
+      "amount": 810779.48
+    },
+    {
+      "ts_code": "688298.SH",
+      "name": "东方生物",
+      "close": 18.49,
+      "pct_chg": 3.93,
+      "amount": 113751.93
+    },
+    {
+      "ts_code": "601339.SH",
+      "name": "百隆东方",
+      "close": 7.76,
+      "pct_chg": 2.78,
+      "amount": 145572.81
+    },
+    {
+      "ts_code": "000682.SZ",
+      "name": "东方电子",
+      "close": 10.25,
+      "pct_chg": 2.6,
+      "amount": 240055.61
+    },
+    {
+      "ts_code": "600776.SH",
+      "name": "东方通信",
+      "close": 11.11,
+      "pct_chg": 2.59,
+      "amount": 355867.03
+    },
+    {
+      "ts_code": "300166.SZ",
+      "name": "东方国信",
+      "close": 11.29,
+      "pct_chg": 2.54,
+      "amount": 989285.42
+    },
+    {
+      "ts_code": "002819.SZ",
+      "name": "东方中科",
+      "close": 19.15,
+      "pct_chg": 2.02,
+      "amount": 195957.9
+    },
+    {
+      "ts_code": "600120.SH",
+      "name": "浙江东方",
+      "close": 4.34,
+      "pct_chg": 0.7,
+      "amount": 269383.88
+    },
+    {
+      "ts_code": "002545.SZ",
+      "name": "东方铁塔",
+      "close": 12.06,
+      "pct_chg": 0.17,
+      "amount": 359589.96
+    },
+    {
+      "ts_code": "600958.SH",
+      "name": "东方证券",
+      "close": 8.38,
+      "pct_chg": -0.24,
+      "amount": 303241.82
+    },
+    {
+      "ts_code": "300059.SZ",
+      "name": "东方财富",
+      "close": 18.78,
+      "pct_chg": -1.05,
+      "amount": 3257811.59
+    },
+    {
+      "ts_code": "002167.SZ",
+      "name": "东方锆业",
+      "close": 13.58,
+      "pct_chg": -1.16,
+      "amount": 614899.01
+    },
+    {
+      "ts_code": "002271.SZ",
+      "name": "东方雨虹",
+      "close": 10.93,
+      "pct_chg": -1.44,
+      "amount": 451792.16
+    },
+    {
+      "ts_code": "600875.SH",
+      "name": "东方电气",
+      "close": 22.69,
+      "pct_chg": -1.73,
+      "amount": 865834.46
+    },
+    {
+      "ts_code": "603606.SH",
+      "name": "东方电缆",
+      "close": 40.06,
+      "pct_chg": -2.29,
+      "amount": 664850.82
+    },
+    {
+      "ts_code": "000725.SZ",
+      "name": "京东方A",
+      "close": 4.46,
+      "pct_chg": -2.83,
+      "amount": 3244975.0
+    },
+    {
+      "ts_code": "000962.SZ",
+      "name": "东方钽业",
+      "close": 38.98,
+      "pct_chg": -2.96,
+      "amount": 647841.65
+    },
+    {
+      "ts_code": "000301.SZ",
+      "name": "东方盛虹",
+      "close": 10.41,
+      "pct_chg": -3.52,
+      "amount": 295889.61
+    },
+    {
+      "ts_code": "603110.SH",
+      "name": "东方材料",
+      "close": 20.99,
+      "pct_chg": -5.24,
+      "amount": 408803.92
+    },
+    {
+      "ts_code": "300740.SZ",
+      "name": "水羊股份",
+      "close": 16.19,
+      "pct_chg": -5.43,
+      "amount": 407117.74
+    },
+    {
+      "ts_code": "001317.SZ",
+      "name": "三羊马",
+      "close": 47.22,
+      "pct_chg": -5.71,
+      "amount": 428447.23
+    }
+  ],
+  "20261109": [
+    {
+      "ts_code": "002086.SZ",
+      "name": "东方海洋",
+      "close": 4.37,
+      "pct_chg": 10.08,
+      "amount": 3179635.53
+    },
+    {
+      "ts_code": "603706.SH",
+      "name": "东方环宇",
+      "close": 20.19,
+      "pct_chg": 10.03,
+      "amount": 195029.22
+    },
+    {
+      "ts_code": "603366.SH",
+      "name": "日出东方",
+      "close": 9.89,
+      "pct_chg": 10.01,
+      "amount": 58321.33
+    },
+    {
+      "ts_code": "002889.SZ",
+      "name": "东方嘉盛",
+      "close": 16.4,
+      "pct_chg": 9.99,
+      "amount": 156102.95
+    },
+    {
+      "ts_code": "600776.SH",
+      "name": "东方通信",
+      "close": 12.22,
+      "pct_chg": 9.99,
+      "amount": 401380.82
+    },
+    {
+      "ts_code": "600327.SH",
+      "name": "大东方",
+      "close": 5.4,
+      "pct_chg": 9.98,
+      "amount": 934565.61
+    },
+    {
+      "ts_code": "600278.SH",
+      "name": "东方创业",
+      "close": 7.83,
+      "pct_chg": 9.97,
+      "amount": 591759.2
+    },
+    {
+      "ts_code": "002310.SZ",
+      "name": "东方新能",
+      "close": 2.55,
+      "pct_chg": 9.91,
+      "amount": 207200.0
+    },
+    {
+      "ts_code": "600637.SH",
+      "name": "东方明珠",
+      "close": 8.64,
+      "pct_chg": 6.93,
+      "amount": 1296643.35
+    },
+    {
+      "ts_code": "002611.SZ",
+      "name": "东方精工",
+      "close": 14.73,
+      "pct_chg": 5.9,
+      "amount": 1041177.95
+    },
+    {
+      "ts_code": "300118.SZ",
+      "name": "东方日升",
+      "close": 10.85,
+      "pct_chg": 5.65,
+      "amount": 2754752.37
+    },
+    {
+      "ts_code": "002819.SZ",
+      "name": "东方中科",
+      "close": 19.93,
+      "pct_chg": 4.07,
+      "amount": 235619.56
+    },
+    {
+      "ts_code": "603110.SH",
+      "name": "东方材料",
+      "close": 21.75,
+      "pct_chg": 3.62,
+      "amount": 358822.34
+    },
+    {
+      "ts_code": "688298.SH",
+      "name": "东方生物",
+      "close": 19.05,
+      "pct_chg": 3.03,
+      "amount": 113507.79
+    },
+    {
+      "ts_code": "300217.SZ",
+      "name": "东方电热",
+      "close": 4.38,
+      "pct_chg": 2.82,
+      "amount": 436132.8
+    },
+    {
+      "ts_code": "001317.SZ",
+      "name": "三羊马",
+      "close": 48.3,
+      "pct_chg": 2.29,
+      "amount": 420689.84
+    },
+    {
+      "ts_code": "002167.SZ",
+      "name": "东方锆业",
+      "close": 13.8,
+      "pct_chg": 1.62,
+      "amount": 559555.02
+    },
+    {
+      "ts_code": "600120.SH",
+      "name": "浙江东方",
+      "close": 4.4,
+      "pct_chg": 1.38,
+      "amount": 359962.21
+    },
+    {
+      "ts_code": "300740.SZ",
+      "name": "水羊股份",
+      "close": 16.4,
+      "pct_chg": 1.3,
+      "amount": 345510.13
+    },
+    {
+      "ts_code": "300166.SZ",
+      "name": "东方国信",
+      "close": 11.3,
+      "pct_chg": 0.09,
+      "amount": 855545.72
+    },
+    {
+      "ts_code": "000725.SZ",
+      "name": "京东方A",
+      "close": 4.46,
+      "pct_chg": 0.0,
+      "amount": 2844167.52
+    },
+    {
+      "ts_code": "300059.SZ",
+      "name": "东方财富",
+      "close": 18.78,
+      "pct_chg": 0.0,
+      "amount": 2063027.44
+    },
+    {
+      "ts_code": "600958.SH",
+      "name": "东方证券",
+      "close": 8.38,
+      "pct_chg": 0.0,
+      "amount": 247047.31
+    },
+    {
+      "ts_code": "000962.SZ",
+      "name": "东方钽业",
+      "close": 38.8,
+      "pct_chg": -0.46,
+      "amount": 559041.39
+    },
+    {
+      "ts_code": "600875.SH",
+      "name": "东方电气",
+      "close": 22.54,
+      "pct_chg": -0.66,
+      "amount": 836824.61
+    },
+    {
+      "ts_code": "000682.SZ",
+      "name": "东方电子",
+      "close": 10.13,
+      "pct_chg": -1.17,
+      "amount": 259132.01
+    },
+    {
+      "ts_code": "601339.SH",
+      "name": "百隆东方",
+      "close": 7.66,
+      "pct_chg": -1.29,
+      "amount": 145625.39
+    },
+    {
+      "ts_code": "002545.SZ",
+      "name": "东方铁塔",
+      "close": 11.84,
+      "pct_chg": -1.82,
+      "amount": 320015.98
+    },
+    {
+      "ts_code": "000301.SZ",
+      "name": "东方盛虹",
+      "close": 10.2,
+      "pct_chg": -2.02,
+      "amount": 239377.09
+    },
+    {
+      "ts_code": "002271.SZ",
+      "name": "东方雨虹",
+      "close": 10.7,
+      "pct_chg": -2.1,
+      "amount": 399788.82
+    },
+    {
+      "ts_code": "603606.SH",
+      "name": "东方电缆",
+      "close": 39.21,
+      "pct_chg": -2.12,
+      "amount": 756725.8
+    },
+    {
+      "ts_code": "920175.BJ",
+      "name": "东方碳素",
+      "close": 7.91,
+      "pct_chg": -6.39,
+      "amount": 105533.3
+    }
+  ],
+  "20261110": [
+    {
+      "ts_code": "002310.SZ",
+      "name": "东方新能",
+      "close": 2.81,
+      "pct_chg": 10.2,
+      "amount": 168962.09
+    },
+    {
+      "ts_code": "603366.SH",
+      "name": "日出东方",
+      "close": 10.88,
+      "pct_chg": 10.01,
+      "amount": 63105.54
+    },
+    {
+      "ts_code": "603706.SH",
+      "name": "东方环宇",
+      "close": 22.21,
+      "pct_chg": 10.01,
+      "amount": 340401.27
+    },
+    {
+      "ts_code": "600327.SH",
+      "name": "大东方",
+      "close": 5.94,
+      "pct_chg": 10.0,
+      "amount": 373905.33
+    },
+    {
+      "ts_code": "002819.SZ",
+      "name": "东方中科",
+      "close": 21.31,
+      "pct_chg": 6.92,
+      "amount": 343432.61
+    },
+    {
+      "ts_code": "300118.SZ",
+      "name": "东方日升",
+      "close": 11.59,
+      "pct_chg": 6.82,
+      "amount": 2465775.63
+    },
+    {
+      "ts_code": "603110.SH",
+      "name": "东方材料",
+      "close": 23.06,
+      "pct_chg": 6.02,
+      "amount": 329580.59
+    },
+    {
+      "ts_code": "002086.SZ",
+      "name": "东方海洋",
+      "close": 4.62,
+      "pct_chg": 5.72,
+      "amount": 2789892.76
+    },
+    {
+      "ts_code": "600278.SH",
+      "name": "东方创业",
+      "close": 8.19,
+      "pct_chg": 4.6,
+      "amount": 751962.65
+    },
+    {
+      "ts_code": "001317.SZ",
+      "name": "三羊马",
+      "close": 50.24,
+      "pct_chg": 4.02,
+      "amount": 433638.94
+    },
+    {
+      "ts_code": "300217.SZ",
+      "name": "东方电热",
+      "close": 4.55,
+      "pct_chg": 3.88,
+      "amount": 449273.41
+    },
+    {
+      "ts_code": "002889.SZ",
+      "name": "东方嘉盛",
+      "close": 16.86,
+      "pct_chg": 2.8,
+      "amount": 1271966.05
+    },
+    {
+      "ts_code": "300166.SZ",
+      "name": "东方国信",
+      "close": 11.57,
+      "pct_chg": 2.39,
+      "amount": 573659.52
+    },
+    {
+      "ts_code": "600776.SH",
+      "name": "东方通信",
+      "close": 12.41,
+      "pct_chg": 1.55,
+      "amount": 887804.82
+    },
+    {
+      "ts_code": "300740.SZ",
+      "name": "水羊股份",
+      "close": 16.61,
+      "pct_chg": 1.28,
+      "amount": 364420.09
+    },
+    {
+      "ts_code": "002271.SZ",
+      "name": "东方雨虹",
+      "close": 10.81,
+      "pct_chg": 1.03,
+      "amount": 270743.16
+    },
+    {
+      "ts_code": "000725.SZ",
+      "name": "京东方A",
+      "close": 4.5,
+      "pct_chg": 0.9,
+      "amount": 2531813.48
+    },
+    {
+      "ts_code": "920175.BJ",
+      "name": "东方碳素",
+      "close": 7.98,
+      "pct_chg": 0.88,
+      "amount": 76319.12
+    },
+    {
+      "ts_code": "600875.SH",
+      "name": "东方电气",
+      "close": 22.71,
+      "pct_chg": 0.75,
+      "amount": 784975.26
+    },
+    {
+      "ts_code": "002611.SZ",
+      "name": "东方精工",
+      "close": 14.84,
+      "pct_chg": 0.75,
+      "amount": 1132479.45
+    },
+    {
+      "ts_code": "002167.SZ",
+      "name": "东方锆业",
+      "close": 13.81,
+      "pct_chg": 0.07,
+      "amount": 420197.7
+    },
+    {
+      "ts_code": "300059.SZ",
+      "name": "东方财富",
+      "close": 18.78,
+      "pct_chg": 0.0,
+      "amount": 2409468.86
+    },
+    {
+      "ts_code": "000962.SZ",
+      "name": "东方钽业",
+      "close": 38.79,
+      "pct_chg": -0.03,
+      "amount": 613219.63
+    },
+    {
+      "ts_code": "600958.SH",
+      "name": "东方证券",
+      "close": 8.35,
+      "pct_chg": -0.36,
+      "amount": 287327.82
+    },
+    {
+      "ts_code": "000301.SZ",
+      "name": "东方盛虹",
+      "close": 10.16,
+      "pct_chg": -0.39,
+      "amount": 224177.98
+    },
+    {
+      "ts_code": "600120.SH",
+      "name": "浙江东方",
+      "close": 4.37,
+      "pct_chg": -0.68,
+      "amount": 281030.44
+    },
+    {
+      "ts_code": "601339.SH",
+      "name": "百隆东方",
+      "close": 7.6,
+      "pct_chg": -0.78,
+      "amount": 97737.01
+    },
+    {
+      "ts_code": "000682.SZ",
+      "name": "东方电子",
+      "close": 10.04,
+      "pct_chg": -0.89,
+      "amount": 202729.24
+    },
+    {
+      "ts_code": "002545.SZ",
+      "name": "东方铁塔",
+      "close": 11.72,
+      "pct_chg": -1.01,
+      "amount": 252878.49
+    },
+    {
+      "ts_code": "603606.SH",
+      "name": "东方电缆",
+      "close": 38.4,
+      "pct_chg": -2.07,
+      "amount": 677214.78
+    },
+    {
+      "ts_code": "688298.SH",
+      "name": "东方生物",
+      "close": 18.52,
+      "pct_chg": -2.78,
+      "amount": 73972.51
+    },
+    {
+      "ts_code": "600637.SH",
+      "name": "东方明珠",
+      "close": 8.37,
+      "pct_chg": -3.12,
+      "amount": 1012691.23
+    }
+  ]
+}
