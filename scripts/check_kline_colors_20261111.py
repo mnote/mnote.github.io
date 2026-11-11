@@ -31,8 +31,11 @@ def clusters(cols, gap=3):
     return out
 
 
-kpi = {x["code"]: x for x in
-       json.loads((CHARTS / "_kpi_20261111.json").read_text(encoding="utf-8"))}
+# 收盘版 (_kpi_20261111c.json) 优先，缺失时回退到盘中版
+_kpi_c = CHARTS / "_kpi_20261111c.json"
+_kpi = _kpi_c if _kpi_c.exists() else (CHARTS / "_kpi_20261111.json")
+print(f"[kpi] {_kpi.name}")
+kpi = {x["code"]: x for x in json.loads(_kpi.read_text(encoding="utf-8"))}
 
 results = []
 for png in sorted(CHARTS.glob("*_20261111.png")):

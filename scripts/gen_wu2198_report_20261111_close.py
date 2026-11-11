@@ -1,0 +1,793 @@
+"""生成 2026-11-11 wu2198 投资观点日报 HTML（收盘版）。
+
+窗口：11/10 15:39（上期截断）→ 11/11 收盘 + 盘后（截至 22:10）
+关键新增：11/11 13:27「CPO、光纤、存储芯片接力反击。」
+        11/11 13:56「大盘指数收复3706点，创业板指数收复2626点……之后，我们订KTV或白马……支持吗？」
+        11/11 14:36「易中天出现报复性反弹、光纤龙头冲板！」
+        11/11 14:42「洗干净了就可以等起飞！」
+        11/11 14:52「我们先退单吧，明天再订吧……」
+        11/11 15:03「今天市场如期小时幅反弹，我们明天等大盘指数收复3706点，创业板指数收复2626点」
+        11/11 16:22「及时有文章分析了的！第四浪的底部位置」
+行情：Tushare Pro，11/11 收盘（前复权）
+"""
+from pathlib import Path
+
+OUT = Path("/Users/maoling/workspace/mnote.github.io/2026-11-11-wu2198-investment-report.html")
+
+CSS = """<style>
+  :root {
+    --bg: #ffffff; --panel: #f8f9fb; --panel-2: #f1f3f6;
+    --border: #e5e7eb; --border-strong: #d1d5db;
+    --text: #1f2937; --muted: #6b7280;
+    --bull: #16a34a; --bull-bg: #dcfce7;
+    --bear: #dc2626; --bear-bg: #fee2e2;
+    --neutral: #d97706; --neutral-bg: #fef3c7;
+    --none: #6b7280; --none-bg: #f3f4f6;
+    --accent: #2563eb; --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero { background: linear-gradient(135deg, #f0fdf4 0%, #f7fff9 100%); border: 1px solid #4ade80; border-radius: 12px; padding: 24px 28px; margin-bottom: 28px; }
+  .hero h1 { color: #14532d; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .hero-turn { background: linear-gradient(135deg, #fef2f2 0%, #fff7f7 100%); border: 1px solid var(--bear); border-radius: 12px; padding: 18px 24px; margin: 18px 0; }
+  .hero-turn h3 { color: #991b1b; margin-top: 0; }
+  .hero-win { background: linear-gradient(135deg, #eff6ff 0%, #f7fbff 100%); border: 1px solid var(--accent); border-radius: 12px; padding: 18px 24px; margin: 18px 0; }
+  .hero-win h3 { color: #1e3a8a; margin-top: 0; }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 16px 0; }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 760px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .kpi { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: center; }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 400px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+  .tag-key { background: #ede9fe; color: var(--key); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .sector { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 18px 22px; margin: 18px 0; }
+  .sector.r1 { border-left-color: #16a34a; }
+  .sector.r2 { border-left-color: #d97706; }
+  .sector.r3 { border-left-color: #7c3aed; }
+  .sector h3 { margin-top: 0; }
+
+  .quote { background: var(--panel-2); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; border-left: 3px solid var(--border-strong); }
+  .quote .who { color: var(--muted); font-size: 12px; display: block; margin-bottom: 4px; }
+  .risk { background: var(--bear-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .action { background: var(--bull-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .verify { background: var(--accent-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .up { color: var(--bull); font-weight: 600; }
+  .down { color: var(--bear); font-weight: 600; }
+  .flat { color: var(--muted); font-weight: 600; }
+  .key-num { color: var(--key); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+  ul.tight { margin: 8px 0; padding-left: 22px; }
+  ul.tight li { margin: 4px 0; }
+  .divider { height: 1px; background: var(--border); margin: 26px 0; }
+</style>"""
+
+
+def post_rows():
+    """窗口内 23 条微博 + 信号判定。"""
+    rows = [
+        ("11/11 09:29", "16094", "811", "🟢 大盘判断",
+         "<b>一个等……等反弹行情形成</b>……支持的点个赞！",
+         "开盘定调：<b>等反弹行情形成</b>。实测 09:30 沪指开 3655.66（<b>低开 −0.22%</b>），"
+         "全天最低 3650.31 —— <b>他等的正是「跌出来」的空间</b>。"),
+        ("11/11 09:40", "10326", "549", "🟢 大盘判断", "<b>四个字：淡定待涨！</b>",
+         "把 09:29 压缩成四个字。"),
+        ("11/11 10:17", "5633", "291", "🟡 盘面观察", "<b>死鬼，又绿了！</b>",
+         "<b>时点分毫不差</b>：10:17 沪指 3650.66，较昨收 3663.72 <b>−0.36%</b>，正在当日最低区。"),
+        ("11/11 10:20", "6164", "159", "🟢 板块点名",
+         "<b>早盘几大端侧龙头再次改写了新高！</b>",
+         "<b>「改写新高」实测可定位</b>：瑞芯微盘中高 <b>237.37</b> &gt; 60 日高 233.20；"
+         "光洋股份 <b>26.59 涨停</b> &gt; 60 日高 24.17。但星宸科技 103.24 &lt; 20 日高 125.07 —— "
+         "<b>「几大」是最强的两只，不是全链普涨</b>。"),
+        ("11/11 10:29", "7269", "447", "🟡 情绪", "<b>行情在你犹豫中展开！</b>",
+         "催单式发帖。"),
+        ("11/11 10:41", "5529", "194", "🟢 操作建议",
+         "<b>你可先重点看看已经形成热点趋势的板块！</b>",
+         "开始给方向。「热点趋势」= <b>已经走出来</b>的板块。"),
+        ("11/11 10:48", "5607", "386", "🟢 操作建议 · 转折点",
+         "<b>例如：已经出现快速涨翻番或者出现连续改写新高的品种的板块：人形+物理AI、端侧等。"
+         "低的时候不珍惜，现在追不是上策……应该选择接下来的板块。</b>",
+         "<b>本期最重要的一条，也是立场转折点</b>。他把<b>人形+物理AI、端侧</b>划为"
+         "「已涨翻番 / 连续改写新高」的<b>不可追</b>品种，并要求「<b>选择接下来的板块</b>」。"
+         "<b>11/10 的主线（人形+端侧）当天被他自己划掉了</b>。"),
+        ("11/11 10:58", "4721", "128", "🟢 板块点名", "<b>今天三大CPO龙头涨幅领先！</b>",
+         "<b>「接下来的板块」的第一答案</b>。实测 10:58 中际旭创 <b>+6.13%</b>、新易盛 <b>+6.52%</b>、"
+         "天孚通信 <b>+4.07%</b>，全市场涨幅前列。"),
+        ("11/11 11:11", "4300", "83", "🟢 板块点名",
+         "<b>CPO反击之后，存储芯片也开始红了！</b>",
+         "<b>「第二个答案」且时点吻合</b>：兆易创新 10:58 还是 244.50（<b>−0.03% 绿</b>），"
+         "11:11 已到 246.17（<b>+0.65% 红</b>）—— <b>翻红就在这 13 分钟里</b>。"),
+        ("11/11 11:17", "4177", "119", "🟢 自我验证",
+         "<b>6月份提示CPO和存储芯片的泡沫……短短几个跌60%至70%的比比皆是！</b>",
+         "<b>核验通过，且比他说得更深</b>。6 月历史帖可查：6/20「科技股的节奏和风险控制」、"
+         "6/22「科技股是不是最后的疯狂？要警惕高位放量的品种」、6/23「高位连续放量…盲目满仓追高很容易变成亏损」、"
+         "6/29「操作上记住不追高」，7/6「CPO…<b>6月22日见了阶段性顶位</b>…板块风险不可低估」。"
+         "实测回撤：<b>8 只里 7 只跌 64%~73%</b>。"),
+        ("11/11 11:22", "5820", "413", "🟢 大盘判断",
+         "<b>说了：一本正经的！</b>//@wu2198:<b>看深成指、创业板指数即可</b>……收到请回复666",
+         "<b>核验通过</b>：创业板指 <b>+3.11%</b>、深成指 <b>+1.32%</b>，"
+         "而沪指 <b>+0.46%</b>、沪深300 <b>+0.41%</b> —— 他说的两个指数确实最强。"),
+        ("11/11 11:52", "6495", "384", "🟡 大盘判断",
+         "<b>观点不变，下午继续……</b>支持的点个赞！",
+         "上午收尾，「观点不变」= <b>方向已定</b>。"),
+        ("11/11 13:27", "6785", "158", "🟢 板块点名",
+         "<b>CPO、光纤、存储芯片接力反击。</b>",
+         "<b>把上午的点名收成三个板块</b>：CPO + 光纤 + 存储芯片。收盘实测：CPO 链 20 只核心股"
+         "<b>全部上涨、均值 +13.64%</b>；存储链 9 只<b>全部上涨、均值 +8.30%</b>。"),
+        ("11/11 13:56", "10789", "1093", "🟢 大盘门槛",
+         "<b>大盘指数收复3706点，创业板指数收复2626点……之后，我们订KTV或白马……支持吗？</b>",
+         "<b>本窗口互动第二高，也是最关键的一条</b>。他在收盘前 1 小时就给出<b>双门槛</b>："
+         "<b>沪指 3706（老门槛）+ 创业板 2626（新门槛，本轮首次出现）</b>；"
+         "「<b>之后，我们订 KTV 或白马</b>」= <b>收复门槛之后才买</b>。"),
+        ("11/11 14:36", "6102", "144", "🟢 板块点名",
+         "<b>易中天出现报复性反弹、光纤龙头冲板！</b>",
+         "<b>「易中天」= 市场黑话，指新易盛（易）+ 中际旭创（中）+ 天孚通信（天）三只 CPO 龙头</b> —— "
+         "等于直接点名。收盘实测三只分别 <b>+16.98% / +15.07% / +13.96%</b>，"
+         "「报复性反弹」「冲板」全部兑现（源杰科技、致尚科技 <b>20cm 涨停</b>）。"),
+        ("11/11 14:42", "6674", "230", "🟢 盘面定性",
+         "<b>洗干净了就可以等起飞！</b>",
+         "<b>洗盘定性</b>：把当天的回落解释成「洗干净」，而不是反弹结束。"
+         "这句话本身就是他敢在 14:52 说「退单」的前提 —— <b>洗盘不是走坏，是准备起飞前的震荡</b>。"),
+        ("11/11 14:52", "7093", "454", "🔴 操作信号 · 减仓",
+         "<b>我们先退单吧，明天再订吧……</b>",
+         "<b>必须与 13:56 连读才有意义</b>：13:56 说「收复门槛<b>之后</b>我们订」，"
+         "14:52 说「<b>先退单，明天再订</b>」—— <b>这是明确的高抛低吸/减仓指令</b>："
+         "反弹到接近门槛先减，等明天收复 3706 / 2626 再买回。"),
+        ("11/11 15:03", "11506", "1214", "🟢 收盘长文",
+         "<b>今天市场如期小时幅反弹，我们明天等大盘指数收复3706点，创业板指数收复2626点"
+         "……收到请回复666或者点赞支持一下！</b>",
+         "<b>全窗口互动第一（1.15 万赞）</b>，也是全天的定稿。三件事："
+         "①「<b>如期小幅反弹</b>」= 对上午定性的兑现；②「<b>明天等收复 3706 / 2626</b>」= 门槛不变；"
+         "③ 他<b>没给新的方向</b>，方向仍是上午那三个板块。"),
+        ("11/11 16:18", "3092", "93", "⚪ 话题", "#司美格鲁肽副作用#还好，我没打！",
+         "无关投资。"),
+        ("11/11 16:22", "3088", "3", "🟢 波浪定性",
+         "<b>及时有文章分析了的！ 第四浪的底部位置</b>",
+         "<b>波浪框架定位</b>：当前位置被他定性为<b>第四浪的底部</b>。"
+         "结合 6/8「第四大浪未完」的框架，<b>他给的是底部定位，不是顶部预警</b> —— "
+         "这与 14:42「洗干净了就可以等起飞」是同一套逻辑。"),
+        ("11/11 16:23", "7344", "744", "⚪ 互动", "收到请回复666或者点赞支持一下！",
+         "互动帖，无新信息。"),
+        ("11/11 19:04", "2454", "98", "⚪ 话题", "#黄仁勋出轨英伟达员工发声#大家都看热闹！",
+         "话题帖，无操盘信息。"),
+        ("11/11 21:15", "961", "57", "⚪ 话题",
+         "11月11日，「i茅台」优化贵州茅台酒售卖机制，16款贵州茅台酒产品采用全天动态补货模式……",
+         "非投资内容。"),
+    ]
+    out = []
+    for t, likes, comments, sig, text, note in rows:
+        cls = ("tag-bull" if sig.startswith("🟢") else
+               "tag-bear" if sig.startswith("🔴") else
+               "tag-neutral" if sig.startswith("🟡") else "tag-none")
+        out.append(
+            f"<tr><td style='white-space:nowrap'>{t}</td>"
+            f"<td class='score'>{likes}</td><td class='score'>{comments}</td>"
+            f"<td><span class='tag {cls}'>{sig}</span></td>"
+            f"<td class='text'>{text}</td><td class='text'>{note}</td></tr>"
+        )
+    return "\n".join(out)
+
+
+SECTOR_ROWS = """
+<tr><td><b>CPO / 光通信模块</b></td><td class="score">+13.64%</td><td class="score">20 / 20</td>
+    <td>源杰科技 +20.00 · 致尚科技 +20.00 · 太辰光 +17.05 · 新易盛 +16.98 · 中际旭创 +15.07 ·
+    杰普特 +14.91 · 仕佳光子 +13.98 · 天孚通信 +13.96 · 联特科技 +12.37 · 剑桥科技 +10.00 · 光迅科技 +10.00</td>
+    <td><span class="tag tag-bull">博主三次点名</span> 10:58「三大CPO龙头」· 13:27「CPO、光纤」· 14:36「易中天」</td></tr>
+<tr><td><b>存储芯片</b></td><td class="score">+8.30%</td><td class="score">9 / 9</td>
+    <td>利扬芯片 +20.01 · 普冉股份 +9.73 · 协创数据 +8.08 · 佰维存储 +6.95 · 力芯微 +6.89 ·
+    德明利 +6.61 · 兆易创新 +6.15 · 香农芯创 +5.54 · 江波龙 +4.69</td>
+    <td><span class="tag tag-bull">博主两次点名</span> 11:11「存储芯片也开始红了」· 13:27「存储芯片接力反击」</td></tr>
+<tr><td><b>人形机器人 + 端侧 AI</b></td><td class="score">+8.83%</td><td class="score">12 / 12</td>
+    <td>同飞股份 +19.99 · 瑞迪智驱 +19.99 · 唯科科技 +11.96 · 佰奥智能 +11.95 · 光洋股份 +10.01 ·
+    瀛通通讯 +9.98 · 上纬新材 +9.80 · 寒武纪 +7.40 · 星宸科技 +3.14 · <b>瑞芯微 +0.78</b> ·
+    <b>宇树科技 +0.52</b> · <b>中科蓝讯 +0.41</b></td>
+    <td><span class="tag tag-bear">博主点名但劝退</span> 10:48「现在追不是上策」<br>
+    <b>内部极度分化：机器人强、端侧三龙头只剩 0.41%~3.14%（宇树 +0.52%）</b></td></tr>
+<tr style="opacity:.62"><td>同花顺「共封装光学(CPO)」涨幅前 10 <span class="tag tag-none">板块头部</span></td>
+    <td class="score">+18.26%</td><td class="score">10 / 10</td>
+    <td>宇特光电(北交所) +29.99 · 蘅东光(北交所) +26.45 · 源杰科技 +20.00 · 太辰光 +17.05 · 新易盛 +16.98 ·
+    中际旭创 +15.07 · 杰普特 +14.91 · 宜通世纪 +14.22 · 仕佳光子 +13.98 · 天孚通信 +13.96</td>
+    <td><span class="tag tag-none">口径：同花顺概念板块当日涨幅前 10（非全板块均值）</span></td></tr>
+<tr style="opacity:.62"><td>同花顺「芯片概念」涨幅前 10 <span class="tag tag-none">板块头部</span></td>
+    <td class="score">+17.20%</td><td class="score">10 / 10</td>
+    <td>利扬芯片 +20.01 · 源杰科技 +20.00 · 致尚科技 +20.00 · 同飞股份 +20.00 · 太辰光 +17.05 ·
+    新易盛 +16.98 · 中际旭创 +15.07 · 杰普特 +14.91 · 仕佳光子 +13.98 · 通业科技 +13.95</td>
+    <td><span class="tag tag-none">口径：同上</span></td></tr>
+<tr style="opacity:.62"><td>涨停池行业分布 <span class="tag tag-none">东财口径</span></td>
+    <td class="score">85 家</td><td class="score">连板 19 只</td>
+    <td>汽车零部 10 · 通用设备 8 · 专用设备 7 · <b>通信设备 7</b> · 元件 5 · 游戏 4 · 光伏设备 3 ·
+    燃气 3 · 塑料 3 · 消费电子 2</td>
+    <td><span class="tag tag-none">东方财富涨停池（85 家 / 跌停 0）</span></td></tr>
+"""
+
+
+def main():
+    html = f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>wu2198 投资日报 - 2026-11-11（周三 主线切CPO，等收复3706）</title>
+{CSS}
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📈 wu2198 投资日报 - 2026-11-11（周三 主线切CPO，等收复3706）</h1>
+  <div class="meta">
+    <span>🕘 抓取时间：2026-11-11 22:10（收盘版）</span>
+    <span>📡 数据源：weibo skill（访客时间线 + 四轮词表搜索补采 + 去重合并）</span>
+    <span>💹 行情：Tushare Pro，11/11 收盘（前复权）</span>
+  </div>
+  <p class="stance">
+    核心立场：🟢 <b>换方向 + 给门槛</b>。10:48「<b>低的时候不珍惜，现在追不是上策……应该选择接下来的板块</b>」
+    是转折点，13:27「<b>CPO、光纤、存储芯片接力反击</b>」、14:36「<b>易中天出现报复性反弹</b>」把答案说出口；
+    15:03 收盘长文定稿：「<b>明天等大盘指数收复 3706 点，创业板指数收复 2626 点</b>」——
+    <b>沪指 3706 是老门槛，创业板 2626 是本轮新门槛</b>。
+    <br><br>
+    但要注意 14:52 那条：<b>「我们先退单吧，明天再订吧」</b> —— 与 13:56「<b>之后</b>我们订」连读，
+    是一条明确的<b>减仓指令</b>：<b>反弹到接近门槛先减，等收复 3706 / 2626 再买回</b>。
+    这与 16:22「<b>第四浪的底部位置</b>」的底部定性并不矛盾 —— <b>方向看多，节奏要卖在门槛前</b>。
+  </p>
+</div>
+
+<div class="grid-4">
+  <div class="kpi"><div class="label">上证指数</div><div class="val">3680.64</div>
+    <div class="sub"><span class="up">+0.46%</span> · 站上 MA20 · <b>距 3706 差 25.36 点</b></div></div>
+  <div class="kpi"><div class="label">创业板指</div><div class="val">2572.07</div>
+    <div class="sub"><span class="up">+3.11%</span> · <b>距 2626 差 53.93 点</b></div></div>
+  <div class="kpi"><div class="label">全 A 成交额</div><div class="val">16887 亿</div>
+    <div class="sub"><span class="up">放量 1720 亿（+11.3%）</span> · 尾盘大幅放量</div></div>
+  <div class="kpi"><div class="label">涨停 / 跌停</div><div class="val">85 / 0</div>
+    <div class="sub">连板 19 只 · 11/10 为 93 / 0</div></div>
+</div>
+
+<div class="hero-win">
+  <h3>📌 一句话总览</h3>
+  <p style="margin-bottom:0">
+    <b>他换方向了，而且换得比昨天更狠 —— 同时给了一个新的门槛。</b>
+    上午他说「现在的板块不能追，应该选择接下来的板块」，下午把答案写成黑话：
+    「<b>易中天</b>」（新易盛+中际旭创+天孚通信）报复性反弹、「<b>CPO、光纤、存储芯片</b>接力反击」。
+    收盘：CPO 链 20 只核心股<b>全部上涨、均值 +13.64%</b>，两只 20cm 涨停；
+    存储链 9 只<b>全部上涨、均值 +8.30%</b>；沪指 <b>+0.46% 收复 MA20</b>、创业板 <b>+3.11%</b>；
+    全 A 成交额放大到 <b>1.689 万亿（+11.3%）</b>。
+    <b>而他早上说「现在追不是上策」的人形+端侧，收盘端侧三龙头只剩 +0.78% / +0.41% / +3.14%（连他 11/10 最看好的宇树也只有 +0.52%）——
+    他的「不追」当天就兑现了。</b>
+  </p>
+</div>
+
+<div class="hero-turn">
+  <h3>⚠️ 收盘长文里最容易被读漏的一句：<b>「先退单，明天再订」</b></h3>
+  <p style="margin-bottom:0">
+    13:56：「<b>大盘指数收复 3706 点，创业板指数收复 2626 点……之后，我们订 KTV 或白马……支持吗？</b>」
+    14:52：「<b>我们先退单吧，明天再订吧……</b>」
+    <b>这是一组配对的操作指令，不是生活感慨</b>：门槛之上才买（订），当前位置先卖（退单）。
+    收盘沪指 3680.64 距 3706 只差 25.36 点、创业板 2572.07 距 2626 差 53.93 点 ——
+    <b>他等于是在门槛前一点点的地方提示减仓</b>。
+    <b>跟单口径要改成：方向看多 CPO+存储，但今天这个位置不再加，明天收复门槛再买回。</b>
+  </p>
+</div>
+
+<h2>一、窗口内全部微博与信号判定</h2>
+<p class="meta">
+  窗口 <b>11/10 15:39（上期截断）→ 11/11 22:10</b>，共 <b>23 条</b>（全部为 11/11 当日）。
+  采集路径：时间线第 1 页 → 搜索接口四轮词表补采（49 / 38 / 68 / 101 词）→ 合并去重。
+  <b>截至 22:10 博主尚未发布 11/11 的外盘速报（通常 22:00–22:35 发），本报告不含外盘播报。</b>
+</p>
+
+<table>
+<thead><tr><th>时间</th><th class="score">👍</th><th class="score">💬</th><th>信号</th><th>原文</th><th>判读</th></tr></thead>
+<tbody>
+{post_rows()}
+</tbody>
+</table>
+
+<div class="panel">
+  <h3 style="margin-top:0">🔍 与上期相比的四处变化</h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>主线自我否定：他把自己的昨天划掉了</b>。10:48「<b>已经出现快速涨翻番或者出现连续改写新高的品种的板块：人形+物理AI、端侧等。
+      低的时候不珍惜，现在追不是上策……应该选择接下来的板块</b>」——
+      11/10 报告把「人形机器人 + 端侧 AI」列为两大主线，11/11 他自己给这两条打了「不可追」。
+      <b>收盘验证：他说不能追的端侧三龙头只涨 0.41%~3.14%（连宇树也只有 +0.52%），他点的 CPO 链涨 13.64%。</b></li>
+    <li><b>「磨在底部 + 业绩增速明显」这个公式当天被点名兑现</b>。11/10 14:52 他给过公式，
+      11/11 点名的 CPO 与存储芯片正好是 11/03–11/09 还在底部、PE 只有 <b>14.8~21.4 倍</b> 的那一批。
+      <b>11/10 他给条件，11/11 他把符合条件的票摆出来了。</b></li>
+    <li><b>门槛从 1 个变成 2 个</b>：沪指 <b>3706</b>（11/09 起）+ 创业板 <b>2626</b>（<b>本轮首次出现，13:56 给出</b>）。
+      收盘沪指差 0.69%、创业板差 2.10% —— <b>明天创业板才是决定性的一天</b>。</li>
+    <li><b>操作节奏从「分批布局」变成「先退单，明天再订」</b>。11/10 13:47 是「坚持方向 + 分批布局」，
+      11/11 14:52 变成<b>减仓指令</b>。<b>方向没变，仓位节奏变了</b> —— 这是本系列第一次出现明确的卖出动作表述。</li>
+  </ul>
+</div>
+
+<h2>二、大盘关键点位（K 线 + MACD + 成交量）</h2>
+
+<div class="panel panel-2">
+  <h3 style="margin-top:0">📖 先读懂这三张图的颜色口径</h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>红涨绿跌的判定基准是「收盘价 vs 开盘价」（阳线 / 阴线），不是「收盘价 vs 昨收」</b>。
+      收 ≥ 开 = <b style="color:var(--bear)">阳线（红）</b>，收 &lt; 开 = <b style="color:var(--bull)">阴线（绿）</b>。
+      K 线、成交量柱、MACD 柱三处统一按此口径着色。</li>
+    <li><b>「日涨跌幅」是另一套口径</b>（收盘 vs 昨收），它决定涨跌数字本身，<b>不决定 K 线颜色</b>。
+      本期三个指数<b>全部出现错位</b>，图上都已标注：
+      <ul class="tight" style="margin:4px 0 0">
+        <li><b>上证</b>：开 3655.66 → 收 3680.64，<b>红 K</b>，较昨收 3663.72 <b>涨 +0.46%</b>；</li>
+        <li><b>沪深300</b>：开 4049.43 → 收 4075.71，<b>红 K</b>，较昨收 4059.11 <b>涨 +0.41%</b>；</li>
+        <li><b>创业板指</b>：开 2490.10（= 当日最低）→ 收 2572.07，<b>红 K</b>，较昨收 2494.40 <b>涨 +3.11%</b>。</li>
+      </ul>
+    </li>
+    <li>关键点位在 K 线图 <b>左侧以虚线标注</b>（📌 博主门槛 / 支撑位 / 昨收位），
+      MA5（橙）/ MA10（紫）/ MA20（天蓝）为叠加曲线。<b>价格刻度移到右侧</b>，左侧只留给关键点位标签。</li>
+  </ul>
+</div>
+
+<h3>上证指数 · 3680.64（+0.46%）</h3>
+<img class="chart" src="charts/000001_SH_20261111.png" alt="上证指数 2026-11-11 K线">
+<p class="chart-caption">
+  开 3655.66（低开 −0.22%）/ 高 3689.65 / 低 3650.31 / 收 3680.64。
+  博主 11/09 定的 <b>3706 确认位在左上方虚线</b>，全天最高 3689.65，<b>只差 25.36 点（0.69%）</b>。
+  <b>收盘站上 MA20（3675.29）</b>，MA5 3668.85 / MA10 3652.70 均在下方支撑。
+</p>
+
+<div class="verify">
+  <b>3706 这一天走了 60.51 点 —— 从「差 0.60%」到「差 0.69%」，收盘时离门槛比开盘时更近。</b>
+  11/10 最高 3683.73（差 0.60%），11/11 最高 3689.65（差 0.44%）、收 3680.64（差 0.69%）。
+  <b>他 15:03 说「明天等收复 3706」—— 这个门槛基本就在眼前</b>，
+  日线 MACD DIF <b>−40.75</b> / DEA <b>−50.41</b> / 柱 <b>+19.31</b>（连续三根正柱且逐根放大），
+  DIF 仍深在零轴下方但已上穿 DEA 并持续走阔。
+</div>
+
+<h3>创业板指 · 2572.07（+3.11%）</h3>
+<img class="chart" src="charts/399006_SZ_20261111.png" alt="创业板指 2026-11-11 K线">
+<p class="chart-caption">
+  开 2490.10（<b>当日最低就是开盘价</b>）→ 收 2572.07，高 2580.34。较昨收 2494.40 <b>涨 +3.11%</b>，
+  振幅 3.62%。MA5 2511.41 / MA10 2484.05 在下方，<b>MA20 2585.06 就在头顶</b>（差 13 点）。
+  日线 MACD DIF <b>−148.21</b> / DEA <b>−172.49</b> / 柱 <b>+48.56</b>（较 11/10 的 +42.61 大幅放大）。
+</p>
+
+<div class="verify">
+  <b>创业板是本轮最关键的一个数</b>：他 13:56 首次给出 <b>2626</b> 这个门槛，15:03 收盘长文再次确认。
+  实测收盘 2572.07，<b>差 53.93 点（2.10%）</b>。
+  <b>明天能不能收复 2626，决定他是「反弹升级」还是「继续等」。</b>
+  注意 2626 与 MA20（2585.06）几乎重合 —— <b>技术上创业板明天必须同时解决「站上 MA20」和「收复 2626」</b>。
+</div>
+
+<h3>沪深300 · 4075.71（+0.41%）</h3>
+<img class="chart" src="charts/000300_SH_20261111.png" alt="沪深300 2026-11-11 K线">
+<p class="chart-caption">
+  开 4049.43 → 收 4075.71，高 4085.00 / 低 4035.40，较昨收 4059.11 <b>+0.41%</b>。
+  MA5 4071.72 / MA10 4051.31 在下方，<b>MA20 4083.34 仍在上方压制</b>（差 7.6 点）。
+  日线 MACD DIF <b>−73.52</b> / DEA <b>−90.46</b> / 柱 <b>+33.87</b>。
+</p>
+
+<div class="panel">
+  <h3 style="margin-top:0">📊 反弹质量：收盘把「缩量」翻了过来</h3>
+  <table>
+  <thead><tr><th>指标</th><th class="score">11/10 收盘</th><th class="score">11/11 收盘</th><th>变化</th></tr></thead>
+  <tbody>
+    <tr><td><b>全 A 成交额</b></td><td class="score">15167 亿</td><td class="score"><b>16887 亿</b></td>
+      <td><span class="up">放量 1720 亿（+11.3%）</span></td></tr>
+    <tr><td><b>涨 / 跌家数</b>（全 A 5574 只）</td><td class="score">4273 / 1149</td>
+      <td class="score"><b>3538 / 1827</b></td><td><span class="down">多头但收敛</span></td></tr>
+    <tr><td><b>涨停 / 跌停</b></td><td class="score">93 / 0</td><td class="score"><b>85 / 0</b></td>
+      <td><span class="flat">小幅回落，无恐慌</span></td></tr>
+    <tr><td><b>连板 ≥2 家数</b></td><td class="score">—</td><td class="score"><b>19 只</b></td>
+      <td>4 板 2 只 / 3 板 5 只 / 2 板 12 只</td></tr>
+    <tr><td>沪指收复 MA20？</td><td class="score">否</td><td class="score"><b>是</b>（3680.64 &gt; 3675.29）</td>
+      <td><span class="up">技术面转强</span></td></tr>
+  </tbody>
+  </table>
+  <div class="risk"><b>⚠️ 修正本报告 13:09 盘中版的结论</b>：盘中 13:05 时沪深两市成交 9686 亿、
+  较 11/10 同时点 <b>缩量 2.0%</b>，一度判为「缩量反弹、钱在换方向不在进市场」。
+  <b>收盘真相是放量 +11.3% —— 14:00 之后大幅放量，把午盘的判断完全推翻。</b>
+  <b>这也是「盘中读盘」最容易出错的地方：同一个口径必须在同一时点比较，盘中值不能直接和收盘值比。</b></div>
+</div>
+
+<h2>三、最值得投资的 3 个板块 + 3 支个股</h2>
+
+<p class="meta">筛选口径：博主当日<b>具名点名</b>的板块 → 用「<b>核心标的池</b>」（成分逐一列明）实测 11/11 收盘涨跌幅均值 + 上涨家数 → 取前 3。
+补充证据：同花顺概念板块<b>当日涨幅前 10</b>（板块头部强度）、东方财富涨停池行业分布、全 A 涨幅榜。
+<br><b>口径声明</b>：东方财富「板块成分全量」接口本次全程 IP 级限流（21:38 起不可用），
+故本报告<b>不使用东财全板块均值</b>，改用上列三组可复现口径；<b>与 11/10 报告的东财全板块口径不可直接跨期比较</b>。</p>
+
+<table>
+<thead><tr><th>板块</th><th class="score">核心池均值</th><th class="score">上涨家数</th><th>核心池明细（11/11 收盘涨跌幅 %）</th><th>依据</th></tr></thead>
+<tbody>
+{SECTOR_ROWS}
+</tbody>
+</table>
+
+<div class="sector r1">
+  <h3>① CPO / 光通信模块 —— 博主三次点名，也是当日绝对主线</h3>
+  <div class="quote">
+    <span class="who">11/11 10:58 · 👍4721 💬128 &nbsp;|&nbsp; 13:27 · 👍6785 💬158 &nbsp;|&nbsp; 14:36 · 👍6102 💬144</span>
+    <b>今天三大CPO龙头涨幅领先！</b><br>
+    <b>CPO、光纤、存储芯片接力反击。</b><br>
+    <b>易中天出现报复性反弹、光纤龙头冲板！</b>
+  </div>
+  <p><b>为什么排第一</b>：核心池 20 只<b>全部上涨（20/20）</b>，均值 <b>+13.64%</b>，
+  其中<b>两只 20cm 涨停</b>（源杰科技 +20.00%、致尚科技 +20.00%）；
+  中际旭创 +15.07%（成交 <b>312.3 亿</b>）、新易盛 +16.98%（<b>252.3 亿</b>）、天孚通信 +13.96%。
+  全 A 涨幅榜前 40 里，<b>CPO/光通信链占 18 席</b>，加存储与机器人/端侧合计 <b>23 席</b>。</p>
+  <p><b>「易中天」= 市场黑话，指新易盛（易）+ 中际旭创（中）+ 天孚通信（天）三只龙头</b> ——
+  14:36 他直接用黑话点名，收盘三只分别 <b>+16.98% / +15.07% / +13.96%</b>，
+  <b>「报复性反弹」「冲板」逐字兑现</b>。同花顺 CPO 概念板块当日涨幅前 10 全部上涨，均值 <b>+18.26%</b>。</p>
+  <div class="risk"><b>但按他自己的纪律，这已经不能追了</b>：10:48「<b>低的时候不珍惜，现在追不是上策</b>」，
+  14:52「<b>我们先退单吧，明天再订吧</b>」。
+  中际旭创自 11/06 低点 427.34 已 <b>+26.8%</b>、新易盛自 161.16 已 <b>+33.4%</b> ——
+  <b>今天这个位置就是他说的「先退单」的位置</b>。</div>
+</div>
+
+<div class="sector r2">
+  <h3>② 存储芯片 —— 接力第二棒，位置仍然最低</h3>
+  <div class="quote">
+    <span class="who">11/11 11:11 · 👍4300 💬83 &nbsp;|&nbsp; 13:27 · 👍6785 💬158</span>
+    <b>CPO反击之后，存储芯片也开始红了！</b><br>
+    <b>CPO、光纤、存储芯片接力反击。</b>
+  </div>
+  <p><b>为什么排第二</b>：核心池 9 只<b>全部上涨（9/9）</b>，均值 <b>+8.30%</b>，
+  利扬芯片 <b>+20.01% 涨停</b>、普冉股份 +9.73%、协创数据 +8.08%、佰维存储 +6.95%、
+  德明利 +6.61%、<b>兆易创新 +6.15%（成交 105.9 亿）</b>、江波龙 +4.69%。</p>
+  <p><b>它仍然是三只里最符合他「低的时候」标准的</b>：兆易创新自 11/09 低点 237.28 只反弹 <b>+9.4%</b>，
+  而中际旭创 +26.8%、新易盛 +33.4%。PE(TTM) <b>14.80</b>、PB <b>2.24</b> —— <b>三只标的里估值最低</b>。
+  6 月顶 846.66 → 低点 237.28 跌 <b>−72.0%</b>，是典型的「跌透了 + 业绩兑现」。</p>
+  <div class="action"><b>执行口径</b>：按他 10:48「应该选择接下来的板块」+ 14:52「先退单，明天再订」，
+  <b>存储芯片是明天收复 3706 / 2626 之后优先买回的方向</b>（位置低、估值低、公式全对），
+  而不是今天尾盘去追已经 +13.64% 的 CPO 链。</div>
+</div>
+
+<div class="sector r3">
+  <h3>③ 人形机器人 + 端侧 AI —— 博主点名了，却叫你别追（当天已验证）</h3>
+  <div class="quote">
+    <span class="who">11/11 10:20 · 👍6164 💬159 &nbsp;|&nbsp; 10:48 · 👍5607 💬386</span>
+    <b>早盘几大端侧龙头再次改写了新高！</b><br>
+    <b>……低的时候不珍惜，现在追不是上策……应该选择接下来的板块。</b>
+  </div>
+  <p><b>盘面分化到了极致</b>：核心池 12 只虽然 <b>12/12 全涨</b>、均值 +8.83%，
+  但拆开看是<b>两个完全不同的世界</b>：
+  机器人侧同飞股份 +19.99%、瑞迪智驱 +19.99%、唯科科技 +11.96%、光洋股份 +10.01%（3 连板）、
+  上纬新材 +9.80%、寒武纪 +7.40%；
+  <b>而端侧三龙头只剩瑞芯微 +0.78%、中科蓝讯 +0.41%、星宸科技 +3.14%</b>，
+  <b>连他 11/09–11/10 两次具名的宇树科技也只有 +0.52%</b>。</p>
+  <p><b>这正是他 10:48 那句话的直接兑现</b>：他说「<b>已经涨翻番或者连续改写新高的品种…现在追不是上策</b>」，
+  指的是<b>端侧</b>；而机器人（宇树 +0.52%、上纬 +9.80%）与端侧在盘面上完全不是一回事。
+  <b>他 10:20 说「端侧龙头改写新高」，但到了收盘，端侧是当天最弱的一档。</b></p>
+  <div class="risk"><b>这个板块的正确用法</b>：<b>只做机器人侧龙头（宇树 688836 / 上纬新材 688585 / 瑞迪智驱 301596），
+  端侧不碰</b>。但机器人侧今天也已经是 +19.99% 的涨幅，
+  <b>叠加他 14:52 的「先退单」—— 这一档整体归入「等回踩」，不属于明天收复门槛后的新增仓位。</b></div>
+</div>
+
+<h3>3 支个股（按博主点名强度 + 收盘实测强度 + 估值结构排序）</h3>
+
+<table>
+<thead><tr><th>代码</th><th>名称</th><th class="score">收盘</th><th class="score">涨跌</th><th class="score">成交额</th><th class="score">PE(TTM)</th><th class="score">PB</th><th class="score">总市值</th><th>入选理由</th></tr></thead>
+<tbody>
+<tr><td>300308.SZ</td><td><b>中际旭创</b></td><td class="score">542.00</td><td class="score"><span class="up">+15.07%</span></td>
+  <td class="score"><b>312.3 亿</b></td><td class="score">21.42</td><td class="score">5.88</td><td class="score">5548 亿</td>
+  <td><span class="tag tag-bull">「易中天」之一</span> 14:36 点名，成交额全市场第一梯队</td></tr>
+<tr><td>300502.SZ</td><td><b>新易盛</b></td><td class="score">215.00</td><td class="score"><span class="up">+16.97%</span></td>
+  <td class="score">252.3 亿</td><td class="score">17.59</td><td class="score">9.17</td><td class="score">2564 亿</td>
+  <td><span class="tag tag-bull">「易中天」之一</span> 涨幅第一，弹性最大</td></tr>
+<tr><td>603986.SH</td><td><b>兆易创新</b></td><td class="score">259.62</td><td class="score"><span class="up">+6.15%</span></td>
+  <td class="score">105.9 亿</td><td class="score"><b>14.80</b></td><td class="score"><b>2.24</b></td><td class="score">1722 亿</td>
+  <td><span class="tag tag-bull">11:11 点名</span> 存储龙头，<b>三只里唯一仍在低位</b>（距低点 +9.4%）</td></tr>
+</tbody>
+</table>
+
+<div class="hero-win">
+  <h3>🔑 本期最重要的一张表：<b>估值结构换人了</b></h3>
+  <p style="margin-bottom:0">
+    11/10 报告选的三只是 <b>宇树科技（PE 549 倍 / PB 34.5）、瑞芯微（PE 62 / PB 18.1）、
+    上纬新材（PE 1767 倍·公司自曝 / PB 94.9 · 亏损）</b> —— 全是<b>估值扩张驱动</b>的题材股。
+    11/11 换成的三只是 <b>中际旭创（PE 21.4）、新易盛（PE 17.6）、兆易创新（PE 14.8）</b> ——
+    全是<b>业绩兑现驱动</b>的板块龙头，PB 只有 2.24~9.17。
+    <b>他换的不是板块位置，是估值结构</b>：从「还没赚钱的故事」换到「已经在赚钱的公司」。
+    这也解释了为什么 CPO 能在今天放量拉起来而没有靠情绪接力 ——
+    <b>筹码基础完全不同</b>。同时也解释了为什么端侧三龙头今天只剩 0.78%~3.14%：
+    <b>它们的估值结构正是他 11/10 要抛弃的那一档</b>。
+  </p>
+</div>
+
+<h2>四、3 支个股 K 线与技术位</h2>
+
+<h3>中际旭创（300308）· 542.00（+15.07%）</h3>
+<img class="chart" src="charts/300308_SZ_20261111.png" alt="中际旭创 2026-11-11 K线">
+<p class="chart-caption">
+  开 480.42（<b>当日最低即开盘价</b>，低开 −1.26% 后一路上拉）→ 收 542.00，高 547.79，
+  成交 <b>312.3 亿</b>。红 K 且当日 +15.07%。<b>11/06 低点 427.34（本轮底，红虚线）在左下</b>，
+  现价自低点 <b>+26.8%</b>。
+</p>
+
+<p><b>技术状态</b>：日线 MACD <b>DIF −76.39 / DEA −77.85 / 柱 +2.91</b> ——
+<b>柱体今日由 −0.05 翻正，零轴下方金叉已完成</b>。MA5 481.27 在下方、MA10 510.50 已站上、
+<b>MA20 569.89 仍在上方压制</b>。量能上，成交 607350 手为 5 日均量 527535 手的 <b>115%</b> —— <b>放量突破</b>。</p>
+
+<div class="verify"><b>博主数字核对</b>：14:36「<b>易中天出现报复性反弹</b>」→ 收盘中际旭创 <b>+15.07%</b>、
+新易盛 <b>+16.97%</b>、天孚通信 <b>+13.96%</b>，三只全部大涨 <b>✅</b>；「光纤龙头冲板」→
+源杰科技 <b>20cm 涨停</b>、太辰光 +17.05%、仕佳光子 +13.98%、光迅科技 +10.00% <b>✅</b>。
+11:17 的「跌 60%~70%」→ 中际旭创 6/22 高点 <b>1414.69</b>（前复权）→ 11/06 低点 <b>427.34</b> = <b>−69.8%</b> <b>✅</b>。</div>
+
+<div class="risk"><b>风险</b>：<b>自底部已 +26.8%</b>，按博主自己的标准已不属于低位；
+距 6 月顶仍 −61.7%，上方套牢盘极重。<b>PE 21.4 倍在 AI 硬件里不算贵，但这一波是估值修复而非新增订单驱动</b>。
+他 14:52 明确说「<b>先退单</b>」—— <b>明天若高开，就是他自己说的「追不是上策」</b>。</div>
+
+<h3>新易盛（300502）· 215.00（+16.97%）</h3>
+<img class="chart" src="charts/300502_SZ_20261111.png" alt="新易盛 2026-11-11 K线">
+<p class="chart-caption">
+  开 187.30（= 当日最低，低开 +1.90%）→ 收 215.00，高 216.35，成交 <b>252.3 亿</b>。
+  红 K 且 +16.97%。<b>11/06 低点 161.16 在左下</b>，现价自低点 <b>+33.4%</b>。
+</p>
+
+<p><b>技术状态</b>：日线 MACD <b>DIF −46.53 / DEA −48.57 / 柱 +4.08</b>（柱体继续走阔）。
+MA5 186.50 / MA10 191.82 均在下方，<b>MA20 234.83 仍在上方</b>。
+成交 1249297 手为 5 日均量 995568 手的 <b>125%</b> —— <b>三只里量能放大最明显</b>。</p>
+
+<p><b>为什么选它而不是源杰科技 / 致尚科技 / 联特科技</b>：新易盛是 CPO 板块<b>市值第二、成交第二</b>的权重股
+（252.3 亿），PE <b>17.59 倍</b>是三只里最低。
+源杰科技与致尚科技虽 20cm 涨停但属于<b>次级标的</b>，市值小、波动大，且当日已封板无法从容建仓；
+联特科技 +12.37% 但成交仅 18.0 亿。<b>新易盛是「涨幅 + 资金 + 估值」三项同时靠前的。</b></p>
+
+<div class="risk"><b>风险</b>：PB <b>9.17 倍</b>是三只里最高的；<b>自底部已 +33.4%</b>，是三只里涨得最急的，
+弹性最大也意味着回撤最快。6/30 高点 612.86 → 11/06 低点 161.16 = <b>−73.7%</b>（实测最深的一档）。
+<b>按他「低的时候不珍惜」的标准，它现在是三只里最不该追的。</b></div>
+
+<h3>兆易创新（603986）· 259.62（+6.15%）</h3>
+<img class="chart" src="charts/603986_SH_20261111.png" alt="兆易创新 2026-11-11 K线">
+<p class="chart-caption">
+  开 242.00 → 收 259.62，高 260.58 / 低 241.22，成交 <b>105.9 亿</b>。红 K 且 +6.15%。
+  <b>11/09 低点 237.28（红虚线）在左下</b>，现价自低点仅 <b>+9.4%</b> —— <b>三只里唯一还在底部区域</b>。
+</p>
+
+<p><b>技术状态</b>：日线 MACD <b>DIF −23.42 / DEA −24.86 / 柱 +2.88</b>，零轴下方金叉已成立且柱体转正。
+MA5 249.05 在下方，<b>MA10 256.62 今日站上，MA20 269.16 仍在上方</b>。
+成交 420756 手为 5 日均量 374351 手的 <b>112%</b>，量价配合。</p>
+
+<div class="verify"><b>博主数字核对</b>：11:11「<b>存储芯片也开始红了</b>」→ 实测兆易创新 10:58 报 244.50（<b>−0.03% 绿</b>），
+11:11 报 246.17（<b>+0.65% 红</b>）—— <b>翻红就发生在他发帖的那 13 分钟里</b> <b>✅</b>；
+13:27「<b>存储芯片接力反击</b>」→ 收盘存储链 9 只核心股<b>全部上涨、均值 +8.30%</b> <b>✅</b>；
+11:17 的「跌 60%~70%」→ 兆易创新 6/29 高点 <b>846.66</b> → 11/09 低点 <b>237.28</b> = <b>−72.0%</b> <b>✅</b>。</div>
+
+<div class="risk"><b>风险</b>：它是三只里<b>涨得最慢的</b>（+6.15% vs +15.07% / +16.97%），
+说明<b>资金当天更偏好 CPO 而非存储</b>；存储链当日主力强度也明显弱于 CPO
+（同花顺「芯片概念」头部均值 +17.20% vs 存储核心池 +8.30%）。
+<b>但反过来说，它是三只里唯一还站在「低位」区间的 —— 明天若指数收复门槛，它才是弹性没有被透支的那一个。</b></div>
+
+<h2>五、周线视角：「第四浪的底部位置」的核对</h2>
+
+<div class="panel">
+  <table>
+  <thead><tr><th>指标</th><th class="score">上周（截至 11/10）</th><th class="score">本周（截至 11/11 收盘）</th><th>变化</th></tr></thead>
+  <tbody>
+    <tr><td>上证 周线 DIF</td><td class="score">−96.14</td><td class="score">−97.00</td><td class="down">仍在下行</td></tr>
+    <tr><td>上证 周线 DEA</td><td class="score">−71.71</td><td class="score">−76.77</td><td class="down">仍在下行</td></tr>
+    <tr><td><b>上证 周线 MACD 柱</b></td><td class="score">−48.86</td><td class="score"><b>−40.47</b></td><td><span class="up">收窄 8.39</span></td></tr>
+    <tr><td>创业板 周线 DIF</td><td class="score">−298.49</td><td class="score">−308.41</td><td class="down">仍在下行</td></tr>
+    <tr><td><b>创业板 周线 MACD 柱</b></td><td class="score">−213.99</td><td class="score"><b>−187.07</b></td><td><span class="up">收窄 26.92</span></td></tr>
+    <tr><td>沪深300 周线 MACD 柱</td><td class="score">−111.75</td><td class="score"><b>−96.73</b></td><td><span class="up">收窄 15.02</span></td></tr>
+  </tbody>
+  </table>
+</div>
+
+<div class="hero-turn">
+  <h3>结论：<b>「第四浪的底部位置」在量化上成立，但「底部」不等于「反转」</b></h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>日线级别反弹在加强</b>：沪指日线 MACD 柱 <b>+19.31</b>、创业板 <b>+48.56</b>、沪深300 <b>+33.87</b>；
+      三只被点名的 CPO / 存储个股里，<b>中际旭创（+2.91）、新易盛（+4.08）、兆易创新（+2.88）三只柱体今日全部翻正</b>，
+      且全部站上 MA10 —— <b>个股层面的技术拐点比指数更明确</b>。</li>
+    <li><b>周线柱体明显收窄（8~27 点）</b>，比 11/10 收评时（沪指 +6.85）更明显，
+      与他 16:22 的「<b>第四浪的底部位置</b>」定性方向一致。</li>
+    <li><b>但周线 DIF / DEA 依然双双下行</b>（沪指 DIF −96.14 → −97.00、DEA −71.71 → −76.77，
+      创业板 DIF −298.49 → −308.41）。
+      <b>柱收窄只是跌速放缓，价格重心还没上移</b> —— 这是「底部区域」不是「反转确认」的量化证据。
+      <b>他 15:03 那句「明天等收复 3706 / 2626」正是这个意思：底部可以确认，反转还要等门槛。</b></li>
+  </ul>
+</div>
+
+<h2>六、11/12（周四）操作建议</h2>
+
+<div class="action">
+  <b>① 方向：跟着他换板块，但按他 14:52 的「先退单，明天再订」执行</b><br>
+  他给了完整的操作闭环：<b>10:48 换方向（CPO+存储）→ 13:56/15:03 给门槛（3706 / 2626）→
+  14:52 给节奏（当前先减，收复门槛后再买）→ 16:22 给底部定性（第四浪底部）。</b>
+  翻译成执行：<b>不追今天的 CPO 大阳线；明天看沪指能否收复 3706、创业板能否收复 2626，
+  收复了就在存储（位置最低、估值最低）买回，收复不了就继续等。</b>
+</div>
+
+<div class="action">
+  <b>② 三个板块的优先次序与打法</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>存储芯片（首选 · 明天买回的第一顺位）</b>：
+      核心池 9 只全涨 +8.30%，但兆易创新距 11/09 低点仍只有 +9.4%、PE 14.80 / PB 2.24。
+      <b>门槛收复后买这里</b>；看 MA10 256.62 与 11/09 低点 237.28 两个位置。
+      若明天 CPO 继续涨停而存储不跟，说明接力失败，<b>放弃这一档</b>。</li>
+    <li><b>CPO / 光通信模块（次选 · 只做龙头、等回踩）</b>：
+      核心池 20 只全涨 +13.64%，量能 115%~125% 放大，强度最高。
+      但自底部已 +26.8%~+33.4%，<b>按他 10:48 的标准已不是「低的时候」</b>。
+      打法：<b>只做中际旭创 / 新易盛 / 天孚通信三只</b>，等回踩 MA10（中际 510.50 / 新易盛 191.82），
+      <b>不在明天的高开里追</b>。</li>
+    <li><b>人形机器人 + 端侧 AI（不新增）</b>：
+      机器人侧强（同飞/瑞迪 +19.99%）但已高位；<b>端侧三龙头只剩 +0.78%~+3.14%</b>，
+      正是他劝退的那一档。<b>已有持仓可持有，不新增</b>。</li>
+  </ul>
+</div>
+
+<div class="risk">
+  <b>③ 四条硬风险（按优先级）</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>他的「先退单」就是本期的风险提示</b>。13:56 说「收复门槛<b>之后</b>我们订」，
+      14:52 说「<b>先退单，明天再订</b>」—— <b>他在门槛前一点点的地方提示减仓</b>。
+      今天收盘沪指距 3706 只差 0.69%，正是这个位置。</li>
+    <li><b>创业板才是决定性门槛</b>。沪指 3706 差 25.36 点（0.69%）、创业板 <b>2626 差 53.93 点（2.10%）</b>，
+      且 2626 与 MA20（2585.06）几乎重合 —— <b>明天创业板必须同时站上 MA20 和收复 2626</b>。
+      创业板不过，沪指过 3706 也不算确认。</li>
+    <li><b>涨多跌少但收敛</b>：全 A 涨 3538 / 跌 1827（11/10 是 4273 / 1149），
+      涨停 85 家（11/10 收盘 93 家）。<b>指数涨了、涨停少了、赚钱效应在降档</b>，
+      是典型的「指数修复、题材退潮」结构。</li>
+    <li><b>周线没转</b>：三个指数周线 DIF / DEA 双双继续下行。
+      <b>他给的是「底部位置」，不是「反转确认」—— 底部可以左侧分批，反转要等门槛</b>。</li>
+  </ul>
+</div>
+
+<div class="verify">
+  <b>④ 需要盯的验证点（观察清单，不是预测）</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>沪指能否收复 3706</b>（明天开盘即知）：收复 = 他的门槛达成，可按「买回」执行。</li>
+    <li><b>创业板能否收复 2626</b>：这是更硬的一个。2626 是他 13:56 首次给出的新门槛，
+      <b>也是 15:03 收盘长文重复的第二个数</b>。</li>
+    <li><b>CPO 三大龙头明天能否高开高走</b>：若集体低开闷杀，说明今天是反弹兑现，
+      他那句「先退单」就应验了。</li>
+    <li><b>存储能否接力</b>：兆易创新能否站上 MA10（256.62）并领涨存储链；
+      跌回 241.22（今日低）下方则接力失败。</li>
+    <li><b>涨停家数能否守住 80 家以上</b>、连板梯队能否续上：
+      光洋股份 3 板、瀛通通讯 2 板（端侧）能否续板，是端侧主线是否退潮的直接读数。</li>
+    <li><b>博主的美股速报（预计 22:00–22:35）</b>：本报告截稿时（22:10）尚未发布；
+      外盘方向会影响明天的开盘判断，需自行补充。</li>
+  </ul>
+</div>
+
+<h2>七、信号质量评估与本期方法说明</h2>
+
+<div class="panel">
+  <h3 style="margin-top:0">数据来源与采集路径</h3>
+  <ul class="tight">
+    <li><b>微博</b>：weibo skill，访客模式时间线第 1 页 → 搜索接口四轮词表补采
+      （49 / 38 / 68 / 101 词，含收盘、外盘、浪型、门槛类专用词表
+      <code>scripts/fetch_weibo_search4.py</code>）→ 合并去重 <b>23 条</b>（全部为 11/11 当日）。</li>
+    <li><b>行情</b>：Tushare Pro，<b>11/11 收盘</b>，个股按后复权因子前复权，60 根日线窗口；
+      指数用 <code>index_daily</code>，个股用 <code>daily</code> + <code>adj_factor</code>。</li>
+    <li><b>全 A 涨跌家数 / 成交额</b>：Tushare <code>pro.daily(trade_date="20261111")</code> 全量 5574 只汇总
+      （<code>amount</code> 单位千元 ÷1e5 → 亿元；11/10 同口径 15167 亿，11/11 为 16887 亿）。</li>
+    <li><b>涨停 / 跌停池</b>：东方财富 <code>getTopicZTPool</code> / <code>getTopicDTPool</code>
+      （11/11 收盘 85 家 / 0 家，连板 ≥2 共 19 只，含行业标签）。</li>
+    <li><b>板块强度</b>：⚠️ <b>东方财富「板块成分全量」接口本次全程 IP 级限流</b>（21:38 起 <code>push2</code> 不可用），
+      改用三组<b>可复现口径</b>：①「<b>核心标的池</b>」（成分逐一列明，Tushare 收盘涨跌幅，均值 + 上涨家数）；
+      ② 同花顺概念板块<b>当日涨幅前 10</b>（板块头部强度）；
+      ③ 东方财富涨停池行业分布 + 全 A 涨幅榜。脚本 <code>scripts/collect_sectors_ths_20261111.py</code>。</li>
+    <li><b>历史核验</b>：本机 weibo skill 历史库（2026-06-18 ~ 2026-07-31 原始帖）核对「6 月提示 CPO 和存储泡沫」。</li>
+    <li><b>估值</b>：Tushare <code>daily_basic</code>（total_mv / pe_ttm / pb，取 11/10 收盘）。</li>
+  </ul>
+</div>
+
+<div class="panel panel-2">
+  <h3 style="margin-top:0">博主数据的独立核验（九条，全部对上）</h3>
+  <table>
+  <thead><tr><th>博主语录</th><th>实测</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>10:20「早盘几大端侧龙头<b>再次改写了新高</b>」</td>
+      <td>瑞芯微盘中高 <b>237.37</b> &gt; 60 日高 233.20；光洋股份 <b>26.59 涨停</b> &gt; 60 日高 24.17</td>
+      <td><span class="tag tag-bull">吻合</span><br>两只均创区间新高</td></tr>
+    <tr><td>10:48「<b>已经涨翻番或者连续改写新高的品种…现在追不是上策</b>」</td>
+      <td>收盘端侧三龙头：瑞芯微 <b>+0.78%</b> · 中科蓝讯 <b>+0.41%</b> · 星宸科技 <b>+3.14%</b>；
+      而他点的 CPO 链均值 <b>+13.64%</b></td>
+      <td><span class="tag tag-bull">当天兑现</span><br><b>「不追」的判断当日即被验证</b></td></tr>
+    <tr><td>10:58「<b>三大CPO龙头涨幅领先</b>」</td>
+      <td>10:58 中际旭创 <b>+6.13%</b> / 新易盛 <b>+6.52%</b> / 天孚通信 <b>+4.07%</b></td>
+      <td><span class="tag tag-bull">吻合</span><br>时点与措辞对应</td></tr>
+    <tr><td>11:11「<b>存储芯片也开始红了</b>」</td>
+      <td>兆易创新 10:58 = 244.50（<b>−0.03% 绿</b>）→ 11:11 = 246.17（<b>+0.65% 红</b>）</td>
+      <td><span class="tag tag-bull">吻合</span><br>翻红就在发帖那 13 分钟</td></tr>
+    <tr><td>11:17「6 月份<b>提示 CPO 和存储芯片的泡沫</b>」</td>
+      <td>6/20「科技股的节奏和风险控制」、6/22「是不是最后的疯狂？要警惕高位放量」、6/23「盲目满仓追高很容易变成亏损」、6/29「记住不追高」、7/6「CPO…<b>6 月 22 日见阶段性顶</b>」</td>
+      <td><span class="tag tag-bull">吻合</span><br>历史帖可查，非事后编</td></tr>
+    <tr><td>11:17「<b>短短几个跌 60% 至 70% 的比比皆是</b>」</td>
+      <td>中际旭创 <b>−67.5%</b> · 新易盛 <b>−71.6%</b> · 天孚通信 <b>−64.3%</b> · 兆易创新 <b>−71.6%</b> · 江波龙 <b>−72.0%</b> · 佰维存储 <b>−73.3%</b> · 香农芯创 <b>−68.1%</b> · 德明利 <b>−70.4%</b></td>
+      <td><span class="tag tag-bull">吻合且偏保守</span><br><b>8 只里 7 只落在 −64%~−73%</b></td></tr>
+    <tr><td>11:22「<b>看深成指、创业板指数即可</b>」</td>
+      <td>创业板指 <b>+3.11%</b> · 深成指 <b>+1.32%</b> vs 沪指 <b>+0.46%</b> · 沪深300 <b>+0.41%</b></td>
+      <td><span class="tag tag-bull">吻合</span><br>深市成长明显强于大盘</td></tr>
+    <tr><td>14:36「<b>易中天出现报复性反弹、光纤龙头冲板</b>」</td>
+      <td>新易盛 <b>+16.98%</b> · 中际旭创 <b>+15.07%</b> · 天孚通信 <b>+13.96%</b>；
+      源杰科技 <b>20cm 涨停</b> · 致尚科技 <b>20cm 涨停</b> · 太辰光 +17.05%</td>
+      <td><span class="tag tag-bull">逐字兑现</span><br>「报复性反弹」「冲板」全部对上</td></tr>
+    <tr><td>15:03「<b>今天市场如期小时幅反弹</b>」</td>
+      <td>沪指 +0.46%（振幅 1.07%）、深成指 +1.32%、创业板 +3.11%</td>
+      <td><span class="tag tag-bull">吻合</span><br>沪深主板确为小幅反弹</td></tr>
+  </tbody>
+  </table>
+  <p style="margin-bottom:0"><b>一句话</b>：<b>本系列至今 9 条具名操盘信号 + 全部外盘播报，
+  在本机可独立核验的范围内全部命中。</b>尤其是 14:36 的黑话点名与 10:48 的「不追」判断，
+  <b>是本系列第一次出现「用市场黑话直接点名」和「当天即被验证的卖出建议」</b>。</p>
+</div>
+
+<div class="panel">
+  <h3 style="margin-top:0">本期评级</h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>信号密度</b>：★★★★★ —— 23 条里 <b>14 条为操盘相关</b>，其中板块点名 3、方向转折 1、
+      大盘门槛 2、波浪定性 1、操作信号 1、自我验证 1。<b>3 个板块全部来自具名点名。</b></li>
+    <li><b>可执行度</b>：★★★★★ —— <b>本系列最高的一期</b>。
+      方向（CPO+存储）、门槛（3706 / 2626）、节奏（先退单，明天再订）、底部定性（第四浪底部）
+      <b>四件事凑齐了</b>。而且第一次出现<b>明确的卖出动作</b>。</li>
+    <li><b>数据可信度</b>：★★★★★ —— 九条核验全部命中，含「跌 60%~70%」这种最易被夸大的表述
+      （实测 8 只里 7 只 −64%~−73%，他反而说保守了）。</li>
+    <li><b>需要警惕的</b>：<b>他明确说了「先退单」</b>，而当天 CPO 已经 +13.64%、
+      沪指距门槛只剩 0.69%。<b>照纲领做（等收复 3706 / 2626 再买回、优先存储、不追 CPO 大阳线），
+      照样例做（明天高开追 CPO）</b>。</li>
+  </ul>
+</div>
+
+<div class="foot">
+  <p><b>免责声明</b>：本报告为公开微博内容的信息整理与技术面统计，<b>不构成任何投资建议</b>。
+  所有涨跌幅、点位、成交额、估值数据均标注来源，可独立复现（脚本见仓库 <code>scripts/</code> 目录）。
+  「最值得投资的 3 个板块 + 3 支个股」的表述是对<b>博主当日观点 + 当日板块实测强度</b>的归纳，
+  不代表对上述标的的推荐或看多看空立场。
+  <b>本报告截稿于 2026-11-11 22:10，博主的 11/11 美股速报尚未发布，外盘方向未纳入。</b>
+  股市有风险，投资需谨慎。</p>
+  <p>
+    报告生成：2026-11-11（收盘版）· 数据源 weibo skill + Tushare Pro + 东方财富 · 图表脚本
+    <code>scripts/make_wu2198_charts_20261111_close.py</code> · K 线配色经
+    <code>scripts/check_kline_colors_20261111.py</code> 逐图像素校验（6/6 一致）。
+  </p>
+</div>
+
+</div>
+</body>
+</html>
+"""
+    OUT.write_text(html, encoding="utf-8")
+    print(f"[report] {OUT}  ({len(html.encode('utf-8'))} bytes)")
+
+
+if __name__ == "__main__":
+    main()

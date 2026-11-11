@@ -13,7 +13,7 @@ import tushare as ts
 TOKEN = os.environ.get("TUSHARE_TOKEN",
                         "a4d50511c45b1f214ca32edbde1ba21241d5bb37c9f66f66a91025b3")
 pro = ts.pro_api(TOKEN)
-START, END = "20260101", "20261110"
+START, END = "20260101", "20261111"
 
 INDEXES = ["000001.SH", "399001.SZ", "399006.SZ", "000300.SH", "000688.SH"]
 STOCKS = ["300308.SZ", "300502.SZ", "300394.SZ", "603986.SH", "301308.SZ",
@@ -109,7 +109,7 @@ if __name__ == "__main__":
               f"({df['Date'].iloc[-1]})")
         time.sleep(0.25)
 
-    p = out_dir / "_daily_20261111.json"
+    p = out_dir / "_daily_20261111c.json"
     p.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     print(f"[out] {p}  ({len(data)} 个标的)")
 
