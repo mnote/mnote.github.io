@@ -38,7 +38,7 @@ plt.rcParams["font.size"] = 10
 
 TOKEN = os.environ.get("TUSHARE_TOKEN", "a4d50511c45b1f214ca32edbde1ba21241d5bb37c9f66f66a91025b3")
 pro = ts.pro_api(TOKEN)
-START, END = "20260101", "20261111"
+START, END = "20260101", "20261112"
 CHART_DIR = Path("/Users/maoling/workspace/mnote.github.io/charts")
 CHART_DIR.mkdir(parents=True, exist_ok=True)
 RPT = Path("/Users/maoling/workspace/mnote.github.io/reports/duyiehua-20261112")
@@ -122,7 +122,7 @@ SPEC = {
 }
 
 
-def fetch_daily(ts_code, days=120):
+def fetch_daily(ts_code, days=60):
     is_index = ts_code in ("000001.SH", "399006.SZ", "399001.SZ", "000688.SH", "000300.SH")
     df = None
     for _ in range(4):
@@ -198,12 +198,15 @@ def plot_one(name, ts_code, suffix, levels):
     if df.empty:
         print(f"[skip] {name}")
         return None
+    # 窗口 60 根：与图例「60 日高 / 60 日低」口径一致（原来画 120 根却标 60 日，读者会以为图错）。
+    # 数据口径统一：全部用 Tushare（11/12 收盘数据已出），不再拼新浪快照。
+    # 原因：新浪 vol 与 Tushare index_daily vol 不同口径（上证相同、创业板指为深市全市场口径），
+    # 且旧代码对指数做了 //100，导致今日那根成交量柱量纲错误（创业板爆高 5 倍、上证矮 100 倍）。
     s = snap_of(name)
     if s:
-        today = pd.DataFrame([{"Date": pd.Timestamp("2026-11-12"), "Open": s["open"],
-                               "High": s["high"], "Low": s["low"], "Close": s["price"],
-                               "Volume": s["vol"]}]).set_index("Date")
-        df = pd.concat([df, today])
+        tushare_close = float(df["Close"].iloc[-1])
+        if abs(tushare_close - s["price"]) / s["price"] > 0.0005:
+            print(f"[WARN] {name} 收盘价不一致: Tushare {tushare_close:.2f} vs 新浪 {s['price']:.2f}")
     levels = resolve_levels(levels, df)
     dif, dea, macd = compute_macd(df)
     last_close = float(df["Close"].iloc[-1])
