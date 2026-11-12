@@ -18,7 +18,7 @@ TODAY, PREV = "20261111", "20261110"
 OUT = REPO / "2026-11-11-都业华-高级班收评纪要.html"
 
 TITLE_SUMMARY = "温度35度，机器人升一类热点"          # 14 字
-TITLE_FULL = f"DYH 高级收评 - 2026-11-11（周三 {TITLE_SUMMARY}）"
+TITLE_FULL = f"DYH 收评 - 2026-11-11（周三 {TITLE_SUMMARY}）"
 
 CSS = """<style>
   :root {

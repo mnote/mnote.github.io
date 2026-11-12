@@ -20,7 +20,7 @@ PREV = D.get("prev_market", {})
 SNAP = D["snapshot_time"].replace(" close", "").split(" ")[-1]
 
 TITLE_SUMMARY = "放量杀跌，机器人崩盘"
-TITLE_FULL = f"DYH 高级收评 - 2026-11-12（周四 {TITLE_SUMMARY}）"
+TITLE_FULL = f"DYH 收评 - 2026-11-12（周四 {TITLE_SUMMARY}）"
 
 CSS = """<style>
   :root{--bg:#fff;--panel:#f8f9fb;--panel2:#f1f3f6;--border:#e5e7eb;--text:#1f2937;--muted:#6b7280;

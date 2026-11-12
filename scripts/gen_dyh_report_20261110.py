@@ -22,7 +22,7 @@ IND, CON = sec["行业"], sec["概念"]
 OUT = REPO / "2026-11-10-都业华-高级班收评纪要.html"
 
 TITLE_SUMMARY = "尾盘跳水，主线切传媒机器人"          # 13 字
-TITLE_FULL = f"DYH 高级收评 - 2026-11-10（周二 {TITLE_SUMMARY}）"
+TITLE_FULL = f"DYH 收评 - 2026-11-10（周二 {TITLE_SUMMARY}）"
 
 CSS = """<style>
   :root {

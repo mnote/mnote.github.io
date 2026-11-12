@@ -20,7 +20,7 @@ OUT = REPO / "2026-11-09-都业华-高级班收评纪要.html"
 
 # 标题结构对齐 wu2198 日报：名称 - 日期（周x 概括总结，概括 < 16 字）
 TITLE_SUMMARY = "缩量僵局，玄学链切东方"          # 10 字
-TITLE_FULL = f"DYH 高级收评 - 2026-11-09（周一 {TITLE_SUMMARY}）"
+TITLE_FULL = f"DYH 收评 - 2026-11-09（周一 {TITLE_SUMMARY}）"
 
 CSS = """<style>
   :root {
