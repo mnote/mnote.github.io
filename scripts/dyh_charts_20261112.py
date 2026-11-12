@@ -17,6 +17,7 @@ import matplotlib.font_manager as fm
 from matplotlib.lines import Line2D
 import mplfinance as mpf
 import numpy as np
+import json
 import pandas as pd
 import tushare as ts
 
@@ -115,7 +116,7 @@ TODAY_LV = {
 }
 
 
-def fetch_daily(ts_code, days=120):
+def fetch_daily(ts_code, days=60):
     is_index = ts_code in ("000001.SH", "399006.SZ", "399001.SZ", "000688.SH", "000300.SH")
     for _ in range(4):
         try:
@@ -173,6 +174,18 @@ def add_legend(fig, levels):
                fontsize=10, handlelength=2.2, columnspacing=2.4, bbox_to_anchor=(0.5, 0.0))
 
 
+def cyb_ratio():
+    """新浪 sz399006 的 vol（单位：股）是「创业板指相关股票总量」口径，
+    而 Tushare index_daily 的 399006.SZ 是「创业板指成分股」口径（单位：手）。
+    历史柱用 Tushare，今日柱用新浪盘中快照 → 需按当日口径比值折算才能同量纲。
+    比值 = Tushare 成分股全天量 / (新浪当日全市场式量 / 100)，两者同源同口径。"""
+    close_snap = json.loads((RPT / "data_20261112_close.json").read_text(encoding="utf-8"))
+    sina_close = close_snap["index"]["创业板指"]["vol"] / 100.0     # 股 → 手
+    ts_full = pro.index_daily(ts_code="399006.SZ", trade_date="20261112")
+    ts_cyb = float(ts_full["vol"].iloc[0])
+    return ts_cyb / sina_close
+
+
 def snap_of(name):
     if name in Q:
         r = Q[name]
@@ -180,8 +193,13 @@ def snap_of(name):
                 "prev": r["昨收"], "pct": r["涨跌幅%"], "vol": r["今日量(手)"]}
     if name in IX:
         s = IX[name]
+        vol = s["vol"]
+        if name == "创业板指":
+            # 新浪深市指数 vol 单位是「股」→ /100 换手，再折算到成分股口径
+            vol = vol / 100.0 * CYB_RATIO
+        # 上证指数：新浪 sh000001 的 vol 与 Tushare 000001.SH 同为「手」，不再 //100
         return {"price": s["price"], "high": s["high"], "low": s["low"], "open": s["open"],
-                "prev": s["prev"], "pct": s["pct"], "vol": s["vol"] // 100}
+                "prev": s["prev"], "pct": s["pct"], "vol": vol}
     return None
 
 
@@ -237,6 +255,9 @@ def plot_one(name, ts_code, suffix, levels):
     return {"name": name, "code": ts_code, "close": round(last_close, 2),
             "pct": round(pct, 2), "file": out.name}
 
+
+CYB_RATIO = cyb_ratio()
+print(f"[口径] 创业板指 新浪→Tushare 成分股口径折算系数 = {CYB_RATIO:.5f}")
 
 meta = []
 for nm, (code, suffix, lv) in SPEC.items():
