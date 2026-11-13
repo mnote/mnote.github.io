@@ -2,4 +2,4 @@
 
 /* 2026-11-13：首页 banner 高度 90px（先 30px 后按用户要求 90px），去掉副标题（I tried to change the world...） */
 .page-header{height:90px;padding:0;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
-.page-header .project-name{margin:0;font-size:16px;line-height:1}
+.page-header .project-name{margin:0;font-size:26px;line-height:1}
