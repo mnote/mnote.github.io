@@ -302,7 +302,7 @@ HTML = """<!DOCTYPE html>
     </div>
     <div class="kpi">
       <div class="label">板块速报</div>
-      <div class="val" style="color:var(--bull)">3 条</div>
+      <div class="val" style="color:var(--up)">3 条</div>
       <div class="sub">14:06-14:15 9分钟内连发</div>
     </div>
   </div>

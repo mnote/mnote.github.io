@@ -178,17 +178,23 @@ def classify(text, ctx="", near_after="", near_before="", orig_var="bull", rel="
     if RE_LEGEND.search(t):
         return "keep"
     if RE_RATIO.match(t):
-        return "keep"
+        # 命中计数：全中/部分命中 → 红；0 命中 → 绿
+        x = re.match(r"^\s*(\d+)\s*/", t).group(1)
+        return "down" if int(x) == 0 else "up"
     if RE_COUNT.match(t):
+        # 下跌家数 → 跌；信号条数 >0 → 偏多
         if re.search(r"只$", t):
-            return "down"          # 下跌家数
-        return "keep"               # 条数
+            return "down"
+        n = int(re.match(r"^[\d,]+", t).group(0).replace(",", ""))
+        return "up" if n > 0 else "keep"
     if t == "[思考]":
         return "keep"
-    if re.search(r"PSL|收盘补充|跟单警示|唯一隐含信号|就忘记了本质", t):
+    if re.search(r"收盘补充|跟单警示|唯一隐含信号|就忘记了本质", t):
         return "keep"
     if re.search(r"银行\+固态电池|银行\+白酒", t):
         return "keep"
+    if re.search(r"PSL", t):
+        return "up"          # 降息/宽松 = 偏多
 
     # ---------- 量能：无涨跌含义 → 中性色 ----------
     if RE_TICK.match(t) and not t.startswith("-"):
@@ -312,7 +318,8 @@ def patch_css(css):
 
 # ------------------------------------------------------------------ 内联改造
 TAG_RE = re.compile(r"<[^>]*>")
-INLINE_RE = re.compile(r'style="([^"]*?)color:\s*var\(--(bull|bear)\)\s*;?([^"]*?)"')
+STYLE_RE = re.compile(r'style="([^"]*)"')
+COLOR_VAR_RE = re.compile(r'color:\s*var\(--(bull|bear)\)')
 
 
 def strip_tags(s):
@@ -320,14 +327,21 @@ def strip_tags(s):
 
 
 def patch_inline(html, rel=""):
+    """把 style 属性里的 color:var(--bull)/var(--bear) 按语义改成 --up/--down/--neutral。
+
+    只替换 var 名本身，属性其余部分（分号、空格、其他声明）原样保留。
+    """
     out, pos = [], 0
     stats = {"up": 0, "down": 0, "vol": 0, "keep": 0}
     details = []
-    for m in INLINE_RE.finditer(html):
-        out.append(html[pos:m.start()])
-        pos = m.end()
-        pre, var, post = m.group(1), m.group(2), m.group(3)
-        tag_end = html.find(">", m.start())
+    for m in STYLE_RE.finditer(html):
+        attr = m.group(1)
+        cm = COLOR_VAR_RE.search(attr)
+        if not cm:
+            continue
+        var = cm.group(1)
+        # 该元素文本与上下文
+        tag_end = html.find(">", m.end())
         after = html[tag_end + 1:]
         nt = TAG_RE.search(after)
         text = (after[:nt.start()] if nt else after[:120]).strip()
@@ -344,8 +358,13 @@ def patch_inline(html, rel=""):
             newvar, stats["vol"] = "--neutral", stats["vol"] + 1
         else:
             newvar, stats["keep"] = "--" + var, stats["keep"] + 1
+        if newvar == "--" + var:
+            continue          # 语义不变，属性原样保留
         details.append((var, newvar, text[:60], kind))
-        out.append('style="%scolor:var(%s)%s"' % (pre, newvar, post))
+        new_attr = attr[:cm.start()] + "color:var(%s)" % newvar + attr[cm.end():]
+        out.append(html[pos:m.start()])
+        out.append('style="%s"' % new_attr)
+        pos = m.end()
     out.append(html[pos:])
     return "".join(out), stats, details
 
@@ -445,7 +464,7 @@ def main():
         for old, new in SPECIAL_FIXES.get(rel, []):
             if old in html:
                 html = html.replace(old, new)
-            else:
+            elif new not in html:
                 print("   !! 手工修正未命中:", rel, old[:50])
 
         for k in total:
