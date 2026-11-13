@@ -10,7 +10,7 @@
 2. 清掉首页里指向这些页面的卡片（否则留一堆 404 链接）
 3. 更新 scripts/site_posts.json 归档清单
 
-删完再跑 `python3 scripts/migrate_off_jekyll.py` 重建归档分页页。
+首页归档列表（index.html 里的 <li>）需手工同步。
 
 用法：
     python3 scripts/prune_old_reports.py            # 默认 cutoff = 2026-11-01
@@ -95,8 +95,7 @@ def main():
         MANIFEST.write_text(json.dumps(kept, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"  [ok]   清单更新：{len(posts)} → {len(kept)} 条")
 
-    # 重建归档分页页
-    subprocess.run([sys.executable, str(ROOT / "scripts" / "migrate_off_jekyll.py")], check=True)
+    print("  [注意] 首页归档列表在 index.html 里是静态 HTML，需手工删掉对应 <li>")
     return 0
 
 

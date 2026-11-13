@@ -156,8 +156,7 @@ def main():
         MANIFEST.write_text(json.dumps(posts, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"[5] 清单更新：{len(posts)} 条")
 
-    subprocess.run([sys.executable, str(ROOT / "scripts" / "migrate_off_jekyll.py")],
-                   check=True)
+    print("[完成] 首页链接与清单已同步；归档列表如需调整请手改 index.html")
     return 0
 
 
