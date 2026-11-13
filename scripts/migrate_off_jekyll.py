@@ -233,6 +233,12 @@ def build_index(posts):
             d.mkdir(exist_ok=True)
             (d / "index.html").write_text(doc, encoding="utf-8")
             print(f"  [ok]   {page}/index.html（{len(chunk)} 条）")
+
+    # 清掉多余的分页目录（条目变少后页数会缩，旧的 N/ 目录要删，否则留着死页）
+    for d in ROOT.iterdir():
+        if d.is_dir() and d.name.isdigit() and int(d.name) > total_pages:
+            shutil.rmtree(d)
+            print(f"  [rm]   {d.name}/ 超出总页数，已删")
     return total_pages
 
 
