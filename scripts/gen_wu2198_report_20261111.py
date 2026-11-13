@@ -12,7 +12,7 @@
 """
 from pathlib import Path
 
-OUT = Path("/Users/maoling/workspace/mnote.github.io/2026-11-11-wu2198-investment-report.html")
+OUT = Path("/Users/maoling/workspace/mnote.github.io/wu2198-20261111.html")
 
 CSS = """<style>
   :root {

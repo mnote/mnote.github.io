@@ -3,8 +3,8 @@
 ⛔ 2026-11-11 禁令：只用日线 + 实时快照，不调用 1/15 分钟 K 线、不调用 czsc。
 📏 2026-11-12 篇幅硬约束：正文 ≤ 2000 字、表格 ≤ 4 张，K 线图保留不计字数。
 数据：reports/duyiehua-20261112/data_20261112_close.json
-输出：~/workspace/mnote.github.io/2026-11-12-都业华-高级班收评纪要.html
-     ~/workspace/mnote.github.io/_posts/2026-11-12-都业华-高级班收评纪要.html
+输出：~/workspace/mnote.github.io/duyiehua-20261112.html
+     ~/workspace/mnote.github.io/_posts/duyiehua-20261112.html
 """
 import json
 import re
@@ -203,12 +203,12 @@ HTML = f"""<!DOCTYPE html>
 </html>
 """
 
-OUT = REPO / "2026-11-12-都业华-高级班收评纪要.html"
+OUT = REPO / "duyiehua-20261112.html"
 OUT.write_text(HTML, encoding="utf-8")
 
 # 线上 URL 版：去 Jekyll 后不需要 front matter / permalink，
 # 直接把 permalink 当文件名放在仓库根目录即可（图片路径与根目录版一致，不用改 ../）
-ONLINE = REPO / "duyiehua-report-20261112.html"
+ONLINE = REPO / "duyiehua-20261112.html"
 ONLINE.write_text(HTML, encoding="utf-8")
 
 # 正文字数统计（含页脚，去标签、去图、去 CSS）

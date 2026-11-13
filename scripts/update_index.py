@@ -9,12 +9,12 @@
 用法：
   # ① wu2198 日报：新增一张「🔥 最新」卡，原「🔥 最新」自动降级为「📅 往期」
   python3 scripts/update_index.py latest \
-      --url /2026-11-13-wu2198-investment-report.html \
+      --url /wu2198-20261113.html \
       --title "wu2198 投资日报 - 2026-11-13（周五 ……）"
 
   # ② 都业华收评 / 午评：在「🧭 高级班」区块最前面插一张卡（保持最新在前）
   python3 scripts/update_index.py dyh \
-      --url /duyiehua-report-20261113.html \
+      --url /duyiehua-20261113.html \
       --title "DYH 收评 - 2026-11-13（周五 ……）"
 
 幂等：URL 已存在则跳过，不会重复插卡。

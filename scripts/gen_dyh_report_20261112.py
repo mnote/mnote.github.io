@@ -3,7 +3,7 @@
 ⛔ 2026-11-11 禁令：只用日线 + 实时快照，不调用 1/15 分钟 K 线、不调用 czsc。
 📏 2026-11-12 篇幅硬约束：正文 ≤ 2000 字、表格 ≤ 4 张，K 线图保留不计字数。
 数据：reports/duyiehua-20261112/data_20261112.json
-输出：~/workspace/mnote.github.io/2026-11-12-都业华-高级班午评纪要.html
+输出：~/workspace/mnote.github.io/duyiehua-20261112-noon.html
 """
 import json
 from pathlib import Path
@@ -16,7 +16,7 @@ IDX, MKT, BASKET, QUOTES = D["index"], D["prev_market"], D["basket"], D["quotes"
 ZT = D.get("zt_pool", {})
 SNAP_HM = D["snapshot_time"][-5:]
 
-OUT = REPO / "2026-11-12-都业华-高级班午评纪要.html"
+OUT = REPO / "duyiehua-20261112-noon.html"
 TITLE_SUMMARY = "算力放量临近压力，热点杂乱"
 TITLE_FULL = f"DYH 午评 - 2026-11-12（周四 {TITLE_SUMMARY}）"
 

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 投资观点日报 · 2026-11-05</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fff7e6 0%, #fffbf0 100%);
+    border: 1px solid #fbbf24;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #92400e; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .hero-turn {
+    background: linear-gradient(135deg, #fef2f2 0%, #fff7f7 100%);
+    border: 1px solid var(--bear);
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin: 18px 0;
+  }
+  .hero-turn h3 { color: #991b1b; margin-top: 0; }
+
+  .hero-win {
+    background: linear-gradient(135deg, #f0fdf4 0%, #f7fff9 100%);
+    border: 1px solid var(--bull);
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin: 18px 0;
+  }
+  .hero-win h3 { color: #14532d; margin-top: 0; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 760px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 460px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+  td.nowrap { white-space: nowrap; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .verdict { font-weight: 600; }
+  .up { color: var(--up); font-weight: 600; }
+  .down { color: var(--down); font-weight: 600; }
+  .hl { background: linear-gradient(transparent 62%, #fef08a 62%); padding: 0 2px; }
+  .vol{color:var(--neutral);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>📈 wu2198 投资观点日报 · 2026-11-05（周四）</h1>
+    <p class="meta">
+      <span>🕐 抓取时间 2026-11-05 23:00</span>
+      <span>👤 wu2198（UID 1216826604 · 44.7w 粉丝）</span>
+      <span>📊 数据源 weibo skill + Tushare Pro</span>
+      <span>📈 行情 11/05 收盘</span>
+      <span>🗂 覆盖 11/04 13:50 → 11/05 22:53（19 条）</span>
+    </p>
+    <p class="stance">
+      <span class="emoji">🟡</span>
+      <strong>博主全天维持看多：「低开不惧，轻仓可吸」（09:30，1.46 万赞）→「构筑波段的步骤不变」（15:08，1.59 万赞，当日最高互动）。方向判对了，但<strong>幅度只有 +0.10%，增量从 3368 亿骤降到 832 亿</strong> —— 指数在涨，动能在退。<strong>并在 22:53 补刀：美股开盘后科技股大幅下杀，纳指大跌 728 点。</strong></strong>
+    </p>
+  </div>
+
+  <div class="hero-win">
+    <h3>✅ 今日核心结论：方向对了、幅度差了、剧本两段都没走</h3>
+    <p>11/05 是典型的<strong>「低开高走收红、但赚不到钱」</strong>的一天。沪指低开 <strong>3646.57</strong>（开盘价即全天最低，-1.07%）→ 收 <strong>3689.91</strong>（+0.10%），全天振幅仅 <strong>55 点（1.49%）</strong>。博主的三个判断全部方向正确：<strong>低开不惧 ✅、CPO/存储压创板 ✅、端侧龙头两连板 ✅</strong>；但他昨天给的明日目标 <strong>3706</strong> 今日最高只到 <strong>3701.59</strong>，<strong>差 4.41 点（0.12%）没够着</strong>。</p>
+    <p style="margin-bottom:0">真正值得警惕的不是这 4.41 点，而是<strong>量能</strong>：全市场成交 <strong>21351 亿</strong>，增量只有 <strong>+832 亿</strong>（前一交易日是 +3368 亿，<strong>萎缩到 1/4</strong>）；涨停家数从 <strong>372 家断崖到 132 家（-64%）</strong>。指数微涨 + 增量骤降 = <strong>反弹动能正在衰减</strong>，而不是新一轮上攻的起点。</p>
+  </div>
+
+  <div class="hero-turn">
+    <h3>⚠️ 今日最值得警惕的一处：09:30 喊「轻仓可吸」，13:54 改口「不是一两天」</h3>
+    <p>博主 09:30 写「<strong>低开不惧，轻仓可吸……支持的点赞！</strong>」（👍14546 💬575 🔁97，当日第二高）；到 13:54 又写「<strong>反弹行情是一个过程，不是一两天！</strong>」（👍11482 💬1129）。<strong>中间隔了 4 个半小时，指数涨幅从最高 +0.42% 收敛到 +0.10%。</strong></p>
+    <p style="margin-bottom:0">这不是矛盾，而是<strong>对同一笔交易的事后修正</strong>：早盘喊的是「现在买」，下午承认的是「别指望今天结束」。<strong>博主自己的话已经把「今日不涨、反弹要拖长」说清楚了</strong> —— 跟随时应取他的点位，不要取他的节奏。</p>
+  </div>
+
+  <div class="hero-turn">
+    <h3>🌐 22:53 追加：美股开盘科技股大幅下杀，纳指大跌 728 点 —— 隔夜风险已成事实</h3>
+    <p>博主在发稿前 7 分钟（22:53:45）补了一条：<strong>「美国市场开盘之后科技股纷纷大幅下杀，目前纳指大跌728点！」</strong>（👍1282 💬268）。<strong>这一条把当天所有的操作建议都重新校准了一遍。</strong></p>
+    <p><strong>① 与他今早的判断正好相反：</strong>06:41 早安帖说「<strong>昨晚</strong>美国市场是软科技大涨、存储芯片板块大跌」；22:53 说「<strong>今晚</strong>科技股纷纷大幅下杀」。<strong>一夜之间，外盘对 A 股科技线的指引从「软强存储弱」反转成「科技全线被杀」</strong> —— 这不是延续，是反转。</p>
+    <p><strong>② 11/06 A 股大概率低开，而且跌的正是他今天推荐的两条线：</strong>端侧 AI + 算力租赁（瑞芯微两连板、润泽科技 +11.59%）本质上是美股科技股的映射，<strong>纳指 -728 点环境下属于重灾区</strong>。</p>
+    <p style="margin-bottom:0"><strong>③ 但他今天两次喊「轻仓 / 用自有空闲资金」是对的：</strong>09:30「<strong>轻仓可吸</strong>」、14:41「<strong>不要用赌博的方式！而且一定要用自有空闲的资金！</strong>」、14:36「<strong>守股要比守着寡难！</strong>」—— 在 22:53 这条面前，这三条风控帖的价值高于任何一条板块推荐。<strong>唯一需要被打问号的是 13:54「反弹行情是一个过程，不是一两天」：如果 11/06 低开，「过程」有可能变成「中断」。</strong></p>
+  </div>
+
+  <h2>📊 核心指标一览</h2>
+  <div class="grid-4">
+    <div class="kpi">
+      <div class="label">上证指数</div>
+      <div class="val up">3689.91</div>
+      <div class="sub">+0.10% · 高 3701.59 / 低 3646.57（开=低）</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指</div>
+      <div class="val up">2566.80</div>
+      <div class="sub">+0.87% · 高 2625.98 / 低 2493.67</div>
+    </div>
+    <div class="kpi">
+      <div class="label">科创 50</div>
+      <div class="val up">1286.68</div>
+      <div class="sub">+1.68% · 高 1329.14 / 低 1236.01</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深 300</div>
+      <div class="val up">4113.41</div>
+      <div class="sub">+0.29% · 高 4136.80 / 低 4065.72</div>
+    </div>
+  </div>
+  <div class="grid-4" style="margin-top:14px">
+    <div class="kpi">
+      <div class="label">博主方向命中率</div>
+      <div class="val" style="color:var(--up)">4 / 4</div>
+      <div class="sub">低开不惧 / 尾盘自救 / 端侧两连板 / 固态出色</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主点位命中率</div>
+      <div class="val" style="color:var(--down)">0 / 3</div>
+      <div class="sub">3706 差 4.41 点 · 双底未回踩 · 1100 未到</div>
+    </div>
+    <div class="kpi">
+      <div class="label">涨停 / 跌停家数</div>
+      <div class="val" style="color:var(--neutral)">132 / 6</div>
+      <div class="sub">前日 372 / 16 · 20cm 涨停 12 家</div>
+    </div>
+    <div class="kpi">
+      <div class="label">全市场成交额</div>
+      <div class="val vol">21351 亿</div>
+      <div class="sub">增量 +832 亿（前日 +3368 亿，缩至 1/4）</div>
+    </div>
+  </div>
+
+  <h2>🧠 博主观点提炼（最近一天共 19 条 · 其中 11 条带操盘/行情信号 · 按时间倒序）</h2>
+  <p class="meta" style="margin-bottom:-4px">信号计数说明：weibo skill 关键词分类器命中 <strong>9 条</strong>，人工补充 <strong>2 条</strong>（11/05 15:02「今天端侧非常"标土浮"……龙头连续拉了2个板，几只改写新高！」—— 关键词表未收录"龙头连板"类表述，但实为明确的板块点位信号；11/05 22:53「美国市场开盘之后科技股纷纷大幅下杀，目前纳指大跌728点！」—— 归为外盘风险速报），合计 <strong>11 条</strong>。</p>
+  <table>
+    <thead>
+      <tr><th style="width:74px">时间</th><th style="width:54px">方向</th><th class="text">原文 / 摘要</th><th style="width:70px">点赞</th><th style="width:112px">类型</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>11/05<br />22:53</strong></td>
+        <td class="emoji">🔴</td>
+        <td class="text"><strong>「美国市场开盘之后科技股纷纷大幅下杀，目前纳指大跌728点！」</strong><br /><span class="meta"><strong>本报告发稿前 7 分钟发出的追加帖</strong>（👍1282 💬268 🔁2），是当日最后也是最重要的一条。<br />🔴 与他 06:41 早安帖「<strong>昨晚</strong>美国市场是软科技大涨、存储芯片板块大跌」<strong>正好相反</strong> —— 昨夜软强，今夜科技被屠杀，外盘指引一夜反转。<br /><strong>11/06 A 股大概率低开，且跌的正是他今天推荐的端侧 / 算力租赁两条线。</strong><br />⚠️ 本条的纳指 -728 点为博主自述，本期 Tushare 账号无美股指数权限，未独立核验。</span></td>
+        <td class="score">1282</td>
+        <td><span class="tag tag-bear">外盘风险</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />18:07</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「#2027放假安排公布#春节：2月5日（除夕、周五）至13日（正月初八、周六）放假调休，共9天。」<span class="meta">纯生活内容，无操盘信号。<strong>注意：这是当日最后一条「生活类」微博</strong>——直到 22:53 博主才补了一条外盘速报（见下）。</span></td>
+        <td class="score">4349</td>
+        <td><span class="tag tag-none">生活</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />17:47</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「春节9天！」<span class="meta">纯生活内容，无操盘信号。</span></td>
+        <td class="score">3874</td>
+        <td><span class="tag tag-none">生活</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />17:33</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「#2027放假安排公布#大家好好看看！」<span class="meta">纯生活内容，无操盘信号。</span></td>
+        <td class="score">3548</td>
+        <td><span class="tag tag-none">生活</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />15:08</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「在外围大跌的情况下，今天两市均能低开震荡走强收红盘，说明aA市场构筑波段的步骤不变……收到请回复666或者点赞支持一下！」</strong><br /><span class="meta">当日互动最高（👍15911 💬1528 🔁83）。<br />✅ 实际沪指开 <strong>3646.57</strong>（开盘价即全天最低，低开 -1.07%）→ 收 <strong>3689.91</strong>（+0.10%），<strong>「低开震荡走强收红盘」分毫不差</strong>。<br />⚠️ 但他没说收多少点 —— 这是<strong>今天唯一没给数字的收盘总结</strong>（对比 11/04 的「今天收3686点，增量3368亿」）。</span></td>
+        <td class="score">15911</td>
+        <td><span class="tag tag-bull">收盘总结</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />15:02</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「今天端侧非常"标土浮"……龙头连续拉了2个板，几只改写新高！」</strong><br /><span class="meta">✅ 端侧龙头 <strong>瑞芯微 603893</strong> 11/04 +10.00% → 11/05 <strong>+10.00% 涨停，两连板</strong>分毫不差；<strong>博通集成 603068 +9.99% 涨停</strong>，全志科技 +5.47%、恒玄科技 +5.13%、炬芯科技 +9.32%。</span></td>
+        <td class="score">8073</td>
+        <td><span class="tag tag-bull">行业板块</span><span class="tag tag-accent">点位</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />14:50</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「我怀疑主力看到这条微博了！」<span class="meta">插科打诨型内容，无独立信号，但发帖时间（14:50）恰在创业板尾盘拉升前。</span></td>
+        <td class="score">7979</td>
+        <td><span class="tag tag-none">互动</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />14:41</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「来股市要以投资理财的角度考虑，不要用赌博的方式！而且一定要用自有空闲的资金！明白888」<span class="meta">风控宣教帖。评论区 770 条，是当日讨论最热的一条之一 —— <strong>与 09:30「轻仓可吸」并读，才是完整的仓位态度：可以轻仓，不要重仓，不要用杠杆。</strong></span></td>
+        <td class="score">9153</td>
+        <td><span class="tag tag-none">风控</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />14:36</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「守股要比守着寡难！」<span class="meta">语义梗（守株待兔 / 守寡），实为<strong>「守股比守寡难」= 持股比等待更难</strong>，延续他 10/06「留住现金流最重要」的风控主线。</span></td>
+        <td class="score">8377</td>
+        <td><span class="tag tag-none">金句</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />14:27</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「其实，秘诀都在里面！」<span class="meta">配图帖，指向此前分析的图形结构，无新增信息。</span></td>
+        <td class="score">5157</td>
+        <td><span class="tag tag-none">互动</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />14:19</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「今天主要是CPO和存储芯片压创板指数，如果这两个权重板块尾盘有资金自救的话，指数有望收高！」</strong><br /><span class="meta">✅ 方向完全正确：创业板低 <strong>2493.67</strong> → 高 <strong>2625.98</strong> → 收 <strong>2566.80</strong>（+0.87%），<strong>自低点 +2.93%、最高自低点 +5.31%</strong>，「尾盘资金自救、指数收高」兑现。<br />🔴 <strong>但要划清界限：救回指数的是端侧与算力租赁，不是 CPO 与存储本身。</strong>中际旭创当日 <span class="down">-7.51%</span>、新易盛 <span class="down">-5.54%</span>、兆易创新 <span class="down">-3.03%</span> —— <strong>拖累指数的那条线自己还在跌。</strong></span></td>
+        <td class="score">7507</td>
+        <td><span class="tag tag-neutral">大盘判断</span><span class="tag tag-bear">板块警示</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />13:54</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「反弹行情是一个过程，不是一两天！明白666」</strong><br /><span class="meta">当日评论数最高（💬1132）。<br />✅ 兑现：11/04 沪指 <span class="up">+2.16%</span>、11/05 <span class="up">+0.10%</span>，<strong>涨幅逐日收敛</strong>，符合「过程」的描述。<br />⚠️ 同时也是对 09:30「轻仓可吸」的<strong>降温补丁</strong>。</span></td>
+        <td class="score">11567</td>
+        <td><span class="tag tag-neutral">操作建议</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />13:35</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「人形机器人龙头这波反弹明显比大盘指数要提前，也强很多。」</strong><br /><span class="meta">✅ 兑现：15 只人形机器人样本 11/05 均值 <span class="up">+1.56%</span> vs 沪指 <span class="up">+0.10%</span>；<strong>11/04 均值 +5.71% vs 沪指 +2.16%</strong> —— <strong>连续两日跑赢，且 11/04 先启动</strong>，「提前」成立。兆威机电 11/04 涨停 → 11/05 +6.33%。</span></td>
+        <td class="score">8636</td>
+        <td><span class="tag tag-neutral">行业板块</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />11:07</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「港股企鹅大涨6.5%！」<span class="meta">指腾讯控股（00700.HK）。<strong>把港股科技龙头与 A 股端侧并读</strong>，是他 10:02「端侧领先」的外盘佐证之一。</span></td>
+        <td class="score">6646</td>
+        <td><span class="tag tag-none">外盘</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />10:19</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「端侧龙头两连板，算力租凭龙二冲板。固态整体表现出色！」</strong><br /><span class="meta">✅ 端侧龙头两连板 —— 瑞芯微 11/04、11/05 连续两个 +10.00%。<br />🟡 算力租赁「龙二冲板」<strong>冲板未封</strong>：润泽科技 300442 收 <span class="up">+11.59%</span>（最高 61.15，涨停价 64.28）；首都在线 300846 <span class="up">+9.38%</span>（最高 17.55，涨停 19.20）。<br />✅ 固态表现出色 —— 赣锋锂业 +6.27%、德尔股份 +5.45%、宁德时代 +4.42%（成交 184 亿）。</span></td>
+        <td class="score">10004</td>
+        <td><span class="tag tag-bull">行业板块</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />10:02</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「固态、端侧、算力租凭……目前继续领先！」</strong><br /><span class="meta">三条线的当日排序，与全天实际涨幅排序<strong>完全一致</strong>：端侧（瑞芯微涨停 / 博通集成涨停）＞ 算力租赁（润泽 +11.59%）＞ 固态（宁德 +4.42%）。</span></td>
+        <td class="score">9352</td>
+        <td><span class="tag tag-bull">行业板块</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />09:30</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「低开不惧，轻仓可吸……支持的点赞！」</strong><br /><span class="meta">当日第二高互动（👍14559 💬575 🔁98）。<br />✅ 沪指开 <strong>3646.57</strong>（开盘价＝全天最低，-1.07%），收 <strong>3689.91</strong>（+0.10%），全天最高 3701.59（+0.42%）—— <strong>「低开不惧」方向完全正确</strong>。<br />⚠️ 但「轻仓可吸」对应的收益空间只有 <strong>1.17%</strong>（开盘价到收盘），<strong>却要承担隔夜外围大跌的风险敞口</strong>。</span></td>
+        <td class="score">14559</td>
+        <td><span class="tag tag-bull">操作建议</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/05<br />06:41</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「昨晚美国市场是软科技大涨、存储芯片板块大跌，分化非常大！」</strong><br /><span class="meta">早安帖里的外盘定调：<strong>软科技强 / 存储弱</strong>。这条直接解释了 A 股当天的结构 —— 端侧（软）大涨、存储（弱）走弱，<strong>外盘分化当天就被映射到 A 股</strong>。⚠️ 本期未能用 Tushare 独立核验美股收盘数据，此项为博主自述。</span></td>
+        <td class="score">10302</td>
+        <td><span class="tag tag-neutral">外盘速报</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />13:50</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text">「创业板指数己经返涨4% 了……不啵一口？」<span class="meta">上一交易日尾盘的收官帖，标记 11/04 创业板自 2376.28 低点反抽的起点，为 11/05 的延续反弹提供衔接。</span></td>
+        <td class="score">12199</td>
+        <td><span class="tag tag-bull">大盘判断</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>📐 大盘关键点位（博主体系）</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr><th style="width:130px">标的</th><th style="width:110px">关键位</th><th style="width:190px">博主原话 / 含义</th><th>11/05 实际验证</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="4"><strong>上证指数</strong></td>
+          <td class="nowrap"><strong>3706</strong></td>
+          <td>11/04 15:08「<strong>明天收复3706点</strong>后…」</td>
+          <td>❌ 今日最高 <strong>3701.59</strong>，<strong>差 4.41 点（0.12%）未收复</strong>。而 MA20 恰在 <strong>3701.53</strong> —— 博主的 3706 与 MA20 几乎重合，<strong>3700-3706 这道关口连续两日都没站上去</strong>。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>3574 / 3580</strong></td>
+          <td>「以3574和3580形成小双底反击之势」</td>
+          <td>❌ 今日最低 <strong>3646.57</strong>，<strong>根本没有回踩双底</strong>（距 3580 还有 66 点）。博主的两段式剧本今天<strong>两段都没走</strong>：前半句「收复 3706」没实现，后半句「回踩双底」自然也没发生。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>3646</strong></td>
+          <td>11/05 实际开盘＝全天最低</td>
+          <td>博主 09:30「低开不惧」中的「低开」就落在这里。<strong>开盘价＝全天最低价</strong>，说明低开之后<strong>买盘是在开盘瞬间就承接住的</strong>，全天没有二次下探。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>4256 / 4380</strong></td>
+          <td>「参考大盘4256和创业板4380区域撤离的投资者，可以继续分批布局接回来」</td>
+          <td>接回区间仍在 4256（沪指）/ 4380（创业板），<strong>远高于今日 3689.91 / 2566.80</strong>。博主给的是「更早、更低」的接回位，不是让今天追高。</td>
+        </tr>
+        <tr>
+          <td rowspan="4"><strong>创业板指</strong></td>
+          <td class="nowrap"><strong>2493.67</strong></td>
+          <td>11/05 实际最低（开盘价）</td>
+          <td>✅ 博主 14:19「<strong>尾盘资金自救，指数有望收高</strong>」—— 自低点 <strong>+2.93%</strong> 收于 2566.80，<strong>盘中最高自低点 +5.31%（2625.98）</strong>，收高兑现。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>2539.83</strong></td>
+          <td>MA10</td>
+          <td>今日收盘 2566.80 <strong>站上 MA10</strong>（+26.97 点），但 MA20 2677.16 未过（差 110.36 点）。MACD 柱 <strong>-7.345 → +14.833 由绿转红</strong>。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>2376</strong></td>
+          <td>「创业板指数2376点」提示位</td>
+          <td>11/04 最低 <strong>2376.28</strong>（该位已连续两日被精准触及），今日最低 2493.67 —— <strong>第三日站在 2376 之上，支撑有效</strong>。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>4380</strong></td>
+          <td>「创业板4380点后我提示三川顶」</td>
+          <td>历史撤离位，距今 <strong>-41.4%</strong>，本轮反弹远未回到该区域</td>
+        </tr>
+        <tr>
+          <td rowspan="4"><strong>科创 50</strong></td>
+          <td class="nowrap"><strong>1100</strong></td>
+          <td>10/23 帖「<strong>预计要到1100关口附近才是最理想的搏击点</strong>」</td>
+          <td>⚠️ <strong>连续第 2 个交易日跳过</strong> —— 今日最低 <strong>1236.01</strong>，距 1100 还差 <strong>12.3%</strong>，就已在 +1.68% 的反弹中。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>1236.01</strong></td>
+          <td>11/05 实际最低（开盘价）</td>
+          <td>低开即最低，随后全天单边上行，最高 1329.14（自低点 +7.53%），<strong>是四大指数中日内形态最强的一个</strong>。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>1310.79</strong></td>
+          <td>MA20</td>
+          <td>收盘 1286.68 <strong>未收复 MA20</strong>（差 24.12 点），距 60 日高 1798.78 仍有 <strong>-28.5%</strong>。MACD 柱 <strong>-7.171 → +7.783 转正</strong>。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>1132.33</strong></td>
+          <td>11/03 最低（博主「到过1132点」）</td>
+          <td>✅ 该位仍是本轮反弹的起涨点，自 1132.33 至今 <strong>+13.6%</strong>，未跌回</td>
+        </tr>
+        <tr>
+          <td rowspan="2"><strong>沪深 300</strong></td>
+          <td class="nowrap"><strong>4126.01</strong></td>
+          <td>MA20</td>
+          <td>收盘 4113.41 <strong>未收复 MA20</strong>（差 12.60 点）。当日 +0.29%，<strong>明显弱于成长股（创业板 +0.87%、科创50 +1.68%）</strong> → 仍是结构性反弹，不是全面反转。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>3958.14</strong></td>
+          <td>60 日低</td>
+          <td>距今日收盘仅 <strong>-3.77%</strong> —— 权重股已贴近 60 日低位，<strong>意味着 10 月那套「四大行 + 两桶油提肩带」护盘结构几乎已被打光</strong>：权重既没有继续下杀的空间，也腾不出资金来接成长股的回撤。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>📈 大盘 K 线图（关键位居左虚线标注）</h2>
+
+  <h3>1) 上证指数 · 收 3689.91（+0.10%）· 博主 09:30「低开不惧」兑现，但 3706 差 4.41 点</h3>
+  <img class="chart" src="charts/000001_SH_20261105.png" alt="上证指数日线 K线 + MACD + 成交量，关键位居左虚线标注" />
+  <p class="chart-caption">蓝线＝博主点位（3706 昨日目标 / 3689.91 今收 / 3574 双底）；灰线＝均线（MA10 3659.04 / MA20 3701.53）；浅蓝带＝3574-3580 双底支撑带。开盘价＝全天最低 3646.57，全天振幅仅 55 点（1.49%）。</p>
+
+  <h3>2) 创业板指 · 收 2566.80（+0.87%）· 博主 14:19「尾盘资金自救，指数有望收高」兑现</h3>
+  <img class="chart" src="charts/399006_SZ_20261105.png" alt="创业板指日线 K线 + MACD + 成交量，关键位居左虚线标注" />
+  <p class="chart-caption">蓝线＝博主点位（2566.80 今收 / 2376 提示位）；灰线＝MA10 2539.83 / MA20 2677.16；浅蓝带＝2376 支撑带。自低点 2493.67 拉起 <strong>+2.93%</strong>，收复 MA10，MACD 柱由 -7.345 转正至 +14.833。</p>
+
+  <h3>3) 科创 50 · 收 1286.68（+1.68%）· 博主自设的 1100 理想买点又被跳过</h3>
+  <img class="chart" src="charts/000688_SH_20261105.png" alt="科创50日线 K线 + MACD + 成交量，关键位居左虚线标注" />
+  <p class="chart-caption">红线＝博主 10/23 自设理想搏击点 <strong>1100</strong>；蓝线＝1286.68 今收 / 1132.33 上一低点；灰线＝MA10 1248.55 / MA20 1310.79。浅蓝带＝1100-1132 区间。今日最低 1236.01，距 1100 仍差 <strong>12.3%</strong>。</p>
+
+  <h3>4) 沪深 300 · 收 4113.41（+0.29%）· 权重明显弱于成长</h3>
+  <img class="chart" src="charts/000300_SH_20261105.png" alt="沪深300日线 K线 + MACD + 成交量，关键位居左虚线标注" />
+  <p class="chart-caption">蓝线＝4113.41 今收；灰线＝MA10 4061.02 / MA20 4126.01；红线＝60 日低 3958.14。收盘未收复 MA20，且当日涨幅为四大指数最小。</p>
+
+  <h2>🔥 最值得投资的 3 个板块</h2>
+
+  <div class="stock-card bull">
+    <h4>① 🟢 端侧 AI + 算力租赁 —— 博主今天点名三次的绝对主线</h4>
+    <p class="logic"><strong>博主依据：</strong>10:02「<strong>固态、端侧、算力租凭……目前继续领先！</strong>」（👍9352）＋ 10:19「<strong>端侧龙头两连板，算力租凭龙二冲板。</strong>」（👍10004）＋ 15:02「<strong>今天端侧非常"标土浮"……龙头连续拉了2个板，几只改写新高！</strong>」（👍8073）。<strong>这是他今天唯一反复强调的板块，且给了三次。</strong></p>
+    <p class="logic"><strong>盘面实证：</strong>端侧 —— 瑞芯微 603893 <strong>+10.00% 涨停（两连板）</strong>、博通集成 603068 <strong>+9.99% 涨停</strong>、炬芯科技 688049 +9.32%、中科蓝讯 688332 +6.42%、乐鑫科技 688018 +5.93%、全志科技 300458 +5.47%、恒玄科技 688608 +5.13%、晶晨股份 688099 +2.88%；算力租赁 —— 润泽科技 300442 <strong>+11.59%</strong>、首都在线 300846 +9.38%、数据港 603881 +5.16%、光环新网 300383 +4.69%、云赛智联 600602 +3.93%。</p>
+    <p class="logic"><strong>为什么值得关注：</strong>博主的 06:41 早安帖给了一个<strong>可验证的外盘依据</strong> —— 「昨晚美国市场是软科技大涨、存储芯片板块大跌，分化非常大」。<strong>外盘软科技强 → A 股端侧强；外盘存储弱 → A 股存储弱</strong>，11/05 全天结构与这条完全一致。这不是纯情绪，是<strong>有外盘锚的板块轮动</strong>，持续性比纯题材股更强。</p>
+    <p class="logic"><strong>位置：</strong>瑞芯微收 217.81，站上 MA5 191.20 / MA10 196.97 / MA20 194.13 全部均线（距 MA20 <strong>+23.68</strong>），但距 60 日高 228.74 仍有 <strong>-4.8%</strong>，<strong>是四个标的中位置最高的</strong>。润泽科技收 59.78，已站上 MA5/10/20，<strong>但 MA60 61.71 就是头顶天花板</strong>（今日最高 61.15 恰好触及）。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>两连板 + 冲板未封并存，说明<strong>资金在高位分歧</strong>；博主 13:54「反弹行情是一个过程，不是一两天」正是给这条线的降温提示。<strong>20cm 涨停与两连板一律不追。</strong></p>
+    <p class="key">关键位：瑞芯微 MA10 196.97（跌破=退潮）｜60D 高 228.74 ｜润泽科技 MA60 61.71（天花板）｜60D 高 72.59</p>
+  </div>
+
+  <div class="stock-card bull">
+    <h4>② 🟢 固态电池 —— 博主 10:02 / 10:19 两次确认，且是唯一有指数锚的主线</h4>
+    <p class="logic"><strong>博主依据：</strong>10:02「<strong>固态、端侧、算力租凭……目前继续领先！</strong>」＋ 10:19「<strong>固态整体表现出色！</strong>」—— <strong>固态在博主 11/03 的原话里出现过（「固态电池板块有几只明显是提前见底了，起码是波段性底部！」👍7975），11/05 再度点名，是三条线里唯一有连续性的一条。</strong></p>
+    <p class="logic"><strong>盘面实证：</strong>赣锋锂业 002460 <strong>+6.27%</strong>（最高 40.46，成交 29.66 亿）／德尔股份 300473 <strong>+5.45%</strong>／宁德时代 300750 <strong>+4.42%</strong>（最高 272.19，成交 <strong>184.02 亿</strong>）／当升科技 300073 +3.82%／金龙羽 002882 +3.58%／天奈科技 +3.53%／翔丰华 300890 +2.14%／三祥新材 603663 +1.68%／上海洗霸 603200 +1.04%。</p>
+    <p class="logic"><strong>为什么值得关注：</strong>这是三个板块里<strong>唯一有万亿级龙头与真实业绩锚</strong>的一条（宁德 184 亿成交、赣锋 30 亿），<strong>不是纯情绪票</strong>。涨幅虽不如端侧炸裂，但<strong>是「提前见底 + 资金流入」型反弹</strong>（博主的原话是「资金流入明显，涨幅领先」），并且与算力租赁、端侧<strong>同属一条 AI 算力需求的物理侧链</strong>，三者共振时弹性最大。</p>
+    <p class="logic"><strong>位置：</strong>宁德时代收 264.06，站上 MA5 247.87 / MA10 240.62 / MA20 255.07，距 60 日高 408.51 仍有 <strong>-35.4%</strong> —— <strong>三个板块中位置最低、赔率最厚的一个</strong>。赣锋锂业自 10/30 低点 34.96 累涨 <strong>+12.5%</strong>，量能逐日放大（11/03 14.51 亿 → 11/04 16.70 亿 → 11/05 29.66 亿）。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>博主 10/10 曾说过「<strong>等固态电池技术成熟之后吧</strong>」「<strong>永不买电车</strong>」—— <strong>他看好的是固态板块的资金与情绪，不等于他自己持有</strong>。同时固态的持续性高度依赖技术路线与订单落地，<strong>不是短线资金接力型标的</strong>。</p>
+    <p class="key">关键位：宁德时代 MA20 255.07（跌破=板块转弱）｜60D 高 408.51 ｜赣锋锂业 MA5 37.05 / 10/30 低点 34.96</p>
+  </div>
+
+  <div class="stock-card neutral">
+    <h4>③ 🟡 人形机器人 —— 博主 13:35 单独点名，实测连续两日跑赢且更早启动</h4>
+    <p class="logic"><strong>博主依据：</strong>13:35「<strong>人形机器人龙头这波反弹明显比大盘指数要提前，也强很多。</strong>」（👍8636）。</p>
+    <p class="logic"><strong>盘面实证（15 只样本）：</strong>11/05 均值 <span class="up">+1.56%</span> vs 沪指 <span class="up">+0.10%</span>；<strong>11/04 均值 +5.71% vs 沪指 +2.16%</strong>。个股 —— 兆威机电 003021 <strong>+6.33%</strong>（11/04 已涨停 +10.01%）、恒立液压 601100 +4.53%、双环传动 002472 +3.71%、柯力传感 603662 +3.65%、北特科技 603009 +3.60%、绿的谐波 688017 +2.62%、步科股份 688160 +1.74%、长盛轴承 300718 +1.49%、中大力德 002896 +1.35%、五洲新春 603667 +0.97%、三花智控 002050 +0.90%、拓普集团 601689 +0.62%、汇川技术 300124 +0.38%、鸣志电器 603728 -0.53%、江苏雷利 300660 <span class="down">-7.98%</span>。</p>
+    <p class="logic"><strong>「提前」如何验证：</strong>11/04 沪指还在 <strong>+2.16%</strong> 的普涨里，机器人样本已均值 +5.71%（兆威机电、绿的谐波当日涨停）；11/05 沪指只剩 +0.10%，机器人仍有 +1.56%。<strong>「提前且更强」两个词都成立</strong>，而且是在沪指<strong>涨得最少的一天</strong>验证的，含金量高于 11/04。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>这是三个板块里<strong>分化最大</strong>的一个 —— 15 只样本里 5 只翻绿（江苏雷利 -7.98%、鸣志电器 -0.53%），<strong>说明资金在机器人内部换股而非整体加仓</strong>。而且机器人是博主的<strong>「情绪型」偏好</strong>（无指数、无业绩锚），他本人历史上多次在高位提示过这类题材的风险。</p>
+    <p class="key">关键位：兆威机电 MA5 / MA10（跌破=退潮）｜绿的谐波 288 附近缺口｜三花智控 34.88（11/05 收）</p>
+  </div>
+
+  <div class="panel panel-2">
+    <h4>📎 附：一条被博主点名、但当天最惨的线 —— CPO / 光模块 + 存储芯片</h4>
+    <p><span class="tag tag-bear">🔴 CPO / 光模块</span> 博主 14:19 点名它们「<strong>压创板指数</strong>」并押注「<strong>尾盘资金自救</strong>」—— <strong>指数确实被救回来了，但救回来的不是它们自己</strong>：中际旭创 300308 <span class="down">-7.51%</span>（成交 <strong>307.80 亿</strong>，接近宁德时代的 1.7 倍，收 493.33，逼近 60 日低 <strong>469.50</strong>）、新易盛 300502 <span class="down">-5.54%</span>、天孚通信 300394 <span class="down">-4.78%</span>、太辰光 300570 <span class="down">-2.06%</span>、光迅科技 002281 <span class="down">-0.96%</span>。</p>
+    <p><span class="tag tag-bear">🔴 存储芯片</span> 兆易创新 603986 <span class="down">-3.03%</span>、澜起科技 688008 <span class="down">-2.40%</span>；仅江波龙 301308 +1.24%、德明利 001309 +0.34%、佰维存储 688525 +0.16% 微涨。<strong>博主 06:41 早安帖说的「存储芯片板块大跌」，当天在 A 股同样成立。</strong></p>
+    <p style="margin-bottom:0"><strong>为什么这条线必须单独列出来：</strong>它是<strong>全市场成交最重、跌幅最深</strong>的一条线 —— 中际旭创 307.80 亿的成交额配上 -7.51% 的跌幅，是<strong>典型的放量杀跌</strong>。而博主的剧本押的是「它们尾盘自救」。<strong>结论：博主 14:19 的判断在指数层面成立，在板块层面证伪</strong> —— 他用端侧的强势修复了创业板的点位，却回避了拖累创业板的那条线本身。跟随时务必分清「指数对」和「板块对」。</p>
+  </div>
+
+  <h2>📌 3 支个股详解</h2>
+
+  <div class="stock-card bull">
+    <h4>🟢 瑞芯微 603893.SH —— 端侧 AI 龙头 · 两连板涨停 · 博主 15:02 亲口点名</h4>
+    <p class="logic"><strong>博主依据：</strong>10:19「<strong>端侧龙头两连板</strong>」＋ 15:02「<strong>龙头连续拉了2个板，几只改写新高</strong>」。</p>
+    <p class="logic"><strong>盘面实证：</strong>11/05 开 200.99 / 高 217.81 / 低 199.01 / <strong>收 217.81（+10.00% 涨停）</strong>，<strong>11/04 已 +10.00% 涨停，两连板完全对应</strong>。成交 45.71 亿（前日 29.77 亿），量比 1.36 温和放量 —— <strong>不是缩量板，是有承接的板</strong>。MACD 柱 -2.110 → <strong>+1.849 由绿转红</strong>。</p>
+    <p class="logic"><strong>位置与风险：</strong>站上 MA5 191.20 / MA10 196.97 / MA20 194.13 全部均线，距 MA20 <strong>+23.68</strong>；但距 60 日高 <strong>228.74 仅 -4.8%</strong>，<strong>是四个标的中位置最高、获利盘最厚的</strong>。<strong>两连板之后的第三天是分歧日，不是不涨停就一定跌，但追高的赔率已经很差。</strong></p>
+    <p class="key">关键位：MA10 196.97（回抽不破才是观察点）｜MA20 194.13 ｜60D 高 228.74 ｜11/04 一板价 198.01</p>
+  </div>
+  <img class="chart" src="charts/603893_SH_20261105.png" alt="瑞芯微日线 K线 MACD 成交量" />
+  <p class="chart-caption">瑞芯微日线：60 根 K 线 + MA5/10/20，MACD 与成交量。左侧虚线标注 11/05 收盘（两连板涨停 217.81）、11/04 一板价 198.01、MA5/MA10/MA20 与 60 日高 228.74。<strong>注意 MA20 194.13 已被远远甩在下方</strong>，一旦回抽失守即为两连板后的退潮信号。</p>
+
+  <div class="stock-card bull">
+    <h4>🟢 润泽科技 300442.SZ —— 算力租赁龙头 · 冲板未封 + 量比 1.79 放量翻倍</h4>
+    <p class="logic"><strong>博主依据：</strong>10:02「算力租凭……目前继续领先」＋ 10:19「<strong>算力租凭龙二冲板</strong>」。</p>
+    <p class="logic"><strong>盘面实证：</strong>11/05 开 52.98 / 高 61.15 / 低 52.89 / <strong>收 59.78（+11.59%）</strong>。成交 24.38 亿（前日 11.87 亿，<strong>直接翻倍</strong>），量比 <strong>1.79</strong>。MACD 柱 -0.612 → +0.482 转正。<strong>涨是涨了，但最高 61.15 距涨停价 64.28 还差 3.13 点 —— 「冲板未封」，说明高位有真实抛压。</strong></p>
+    <p class="logic"><strong>位置与风险：</strong>站上 MA5 53.42 / MA10 54.89 / MA20 55.85（距 MA20 +3.93），但<strong>MA60 61.71 就在头顶仅 0.92% 处，今日最高 61.15 已精确触及即受阻</strong> —— 这是最直接的上方压力。距 60 日高 72.59 仍有 -17.7%，空间比瑞芯微厚。<strong>若明日 MA60 61.71 过不去，量比 1.79 的放量就是出货量而非突破量。</strong></p>
+    <p class="key">关键位：MA60 61.71（天花板）｜今日高 61.15（已触及即受阻）｜MA20 55.85 ｜60D 高 72.59</p>
+  </div>
+  <img class="chart" src="charts/300442_SZ_20261105.png" alt="润泽科技日线 K线 MACD 成交量" />
+  <p class="chart-caption">润泽科技日线：60 根 K 线 + MA5/10/20，MACD 与成交量。左侧虚线标注 11/05 收盘 59.78、当日高 61.15、MA60 61.71（头顶仅 0.92%）、MA5/MA10/MA20 与 60 日高 72.59。<strong>当日以最高价 61.15 精准试探 MA60 后回落收 59.78，是「冲板未封」的图形证据。</strong></p>
+
+  <div class="stock-card bull">
+    <h4>🟢 宁德时代 300750.SZ —— 固态电池龙头 · 成交 184 亿全市场最重 · 位置最低</h4>
+    <p class="logic"><strong>博主依据：</strong>10:02「<strong>固态、端侧、算力租凭……目前继续领先</strong>」＋ 10:19「<strong>固态整体表现出色</strong>」。</p>
+    <p class="logic"><strong>盘面实证：</strong>11/05 开 257.40 / 高 272.19 / 低 255.93 / <strong>收 264.06（+4.42%）</strong>。成交 <strong>184.02 亿</strong>（前日 141.41 亿），量比 1.23。MACD 柱 7.073 → <strong>+10.18</strong> 继续走强。赣锋锂业 +6.27%、德尔股份 +5.45%、当升科技 +3.82% 同向。</p>
+    <p class="logic"><strong>为什么它是三支里最「可跟」的：</strong>① <strong>位置最低</strong> —— 距 60 日高 408.51 仍有 <strong>-35.4%</strong>，而瑞芯微只剩 -4.8%；② <strong>涨幅最温和</strong> —— +4.42% 没有透支短线情绪；③ <strong>有真实成交与业绩锚</strong>，184 亿的成交是资金真金白银的定价，不是小市值情绪票；④ 站上 MA5/MA10/MA20 全部均线（距 MA20 +8.99），<strong>技术上是「刚刚转强」而不是「已经过热」</strong>。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>博主本人 10/10 说过「等固态电池技术成熟之后吧」「永不买电车」—— <strong>他看板块的资金，不等于他自己持有</strong>；同时宁德距 MA60 317.79 仍有 -16.9%，属中期修复而非突破。</p>
+    <p class="key">关键位：MA20 255.07（跌破=转弱）｜今日高 272.19 ｜MA60 317.79 ｜60D 高 408.51</p>
+  </div>
+  <img class="chart" src="charts/300750_SZ_20261105.png" alt="宁德时代日线 K线 MACD 成交量" />
+  <p class="chart-caption">宁德时代日线：60 根 K 线 + MA5/10/20，MACD 与成交量。左侧虚线标注 11/05 收盘 264.06、当日高 272.19、MA5 247.87 / MA10 240.62 / MA20 255.07 与 60 日高 408.51。<strong>收盘刚好站在 MA20 255.07 之上，是三支个股里形态最健康的一支</strong>（距 60 日高仍有 -35.4% 空间）。</p>
+
+  <div class="stock-card bear">
+    <h4>🔴 中际旭创 300308.SZ —— 对照组：CPO 龙头 · 博主点名却领跌全市场 · 逼近 60 日新低</h4>
+    <p class="logic"><strong>博主依据：</strong>14:19「<strong>今天主要是CPO和存储芯片压创板指数，如果这两个权重板块尾盘有资金自救的话，指数有望收高！</strong>」—— <strong>他把 CPO/存储视为拖累项，并押注它们尾盘自救。</strong></p>
+    <p class="logic"><strong>盘面实证：</strong>11/05 开 497.00 / 高 516.17 / 低 475.10 / <strong>收 493.33（-7.51%）</strong>，<strong>成交 307.80 亿</strong>（占全市场 21351 亿的 1.4%，是宁德时代的 1.7 倍）。MACD 柱 <strong>-11.306 → -11.475 继续走扩</strong>，零轴下方绿柱。<strong>MA5 521.98 / MA10 561.24 / MA20 620.56 三线全在头顶压制，距 MA20 差 -127.23（-20.5%）。</strong>距 60 日低 <strong>469.50 仅 +5.07%</strong>。</p>
+    <p class="logic"><strong>这是本报告最重要的一张图：</strong>它同时说明两件事 —— ① <strong>博主的「尾盘自救」在指数层面兑现、在板块层面证伪</strong>（创业板被端侧救回来了，CPO 自己却收在全天低位区）；② <strong>307.80 亿的成交配 -7.51% 的跌幅是放量杀跌</strong>，说明有规模资金在离场，<strong>而不是散户恐慌</strong>。这两点合起来意味着：<strong>创业板的强势是「换血」式的，不是「合力」式的</strong>。</p>
+    <p class="key">关键位：60D 低 469.50（跌破则拖累创业板二次探底）｜今日低 475.10 ｜MA5 521.98 ｜MA20 620.56</p>
+  </div>
+  <img class="chart" src="charts/300308_SZ_20261105.png" alt="中际旭创日线 K线 MACD 成交量" />
+  <p class="chart-caption">中际旭创日线：60 根 K 线 + MA5/10/20，MACD 与成交量。左侧虚线标注 11/05 收盘 493.33（-7.51%）、当日低 475.10、60 日低 469.50，以及 MA5 521.98 / MA10 561.24 / MA20 620.56。<strong>价格被三条均线全线压制在头顶，MACD 绿柱在零轴下方继续走扩，是本报告最典型的风险端图形。</strong></p>
+
+  <h2>🎯 明日（11/06）操作建议</h2>
+  <div class="panel">
+    <h4>⏰ 第 0 步（22:53 新增，优先级最高）：先看隔夜，再看盘面</h4>
+    <p>博主 22:53 报<strong>纳指大跌 728 点、科技股大幅下杀</strong>。这意味着<strong>11/06 的前提已经从「反弹第二天」变成「低开应对」</strong>，操作节奏要整体后移：</p>
+    <ul>
+      <li><strong>不接低开。</strong>9:30-9:45 的低开段不参与 —— 博主自己 06:41 讲过「<strong>昨晚</strong>软科技大涨」，22:53 又讲「<strong>今晚</strong>科技股大幅下杀」，<strong>他对同一类外盘信号的解读一天之内就翻转了一次</strong>，不要把他对今晚外盘的定性当成定论。</li>
+      <li><strong>等 10:00 之后再判断。</strong>今天 09:30 他喊「低开不惧」是对的（沪指当天 +0.10%），但<strong>那是「低开 + 外盘分化」的环境；明天是「低开 + 外盘科技被屠杀」</strong>，结构完全不同，不能套用。</li>
+      <li><strong>持仓端优先减高 beta。</strong>瑞芯微（两连板、距 60D 高仅 -4.8%）、润泽科技（量比 1.79、MA60 61.71 就在头顶 0.92%）—— 这两支是隔夜冲击的第一顺位承受者；<strong>宁德时代（固态、距 60D 高 -35.4%）受影响相对最小</strong>。</li>
+    </ul>
+    <h4>① 只盯三个数字，其余都是噪音</h4>
+    <ol>
+      <li><strong>沪指 3701.53（MA20）← 3706（博主昨日目标）</strong>：这两个数只差 4.5 点，<strong>站上 MA20 就等于站上博主的 3706</strong>，连续两日未收复的第一道关。连不上 = 反弹仍在 MA20 之下，别加仓。</li>
+      <li><strong>创业板 2493.67（今低）</strong>：今日的防线。跌破 = 14:19 押的「尾盘自救」彻底作废，创业板重新寻找支撑。</li>
+      <li><strong>科创50 1236.01（今低）</strong>：跌破则 1100 的理想买点反而更近，博主的剧本才有可能走到那一步。</li>
+    </ol>
+    <h4>② 三个板块的操作优先级</h4>
+    <ul>
+      <li><strong>首选固态电池（宁德时代 300750）</strong> —— 位置最低（距 60D 高 -35.4%）、赔率最厚、站上全部均线、184 亿成交是真实定价，且<strong>与美股科技股的相关性最低，隔夜冲击相对最小</strong>。<strong>回抽 MA20 255.07 不破即可持有观察，不要在 +4.42% 之后追。</strong></li>
+      <li><strong>次选算力租赁（润泽科技 300442）</strong> —— 但<strong>必须看 MA60 61.71 能不能过</strong>。今日最高 61.15 已精确触及即受阻，量比 1.79 的放量若换不来突破，就是出货量。<strong>叠加隔夜纳指 -728 点，11/06 低开后能否收复 MA5 53.42 才是第一观察点，不收复不碰。</strong></li>
+      <li><strong>端侧（瑞芯微 603893）只观察不追，11/06 直接降级为「不参与」</strong> —— 两连板后距 60 日高仅 -4.8%、获利盘最厚，且<strong>端侧与美股科技股的相关性最高，是隔夜杀跌的第一顺位承受者</strong>。等回抽 MA10 196.97 不破再谈；<strong>低开不接。</strong></li>
+    </ul>
+    <h4>③ 风险端的硬指标</h4>
+    <ul>
+      <li><strong>中际旭创 469.50（60 日低）</strong> —— 这是全报告最该盯的<strong>下行</strong>数字。CPO 是创业板的权重，一旦跌破 469.50，端侧独撑的创业板会被重新拖下水，2493.67 随即失守。</li>
+      <li><strong>量能</strong> —— 增量从 +3368 亿掉到 +832 亿。若明日增量继续萎缩而指数滞涨，<strong>说明反弹的燃料已经烧完</strong>；反之增量重回 2000 亿以上才算续航。<strong>若低开后放量下杀，则本轮反弹直接作废。</strong></li>
+      <li><strong>MA10（沪指 3659.04 / 创业板 2539.83）</strong> —— 低开后的第一道支撑。今日收在 MA10 之上仅 10-30 点，<strong>隔夜一旦跳空跌破 MA10，11/05 的「低开走强」形态就完全失效</strong>，改看 11/05 低点（沪指 3646.57 / 创业板 2493.67 / 科创50 1236.01）。</li>
+      <li><strong>涨停家数</strong> —— 372 → 132 家（-64%）。赚钱效应收敛得比指数快得多，<strong>这是比点位更早的退潮信号</strong>。</li>
+    </ul>
+    <p style="margin-bottom:0"><strong>一句话总结：</strong>博主今天<strong>说对了方向、说错了幅度</strong>。他的剧本是「低开 → 筑波段 → 走成过程」，而盘面是「低开 → 微涨 → 缩量磨」。<strong>取他的点位，不取他的节奏；取固态和算力的位置，不取端侧的涨幅。</strong><br /><strong>加上 22:53 的纳指 -728 点：明天的正确姿势是「不接低开、只等 10 点后、优先固态、端侧降级为不参与」。</strong>他今天自己写的三句话——「轻仓可吸」「不要用赌博的方式！而且一定要用自有空闲的资金」「守股要比守着寡难」——才是这份报告里对明天最有用的一部分。</p>
+  </div>
+
+  <h2>⚠️ 风险提示</h2>
+  <div class="hero-turn">
+    <h3>1️⃣ 博主的「两段式剧本」今天两段都没走</h3>
+    <p style="margin-bottom:0">11/04 15:08 他写「<strong>明天收复 3706 点后以 3574 和 3580 形成小双底反击之势</strong>」。11/05：前半句「收复 3706」差 <strong>4.41 点</strong>没实现；后半句「回踩双底」因为最低只到 <strong>3646.57</strong>（离 3580 还有 66 点）而根本没触发。<strong>连续两日，剧本的关键条件一个都没满足。</strong>这说明他的点位体系<strong>不是自动兑现的剧本，而是需要市场配合的条件</strong> —— 条件不成立时，跟单的人承担的是全部的时间成本。</p>
+  </div>
+  <div class="hero-turn">
+    <h3>2️⃣ 09:30「轻仓可吸」的实际收益空间只有 1.17%，却要承担隔夜外围风险</h3>
+    <p style="margin-bottom:0">博主全天喊得最响的是 09:30（1.45 万赞）和 15:08（1.57 万赞）。但 09:30 之后的实际走势是：沪指从开盘 3646.57 到收盘 3689.91，<strong>全天最高只到 3701.59（+0.42%）</strong>。而他自己在 15:08 说「<strong>在外围大跌的情况下</strong>」—— <strong>他明知道外盘在跌，却让读者在 A 股低开时进场</strong>。赚 1.17% 的钱，担一晚上的外围风险敞口，<strong>赔率并不好</strong>。他 14:41「不要用赌博的方式！而且一定要用自有空闲的资金」才是更该被记住的那句。</p>
+  </div>
+  <div class="hero-turn">
+    <h3>3️⃣ 13:54 主动降温，是对自己 09:30 追涨的补丁</h3>
+    <p style="margin-bottom:0">「<strong>反弹行情是一个过程，不是一两天！</strong>」出现在指数从 +0.42% 收敛到 +0.10% 之后。<strong>博主的行为模式高度稳定：低位喊买入、冲高后改口降温</strong>。11/04 是「是不是很害怕？」→「一阳改三观！」，11/05 是「轻仓可吸」→「不是一两天」。<strong>方向判断在低位时最有用，在高位时最容易被情绪修正 —— 所以要把他的点位和立场分开取用。</strong></p>
+  </div>
+  <div class="hero-turn">
+    <h3>4️⃣ 指数被救回来了，但拖累指数的那条线还在跌 —— 这是「换血」不是「合力」</h3>
+    <p style="margin-bottom:0">博主 14:19 押注「CPO 和存储芯片尾盘资金自救，指数有望收高」。结果：创业板确实收高 <span class="up">+0.87%</span>，但中际旭创 <span class="down">-7.51%</span>（307.80 亿放量杀跌）、新易盛 <span class="down">-5.54%</span>、兆易创新 <span class="down">-3.03%</span>。<strong>真正把创业板救回来的是端侧和算力租赁。</strong>一个指数的强势如果建立在「拖累它的板块继续流血」之上，<strong>这种强势的持续性就要打问号</strong>。盯住中际旭创 469.50，比盯沪指 3706 更能提前发现风险。</p>
+  </div>
+  <div class="hero-turn">
+    <h3>5️⃣ 连续 2 个交易日跳过博主自己设定的最优买点</h3>
+    <p style="margin-bottom:0">10/23 帖：「<strong>预计要到 1100 关口附近才是最理想的搏击点</strong>」（科创50）。11/04 最低 1149.10 就已反弹 +9.92%，11/05 最低 1236.01（距 1100 还差 12.3%）仍在反弹。<strong>博主自己定的「最理想买点」连续两天都没等到，而反弹已经开始。</strong>这不是他判断错 —— 恰恰说明他<strong>比市场更谨慎</strong>。对跟单者的含义是：<strong>不要因为博主喊买就跟，因为你等的那个价位可能永远等不到，而你要在更贵的地方接他的盘。</strong></p>
+  </div>
+  <div class="hero-turn">
+    <h3>7️⃣ 🌐 隔夜风险已从「提示」变成「事实」—— 而它恰好打在博主今天推荐的板块上</h3>
+    <p style="margin-bottom:0">22:53 博主报<strong>纳指大跌 728 点、科技股纷纷大幅下杀</strong>。结合今天盘面：端侧 AI 与算力租赁正是美股软科技的 A 股映射（博主 06:41 自己就写过「<strong>昨晚美国市场是软科技大涨、存储芯片板块大跌，分化非常大</strong>」，当天 A 股端侧涨、存储跌，结构一一对应）。<strong>外盘映射规律今天成立，就意味着今晚的杀跌大概率同样映射到 11/06 的端侧与算力租赁。</strong>而今天恰好也是这两条线涨幅最大、位置最高、获利盘最厚的一天（瑞芯微距 60D 高仅 -4.8%，润泽量比 1.79 冲板未封）。<strong>今天最强的那条线，明天最可能是最先挨打的那条线。</strong>唯一需要记住的例外是固态电池（宁德时代）：它靠的是产业逻辑而非美股映射，且距 60D 高还有 -35.4% 的空间，是隔夜冲击里相对最经打的一个。</p>
+  </div>
+  <div class="hero-turn">
+    <h3>8️⃣ 数据说明：本期的三处边界</h3>
+    <p style="margin-bottom:0">① <strong>抓取窗口</strong> —— m.weibo.cn 对未登录访客只开放时间线第一页（10 条），<strong>本期的完整覆盖是通过「时间线 + 搜索接口多查询词采集」补齐的</strong>，窗口为 11/04 13:50 → 11/05 18:07 共 18 条（17 条属 11/05）。18:07 之后至发稿（23:00）博主确无新帖（时间线第一页已确认）。<br />② <strong>美股数据未独立核验</strong> —— 博主 06:41「昨晚美国市场是软科技大涨、存储芯片板块大跌」为<strong>博主自述</strong>；本报告的 Tushare 账号无美股指数权限，故该条只能通过 A 股当日结构（端侧强 / 存储弱）反向印证，未直接核实美股收盘数字。</p>
+  </div>
+
+  <div class="footer">
+    <p>数据来源：weibo skill（m.weibo.cn 时间线 + 搜索接口，19 条）· Tushare Pro（11/05 收盘，前复权）· 图表由 <code>scripts/make_wu2198_charts_20261105.py</code> 生成</p>
+    <p>本报告为公开信息整理与个人分析，不构成任何投资建议。股市有风险，入市需谨慎。</p>
+    <p style="margin-top:8px"><a href="/">← 返回首页</a> · <a href="/reports/">全部报告</a></p>
+  </div>
+
+</div>
+</body>
+</html>

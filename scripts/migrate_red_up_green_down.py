@@ -45,14 +45,14 @@ GROUP_A = [
     "2026-10-12-wu2198-investment-report.html",
     "2026-10-13-wu2198-investment-report.html",
     "2026-10-14-wu2198-investment-report.html",
-    "2026-11-04-wu2198-investment-report.html",
-    "2026-11-05-wu2198-investment-report.html",
-    "2026-11-06-wu2198-investment-report.html",
-    "2026-11-08-wu2198-investment-report.html",
-    "2026-11-09-wu2198-investment-report.html",
-    "2026-11-10-wu2198-investment-report.html",
-    "2026-11-11-wu2198-investment-report.html",
-    "2026-11-12-wu2198-investment-report.html",
+    "wu2198-20261104.html",
+    "wu2198-20261105.html",
+    "wu2198-20261106.html",
+    "wu2198-20261108.html",
+    "wu2198-20261109.html",
+    "wu2198-20261110.html",
+    "wu2198-20261111.html",
+    "wu2198-20261112.html",
     "wu2198-investment-report-20260905.html",
     "wu2198-investment-report-20260912.html",
     "2026-11-09-都业华-高级班收评纪要.html",
@@ -147,7 +147,7 @@ OVERRIDES = {
 # 逐条手工修正（file → [(旧片段, 新片段)]）
 SPECIAL_FIXES = {
     # 板块均值 -0.89% 原被误标为 .up（绿涨），数值本身为负 → 改为 .down（绿跌）
-    "2026-11-08-wu2198-investment-report.html": [
+    "wu2198-20261108.html": [
         ('<b class="up">-0.89%</b>', '<b class="down">-0.89%</b>'),
     ],
     # 个股卡收盘价：默认跌绿；中国神华为 8 只标的中唯一强势 → 红

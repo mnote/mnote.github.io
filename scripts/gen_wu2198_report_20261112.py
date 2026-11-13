@@ -1,7 +1,7 @@
 """wu2198 投资日报 2026-11-12（周四 · 收盘版 · 精简版）— 线上产物生成器
 
 用法： ~/czsc/.venv/bin/python scripts/gen_wu2198_report_20261112.py
-产物： 2026-11-12-wu2198-investment-report.html（仓库根目录）
+产物： wu2198-20261112.html（仓库根目录）
 篇幅： 正文 ≤ 2000 中文字 / 表格 ≤ 4 张（用户 2026-11-12 硬约束）
 """
 import json
@@ -273,6 +273,6 @@ HTML = f"""<!DOCTYPE html>
 """
 
 if __name__ == "__main__":
-    out = ROOT / "2026-11-12-wu2198-investment-report.html"
+    out = ROOT / "wu2198-20261112.html"
     out.write_text(HTML, encoding="utf-8")
     print(f"[out] {out}  ({len(HTML)} bytes)")
