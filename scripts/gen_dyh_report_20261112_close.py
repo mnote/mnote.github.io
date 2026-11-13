@@ -206,19 +206,15 @@ HTML = f"""<!DOCTYPE html>
 OUT = REPO / "2026-11-12-都业华-高级班收评纪要.html"
 OUT.write_text(HTML, encoding="utf-8")
 
-# _posts 版：图片改 ../charts/，加 front matter
-post_html = HTML.replace('src="charts/', 'src="../charts/')
-post_html = post_html.replace(
-    "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>",
-    "---\nlayout: null\npermalink: /duyiehua-report-20261112.html\n"
-    f"title: {TITLE_FULL}\n---\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>", 1)
-POST = REPO / "_posts/2026-11-12-都业华-高级班收评纪要.html"
-POST.write_text(post_html, encoding="utf-8")
+# 线上 URL 版：去 Jekyll 后不需要 front matter / permalink，
+# 直接把 permalink 当文件名放在仓库根目录即可（图片路径与根目录版一致，不用改 ../）
+ONLINE = REPO / "duyiehua-report-20261112.html"
+ONLINE.write_text(HTML, encoding="utf-8")
 
 # 正文字数统计（含页脚，去标签、去图、去 CSS）
 body = HTML.split("<body>")[1].split("</body>")[0]
 text = re.sub(r"<[^>]+>", " ", body)
 text = re.sub(r"\s+", "", text)
 print(f"written: {OUT.name}  {len(HTML)} bytes")
-print(f"written: {POST.name}  {len(post_html)} bytes")
+print(f"written: {ONLINE.name}  {len(HTML)} bytes")
 print(f"正文字数（含页脚）: {len(text)} 字 | 表格数: {HTML.count('<table>')} | 图数: {HTML.count('class=\"chart\"')}")

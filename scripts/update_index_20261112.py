@@ -20,7 +20,7 @@ OLD_TO_HISTORY = OLD_CARD.replace('<span class="badge">🔥 最新</span>',
 
 if __name__ == "__main__":
     s = IDX.read_text(encoding="utf-8")
-    assert s.startswith("---\n"), "front matter 不在文件顶端，停止"
+    assert s.lstrip().startswith("<!DOCTYPE html>"), "index.html 不是静态首页，停止"
     if "2026-11-12-wu2198-investment-report.html" in s:
         print("[skip] 首页已有 11/12 卡片")
     else:
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     # 校验
     head = IDX.read_text(encoding="utf-8").splitlines()[:3]
-    print("[front matter]", head[0], head[1], head[2])
+    print("[首行]", head[0])
     body = IDX.read_text(encoding="utf-8")
     print("[卡片数]", body.count('class="featured"'))
     print("[Liquid 泄漏]", body.count("{%"))

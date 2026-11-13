@@ -1,37 +1,43 @@
-## Welcome to GitHub Pages
+## mnote.github.io
 
-You can use the [editor on GitHub](https://github.com/mnote/mnote.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+个人静态站点：**投研报告归档**（wu2198 投资日报 / 都业华《高级班》收评纪要）+ 几个工具页（AI 编程词典、Claude Code Architect）。
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### 站点结构（已去 Jekyll，2026-11-13）
 
-### Markdown
+仓库根目录**就是发布根目录**，GitHub Pages 通过根目录的 `.nojekyll` 原样发布静态文件，不再跑 Jekyll 构建。
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```
+index.html            首页（纯静态 HTML，无 front matter / 无 Liquid）
+2/ 3/ 4/              往期归档分页（每页 10 条）
+<日期>-<来源>-*.html   报告页，文件名即线上 URL
+charts/               K 线图 PNG
+reports/              数据留痕（CSV 等）
+assets/css/style.css  站点样式（原本由 Jekyll 从 theme 编译，现已落地到仓库）
+scripts/              报告生成与校验脚本
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+约定与发布流程见 `AGENTS.md`（本地文件，不发布）。
 
-### Jekyll Themes
+### 加一页报告
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mnote/mnote.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+1. 生成 HTML 放**仓库根目录**，文件名即线上 URL，例如 `2026-11-13-wu2198-investment-report.html`
+2. 图片用相对路径 `charts/xxx.png`
+3. 首页插卡：
 
-### Support or Contact
+```bash
+python3 scripts/update_index.py latest \
+    --url /2026-11-13-wu2198-investment-report.html \
+    --title "wu2198 投资日报 - 2026-11-13（周五 ……）"
+```
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+4. 交付时另存一份单文件内嵌版（图片 base64）：
+
+```bash
+python3 scripts/make_standalone_report.py 2026-11-13-wu2198-investment-report.html
+```
+
+### 本地预览
+
+```bash
+python3 -m http.server 8765   # 然后开 http://127.0.0.1:8765/
+```

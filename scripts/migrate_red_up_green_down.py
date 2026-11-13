@@ -60,15 +60,15 @@ GROUP_A = [
     "2026-11-11-都业华-高级班收评纪要.html",
     "2026-11-12-都业华-高级班收评纪要.html",
     "2026-11-12-都业华-高级班午评纪要.html",
-    "_posts/2026-09-04-wu2198-investment-report.html",
-    "_posts/2026-09-05-wu2198-investment-report.html",
-    "_posts/2026-09-13-wu2198-investment-report.html",
-    "_posts/2026-09-25-wu2198-investment-report.html",
-    "_posts/2026-11-09-都业华-高级班收评纪要.html",
-    "_posts/2026-11-10-都业华-高级班收评纪要.html",
-    "_posts/2026-11-11-都业华-高级班收评纪要.html",
-    "_posts/2026-11-12-都业华-高级班收评纪要.html",
-    "_posts/2026-11-12-都业华-高级班午评纪要.html",
+    "2026-09-04-wu2198-investment-report.html",
+    "2026-09-05-wu2198-investment-report.html",
+    "2026-09-13-wu2198-investment-report.html",
+    "2026-09-25-wu2198-investment-report.html",
+    "2026-11-09-都业华-高级班收评纪要.html",
+    "2026-11-10-都业华-高级班收评纪要.html",
+    "2026-11-11-都业华-高级班收评纪要.html",
+    "2026-11-12-都业华-高级班收评纪要.html",
+    "2026-11-12-都业华-高级班午评纪要.html",
 ]
 
 # B 组：已定义 --up/--down（红涨绿跌），但 .signal-up/.signal-down 仍指向 --bull/--bear
@@ -132,7 +132,7 @@ RE_DOWN_KW = re.compile(
 
 # 个别裸价格无涨跌幅可查，用 Tushare 核实后的方向覆盖（file → {文本: 方向}）
 OVERRIDES = {
-    "_posts/2026-09-13-wu2198-investment-report.html": {
+    "2026-09-13-wu2198-investment-report.html": {
         "3322.04": "down",      # 399006.SZ 20260911 pct_chg -0.49%
     },
     "2026-10-06-wu2198-investment-report.html": {
@@ -151,7 +151,7 @@ SPECIAL_FIXES = {
         ('<b class="up">-0.89%</b>', '<b class="down">-0.89%</b>'),
     ],
     # 个股卡收盘价：默认跌绿；中国神华为 8 只标的中唯一强势 → 红
-    "_posts/2026-09-13-wu2198-investment-report.html": [
+    "2026-09-13-wu2198-investment-report.html": [
         ('<div class="price">¥47.51</div>',
          '<div class="price" style="color:var(--up)">¥47.51</div>'),
     ],
