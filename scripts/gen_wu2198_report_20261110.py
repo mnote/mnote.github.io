@@ -19,7 +19,7 @@ CSS = """<style>
     --bg: #ffffff; --panel: #f8f9fb; --panel-2: #f1f3f6;
     --border: #e5e7eb; --border-strong: #d1d5db;
     --text: #1f2937; --muted: #6b7280;
-    --bull: #16a34a; --bull-bg: #dcfce7;
+    --bull: #16a34a; --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626; --bear-bg: #fee2e2;
     --neutral: #d97706; --neutral-bg: #fef3c7;
     --none: #6b7280; --none-bg: #f3f4f6;
@@ -94,14 +94,15 @@ CSS = """<style>
   .risk { background: var(--bear-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
   .action { background: var(--bull-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
   .verify { background: var(--accent-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
-  .up { color: var(--bull); font-weight: 600; }
-  .down { color: var(--bear); font-weight: 600; }
+  .up { color: var(--up); font-weight: 600; }
+  .down { color: var(--down); font-weight: 600; }
   .flat { color: var(--muted); font-weight: 600; }
   .key-num { color: var(--key); font-weight: 700; font-variant-numeric: tabular-nums; }
   .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
   ul.tight { margin: 8px 0; padding-left: 22px; }
   ul.tight li { margin: 4px 0; }
   .divider { height: 1px; background: var(--border); margin: 26px 0; }
+  .vol{color:var(--neutral);font-weight:600}
 </style>"""
 
 
@@ -217,7 +218,7 @@ def main():
   <div class="kpi"><div class="label">上证指数</div><div class="val">3663.72</div>
     <div class="sub"><span class="up">+0.08%</span> · 高 3683.73 · <b>3706 未收复</b></div></div>
   <div class="kpi"><div class="label">全 A 成交额</div><div class="val">15167 亿</div>
-    <div class="sub"><span class="up">放量 221 亿</span>（+1.5%）</div></div>
+    <div class="sub"><span class="vol">放量 221 亿</span>（+1.5%）</div></div>
   <div class="kpi"><div class="label">涨停 / 跌停</div><div class="val">93 / 0</div>
     <div class="sub">前值 54 / 1 · 情绪<b>显著回暖</b></div></div>
   <div class="kpi"><div class="label">涨 / 跌家数</div><div class="val">4273 / 1149</div>

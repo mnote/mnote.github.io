@@ -140,7 +140,7 @@ def build():
   <div class="kpi"><div class="label">创业板指</div><div class="val">2572.07</div>
     <div class="sub"><span class="up">+3.11%</span> · 距 <b>2626</b> 差 53.93 点</div></div>
   <div class="kpi"><div class="label">全 A 成交额</div><div class="val">16887 亿</div>
-    <div class="sub"><span class="up">放量 1720 亿（+11.3%）</span></div></div>
+    <div class="sub"><span class="vol">放量 1720 亿（+11.3%）</span></div></div>
   <div class="kpi"><div class="label">涨停 / 跌停</div><div class="val">85 / 0</div>
     <div class="sub">连板 19 只 · 涨 3538 / 跌 1827</div></div>
 </div>

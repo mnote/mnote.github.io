@@ -19,7 +19,7 @@ CSS = """<style>
     --bg: #ffffff; --panel: #f8f9fb; --panel-2: #f1f3f6;
     --border: #e5e7eb; --border-strong: #d1d5db;
     --text: #1f2937; --muted: #6b7280;
-    --bull: #16a34a; --bull-bg: #dcfce7;
+    --bull: #16a34a; --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626; --bear-bg: #fee2e2;
     --neutral: #d97706; --neutral-bg: #fef3c7;
     --none: #6b7280; --none-bg: #f3f4f6;
@@ -94,14 +94,15 @@ CSS = """<style>
   .risk { background: var(--bear-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
   .action { background: var(--bull-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
   .verify { background: var(--accent-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
-  .up { color: var(--bull); font-weight: 600; }
-  .down { color: var(--bear); font-weight: 600; }
+  .up { color: var(--up); font-weight: 600; }
+  .down { color: var(--down); font-weight: 600; }
   .flat { color: var(--muted); font-weight: 600; }
   .key-num { color: var(--key); font-weight: 700; font-variant-numeric: tabular-nums; }
   .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
   ul.tight { margin: 8px 0; padding-left: 22px; }
   ul.tight li { margin: 4px 0; }
   .divider { height: 1px; background: var(--border); margin: 26px 0; }
+  .vol{color:var(--neutral);font-weight:600}
 </style>"""
 
 
@@ -249,7 +250,7 @@ def main():
   <div class="kpi"><div class="label">创业板指</div><div class="val">2529.21</div>
     <div class="sub"><span class="up">+1.40%</span> · 博主「看深成指、创业板指数即可」</div></div>
   <div class="kpi"><div class="label">成交额（至 13:05）</div><div class="val">9686 亿</div>
-    <div class="sub"><span class="down">较 11/10 同时点 −2.0%</span> · <b>缩量反弹</b></div></div>
+    <div class="sub"><span class="vol">较 11/10 同时点 −2.0%</span> · <b>缩量反弹</b></div></div>
   <div class="kpi"><div class="label">涨停 / 跌停</div><div class="val">54 / 0</div>
     <div class="sub">11/10 收盘 93 / 0 · 涨停<b>腰斩</b></div></div>
 </div>
@@ -375,7 +376,7 @@ def main():
   <thead><tr><th>指标</th><th class="score">11/10（收盘）</th><th class="score">11/11（13:09）</th><th>变化</th></tr></thead>
   <tbody>
     <tr><td><b>沪深两市成交额</b>（同时点口径）</td><td class="score">9884 亿（至 13:05）</td>
-      <td class="score"><b>9686 亿</b>（至 13:05）</td><td><span class="down">−2.0%，缩量</span></td></tr>
+      <td class="score"><b>9686 亿</b>（至 13:05）</td><td><span class="vol">−2.0%，缩量</span></td></tr>
     <tr><td>同上 vs 11/05 高点日</td><td class="score">15081 亿（11/05 至 13:05）</td>
       <td class="score"><b>9686 亿</b></td><td><span class="down">−35.8%</span></td></tr>
     <tr><td><b>涨停家数</b></td><td class="score">93 家</td><td class="score"><b>54 家</b></td>

@@ -148,7 +148,7 @@ HTML = """<!DOCTYPE html>
     --text: #1f2937;
     --muted: #6b7280;
     --bull: #16a34a;
-    --bull-bg: #dcfce7;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626;
     --bear-bg: #fee2e2;
     --neutral: #d97706;
@@ -250,6 +250,7 @@ HTML = """<!DOCTYPE html>
   ul, ol {{ margin: 8px 0; padding-left: 24px; }}
   li {{ margin: 4px 0; }}
   .footer {{ text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }}
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -286,12 +287,12 @@ HTML = """<!DOCTYPE html>
     </div>
     <div class="kpi">
       <div class="label">大盘资金流(9/11)</div>
-      <div class="val" style="color: var(--bear);">-619 亿</div>
+      <div class="val" style="color:var(--down)">-619 亿</div>
       <div class="sub">成交 18170 亿 (+3253)</div>
     </div>
     <div class="kpi">
       <div class="label">下跌家数</div>
-      <div class="val" style="color: var(--bear);">4886 只</div>
+      <div class="val" style="color:var(--down)">4886 只</div>
       <div class="sub">放量下跌 · 14:37 速报</div>
     </div>
     <div class="kpi">
@@ -301,7 +302,7 @@ HTML = """<!DOCTYPE html>
     </div>
     <div class="kpi">
       <div class="label">板块速报</div>
-      <div class="val" style="color: var(--bull);">3 条</div>
+      <div class="val" style="color:var(--bull)">3 条</div>
       <div class="sub">14:06-14:15 9分钟内连发</div>
     </div>
   </div>

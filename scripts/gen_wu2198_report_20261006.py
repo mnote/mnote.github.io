@@ -159,7 +159,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     --text: #1f2937;
     --muted: #6b7280;
     --bull: #16a34a;
-    --bull-bg: #dcfce7;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626;
     --bear-bg: #fee2e2;
     --neutral: #d97706;
@@ -261,6 +261,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   ul, ol { margin: 8px 0; padding-left: 24px; }
   li { margin: 4px 0; }
   .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -291,32 +292,32 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <div class="grid-3">
     <div class="kpi">
       <div class="label">博主核心立场</div>
-      <div class="val" style="color: var(--bull);">🟢 新增光通信</div>
+      <div class="val" style="color:var(--bull)">🟢 新增光通信</div>
       <div class="sub">10/6 空心光纤提问 + 10/6 现金流风控</div>
     </div>
     <div class="kpi">
       <div class="label">沪指 9/30 收</div>
-      <div class="val" style="color: var(--bull);">3842.19 (+0.31%)</div>
+      <div class="val" style="color:var(--up)">3842.19 (+0.31%)</div>
       <div class="sub">站上 3800 · 季线跌 6.16%</div>
     </div>
     <div class="kpi">
       <div class="label">创业板 9/30 收</div>
-      <div class="val" style="color: var(--bear);">3135.28 (-0.23%)</div>
+      <div class="val" style="color:var(--down)">3135.28 (-0.23%)</div>
       <div class="sub">季线跌 27.8% · 创 2015 以来最大</div>
     </div>
     <div class="kpi">
       <div class="label">沪深300</div>
-      <div class="val" style="color: var(--bull);">4357.62 (+0.29%)</div>
+      <div class="val" style="color:var(--up)">4357.62 (+0.29%)</div>
       <div class="sub">同步微红 · 老登股护盘</div>
     </div>
     <div class="kpi">
       <div class="label">博主最近一天</div>
-      <div class="val" style="color: var(--bull);">🟢 2 条带信号</div>
+      <div class="val" style="color:var(--bull)">🟢 2 条带信号</div>
       <div class="sub">10/6 空心光纤 + 现金流风控</div>
     </div>
     <div class="kpi">
       <div class="label">节后开盘</div>
-      <div class="val" style="color: var(--bull);">🟢 10/8 周三</div>
+      <div class="val" style="color:var(--bull)">🟢 10/8 周三</div>
       <div class="sub">光通信新催化 + 双主线回归</div>
     </div>
   </div>
@@ -471,12 +472,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <table>
       <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>9/30 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
       <tbody>
-        <tr><td>中际旭创 300308</td><td>光模块</td><td>700 / 750</td><td><b style="color:var(--bull)">808.44 (—)</b></td><td>950 / 1100</td><td>1100</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」→ 1.6T 光模块全球龙头直接受益</b> · AI 算力数据中心核心受益 · 节后 10/8 开盘光通信新催化</td></tr>
-        <tr><td>长飞光纤 601869</td><td>光纤</td><td>340 / 380</td><td><b style="color:var(--bull)">411.16 (—)</b></td><td>470 / 530</td><td>530</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」→ A 股光纤光缆龙头</b> · G.654.E 空心光纤技术布局领先 · 5G + 数据中心 + 海底光缆需求催化</td></tr>
-        <tr><td>兆易创新 603986</td><td>半导体/存储</td><td>340 / 337</td><td><b style="color:var(--bear)">353.90 (-3.72%)</b></td><td>500 / 708</td><td>707.97</td><td>关注 · <b>博主 10/3 美股硬科技 + 10/1 美光财报 → A 股映射最直接品种</b> · NOR Flash 全球第三 · 节前 -3.72% 已回调 · 节后硬科技主线催化</td></tr>
-        <tr><td>澜起科技 688008</td><td>DDR5 接口</td><td>180 / 200</td><td><b style="color:var(--bear)">202.31 (-4.84%)</b></td><td>240 / 298</td><td>297.96</td><td>关注 · <b>博主 10/3 美股硬科技 → DDR5 接口芯片全球龙头</b> · 美光 HBM 利好直接传导 · 9/30 跌幅最大 -4.84%</td></tr>
-        <tr><td>工商银行 601398</td><td>银行</td><td>7.50 / 7.16</td><td><b style="color:var(--bull)">8.28 (+1.47%)</b></td><td>8.30 / 9.30</td><td>8.30</td><td>持有 · <b>9/30 银行板块涨幅第一</b> · 验证博主「四大行提肩带」 · 60D 高 8.30 未破位 · 节后港股暴跌防御首选</td></tr>
-        <tr><td>农业银行 601288</td><td>银行</td><td>6.50 / 5.97</td><td><b style="color:var(--bull)">6.97 (+0.43%)</b></td><td>7.11 / 7.50</td><td>7.11</td><td>持有 · 验证博主「四大行提肩带」 · 9/30 涨幅银行第二 · 60D 高未破位 · 节后防御配置</td></tr>
+        <tr><td>中际旭创 300308</td><td>光模块</td><td>700 / 750</td><td><b style="color:var(--down)">808.44 (—)</b></td><td>950 / 1100</td><td>1100</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」→ 1.6T 光模块全球龙头直接受益</b> · AI 算力数据中心核心受益 · 节后 10/8 开盘光通信新催化</td></tr>
+        <tr><td>长飞光纤 601869</td><td>光纤</td><td>340 / 380</td><td><b style="color:var(--up)">411.16 (—)</b></td><td>470 / 530</td><td>530</td><td>关注 · <b>博主 10/6 06:45「#中国空心光纤# 利好什么板块?」→ A 股光纤光缆龙头</b> · G.654.E 空心光纤技术布局领先 · 5G + 数据中心 + 海底光缆需求催化</td></tr>
+        <tr><td>兆易创新 603986</td><td>半导体/存储</td><td>340 / 337</td><td><b style="color:var(--down)">353.90 (-3.72%)</b></td><td>500 / 708</td><td>707.97</td><td>关注 · <b>博主 10/3 美股硬科技 + 10/1 美光财报 → A 股映射最直接品种</b> · NOR Flash 全球第三 · 节前 -3.72% 已回调 · 节后硬科技主线催化</td></tr>
+        <tr><td>澜起科技 688008</td><td>DDR5 接口</td><td>180 / 200</td><td><b style="color:var(--down)">202.31 (-4.84%)</b></td><td>240 / 298</td><td>297.96</td><td>关注 · <b>博主 10/3 美股硬科技 → DDR5 接口芯片全球龙头</b> · 美光 HBM 利好直接传导 · 9/30 跌幅最大 -4.84%</td></tr>
+        <tr><td>工商银行 601398</td><td>银行</td><td>7.50 / 7.16</td><td><b style="color:var(--up)">8.28 (+1.47%)</b></td><td>8.30 / 9.30</td><td>8.30</td><td>持有 · <b>9/30 银行板块涨幅第一</b> · 验证博主「四大行提肩带」 · 60D 高 8.30 未破位 · 节后港股暴跌防御首选</td></tr>
+        <tr><td>农业银行 601288</td><td>银行</td><td>6.50 / 5.97</td><td><b style="color:var(--up)">6.97 (+0.43%)</b></td><td>7.11 / 7.50</td><td>7.11</td><td>持有 · 验证博主「四大行提肩带」 · 9/30 涨幅银行第二 · 60D 高未破位 · 节后防御配置</td></tr>
       </tbody>
     </table>
   </div>

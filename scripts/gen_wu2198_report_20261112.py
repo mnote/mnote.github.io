@@ -33,7 +33,7 @@ HTML = f"""<!DOCTYPE html>
     --bg: #ffffff; --panel: #f8f9fb; --panel-2: #f1f3f6;
     --border: #e5e7eb; --border-strong: #d1d5db;
     --text: #1f2937; --muted: #6b7280;
-    --bull: #16a34a; --bull-bg: #dcfce7;
+    --bull: #16a34a; --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626; --bear-bg: #fee2e2;
     --neutral: #d97706; --neutral-bg: #fef3c7;
     --none: #6b7280; --none-bg: #f3f4f6;
@@ -89,12 +89,13 @@ HTML = f"""<!DOCTYPE html>
   .risk {{ background: var(--bear-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }}
   .action {{ background: var(--bull-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }}
   .verify {{ background: var(--accent-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }}
-  .up {{ color: var(--bull); font-weight: 600; }}
-  .down {{ color: var(--bear); font-weight: 600; }}
+  .up {{ color: var(--up); font-weight: 600; }}
+  .down {{ color: var(--down); font-weight: 600; }}
   .key-num {{ color: var(--key); font-weight: 700; font-variant-numeric: tabular-nums; }}
   .foot {{ margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }}
   ul.tight {{ margin: 8px 0; padding-left: 22px; }}
   ul.tight li {{ margin: 4px 0; }}
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -122,7 +123,7 @@ HTML = f"""<!DOCTYPE html>
   <div class="kpi"><div class="label">创业板指</div><div class="val">{CY['close']:.2f}</div>
     <div class="sub"><span class="down">{CY['pct']:+.2f}%</span> · 距 <b>2626</b> 差 116.57 点</div></div>
   <div class="kpi"><div class="label">全 A 成交额</div><div class="val">{b12['amount_yi']:,.0f} 亿</div>
-    <div class="sub"><span class="up">放量 2572 亿（+15.2%）</span></div></div>
+    <div class="sub"><span class="vol">放量 2572 亿（+15.2%）</span></div></div>
   <div class="kpi"><div class="label">涨跌家数</div><div class="val">{b12['up']} / {b12['down']}</div>
     <div class="sub">涨停 46（昨 113）· 跌停 19（昨 5）</div></div>
 </div>

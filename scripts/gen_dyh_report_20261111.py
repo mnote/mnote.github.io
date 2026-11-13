@@ -25,7 +25,7 @@ CSS = """<style>
     --bg:#ffffff; --panel:#f8f9fb; --panel-2:#f1f3f6;
     --border:#e5e7eb; --border-strong:#d1d5db;
     --text:#1f2937; --muted:#6b7280;
-    --bull:#16a34a; --bull-bg:#dcfce7;
+    --bull:#16a34a; --bull-bg:#dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear:#dc2626; --bear-bg:#fee2e2;
     --neutral:#d97706; --neutral-bg:#fef3c7;
     --none:#6b7280; --none-bg:#f3f4f6;
@@ -74,8 +74,8 @@ CSS = """<style>
   .tag-key{background:var(--key-bg);color:var(--key)}
   .chart{width:100%;height:auto;display:block;margin:12px 0;border:1px solid var(--border);border-radius:6px;background:#fff}
   .cap{font-size:12px;color:var(--muted);margin:-4px 0 18px}
-  .up{color:var(--bull);font-weight:600}
-  .down{color:var(--bear);font-weight:600}
+  .up{color:var(--up);font-weight:600}
+  .down{color:var(--down);font-weight:600}
   .flat{color:var(--muted);font-weight:600}
   .kn{color:var(--key);font-weight:700;font-variant-numeric:tabular-nums}
   .foot{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
@@ -84,6 +84,7 @@ CSS = """<style>
   .sector.r1{border-left-color:#16a34a}
   .sector.r2{border-left-color:#d97706}
   .sector.r3{border-left-color:#7c3aed}
+  .vol{color:var(--neutral);font-weight:600}
 </style>"""
 
 
@@ -190,7 +191,7 @@ HTML = f"""<!DOCTYPE html>
 <div class="grid-4">
   <div class="kpi"><div class="label">上证指数</div><div class="val up">{pct(sh['pct'])}</div><div class="sub">{sh['close']} · 高 {sh['high']} 低 {sh['low']} · {sh['vol_bear_ma']}</div></div>
   <div class="kpi"><div class="label">创业板指 / 科创50</div><div class="val up">{pct(cy['pct'])} / {pct(kc['pct'])}</div><div class="sub">{cy['close']} · {kc['close']} · 沪深300 {pct(hs['pct'])}</div></div>
-  <div class="kpi"><div class="label">全 A 成交额</div><div class="val up">{T['amount_yi']} 亿</div><div class="sub">较前日 {P['amount_yi']} 亿 {pct(amt_chg)} · 略放</div></div>
+  <div class="kpi"><div class="label">全 A 成交额</div><div class="val vol">{T['amount_yi']} 亿</div><div class="sub">较前日 {P['amount_yi']} 亿 {pct(amt_chg)} · 略放</div></div>
   <div class="kpi"><div class="label">涨 / 跌 家数</div><div class="val"><span class="up">{T['up']}</span> / <span class="down">{T['down']}</span></div><div class="sub">涨停级 {T['zt_ge98']} · 跌停级 {T['dt_le98']} · 中位 {T['median_pct']}%</div></div>
 </div>
 

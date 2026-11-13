@@ -29,7 +29,7 @@ CSS = """<style>
     --bg:#ffffff; --panel:#f8f9fb; --panel-2:#f1f3f6;
     --border:#e5e7eb; --border-strong:#d1d5db;
     --text:#1f2937; --muted:#6b7280;
-    --bull:#16a34a; --bull-bg:#dcfce7;
+    --bull:#16a34a; --bull-bg:#dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear:#dc2626; --bear-bg:#fee2e2;
     --neutral:#d97706; --neutral-bg:#fef3c7;
     --none:#6b7280; --none-bg:#f3f4f6;
@@ -80,8 +80,8 @@ CSS = """<style>
   .tag-key{background:var(--key-bg);color:var(--key)}
   .chart{width:100%;height:auto;display:block;margin:12px 0;border:1px solid var(--border);border-radius:6px;background:#fff}
   .cap{font-size:12px;color:var(--muted);margin:-4px 0 18px}
-  .up{color:var(--bull);font-weight:600}
-  .down{color:var(--bear);font-weight:600}
+  .up{color:var(--up);font-weight:600}
+  .down{color:var(--down);font-weight:600}
   .flat{color:var(--muted);font-weight:600}
   .kn{color:var(--key);font-weight:700;font-variant-numeric:tabular-nums}
   .foot{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
@@ -89,6 +89,7 @@ CSS = """<style>
   .sector{background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:16px 0}
   .sector.r2{border-left-color:#d97706}
   .sector.r3{border-left-color:#7c3aed}
+  .vol{color:var(--neutral);font-weight:600}
 </style>"""
 
 
@@ -221,7 +222,7 @@ HTML = f"""<!DOCTYPE html>
 <div class="grid-4">
   <div class="kpi"><div class="label">上证指数</div><div class="val up">{pct(sh['pct'])}</div><div class="sub">{sh['close']} · 开 {sh['open']} 高 {sh['high']} 低 {sh['low']}</div></div>
   <div class="kpi"><div class="label">深证成指 / 创业板</div><div class="val up">{pct(sz['pct'])} / {pct(cy['pct'])}</div><div class="sub">{sz['close']} · {cy['close']} · 沪深300 {pct(hs300['pct'])}</div></div>
-  <div class="kpi"><div class="label">两市成交额</div><div class="val up">{tot_amt} 亿</div><div class="sub">较前日 {tot_amt_prev} 亿 {pct(amt_chg)} · 沪缩深放</div></div>
+  <div class="kpi"><div class="label">两市成交额</div><div class="val vol">{tot_amt} 亿</div><div class="sub">较前日 {tot_amt_prev} 亿 {pct(amt_chg)} · 沪缩深放</div></div>
   <div class="kpi"><div class="label">涨 / 跌 家数</div><div class="val"><span class="up">{B['up']}</span> / <span class="down">{B['down']}</span></div><div class="sub">涨停 {B['zt_em']} · 跌停 {B['dt_em']} · 中位 {B['median_pct']}%</div></div>
 </div>
 
@@ -235,7 +236,7 @@ HTML = f"""<!DOCTYPE html>
 
 <h2>一、指数：高开低走、尾盘跳水，15 分钟中枢下沿被破</h2>
 <p>实测：上证 <span class="up">{pct(sh['pct'])}</span> 收 {sh['close']}（开 {sh['open']} / 高 {sh['high']} / 低 {sh['low']}），深成指 <span class="up">{pct(sz['pct'])}</span>，创业板指 <span class="up">{pct(cy['pct'])}</span>，沪深300 {pct(hs300['pct'])}。<b>走势形态与老师描述的「高开后震荡下行、走势比较沉闷」完全一致</b>：上证最高点就是开盘那一分钟（3683.73），全天从 +0.58% 一路回落，收盘几乎平盘且贴近日内最低。</p>
-<p>两市成交额 {tot_amt} 亿（沪 {sh['amount_yi']} 亿 + 深 {sz['amount_yi']} 亿），较前一日 {tot_amt_prev} 亿<b>微增 {abs(amt_chg)}%</b>。但这是<b>结构分化</b>：沪市 {sh['prev_amount_yi']} → {sh['amount_yi']} 亿（<span class="down">缩量</span>），深市 {PREV_SZ_AMT} → {sz['amount_yi']} 亿（<span class="up">放量</span>）—— 钱去了成长与题材，权重端没有承接。</p>
+<p>两市成交额 {tot_amt} 亿（沪 {sh['amount_yi']} 亿 + 深 {sz['amount_yi']} 亿），较前一日 {tot_amt_prev} 亿<b>微增 {abs(amt_chg)}%</b>。但这是<b>结构分化</b>：沪市 {sh['prev_amount_yi']} → {sh['amount_yi']} 亿（<span class="vol">缩量</span>），深市 {PREV_SZ_AMT} → {sz['amount_yi']} 亿（<span class="vol">放量</span>）—— 钱去了成长与题材，权重端没有承接。</p>
 <p>涨跌家数 <span class="up">{B['up']}</span> / <span class="down">{B['down']}</span>（平 {B['flat']}），个股涨跌幅中位数 <span class="up">{B['median_pct']}%</span>，涨停 {B['zt_em']} 家、跌停 {B['dt_em']} 家。<b>赚钱效应明显好于昨日</b>（11/09 为 2242 涨 / 3148 跌），但老师仍给「市场温度 25 度」—— 老师看的是结构（热点高度、连板质量）而非数量，本纪要在偏差表中记录这一差异。</p>
 
 {chart("000001_SH", "上证指数", "上证指数（000001.SH）日线 · 15 分钟下跌中枢 3664.40–3689.91，收盘 3663.72 已跌破下沿 0.68 点；向上确认位 3750 未触及。")}

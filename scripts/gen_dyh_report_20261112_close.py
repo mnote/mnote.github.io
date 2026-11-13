@@ -24,7 +24,7 @@ TITLE_FULL = f"DYH 收评 - 2026-11-12（周四 {TITLE_SUMMARY}）"
 
 CSS = """<style>
   :root{--bg:#fff;--panel:#f8f9fb;--panel2:#f1f3f6;--border:#e5e7eb;--text:#1f2937;--muted:#6b7280;
-    --bull:#16a34a;--bullbg:#dcfce7;--bear:#dc2626;--bearbg:#fee2e2;--neutral:#d97706;--neutbg:#fef3c7;
+    --bull:#16a34a;--bullbg:#dcfce7;--up:#e63946;--down:#2a9d8f;--bear:#dc2626;--bearbg:#fee2e2;--neutral:#d97706;--neutbg:#fef3c7;
     --none:#6b7280;--nonebg:#f3f4f6;--accent:#2563eb;--accentbg:#dbeafe;--key:#7c3aed;}
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
@@ -48,11 +48,12 @@ CSS = """<style>
   .tag-bull{background:var(--bullbg);color:var(--bull)}.tag-bear{background:var(--bearbg);color:var(--bear)}
   .tag-neutral{background:var(--neutbg);color:var(--neutral)}.tag-none{background:var(--nonebg);color:var(--none)}
   .chart{width:100%;height:auto;display:block;margin:8px 0 2px;border:1px solid var(--border);border-radius:6px;background:#fff}
-  .up{color:var(--bull);font-weight:600}.down{color:var(--bear);font-weight:600}
+  .up{color:var(--up);font-weight:600}.down{color:var(--down);font-weight:600}
   .kn{color:var(--key);font-weight:700;font-variant-numeric:tabular-nums}
   .box{border-radius:8px;padding:8px 12px;margin:8px 0;font-size:13.5px}
   .box-r{background:var(--bearbg)}.box-a{background:var(--accentbg)}.box-g{background:var(--bullbg)}
   .foot{margin-top:30px;padding-top:12px;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted)}
+  .vol{color:var(--neutral);font-weight:600}
 </style>"""
 
 
@@ -144,7 +145,7 @@ HTML = f"""<!DOCTYPE html>
 
 <div class="grid4">
   <div class="kpi"><div class="label">上证指数 · 3750 未破</div><div class="val down">{pct(sh['pct'])}</div></div>
-  <div class="kpi"><div class="label">两市成交额 · +{amt_growth}%</div><div class="val up">{amt_now} 亿</div></div>
+  <div class="kpi"><div class="label">两市成交额 · +{amt_growth}%</div><div class="val vol">{amt_now} 亿</div></div>
   <div class="kpi"><div class="label">涨 / 跌家数</div><div class="val"><span class="up">{MKT['up']}</span> / <span class="down">{MKT['down']}</span></div></div>
   <div class="kpi"><div class="label">涨停 / 跌停 · 昨 118</div><div class="val">{ZT.get('n','—')} / {DT.get('n','—')}</div></div>
 </div>

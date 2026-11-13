@@ -9,7 +9,7 @@
     --bg:#ffffff; --panel:#f8f9fb; --panel-2:#f1f3f6;
     --border:#e5e7eb; --border-strong:#d1d5db;
     --text:#1f2937; --muted:#6b7280;
-    --bull:#16a34a; --bull-bg:#dcfce7;
+    --bull:#16a34a; --bull-bg:#dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear:#dc2626; --bear-bg:#fee2e2;
     --neutral:#d97706; --neutral-bg:#fef3c7;
     --none:#6b7280; --none-bg:#f3f4f6;
@@ -60,8 +60,8 @@
   .tag-key{background:var(--key-bg);color:var(--key)}
   .chart{width:100%;height:auto;display:block;margin:12px 0;border:1px solid var(--border);border-radius:6px;background:#fff}
   .cap{font-size:12px;color:var(--muted);margin:-4px 0 18px}
-  .up{color:var(--bull);font-weight:600}
-  .down{color:var(--bear);font-weight:600}
+  .up{color:var(--up);font-weight:600}
+  .down{color:var(--down);font-weight:600}
   .flat{color:var(--muted);font-weight:600}
   .kn{color:var(--key);font-weight:700;font-variant-numeric:tabular-nums}
   .foot{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
@@ -69,6 +69,7 @@
   .sector{background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:16px 0}
   .sector.r2{border-left-color:#d97706}
   .sector.r3{border-left-color:#7c3aed}
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -89,7 +90,7 @@
 <div class="grid-4">
   <div class="kpi"><div class="label">上证指数</div><div class="val up">+0.08%</div><div class="sub">3663.72 · 开 3682.04 高 3683.73 低 3660.72</div></div>
   <div class="kpi"><div class="label">深证成指 / 创业板</div><div class="val up">+0.86% / +1.46%</div><div class="sub">11241.54 · 2494.4 · 沪深300 +0.07%</div></div>
-  <div class="kpi"><div class="label">两市成交额</div><div class="val up">15048.1 亿</div><div class="sub">较前日 14826.3 亿 +1.50% · 沪缩深放</div></div>
+  <div class="kpi"><div class="label">两市成交额</div><div class="val vol">15048.1 亿</div><div class="sub">较前日 14826.3 亿 +1.50% · 沪缩深放</div></div>
   <div class="kpi"><div class="label">涨 / 跌 家数</div><div class="val"><span class="up">4273</span> / <span class="down">1149</span></div><div class="sub">涨停 93 · 跌停 0 · 中位 1.313%</div></div>
 </div>
 
@@ -103,7 +104,7 @@
 
 <h2>一、指数：高开低走、尾盘跳水，15 分钟中枢下沿被破</h2>
 <p>实测：上证 <span class="up">+0.08%</span> 收 3663.72（开 3682.04 / 高 3683.73 / 低 3660.72），深成指 <span class="up">+0.86%</span>，创业板指 <span class="up">+1.46%</span>，沪深300 +0.07%。<b>走势形态与老师描述的「高开后震荡下行、走势比较沉闷」完全一致</b>：上证最高点就是开盘那一分钟（3683.73），全天从 +0.58% 一路回落，收盘几乎平盘且贴近日内最低。</p>
-<p>两市成交额 15048.1 亿（沪 6739.5 亿 + 深 8308.6 亿），较前一日 14826.3 亿<b>微增 1.5%</b>。但这是<b>结构分化</b>：沪市 6825.3 → 6739.5 亿（<span class="down">缩量</span>），深市 8001.0 → 8308.6 亿（<span class="up">放量</span>）—— 钱去了成长与题材，权重端没有承接。</p>
+<p>两市成交额 15048.1 亿（沪 6739.5 亿 + 深 8308.6 亿），较前一日 14826.3 亿<b>微增 1.5%</b>。但这是<b>结构分化</b>：沪市 6825.3 → 6739.5 亿（<span class="vol">缩量</span>），深市 8001.0 → 8308.6 亿（<span class="vol">放量</span>）—— 钱去了成长与题材，权重端没有承接。</p>
 <p>涨跌家数 <span class="up">4273</span> / <span class="down">1149</span>（平 151），个股涨跌幅中位数 <span class="up">1.313%</span>，涨停 93 家、跌停 0 家。<b>赚钱效应明显好于昨日</b>（11/09 为 2242 涨 / 3148 跌），但老师仍给「市场温度 25 度」—— 老师看的是结构（热点高度、连板质量）而非数量，本纪要在偏差表中记录这一差异。</p>
 
 <img class="chart" src="charts/000001_SH_DY_20261110.png" alt="上证指数"><div class="cap">上证指数（000001.SH）日线 · 15 分钟下跌中枢 3664.40–3689.91，收盘 3663.72 已跌破下沿 0.68 点；向上确认位 3750 未触及。</div>

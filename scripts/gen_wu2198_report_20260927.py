@@ -168,7 +168,7 @@ HTML = """<!DOCTYPE html>
     --text: #1f2937;
     --muted: #6b7280;
     --bull: #16a34a;
-    --bull-bg: #dcfce7;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626;
     --bear-bg: #fee2e2;
     --neutral: #d97706;
@@ -270,6 +270,7 @@ HTML = """<!DOCTYPE html>
   ul, ol {{ margin: 8px 0; padding-left: 24px; }}
   li {{ margin: 4px 0; }}
   .footer {{ text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }}
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -305,12 +306,12 @@ HTML = """<!DOCTYPE html>
     </div>
     <div class="kpi">
       <div class="label">沪指 9/24 收</div>
-      <div class="val" style="color: var(--bear);">{SH_INDEX}</div>
+      <div class="val" style="color:var(--down)">{SH_INDEX}</div>
       <div class="sub">失守 B 浪位 3886 距 3856 仅 32 点</div>
     </div>
     <div class="kpi">
       <div class="label">创业板 9/24 收</div>
-      <div class="val" style="color: var(--bear);">3288.95</div>
+      <div class="val" style="color:var(--down)">3288.95</div>
       <div class="sub">-2.68% 跌穿试破位 3286 距 3160 仅 129 点</div>
     </div>
     <div class="kpi">

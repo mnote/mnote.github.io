@@ -24,7 +24,7 @@ MKT = {
 }
 
 def signed(v, suffix=""):
-    color = "var(--bull)" if v >= 0 else "var(--bear)"
+    color = "var(--up)" if v >= 0 else "var(--down)"
     return f'<strong style="color:{color}">{v:+.2f}%</strong>{suffix}'
 
 # ── 9 条微博（按时间倒序 · tushare/weibo 实测互动数）──────────
@@ -89,7 +89,7 @@ HTML = f"""<!DOCTYPE html>
     --text: #1f2937;
     --muted: #6b7280;
     --bull: #16a34a;
-    --bull-bg: #dcfce7;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626;
     --bear-bg: #fee2e2;
     --neutral: #d97706;
@@ -191,6 +191,7 @@ HTML = f"""<!DOCTYPE html>
   ul, ol {{ margin: 8px 0; padding-left: 24px; }}
   li {{ margin: 4px 0; }}
   .footer {{ text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }}
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -200,7 +201,7 @@ HTML = f"""<!DOCTYPE html>
     <h1>🔴 wu2198 投资观点日报 · 2026-10-12</h1>
     <div class="meta">
       <span>📅 <b>2026-10-12 (周一 21:00 · 🇨🇳 国庆节后第 3 个交易日)</b></span>
-      <span>🏛️ 沪指 10/12 收 <b style="color:var(--bear)">3797.24 (-0.43%)</b></span>
+      <span>🏛️ 沪指 10/12 收 <b style="color:var(--down)">3797.24 (-0.43%)</b></span>
       <span>📊 数据源:weibo + tushare</span>
     </div>
     <div class="stance">
@@ -217,17 +218,17 @@ HTML = f"""<!DOCTYPE html>
   <div class="grid-3">
     <div class="kpi">
       <div class="label">博主 10/12 核心立场</div>
-      <div class="val" style="color: var(--bear);">🔴 偏空 ·「软」</div>
+      <div class="val" style="color:var(--bear)">🔴 偏空 ·「软」</div>
       <div class="sub">9 条 · 3 条带信号 · 2 多 / 1 空 / 6 情绪风控</div>
     </div>
     <div class="kpi">
       <div class="label">博主收盘定调 (15:05)</div>
-      <div class="val" style="color: var(--bear);">🔴 C3 调整未完</div>
+      <div class="val" style="color:var(--bear)">🔴 C3 调整未完</div>
       <div class="sub">「暂时还没有形成 C4 反弹」10357 赞 · 12577 综合分</div>
     </div>
     <div class="kpi">
       <div class="label">博主当日唯一主线 (09:44)</div>
-      <div class="val" style="color: var(--bull);">🟢 四大行+两桶油</div>
+      <div class="val" style="color:var(--bull)">🟢 四大行+两桶油</div>
       <div class="sub">「继续提肩带」6871 赞 · 4 只银行全收 60D 高</div>
     </div>
     <div class="kpi">
@@ -237,12 +238,12 @@ HTML = f"""<!DOCTYPE html>
     </div>
     <div class="kpi">
       <div class="label">沪指 10/12 收</div>
-      <div class="val" style="color: var(--bear);">3797.24 (-0.43%)</div>
+      <div class="val" style="color:var(--down)">3797.24 (-0.43%)</div>
       <div class="sub">跌破 MA5 3819.12 · 逼近博主区间下沿 3786</div>
     </div>
     <div class="kpi">
       <div class="label">创业板 10/12 收</div>
-      <div class="val" style="color: var(--bear);">2963.82 (-2.61%)</div>
+      <div class="val" style="color:var(--down)">2963.82 (-2.61%)</div>
       <div class="sub">距 10/9 前低 2932.80 仅 31 点 · C3 调整延续</div>
     </div>
   </div>
@@ -338,25 +339,25 @@ HTML = f"""<!DOCTYPE html>
     <p><b>逻辑</b>:节后资金避险 + 央行 PSL -25bp 利好息差 + 高股息防御属性,在成长股杀跌时成为唯一避险池。<b>4 只银行全部收在当日最高价</b>,说明是<b>资金主动扫货而非尾盘偷袭</b>。博主的「提肩带」正在从「稳步抬升」进入「突破新高」阶段。<b>⚠️ 但注意:博主本人从未给过银行的具体买点,只给方向 —— 突破后需防高位回抽。</b></p>
       <div class="stock-card bull">
         <h4>🟢 工商银行 (601398.SH) · 四大行 · 60D 高突破</h4>
-        <div class="logic">博主 9/29「四大行一直在提肩带」+ 10/12「四大行,两桶油等继续提肩带」<b>连续两轮同一措辞</b>。10/12 收 <strong style="color:var(--bull)">8.44 (+2.68%)</strong>,<b>收盘价 = 当日最高价 = 60 日新高,教科书级突破</b>。均线多头排列(MA5 8.28 / MA10 8.20 / MA20 8.14 / MA60 7.89),放量上攻(355 万手)。国有大行高股息底仓,博主管线里最稳的防御品种。<b>⚠️ 突破后不追,等回抽 MA5 8.28 确认。</b></div>
+        <div class="logic">博主 9/29「四大行一直在提肩带」+ 10/12「四大行,两桶油等继续提肩带」<b>连续两轮同一措辞</b>。10/12 收 <strong style="color:var(--up)">8.44 (+2.68%)</strong>,<b>收盘价 = 当日最高价 = 60 日新高,教科书级突破</b>。均线多头排列(MA5 8.28 / MA10 8.20 / MA20 8.14 / MA60 7.89),放量上攻(355 万手)。国有大行高股息底仓,博主管线里最稳的防御品种。<b>⚠️ 突破后不追,等回抽 MA5 8.28 确认。</b></div>
         <div class="key">60D 高 8.44(已破) / 60D 低 7.29 / 10/12 收 8.44 / MA5 8.28 / MA10 8.20 / MA20 8.14 / MA60 7.89</div>
       </div>
       <div class="stock-card bull">
         <h4>🟢 农业银行 (601288.SH) · 四大行 · 60D 高突破 · 当日最强</h4>
-        <div class="logic">博主 9/29 四大行提肩带验证品种。10/12 收 <strong style="color:var(--bull)">7.19 (+3.01%)</strong>,<b>收盘价 = 当日最高价 = 60 日新高</b>,四大行中涨幅居前。放量 416 万手(四大行之最)。MA5 7.02 / MA10 6.95 / MA20 6.91 / MA60 6.75 完全多头,短期无套牢盘。<b>⚠️ 已距 60D 低 7.20 上涨 16%,追高风险大于工行。</b></div>
+        <div class="logic">博主 9/29 四大行提肩带验证品种。10/12 收 <strong style="color:var(--up)">7.19 (+3.01%)</strong>,<b>收盘价 = 当日最高价 = 60 日新高</b>,四大行中涨幅居前。放量 416 万手(四大行之最)。MA5 7.02 / MA10 6.95 / MA20 6.91 / MA60 6.75 完全多头,短期无套牢盘。<b>⚠️ 已距 60D 低 7.20 上涨 16%,追高风险大于工行。</b></div>
         <div class="key">60D 高 7.19(已破) / 60D 低 6.20 / 10/12 收 7.19 / MA5 7.02 / MA10 6.95 / MA20 6.91 / MA60 6.75</div>
       </div>
 
     <h3>🟢 板块 2: 石油 / 两桶油 · 能源防御（博主 10/12 点名「两桶油」· 中石油收 60D 高）</h3>
-    <p>博主 09:44「<b>两桶油</b>等继续提肩带」直接点名。中国石油 10/12 收 <strong style="color:var(--bull)">11.90 (+2.59%)</strong>,<b>收 = 当日最高 = 60 日新高</b>;中国石化 +0.74% 同步翻红。逻辑:OPEC+ 减产 + 中东地缘 + 高股息 + 低估值(PB 1x 以下),是四大行之外第二条防御腿。同期能源内的中国神华 +2.02% 收 49.38,<b>逼近 60D 高 49.48(仅差 0.10)</b>,能源防御三剑客(神华/中石油/中石化)集体走强 —— 博主「等」字涵盖的整个防御板块,<b>当日集体兑现</b>。</p>
+    <p>博主 09:44「<b>两桶油</b>等继续提肩带」直接点名。中国石油 10/12 收 <strong style="color:var(--up)">11.90 (+2.59%)</strong>,<b>收 = 当日最高 = 60 日新高</b>;中国石化 +0.74% 同步翻红。逻辑:OPEC+ 减产 + 中东地缘 + 高股息 + 低估值(PB 1x 以下),是四大行之外第二条防御腿。同期能源内的中国神华 +2.02% 收 49.38,<b>逼近 60D 高 49.48(仅差 0.10)</b>,能源防御三剑客(神华/中石油/中石化)集体走强 —— 博主「等」字涵盖的整个防御板块,<b>当日集体兑现</b>。</p>
       <div class="stock-card bull">
         <h4>🟢 中国石油 (601857.SH) · 两桶油 · 60D 高突破</h4>
-        <div class="logic">博主 10/12 09:44「<b>两桶油</b>等继续提肩带」直接点名。10/12 收 <strong style="color:var(--bull)">11.90 (+2.59%)</strong>,<b>收盘价 = 当日最高价 = 60 日新高</b>,从 10/9 的 11.60 连拉两日。MA5 11.48 / MA10 11.17 / MA20 11.01 / MA60 10.74 完全多头排列。OPEC+ 减产 + 中东地缘双重催化 + 高股息。<b>⚠️ 距 60D 低 9.08 已涨 31%,油价回落是主要风险。</b></div>
+        <div class="logic">博主 10/12 09:44「<b>两桶油</b>等继续提肩带」直接点名。10/12 收 <strong style="color:var(--up)">11.90 (+2.59%)</strong>,<b>收盘价 = 当日最高价 = 60 日新高</b>,从 10/9 的 11.60 连拉两日。MA5 11.48 / MA10 11.17 / MA20 11.01 / MA60 10.74 完全多头排列。OPEC+ 减产 + 中东地缘双重催化 + 高股息。<b>⚠️ 距 60D 低 9.08 已涨 31%,油价回落是主要风险。</b></div>
         <div class="key">60D 高 11.90(已破) / 60D 低 9.08 / 10/12 收 11.90 / MA5 11.48 / MA10 11.17 / MA20 11.01 / MA60 10.74</div>
       </div>
       <div class="stock-card bull">
         <h4>🟢 中国神华 (601088.SH) · 能源防御 · 逼近 60D 高</h4>
-        <div class="logic">博主「四大行,两桶油<b>等</b>」中的「等」字涵盖能源防御线。10/12 收 <strong style="color:var(--bull)">49.38 (+2.02%)</strong>,<b>距 60D 高 49.48 仅差 0.10</b>,是当日防御板块中最接近突破的一只。煤电路港航化一体化 + 现金奶牛 + 股息率约 5%。MA5 48.07 / MA10 47.83 / MA20 47.34 / MA60 46.10 多头。<b>⚠️ 49.48 是关键阻力,突破需放量确认。</b></div>
+        <div class="logic">博主「四大行,两桶油<b>等</b>」中的「等」字涵盖能源防御线。10/12 收 <strong style="color:var(--up)">49.38 (+2.02%)</strong>,<b>距 60D 高 49.48 仅差 0.10</b>,是当日防御板块中最接近突破的一只。煤电路港航化一体化 + 现金奶牛 + 股息率约 5%。MA5 48.07 / MA10 47.83 / MA20 47.34 / MA60 46.10 多头。<b>⚠️ 49.48 是关键阻力,突破需放量确认。</b></div>
         <div class="key">60D 高 49.48 / 60D 低 40.72 / 10/12 收 49.38 / MA5 48.07 / MA10 47.83 / MA20 47.34 / MA60 46.10</div>
       </div>
 
@@ -364,12 +365,12 @@ HTML = f"""<!DOCTYPE html>
     <p>博主 10/8 14:57「今天市场中,只有固态电池板块资金是活动明显的」+ 10/9 14:40「<b>固态电池板块出现有 4 连板的和连续 2 个 20 及 30 厘米的。说明市场资金活动是明显的</b>」+ 10/10 20:15「<b>起码等固态电池技术成熟之后吧</b>」— 博主节后<b>三次确认</b>但<b>本人持续观望</b>。10/12 该主线<b>未能延续节后强势,出现明显分化</b>:<b>宁德时代 +0.21%(逆势抗跌)</b> vs <b>赣锋锂业 -3.94%(破位下杀)</b> — 龙头抗跌、跟风股杀跌,是典型的<b>退潮初期结构</b>。叠加博主 10/10「等成熟」的观望态度 + 对电车的持续看空,该板块<b>降级为观察仓</b>。</p>
       <div class="stock-card neutral">
         <h4>🟡 宁德时代 (300750.SZ) · 固态电池龙头 · 逆势抗跌</h4>
-        <div class="logic">博主 10/8+10/9+10/10 <b>三次确认</b>「固态电池资金活动明显」。10/12 收 <strong style="color:var(--bull)">298.38 (+0.21%)</strong> — 在创业板 -2.61% 的普跌日<b>逆势翻红,相对强度突出</b>,说明龙头资金仍在。但 <b>MA20 310.17 / MA60 357.31 仍在头顶压制</b>,距 60D 高 408.51 仍有 27% 空间,属超跌反弹而非趋势反转。<b>博主 10/10「等固态电池技术成熟之后吧」本人持观望 —— 不追高。</b></div>
+        <div class="logic">博主 10/8+10/9+10/10 <b>三次确认</b>「固态电池资金活动明显」。10/12 收 <strong style="color:var(--up)">298.38 (+0.21%)</strong> — 在创业板 -2.61% 的普跌日<b>逆势翻红,相对强度突出</b>,说明龙头资金仍在。但 <b>MA20 310.17 / MA60 357.31 仍在头顶压制</b>,距 60D 高 408.51 仍有 27% 空间,属超跌反弹而非趋势反转。<b>博主 10/10「等固态电池技术成熟之后吧」本人持观望 —— 不追高。</b></div>
         <div class="key">60D 高 408.51 / 60D 低 285.17 / 10/12 收 298.38 / MA5 292.16 / MA10 294.90 / MA20 310.17 / MA60 357.31</div>
       </div>
       <div class="stock-card bear">
         <h4>🔴 赣锋锂业 (002460.SZ) · 锂矿 · 10/12 破位走弱</h4>
-        <div class="logic">博主三次确认的固态电池产业链标的。10/12 收 <strong style="color:var(--bear)">43.68 (-3.94%)</strong>,<b>单日跑输大盘 3.5 个百分点</b>,已跌破 MA5 44.03 / MA10 44.42 / MA20 45.82,<b>逼近 60D 低 41.67(仅差 2.01)</b>。与宁德 +0.21% 形成鲜明对比 — <b>板块内部严重分化,跟风股正在退潮</b>。这是 10/12 最明确的<b>减仓/回避信号</b>。</div>
+        <div class="logic">博主三次确认的固态电池产业链标的。10/12 收 <strong style="color:var(--down)">43.68 (-3.94%)</strong>,<b>单日跑输大盘 3.5 个百分点</b>,已跌破 MA5 44.03 / MA10 44.42 / MA20 45.82,<b>逼近 60D 低 41.67(仅差 2.01)</b>。与宁德 +0.21% 形成鲜明对比 — <b>板块内部严重分化,跟风股正在退潮</b>。这是 10/12 最明确的<b>减仓/回避信号</b>。</div>
         <div class="key">60D 高 56.89 / 60D 低 41.67 / 10/12 收 43.68 / MA5 44.03 / MA10 44.42 / MA20 45.82 / MA60 49.68</div>
       </div>
 

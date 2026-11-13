@@ -14,7 +14,7 @@
     --text: #1f2937;
     --muted: #6b7280;
     --bull: #16a34a;
-    --bull-bg: #dcfce7;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626;
     --bear-bg: #fee2e2;
     --neutral: #d97706;
@@ -138,9 +138,10 @@
   li { margin: 4px 0; }
   .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
   .verdict { font-weight: 600; }
-  .up { color: var(--bull); font-weight: 600; }
-  .down { color: var(--bear); font-weight: 600; }
+  .up { color: var(--up); font-weight: 600; }
+  .down { color: var(--down); font-weight: 600; }
   .hl { background: linear-gradient(transparent 62%, #fef08a 62%); padding: 0 2px; }
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -214,7 +215,7 @@
     </div>
     <div class="kpi">
       <div class="label">全市场成交额</div>
-      <div class="val up">20519 亿</div>
+      <div class="val vol">20519 亿</div>
       <div class="sub">增量 3368 亿（与博主原话一致）</div>
     </div>
   </div>

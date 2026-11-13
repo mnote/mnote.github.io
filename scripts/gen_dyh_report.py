@@ -27,7 +27,7 @@ CSS = """<style>
     --bg:#ffffff; --panel:#f8f9fb; --panel-2:#f1f3f6;
     --border:#e5e7eb; --border-strong:#d1d5db;
     --text:#1f2937; --muted:#6b7280;
-    --bull:#16a34a; --bull-bg:#dcfce7;
+    --bull:#16a34a; --bull-bg:#dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear:#dc2626; --bear-bg:#fee2e2;
     --neutral:#d97706; --neutral-bg:#fef3c7;
     --none:#6b7280; --none-bg:#f3f4f6;
@@ -78,8 +78,8 @@ CSS = """<style>
   .tag-key{background:var(--key-bg);color:var(--key)}
   .chart{width:100%;height:auto;display:block;margin:12px 0;border:1px solid var(--border);border-radius:6px;background:#fff}
   .cap{font-size:12px;color:var(--muted);margin:-4px 0 18px}
-  .up{color:var(--bull);font-weight:600}
-  .down{color:var(--bear);font-weight:600}
+  .up{color:var(--up);font-weight:600}
+  .down{color:var(--down);font-weight:600}
   .flat{color:var(--muted);font-weight:600}
   .kn{color:var(--key);font-weight:700;font-variant-numeric:tabular-nums}
   .foot{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
@@ -87,6 +87,7 @@ CSS = """<style>
   .sector{background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:16px 0}
   .sector.r2{border-left-color:#d97706}
   .sector.r3{border-left-color:#7c3aed}
+  .vol{color:var(--neutral);font-weight:600}
 </style>"""
 
 
@@ -211,7 +212,7 @@ HTML = f"""<!DOCTYPE html>
 <div class="grid-4">
   <div class="kpi"><div class="label">上证指数</div><div class="val up">{pct(sh['pct'])}</div><div class="sub">{sh['close']} · 成交 {sh['amount_yi']} 亿（前 {sh['prev_amount_yi']}）</div></div>
   <div class="kpi"><div class="label">深证成指</div><div class="val down">{pct(sz['pct'])}</div><div class="sub">{sz['close']} · 成交 {sz['amount_yi']} 亿</div></div>
-  <div class="kpi"><div class="label">两市成交额</div><div class="val down">{tot_amt} 亿</div><div class="sub">较前日 {tot_amt_prev} 亿 {pct(amt_drop)} · 缩量</div></div>
+  <div class="kpi"><div class="label">两市成交额</div><div class="val vol">{tot_amt} 亿</div><div class="sub">较前日 {tot_amt_prev} 亿 {pct(amt_drop)} · 缩量</div></div>
   <div class="kpi"><div class="label">涨 / 跌 家数</div><div class="val"><span class="up">{B['up']}</span> / <span class="down">{B['down']}</span></div><div class="sub">涨停 {B['zt_em']} · 跌停 {B['dt_em']} · 中位 {B['median_pct']}%</div></div>
 </div>
 

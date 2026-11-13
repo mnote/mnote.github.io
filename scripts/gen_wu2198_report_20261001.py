@@ -175,7 +175,7 @@ HTML = """<!DOCTYPE html>
     --text: #1f2937;
     --muted: #6b7280;
     --bull: #16a34a;
-    --bull-bg: #dcfce7;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
     --bear: #dc2626;
     --bear-bg: #fee2e2;
     --neutral: #d97706;
@@ -277,6 +277,7 @@ HTML = """<!DOCTYPE html>
   ul, ol {{ margin: 8px 0; padding-left: 24px; }}
   li {{ margin: 4px 0; }}
   .footer {{ text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }}
+  .vol{color:var(--neutral);font-weight:600}
 </style>
 </head>
 <body>
@@ -311,12 +312,12 @@ HTML = """<!DOCTYPE html>
     </div>
     <div class="kpi">
       <div class="label">沪指 9/30 收</div>
-      <div class="val" style="color: var(--bull);">{SH_INDEX}</div>
+      <div class="val" style="color:var(--up)">{SH_INDEX}</div>
       <div class="sub">距 3800 多方抵抗关卡 +42 / 距 60D低 3764 仅 78</div>
     </div>
     <div class="kpi">
       <div class="label">创业板 9/30 收</div>
-      <div class="val" style="color: var(--bear);">{CYB_INDEX}</div>
+      <div class="val" style="color:var(--down)">{CYB_INDEX}</div>
       <div class="sub">创 60D/120D 新低 · 跌穿 A 杀位 3160</div>
     </div>
     <div class="kpi">
@@ -331,7 +332,7 @@ HTML = """<!DOCTYPE html>
     </div>
     <div class="kpi">
       <div class="label">操盘信号</div>
-      <div class="val" style="color: var(--bull);">🟢 1 条</div>
+      <div class="val" style="color:var(--bull)">🟢 1 条</div>
       <div class="sub">美光存储芯片财报 +380%/+1077%</div>
     </div>
   </div>
@@ -530,12 +531,12 @@ HTML = """<!DOCTYPE html>
   <table>
     <thead><tr><th>标的</th><th>板块</th><th>支撑</th><th>9/30 收</th><th>压力</th><th>60D高</th><th>监控动作</th></tr></thead>
     <tbody>
-      <tr><td>兆易创新 603986</td><td>存储芯片</td><td>340 / 340.74</td><td><b style="color:var(--bear)">353.90 (-3.72%)</b></td><td>600</td><td>663.49</td><td><b>博主美光财报 → A 股映射</b> · 9/30 节前资金利获利了结 · 60D低 340.74 接近,中期买点</td></tr>
-      <tr><td>澜起科技 688008</td><td>存储芯片</td><td>195 / 183.60</td><td><b style="color:var(--bear)">202.31 (-4.84%)</b></td><td>240</td><td>285.80</td><td><b>美光超级景气 → DDR5 接口芯片</b> · 9/30 跌幅最大 · 60D低 183.60 接近</td></tr>
-      <tr><td>工商银行 601398</td><td>银行</td><td>8.20 / 7.27</td><td><b style="color:var(--bull)">8.28 (+1.47%)</b></td><td>8.30</td><td>8.30</td><td><b>博主「四大行提肩带」验证</b> · 9/30 银行涨幅第一 · 60D高 8.30 一步之遥,持有</td></tr>
-      <tr><td>农业银行 601288</td><td>银行</td><td>6.80 / 6.11</td><td><b style="color:var(--bull)">6.97 (+0.43%)</b></td><td>7.11</td><td>7.11</td><td><b>博主「老登股局部上涨」</b> · 与工行同节奏,股息率 ~5%,防御底仓</td></tr>
-      <tr><td>恒瑞医药 600276</td><td>创新药</td><td>45 / 42.67</td><td><b style="color:var(--bull)">47.20 (+3.46%)</b></td><td>50 / 58</td><td>58.00</td><td><b>博主 9/30 14:13 「生物制品黑马」</b> · 9 月 BD 28.5 亿美元 · 60D高 58 待突破</td></tr>
-      <tr><td>百济神州 688235</td><td>创新药</td><td>255 / 247.30</td><td><b style="color:var(--bull)">264.41 (+1.91%)</b></td><td>280</td><td>300.30</td><td><b>博主 9/30 14:08 「医药局部上涨」</b> · 出海龙头 · 海外营收占比 58%</td></tr>
+      <tr><td>兆易创新 603986</td><td>存储芯片</td><td>340 / 340.74</td><td><b style="color:var(--down)">353.90 (-3.72%)</b></td><td>600</td><td>663.49</td><td><b>博主美光财报 → A 股映射</b> · 9/30 节前资金利获利了结 · 60D低 340.74 接近,中期买点</td></tr>
+      <tr><td>澜起科技 688008</td><td>存储芯片</td><td>195 / 183.60</td><td><b style="color:var(--down)">202.31 (-4.84%)</b></td><td>240</td><td>285.80</td><td><b>美光超级景气 → DDR5 接口芯片</b> · 9/30 跌幅最大 · 60D低 183.60 接近</td></tr>
+      <tr><td>工商银行 601398</td><td>银行</td><td>8.20 / 7.27</td><td><b style="color:var(--up)">8.28 (+1.47%)</b></td><td>8.30</td><td>8.30</td><td><b>博主「四大行提肩带」验证</b> · 9/30 银行涨幅第一 · 60D高 8.30 一步之遥,持有</td></tr>
+      <tr><td>农业银行 601288</td><td>银行</td><td>6.80 / 6.11</td><td><b style="color:var(--up)">6.97 (+0.43%)</b></td><td>7.11</td><td>7.11</td><td><b>博主「老登股局部上涨」</b> · 与工行同节奏,股息率 ~5%,防御底仓</td></tr>
+      <tr><td>恒瑞医药 600276</td><td>创新药</td><td>45 / 42.67</td><td><b style="color:var(--up)">47.20 (+3.46%)</b></td><td>50 / 58</td><td>58.00</td><td><b>博主 9/30 14:13 「生物制品黑马」</b> · 9 月 BD 28.5 亿美元 · 60D高 58 待突破</td></tr>
+      <tr><td>百济神州 688235</td><td>创新药</td><td>255 / 247.30</td><td><b style="color:var(--up)">264.41 (+1.91%)</b></td><td>280</td><td>300.30</td><td><b>博主 9/30 14:08 「医药局部上涨」</b> · 出海龙头 · 海外营收占比 58%</td></tr>
     </tbody>
   </table>
 
