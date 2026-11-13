@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""首页插卡（去 Jekyll 后的通用版，替代逐日手写的 update_index_YYYYMMDD.py）。
+"""首页插卡（纯静态 index.html 通用版）。
 
 站点已去掉 Jekyll：index.html 是**纯静态**页面 —— 没有 YAML front matter，没有 Liquid。
-所以插入卡片不再受「必须锚定在 front matter 之后」的约束，但仍然用锚点插入，
-避免误伤其他卡片。
+
+**卡片不放徽标、不放 emoji 图标**（用户 2026-11-13 明确要求）：
+    <div class="featured"><h2><a href="/html/xxx.html">标题</a></h2></div>
+
+插卡位置：
+- `latest`（wu2198 日报）：插在第一张 wu2198 卡片之前（保持最新在前）
+- `dyh`（都业华收评/午评）：插在第一张 DYH 卡片之前
 
 用法：
-  # ① wu2198 日报：新增一张「🔥 最新」卡，原「🔥 最新」自动降级为「📅 往期」
-  python3 scripts/update_index.py latest \
-      --url /wu2198-20261113.html \
-      --title "wu2198 投资日报 - 2026-11-13（周五 ……）"
-
-  # ② 都业华收评 / 午评：在「🧭 高级班」区块最前面插一张卡（保持最新在前）
-  python3 scripts/update_index.py dyh \
-      --url /duyiehua-20261113.html \
+  python3 scripts/update_index.py latest --url /html/wu2198-20261113.html \
+      --title "wu2198 - 2026-11-13（周五 ……）"
+  python3 scripts/update_index.py dyh --url /html/duyiehua-20261113.html \
       --title "DYH 收评 - 2026-11-13（周五 ……）"
 
 幂等：URL 已存在则跳过，不会重复插卡。
@@ -27,68 +27,50 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 IDX = ROOT / "index.html"
 
-BADGE_LATEST = "🔥 最新"
-BADGE_HISTORY = "📅 往期"
-BADGE_DYH = "🧭 高级班"
+DYH_STYLE = ("background: linear-gradient(135deg, #f5f0ff 0%, #eef9ff 100%); "
+             "border-color: #d6c4f7; border-left-color: #7e57c2;")
 
 
-def card(url, title, badge=None, style=None):
-    b = f'<span class="badge">{badge}</span> ' if badge else ""
+def card(url, title, style=None):
     s = f' style="{style}"' if style else ""
-    return f'<div class="featured"{s}><h2>{b}<a href="{url}">{title}</a></h2></div>'
+    return f'<div class="featured"{s}><h2><a href="{url}">{title}</a></h2></div>'
+
+
+def _insert_before(html, url, title, first_of, style=None):
+    if f'href="{url}"' in html:
+        return html, "[skip] 首页已有该链接"
+    m = re.search(rf'<div class="featured"[^>]*><h2><a href="{first_of}', html)
+    if not m:
+        return html, f"[ERR] 找不到以 {first_of} 开头的卡片锚点"
+    idx = m.start()
+    return html[:idx] + card(url, title, style) + "\n" + html[idx:], "[ok] 已插入新卡（无徽标、无图标）"
 
 
 def insert_latest(html, url, title):
-    if f'href="{url}"' in html:
-        return html, "[skip] 首页已有该链接"
-    m = re.search(r'<div class="featured"[^>]*><h2><span class="badge">🔥 最新</span>', html)
-    if not m:
-        return html, "[ERR] 找不到「🔥 最新」卡片锚点"
-    start = m.start()
-    # 找到这张卡片的结束 </h2></div>
-    end = html.index("</h2></div>", start) + len("</h2></div>")
-    old = html[start:end]
-    old_hist = old.replace(f'<span class="badge">{BADGE_LATEST}</span>',
-                            f'<span class="badge">{BADGE_HISTORY}</span>')
-    new = card(url, title, badge=BADGE_LATEST)
-    return html[:start] + new + "\n\n" + old_hist + html[end:], f"[ok] 已插入新卡，原「🔥 最新」降级为「{BADGE_HISTORY}」"
+    return _insert_before(html, url, title, r"/html/wu2198-")
 
 
 def insert_dyh(html, url, title):
-    if f'href="{url}"' in html:
-        return html, "[skip] 首页已有该链接"
-    m = re.search(r'<div class="featured"[^>]*><h2>(?:<span class="badge">🧭 高级班</span> )?', html)
-    idx = None
-    for mm in re.finditer(r'<div class="featured"[^>]*><h2>(?:<span class="badge">🧭 高级班</span> )?<a', html):
-        idx = mm.start()
-        break
-    if idx is None:
-        return html, "[ERR] 找不到「🧭 高级班」区块锚点"
-    new = card(url, title, badge=BADGE_DYH,
-               style="background: linear-gradient(135deg, #f5f0ff 0%, #eef9ff 100%); border-color: #d6c4f7; border-left-color: #7e57c2;")
-    return html[:idx] + new + "\n\n" + html[idx:], "[ok] 已在「🧭 高级班」区块插入新卡"
+    return _insert_before(html, url, title, r"/html/duyiehua-", DYH_STYLE)
 
 
 def main():
-    ap = argparse.ArgumentParser(description="首页插卡（静态版）")
+    ap = argparse.ArgumentParser(description="首页插卡（静态版，无徽标/图标）")
     ap.add_argument("mode", choices=["latest", "dyh"], help="latest=wu2198 日报；dyh=都业华收评/午评")
-    ap.add_argument("--url", required=True, help="卡片链接，必须以 / 开头")
-    ap.add_argument("--title", required=True, help="卡片标题（与报告页 <title>/<h1> 保持同一字符串）")
+    ap.add_argument("--url", required=True, help="卡片链接，以 / 开头（报告页在 /html/ 下）")
+    ap.add_argument("--title", required=True, help="卡片标题（与报告页 <title>/<h1> 同一字符串）")
     args = ap.parse_args()
 
     if not args.url.startswith("/"):
         print("[ERR] --url 必须以 / 开头")
         return 1
-    if args.mode == "latest" and not args.url.endswith(".html"):
+    if not args.url.endswith(".html"):
         print("[ERR] --url 必须是 .html")
         return 1
 
     s = IDX.read_text(encoding="utf-8")
     if not s.lstrip().startswith("<!DOCTYPE html>"):
         print("[ERR] index.html 不是静态首页（首行应为 <!DOCTYPE html>），停止")
-        return 1
-    if "{%" in s:
-        print("[ERR] index.html 含 Liquid 残留（{%），停止")
         return 1
 
     s, msg = (insert_latest if args.mode == "latest" else insert_dyh)(s, args.url, args.title)
@@ -100,7 +82,7 @@ def main():
     body = IDX.read_text(encoding="utf-8")
     print(msg)
     print("[卡片数]", body.count('class="featured"'))
-    print("[Liquid 残留]", body.count("{%"))
+    print("[徽标残留]", body.count('class="badge"'))
     return 0
 
 
