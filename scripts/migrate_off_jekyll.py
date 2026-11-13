@@ -150,7 +150,13 @@ def page_document(body, page, total, canonical, next_url=None, prev_url=None):
     if prev_url:
         head_extra += f'<link rel="prev" href="https://mnote.github.io{prev_url}" />\n'
     doc_title = PAGE_TITLE if page == 1 else f"往期归档 · 第 {page} 页"
-    h1_title = PAGE_TITLE if page == 1 else f"往期归档 · 第 {page} 页"
+    # 2026-11-13：首页不再显示绿色大标题「mnote · wu2198 投资日报」（用户要求删掉），
+    # <title> 保留。归档页仍保留自己的标题。
+    post_header = "" if page == 1 else (
+        '            <header class="post-header">\n'
+        f'                <h1 class="post-title">往期归档 · 第 {page} 页</h1>\n'
+        '            </header>\n'
+    )
     return f"""<!DOCTYPE html>
 <html lang="en_US">
   <head>
@@ -186,10 +192,7 @@ def page_document(body, page, total, canonical, next_url=None, prev_url=None):
     <main id="content" class="main-content" role="main">
 
         <article class="post">
-            <header class="post-header">
-                <h1 class="post-title">{h1_title}</h1>
-            </header>
-            <section>
+{post_header}            <section>
 {body}
             </section>
         </article>
