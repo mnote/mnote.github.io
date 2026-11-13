@@ -8,7 +8,7 @@ from pathlib import Path
 
 from gen_wu2198_report_20261111_close import CSS
 
-OUT = Path("/Users/maoling/workspace/mnote.github.io/wu2198-20261111.html")
+OUT = Path("/Users/maoling/workspace/mnote.github.io/html/wu2198-20261111.html")
 
 TITLE = "wu2198 投资日报 - 2026-11-11（周三 主线切CPO，等收复3706）"
 

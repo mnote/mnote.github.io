@@ -44,8 +44,8 @@ PAGE_SIZE = 10
 SITE_TITLE = "mnote"
 # 2026-11-13：原副标题 “I tried to change the world, but I couldn't find the source code”
 # （GitHub Pages 主题默认文案）已从 banner 删除；这里只留 meta description 用。
-SITE_DESC = "wu2198 投资日报 · 都业华《高级班》收评纪要 · 投研报告归档"
-PAGE_TITLE = "mnote · wu2198 投资日报"
+SITE_DESC = "wu2198 · 都业华《高级班》收评纪要 · 投研报告归档"
+PAGE_TITLE = "mnote"
 
 # 同一日期内的排序：收评 → 午评 → 日报
 KIND_ORDER = {"duyiehua-report": 0, "duyiehua-noon": 1, "wu2198": 2}
@@ -163,7 +163,7 @@ def page_document(body, page, total, canonical, next_url=None, prev_url=None):
 
     <meta charset="UTF-8">
 
-<title>{doc_title} | {SITE_TITLE}</title>
+<title>{doc_title if doc_title == SITE_TITLE else doc_title + " | " + SITE_TITLE}</title>
 <meta name="description" content="{SITE_DESC}" />
 <meta property="og:title" content="{doc_title}" />
 <meta property="og:locale" content="en_US" />

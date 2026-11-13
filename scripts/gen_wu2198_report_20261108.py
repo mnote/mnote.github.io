@@ -6,7 +6,7 @@
 """
 from pathlib import Path
 
-OUT = Path("/Users/maoling/workspace/mnote.github.io/wu2198-20261108.html")
+OUT = Path("/Users/maoling/workspace/mnote.github.io/html/wu2198-20261108.html")
 
 HTML = """<!DOCTYPE html>
 <html lang="zh-CN">

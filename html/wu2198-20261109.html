@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>wu2198 - 2026-11-09</title>
+<style>
+  :root {
+    --bg: #ffffff; --panel: #f8f9fb; --panel-2: #f1f3f6;
+    --border: #e5e7eb; --border-strong: #d1d5db;
+    --text: #1f2937; --muted: #6b7280;
+    --bull: #16a34a; --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
+    --bear: #dc2626; --bear-bg: #fee2e2;
+    --neutral: #d97706; --neutral-bg: #fef3c7;
+    --none: #6b7280; --none-bg: #f3f4f6;
+    --accent: #2563eb; --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero { background: linear-gradient(135deg, #f0fdf4 0%, #f7fff9 100%); border: 1px solid #4ade80; border-radius: 12px; padding: 24px 28px; margin-bottom: 28px; }
+  .hero h1 { color: #14532d; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .hero-turn { background: linear-gradient(135deg, #fef2f2 0%, #fff7f7 100%); border: 1px solid var(--bear); border-radius: 12px; padding: 18px 24px; margin: 18px 0; }
+  .hero-turn h3 { color: #991b1b; margin-top: 0; }
+  .hero-win { background: linear-gradient(135deg, #eff6ff 0%, #f7fbff 100%); border: 1px solid var(--accent); border-radius: 12px; padding: 18px 24px; margin: 18px 0; }
+  .hero-win h3 { color: #1e3a8a; margin-top: 0; }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 16px 0; }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 760px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .kpi { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: center; }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 400px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+  .tag-key { background: #ede9fe; color: var(--key); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .sector { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 18px 22px; margin: 18px 0; }
+  .sector.r1 { border-left-color: #16a34a; }
+  .sector.r2 { border-left-color: #d97706; }
+  .sector.r3 { border-left-color: #7c3aed; }
+  .sector h3 { margin-top: 0; }
+
+  .quote { background: var(--panel-2); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; border-left: 3px solid var(--border-strong); }
+  .quote .who { color: var(--muted); font-size: 12px; display: block; margin-bottom: 4px; }
+  .risk { background: var(--bear-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .action { background: var(--bull-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .verify { background: var(--accent-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .up { color: var(--up); font-weight: 600; }
+  .down { color: var(--down); font-weight: 600; }
+  .flat { color: var(--muted); font-weight: 600; }
+  .key-num { color: var(--key); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+  ul.tight { margin: 8px 0; padding-left: 22px; }
+  ul.tight li { margin: 4px 0; }
+  .divider { height: 1px; background: var(--border); margin: 26px 0; }
+  .vol{color:var(--neutral);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📈 wu2198 - 2026-11-09（周一）</h1>
+  <div class="meta"><a href="/" style="color:#2563eb;text-decoration:none">← 返回首页</a><span style="color:#9ca3af"> · </span>
+    <span>🕘 抓取时间：2026-11-09 21:45</span>
+    <span>📡 数据源：weibo skill（访客时间线 + 三轮搜索接口补采 + 定向探针）</span>
+    <span>💹 行情：Tushare Pro（11/09 收盘 · 前复权）</span>
+  </div>
+  <p class="stance">
+    核心立场：🟢 <b>看多本周反弹</b> —— 09:22「上周探低成功回稳，<b>本周主打反弹</b>」（👍2.25 万 / 💬2718，全窗口互动第一）。
+    但同日 14:22「<b>市场暂时缺乏持续的领涨板块</b>」+ 14:56「<b>指数在收小三角</b>」说明：
+    <b>他认可方向，不认可追高</b>。10:49 那句「逢低分批布局，不要追涨」才是本期真正的操作纲领。
+  </p>
+</div>
+
+<div class="grid-4">
+  <div class="kpi"><div class="label">上证指数</div><div class="val">3660.79</div>
+    <div class="sub"><span class="up">+0.32%</span> · 振幅仅 0.71%</div></div>
+  <div class="kpi"><div class="label">全 A 成交额</div><div class="val">14946 亿</div>
+    <div class="sub"><span class="vol">缩量 1770 亿</span>（−10.6%）</div></div>
+  <div class="kpi"><div class="label">涨停 / 跌停</div><div class="val">54 / 1</div>
+    <div class="sub">前值 32 / 15 · 情绪<b>显著回暖</b></div></div>
+  <div class="kpi"><div class="label">涨 / 跌家数</div><div class="val">2242 / 3148</div>
+    <div class="sub"><span class="down">跌多于涨</span> · 指数红但个股绿</div></div>
+</div>
+
+<div class="hero-win">
+  <h3>📌 一句话总览</h3>
+  <p style="margin-bottom:0">
+    <b>指数红、个股绿、成交缩、涨停翻倍</b> —— 这是典型的「权重与小票分化 + 题材接力」结构。
+    博主抓住了两头：大盘定性<b>反弹</b>（09:22），板块点名<b>机器人 / CPO / GPU</b>（09:40 / 10:02 / 14:34+21:30），
+    同时用 14:22 那句「缺乏持续领涨板块」给自己留了退路。
+    <b>本期 3 个板块全部来自他当日的具名点名，没有一条是推断出来的。</b>
+  </p>
+</div>
+
+<h2>一、窗口内全部微博与信号判定</h2>
+<p class="meta">
+  窗口 <b>11/08 08:24 → 11/09 21:30</b>，共 <b>16 条</b>（11/09 十五条 + 11/08 一条）。
+  采集路径：时间线第 1 页 10 条 → 搜索补采三轮（49 词 / 38 词 / 68 词）→ 合并去重 16 条。
+</p>
+
+<table>
+<thead><tr><th>时间</th><th class="score">👍</th><th class="score">💬</th><th>信号</th><th>原文</th><th>判读</th></tr></thead>
+<tbody>
+<tr><td style='white-space:nowrap'>11/08 16:26</td><td class='score'>12011</td><td class='score'>568</td><td><span class='tag tag-neutral'>🟡 风险警告</span></td><td class='text'><b>之前的白酒+大消费、光伏+新能源及本轮AI+科技…………每一轮热炒后的泡沫破裂都极度类同，没有什么不一样！所以，炒股一定要知深浅，懂进退，把握好度！</b></td><td class='text'>全窗口<b>唯一的空头警告</b>，且直指本轮 AI+科技。次日他虽判「本周主打反弹」，但这条定了他对科技板块的<b>天花板认知</b>——反弹可以参与，泡沫不可恋战。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 09:22</td><td class='score'>22538</td><td class='score'>2718</td><td><span class='tag tag-bull'>🟢 大盘判断</span></td><td class='text'><b>简单粗暴的分析：上周探低成功回稳，本周主打反弹……鼓励的点个赞或者8888</b></td><td class='text'>本期<b>最强信号</b>（点赞 2.25 万 / 评论 2718，全窗口第一）。「探低成功回稳」比上期的「探低抵抗」进了一步：从「抵抗」升级为「回稳」。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 09:40</td><td class='score'>9258</td><td class='score'>179</td><td><span class='tag tag-bull'>🟢 板块点名</span></td><td class='text'>人形机器人龙头最近是<b>连续反击</b>，从植物人又变成了机器人了！</td><td class='text'>点名<b>人形机器人</b>。「连续反击」＝不止一天的反弹；「从植物人变机器人」是自嘲式夸张，形容从僵死到活跃。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 10:02</td><td class='score'>8663</td><td class='score'>170</td><td><span class='tag tag-bull'>🟢 板块点名</span></td><td class='text'><b>光纤、光模块（CPO），出现拉起！</b></td><td class='text'>点名 <b>CPO / 光模块</b>。「出现拉起」比「连续反击」弱一档——盘中刚起，未确认持续性。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 10:49</td><td class='score'>13656</td><td class='score'>1182</td><td><span class='tag tag-bull'>🟢 操作建议</span></td><td class='text'><b>逢低分批布局，不要追涨……明白666</b></td><td class='text'>本期<b>唯一具体操作指令</b>（点赞 1.37 万 / 评论 1182）。「分批 + 不追涨」明确否定了追高涨停票的玩法。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 14:19</td><td class='score'>6168</td><td class='score'>158</td><td><span class='tag tag-none'>⚪ 外盘速报</span></td><td class='text'>日本股市涨1293点。</td><td class='text'>外盘情绪佐证。实测日经 225 当日收盘 <b>+1340.73 点（+2.33%）</b>，博主盘中读数 1293 点，方向与量级一致。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 14:22</td><td class='score'>7788</td><td class='score'>323</td><td><span class='tag tag-neutral'>🟡 盘面观察</span></td><td class='text'><b>市场暂时缺乏持续的领涨板块！</b></td><td class='text'>对当日<b>最关键的一条否定</b>。明确否认「已出现持续主线」，意味着他认可反弹但不认可追板块。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 14:34</td><td class='score'>6625</td><td class='score'>312</td><td><span class='tag tag-bull'>🟢 板块点名</span></td><td class='text'>#黄仁勋出轨对象#与GPU有关！</td><td class='text'>借热搜点名 <b>GPU</b>。属情绪型催化，非基本面判断。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 14:56</td><td class='score'>9531</td><td class='score'>360</td><td><span class='tag tag-neutral'>🟡 技术判断</span></td><td class='text'><b>指数在收小三角，等待短线打破平衡！</b></td><td class='text'>本期<b>最精确的技术定性</b>。实测 11/09 沪指振幅仅 26.04 点（0.71%），3 周区间 3574.27~3750.77 持续收敛，形态判断与数据吻合。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 15:00</td><td class='score'>14982</td><td class='score'>745</td><td><span class='tag tag-none'>⚪ 情绪</span></td><td class='text'>今天不用写评论……支持一下即可！</td><td class='text'>收盘固定互动帖，点赞 1.5 万。无信息量，但反映当日情绪偏暖（收盘后不发复盘＝无需安抚）。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 16:24</td><td class='score'>4245</td><td class='score'>85</td><td><span class='tag tag-none'>⚪ 话题</span></td><td class='text'>#英伟达#还马斯克更了解人性！</td><td class='text'>英伟达相关话题，无 A 股操作含义。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 17:54</td><td class='score'>5052</td><td class='score'>390</td><td><span class='tag tag-none'>⚪ 鸡汤</span></td><td class='text'>坚持别人无法坚持的坚持，才能拥有别人无法拥有的拥有，路虽远行则将至，事虽难做者可成！</td><td class='text'>收盘后鸡汤帖。博主在反弹兑现日发鸡汤，通常对应心情不错。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 18:40</td><td class='score'>4894</td><td class='score'>569</td><td><span class='tag tag-bull'>🟢 个股点名</span></td><td class='text'><b>上纬</b>从大盘C3低点时至今已经<b>涨了一倍多</b>。宇树从大盘C3低点时至今涨了88%……还有一批是30%至50%幅度的。由此可见，在C3底部布局的话，确实要选股水平一流才行！你是几流？</td><td class='text'>全窗口<b>唯一具名个股</b>。实测「上纬」= 上纬新材 688585，10/19 低点 102.68 → 11/09 收 216.02，<b>+110.4%</b>，与「涨了一倍多」完全吻合。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 19:19</td><td class='score'>2993</td><td class='score'>178</td><td><span class='tag tag-none'>⚪ 生活</span></td><td class='text'>据说穿粉色裙子容易成为幸福的女人？</td><td class='text'>无关。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 21:30</td><td class='score'>521</td><td class='score'>13</td><td><span class='tag tag-none'>⚪ 话题</span></td><td class='text'>#黄仁勋妻子买了40件黑色皮夹克#科技界叫他皮衣哥！</td><td class='text'>无关 A 股。</td></tr>
+<tr><td style='white-space:nowrap'>11/09 21:30</td><td class='score'>710</td><td class='score'>39</td><td><span class='tag tag-bull'>🟢 板块点名</span></td><td class='text'>#黄仁勋出轨对象公司曾采购300亿芯片#<b>利好国内GPU芯片！</b></td><td class='text'>对 14:34 的<b>加码确认</b>。同一天两次提 GPU，且第二次直接写「利好」，是他当日板块态度里最明确的一条。</td></tr>
+</tbody>
+</table>
+
+<div class="panel">
+  <h3 style="margin-top:0">🔍 与上期相比的三处变化</h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>定性升级</b>：11/06「探低<b>抵抗</b>形态」→ 11/09「探低<b>成功回稳</b>」。
+      博主用词从「还在扛」变成「扛住了」，这是他愿意说出「本周主打反弹」的前提。</li>
+    <li><b>板块从推断变为点名</b>：上期（11/08 周末）无 A 股板块指令，3 个板块是「沿用上期主线 + 按隔夜外盘映射度重排」推出来的；
+      本期 3 个板块<b>全部来自博主当日具名点名</b>，可信度上一档。</li>
+    <li><b>新增一条风险</b>：11/08 16:26 那条「每一轮热炒后的泡沫破裂都极度类同」是上期报告窗口截断点（08:24）之后发的，
+      上期漏掉了。它把「反弹」和「泡沫」放进同一句话，是本期最需要读两遍的一条。</li>
+  </ul>
+</div>
+
+<h2>二、大盘关键点位（K 线 + MACD + 成交量）</h2>
+
+<div class="panel panel-2">
+  <h3 style="margin-top:0">📖 先读懂这两张图的颜色口径</h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>红涨绿跌的判定基准是「收盘价 vs 开盘价」（阳线 / 阴线），不是「收盘价 vs 昨收」</b>。
+      收 ≥ 开 = <b style="color:var(--bear)">阳线（红）</b>，收 &lt; 开 = <b style="color:var(--bull)">阴线（绿）</b>。
+      K 线、成交量柱、MACD 柱三处统一按此口径着色。</li>
+    <li><b>「日涨跌幅」是另一套口径</b>（收盘 vs 昨收），它决定涨跌数字本身，<b>不决定 K 线颜色</b>。
+      所以本期出现<b>两个方向</b>的错位，图上都已标注：
+      <ul class="tight" style="margin:4px 0 0">
+        <li><b>上证 / 上纬 / 寒武纪 / 中际旭创</b>：收 &gt; 开 → <b style="color:var(--bear)">红 K</b>，其中上证、沪深300 之外的几只当日也确实是涨的，一致；</li>
+        <li><b>沪深300</b>：开 4066.28 → 收 4056.11，<b>绿 K</b>，但较昨收 4054.28 <b>仍涨 +0.05%</b> —— 图上已标「高开回落」；</li>
+        <li><b>创业板指</b>：开 2494.63（高开 +1.19%）→ 收 2458.56，<b>绿 K</b>，且较昨收也确实跌 −0.27%，一致。</li>
+      </ul>
+    </li>
+    <li>关键点位在 K 线图 <b>左侧以虚线标注</b>（📌 博主点位 / 支撑位 / 昨收位），
+      MA5（橙）/ MA10（紫）/ MA20（天蓝）为叠加曲线。<b>价格刻度移到右侧</b>，左侧只留给关键点位标签。</li>
+  </ul>
+</div>
+
+<h3>上证指数 · 3660.79（+0.32%）</h3>
+<img class="chart" src="../charts/000001_SH_20261109.png" alt="上证指数 2026-11-09 K线">
+<p class="chart-caption">
+  11/09 开 3659.02 / 高 3679.09 / 低 3653.05 / 收 3660.79，<b>振幅仅 26.04 点（0.71%）</b> —— 博主「指数在收小三角」的数据证据。
+  支撑带 3574–3610（浅蓝底纹）；博主自 10/26 起的区间体系 <b>3650 – 3700 – 3750</b> 已标注。昨收 3649.18 与「三角下沿 3650」几乎重合。
+</p>
+
+<div class="verify">
+  <b>小三角怎么量化</b>：近 3 周（10/19–11/09）沪指高点 3750.77（10/16）逐步下移到 3701.59（11/05），
+  低点 3574.27（10/23）逐步抬到 3610.20（11/06），<b>高点降、低点升、振幅压缩到 0.71%</b> —— 三角收敛成立。
+  方向上他不给预判，只说「等待短线打破平衡」，这是负责任的说法：<b>收敛本身不指示方向</b>。
+</div>
+
+<h3>创业板指 · 2458.56（−0.27%）</h3>
+<img class="chart" src="../charts/399006_SZ_20261109.png" alt="创业板指 2026-11-09 K线">
+<p class="chart-caption">
+  11/09 高开 +1.19%（开 2494.63）后一路走低，<b>收 2458.56 即为全天最低</b>（低 2458.01），典型高开低走。
+  绿 K 且当日确实下跌，颜色与涨跌方向一致。2438.72（11/06 低）是第一道防守，2376.28 是 60 日低。
+</p>
+
+<h3>沪深300 · 4056.11（+0.05%）</h3>
+<img class="chart" src="../charts/000300_SH_20261109.png" alt="沪深300 2026-11-09 K线">
+<p class="chart-caption">
+  开 4066.28 → 收 4056.11，<b>绿 K 但当日微涨 +0.05%</b>，图中已标「高开回落」。权重股当日基本走平，
+  与「指数红、个股绿」的分化结构吻合：<b>扛指数的是权重，杀个股的是中小盘</b>。
+</p>
+
+<h2>三、最值得投资的 3 个板块 + 3 支个股</h2>
+
+<p class="meta">筛选口径：博主当日<b>具名点名</b>的板块 → 用 8~10 只样本股实测当日涨跌幅均值 + 上涨家数占比验证 → 取前 3。
+上期 3 条主线（算力租赁 / 端侧AI / 固态电池）全部落选，列在表末对照。</p>
+
+<table>
+<thead><tr><th>板块</th><th class="score">样本均值</th><th class="score">上涨家数</th><th>样本明细（当日涨跌幅 %）</th><th>依据</th></tr></thead>
+<tbody>
+
+<tr><td><b>人形机器人</b></td><td class="score">+2.78%</td><td class="score">8 / 8</td>
+    <td>雷赛智能 +5.60 · 拓普集团 +4.50 · 绿的谐波 +3.90 · 双环传动 +3.30 · 三花智控 +1.70 · 兆威机电 +1.70 · 五洲新春 +0.90 · 鸣志电器 +0.70</td>
+    <td><span class="tag tag-bull">博主点名</span> 09:40「连续反击」</td></tr>
+<tr><td><b>GPU / 算力芯片</b></td><td class="score">+1.64%</td><td class="score">4 / 6</td>
+    <td>寒武纪 +6.02 · 芯原股份 +2.88 · 海光信息 +1.26 · 景嘉微 +0.70 · 龙芯中科 −0.50 · 兆易创新 −0.50</td>
+    <td><span class="tag tag-bull">博主点名</span> 14:34 + 21:30 双条</td></tr>
+<tr><td><b>CPO / 光模块</b></td><td class="score">+0.86%</td><td class="score">5 / 6</td>
+    <td>新易盛 +2.27 · 光迅科技 +2.20 · 中际旭创 +0.90 · 天孚通信 +0.70 · 太辰光 +0.50 · 剑桥科技 −1.40</td>
+    <td><span class="tag tag-bull">博主点名</span> 10:02「出现拉起」</td></tr>
+<tr style="opacity:.62"><td>端侧AI <span class="tag tag-none">上期主线</span></td><td class="score">+0.18%</td><td class="score">5 / 10</td>
+    <td>汇顶 −1.90 · 澜起 −1.90 · 中科创达 +0.50 · 晶晨 +2.00 · 恒玄 +2.10 …（走平，已无弹性）</td>
+    <td><span class="tag tag-none">落选</span></td></tr>
+<tr style="opacity:.62"><td>算力租赁 <span class="tag tag-none">上期主线</span></td><td class="score">−0.14%</td><td class="score">2 / 6</td>
+    <td>润建 −0.40 · 光环新网 −0.60 · 宝信 −1.30 · 科华 −0.30 · 浪潮 +0.80 · 紫光股份 +1.10</td>
+    <td><span class="tag tag-none">落选</span></td></tr>
+<tr style="opacity:.62"><td>固态电池 <span class="tag tag-none">上期主线</span></td><td class="score">−2.87%</td><td class="score">0 / 6</td>
+    <td>宁德 −2.20 · 天赐 −3.10 · 亿纬 −6.70 · 当升 −1.90 · 孚能 −2.10 · 国轩 −1.10</td>
+    <td><span class="tag tag-bear">连续第二周杀跌</span></td></tr>
+
+</tbody>
+</table>
+
+<div class="sector r1">
+  <h3>① 人形机器人 —— 唯一「全面启动」的板块</h3>
+  <div class="quote">
+    <span class="who">11/09 09:40 · 👍9258 💬179</span>
+    人形机器人龙头最近是<b>连续反击</b>，从植物人又变成了机器人了！
+  </div>
+  <p><b>为什么排第一</b>：8 只样本 <b>8/8 全红</b>，均值 +2.78%，跑赢创业板 3.05 个百分点。
+  这是当日唯一做到「<b>全员上涨</b>」的板块 —— 其余两个板块都有明确的下跌成员（GPU 2 只、CPO 1 只）。
+  博主用的词是「<b>连续</b>反击」，说明他看到的不是一天的脉冲。</p>
+  <p><b>弹性来源</b>：雷赛智能 +5.60（运动控制）、拓普集团 +4.50（执行器总成）、绿的谐波 +3.90（谐波减速器）——
+  涨的是<b>核心零部件</b>，不是整机。整机里最强的上纬新材直接涨停（见下方个股）。</p>
+  <div class="risk"><b>但要扣掉博主自己泼的水</b>：14:22 他说「市场暂时缺乏<b>持续</b>的领涨板块」。
+  这句话直接否定了「机器人已成为主线」的读法。准确的理解是：<b>机器人是最强的当日方向，但还不是持续主线</b>。</div>
+</div>
+
+<div class="sector r2">
+  <h3>② GPU / 算力芯片 —— 当日被点名两次的板块</h3>
+  <div class="quote">
+    <span class="who">11/09 14:34 · 👍6625 💬312 &nbsp;|&nbsp; 11/09 21:30 · 👍710 💬39</span>
+    #黄仁勋出轨对象#<b>与GPU有关！</b><br>
+    #黄仁勋出轨对象公司曾采购300亿芯片#<b>利好国内GPU芯片！</b>
+  </div>
+  <p><b>为什么排第二</b>：这是他当日<b>唯一点名两次</b>的方向，且第二次直接写「利好」。
+  6 只样本均值 +1.64%，4/6 上涨，寒武纪 +6.02% 独领（成交 103.9 亿）。</p>
+  <p><b>但这条逻辑的成色要打折</b>：两次点名都挂在「#黄仁勋出轨对象#」热搜话题下 ——
+  这是<b>情绪型催化</b>（借热搜把注意力引到 GPU），不是产业逻辑判断。
+  而且板块内部已经分化：龙芯中科 −0.50、兆易创新 −0.50 同日下跌。
+  <b>「利好国内GPU芯片」是情绪外溢，不是订单落地。</b></p>
+</div>
+
+<div class="sector r3">
+  <h3>③ CPO / 光模块 —— 弹性最小的那条</h3>
+  <div class="quote">
+    <span class="who">11/09 10:02 · 👍8663 💬170</span>
+    <b>光纤、光模块（CPO），出现拉起！</b>
+  </div>
+  <p><b>为什么排第三</b>：6 只样本 5/6 上涨，均值只有 +0.86% —— 上涨面最广，但弹性最小。
+  博主用的词是「<b>出现拉起</b>」，比机器人的「连续反击」弱一档：盘中刚起，<b>未确认持续性</b>。
+  他 10:02 说的话，到 14:22 就补了「缺乏持续领涨板块」——某种程度上是自我修正。</p>
+  <p><b>值得注意的一点</b>：中际旭创当日成交 <b>217.3 亿</b>，是三只推荐个股里最大的，
+  但股价只涨 0.90%（盘中最高 475.71，最低 430.10，振幅 10.2%）。
+  <b>巨量 + 小涨 = 多空在 450 一线激烈换手</b>，这是分歧位不是启动位。</p>
+</div>
+
+<h3>3 支个股（按博主点名强度排序）</h3>
+
+<table>
+<thead><tr><th>代码</th><th>名称</th><th class="score">收盘</th><th class="score">涨跌</th><th class="score">成交额</th><th class="score">PE(TTM)</th><th class="score">总市值</th><th>入选理由</th></tr></thead>
+<tbody>
+<tr><td>688585.SH</td><td><b>上纬新材</b></td><td class="score">216.02</td><td class="score"><span class="up">+20.00%</span></td>
+  <td class="score">33.3 亿</td><td class="score">亏损</td><td class="score">871 亿</td>
+  <td><span class="tag tag-bull">博主唯一点名个股</span></td></tr>
+<tr><td>688256.SH</td><td><b>寒武纪</b></td><td class="score">851.21</td><td class="score"><span class="up">+6.02%</span></td>
+  <td class="score">103.9 亿</td><td class="score">128.4</td><td class="score">5353 亿</td>
+  <td><span class="tag tag-bull">GPU 点名 ×2</span></td></tr>
+<tr><td>300308.SZ</td><td><b>中际旭创</b></td><td class="score">452.03</td><td class="score"><span class="up">+0.90%</span></td>
+  <td class="score">217.3 亿</td><td class="score">20.6</td><td class="score">5325 亿</td>
+  <td><span class="tag tag-bull">CPO 龙头</span></td></tr>
+</tbody>
+</table>
+
+<h2>四、3 支个股 K 线与技术位</h2>
+
+<h3>上纬新材（688585）· 216.02（+20.00% 涨停）</h3>
+<img class="chart" src="../charts/688585_SH_20261109.png" alt="上纬新材 2026-11-09 K线">
+<p class="chart-caption">
+  开 189.00（高开 +4.99%）→ 盘中最低下探 188.60 → 多次触及涨停 216.02 → 午后封板维持至收盘。
+  成交 33.3 亿，换手 3.92%。红 K（收 &gt; 开）且当日 +20%，颜色与涨跌一致。C3 低点 102.68 标注在左下。
+</p>
+
+<div class="verify">
+  <b>博主数字核对（本期最硬的一条）</b>：他说「上纬从大盘 C3 低点时至今已经<b>涨了一倍多</b>」。
+  实测 10/19 最低 102.68 → 11/09 收 216.02 = <b>+110.4%</b>。
+  博主给的是「涨了一倍多」，「一倍多」的下限是 +100%，实测 +110.4% 落在这个区间内 ——
+  <b>代码匹配正确（「上纬」= 688585），数字也对得上</b>。
+</div>
+
+<p><b>当日上涨的直接触发</b>：11/08 晚间公告，旗下启元机器人 Q1、T1 两款消费级产品<b>合计下线达 1 万台</b>，
+在人形机器人利好下 11/09 封板。同日 <b>11/09 盘后</b>公司又发布<b>股票交易风险提示公告</b>：
+股价短期涨幅过大、近期累计涨幅已超 100%，截至 11/06 最新市盈率 <b>1767.36 倍</b>，
+而所处化学原料和化学制品业最近一个月平均滚动市盈率仅 <b>19.57 倍</b>，估值显著高于行业水平，存在短期过热风险。</p>
+
+<div class="risk">
+  <b>这一只必须先读风险再读逻辑（三个硬事实）</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>公司自己发了风险提示</b>。不是别人质疑，是它 11/09 盘后主动公告「短期过热」——A 股里公司自泼冷水的票，次日情绪通常要打折。</li>
+    <li><b>业绩是负的</b>。2026 前三季度营收 12.09 亿（同比 −5.51%），归母净利润 <b>−4.22 亿</b>；
+      机器人业务<b>尚未确认收入</b>，上半年该业务投入 1.64 亿（占研发九成以上）直接把公司拖成亏损。
+      当前 PE(TTM) 缺失＝亏损，<b>PB 高达 93.65 倍</b>。</li>
+    <li><b>「万台下线」是产线口径，不是终端出货，更不是订单确认</b>。机构口径 2026 上半年全球人形机器人出货约 2.2~2.5 万台，
+      消费级机型尚未形成规模销量；家庭消费场景在 2026 年中国人形机器人市场里占比仅约 5.6%。</li>
+  </ul>
+</div>
+
+<div class="action">
+  <b>与博主操作纲领的一致性检查</b>：他 10:49 说「<b>逢低分批布局，不要追涨</b>」，18:40 又用上纬举例说「<b>在 C3 底部布局的话，确实要选股水平一流</b>」——
+  两句话合起来的意思是：<b>他的盈利来自「C3 底部买入」这个动作，不是来自「今天追涨停」这个动作</b>。
+  他举上纬是为了说明底部选股的价值，<b>不是推荐现在买上纬</b>。
+  照搬他的纲领，上纬这类已封涨停的票属于「不追涨」范围。
+</div>
+
+<h3>寒武纪（688256）· 851.21（+6.02%）</h3>
+<img class="chart" src="../charts/688256_SH_20261109.png" alt="寒武纪 2026-11-09 K线">
+<p class="chart-caption">
+  开 820.00 / 高 879.90 / 低 819.32 / 收 851.21，成交 <b>103.9 亿</b>。
+  红 K（收 851.21 &gt; 开 820.00），当日 +6.02%，颜色与涨跌一致。
+  上方压力 MA20 895.37、11/09 盘中高点 879.90；下方昨收 802.90 与 60 日低 750.01。
+</p>
+
+<p><b>技术状态</b>：60 日高点 1213.00 → 现价 851.21，回撤 <b>−29.8%</b>。
+日线 MACD：DIF −50.39 / DEA −47.29 / <b>柱 −6.22（仍为负）</b> ——
+与大盘（沪指日线柱已转正 +12.93）不同，它的日线<b>还没金叉</b>，属于「大盘先起、它后跟」的滞后结构。</p>
+
+<p><b>为什么选它而不是海光 / 芯原</b>：博主两次点名 GPU，当日涨幅排序是寒武纪 +6.02 &gt; 芯原 +2.88 &gt; 海光 +1.26 &gt; 景嘉微 +0.70，
+资金选择的就是它。成交 103.9 亿也远大于其余（海光 34.1 亿、芯原 20.8 亿）。
+<b>但 PE 128 倍 + PB 35 倍，估值不便宜</b>；且博主的 GPU 逻辑挂在热搜话题上，缺基本面支撑。</p>
+
+<div class="risk"><b>风险</b>：日线 MACD 柱仍为负、DIF 在 DEA 下方，反弹属「跟随」而非「引领」；
+上方 895（MA20）是它和大盘同步的验证位 —— <b>站不上 MA20 就只是反抽</b>。</div>
+
+<h3>中际旭创（300308）· 452.03（+0.90%）</h3>
+<img class="chart" src="../charts/300308_SZ_20261109.png" alt="中际旭创 2026-11-09 K线">
+<p class="chart-caption">
+  开 451.00 / 高 475.71 / 低 430.10 / 收 452.03，成交 <b>217.3 亿</b>，<b>振幅 10.2%</b>。
+  红 K（收 452.03 &gt; 开 451.00），当日 +0.90%，颜色与涨跌一致。
+  上方 MA5 481.39 / MA10 530.53 / MA20 590.64 三线全部压制；下方昨收 448.00、60 日低 427.34。
+</p>
+
+<p><b>技术状态</b>：60 日高点 1013.30 → 现价 452.03，回撤 <b>−55.4%</b>，是三只里跌得最狠的。
+日线 MACD：DIF −86.05 / DEA −78.51 / 柱 −15.08（仍为负），同样未金叉。</p>
+
+<p><b>为什么仍然选它</b>：<b>估值是三只里唯一说得通的</b> —— PE(TTM) 20.6 倍、PB 5.64 倍，
+而寒武纪 128 倍、上纬亏损 + PB 93.65 倍。
+博主 10:02 点名光模块，它是板块成交最大的龙头（217.3 亿 &gt; 新易盛 137.7 亿）。
+<b>巨量 + 小涨 + 10.2% 振幅</b>说明多空在 450 一线激烈换手，这个位置的「分歧」比「启动」更贴切。</p>
+
+<div class="risk"><b>风险</b>：MA5/MA10/MA20 三线呈空头排列压在上方，反弹要先过 481.39（MA5）才有意义；
+60 日跌 55% 说明它处在一轮深度调整里，<b>「便宜」不等于「止跌」</b>。</div>
+
+<h2>五、周线视角：博主「本周主打反弹」的核对</h2>
+
+<div class="panel">
+<table>
+<thead><tr><th>指标</th><th class="score">10/30 周</th><th class="score">11/06 周</th><th class="score">本周（截至 11/09）</th><th>变化</th></tr></thead>
+<tbody>
+<tr><td>上证 周线 DIF</td><td class="score">−73.44</td><td class="score">−80.32</td><td class="score">−83.87</td><td class="down">继续下行</td></tr>
+<tr><td>上证 周线 DEA</td><td class="score">−42.34</td><td class="score">−49.94</td><td class="score">−56.72</td><td class="down">继续下行</td></tr>
+<tr><td><b>上证 周线 MACD 柱</b></td><td class="score">−62.20</td><td class="score">−60.77</td><td class="score"><b>−54.29</b></td><td class="up">连续两周收窄（+6.48）</td></tr>
+<tr><td>创业板 周线 DIF</td><td class="score">−218.09</td><td class="score">−249.61</td><td class="score">−272.00</td><td class="down">继续下行</td></tr>
+<tr><td><b>创业板 周线 MACD 柱</b></td><td class="score">−250.05</td><td class="score">−250.49</td><td class="score"><b>−236.21</b></td><td class="up">收窄 14.28</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="hero-turn">
+  <h3>结论：<b>「反弹」成立，「反转」不成立</b></h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>支持博主</b>：沪指周线 MACD 柱已连续两周收窄（−62.20 → −60.77 → −54.29），
+      日线更明确 —— <b>11/04 柱转正、11/05 金叉确认</b>，11/09 柱放大到 +12.93。
+      创业板日线同步：11/05 柱转正 +14.80、11/09 +22.19。
+      <b>日线级别反弹已经确认，不是预测</b>。</li>
+    <li><b>但不能当反转</b>：沪指周线 <b>DIF −83.87 / DEA −56.72 双双深在零轴下方且仍在下降</b>；
+      创业板 DIF 从 −249.61 继续掉到 −272.00。
+      柱收窄只是<b>跌速放缓</b>，DIF 下行说明<b>价格重心还在下移</b>。
+      周线要真反转，至少得看到 DIF 拐头向上。</li>
+    <li><b>所以博主说的「反弹」是准确的用词</b>。反过来的提醒是：
+      反弹阶段的正确仓位心法是「逢低分批」，不是「满仓等反转」—— 这与他 10:49 那句完全一致。</li>
+  </ul>
+</div>
+
+<h2>六、下个交易日（11/10 周二）操作建议</h2>
+
+<div class="action">
+  <b>① 方向：跟随反弹，但按「分批」而不是「一把梭」</b><br>
+  博主的定性有数据支持（日线金叉 + 周线柱连续收窄），但周线 DIF 仍在下行，说明是<b>下跌途中的结构性反弹</b>。
+  他的原话是「逢低分批布局，不要追涨」，翻译成执行就是：<b>等回踩，不等突破</b>。
+</div>
+
+<div class="action">
+  <b>② 三个板块的优先次序与打法不同</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>人形机器人（首选）</b>：8/8 全涨，是唯一「全员上涨」的板块。关注<b>核心零部件</b>（运动控制 / 执行器 / 谐波减速器），
+      而非已经涨停的整机。回踩 5 日线是第一观察点。</li>
+    <li><b>GPU / 算力芯片（次选）</b>：博主点名两次但挂在热搜话题下，属情绪催化。
+      只做<b>龙头</b>（寒武纪），且以 MA20（895）作为「真反弹 vs 假反抽」的分界。</li>
+    <li><b>CPO / 光模块（第三）</b>：上涨面最广但弹性最小。中际旭创 217 亿巨量只涨 0.9%，
+      说明 450 一线的换手还没结束。<b>没站上 MA5（481）之前不算启动</b>。</li>
+  </ul>
+</div>
+
+<div class="risk">
+  <b>③ 三条硬风险（按优先级）</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>博主自己给的泡沫警告</b>：11/08 16:26「每一轮热炒后的泡沫破裂都极度类同……炒股一定要知深浅，懂进退」。
+      他把本轮 AI+科技与 2020 白酒、2021 光伏并列。<b>反弹可以参与，但仓位不能按反转来配。</b></li>
+    <li><b>「缺乏持续领涨板块」＝题材接力而非趋势行情</b>。11/09 涨停 54 家（前值 32）翻倍，但全 A 仍有 3148 家下跌。
+      这种结构下<b>追涨的胜率最低</b>，也是他反复说「不要追涨」的原因。</li>
+    <li><b>上纬新材类标的的估值风险已被公司自己确认</b>：PE 1767 倍 vs 行业 19.57 倍，盘后主动发风险提示。
+      博主举它是为了说明「C3 底部选股的价值」，<b>不是让你在涨停板上买</b>。</li>
+  </ul>
+</div>
+
+<div class="verify">
+  <b>④ 需要盯的验证点（不是预测，是观察清单）</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>沪指能否站上 3700</b>：这是「小三角上沿」+ 11/05 高点，站上去才算打破平衡；
+      跌破 <b>3650</b>（三角下沿 / 昨收）则形态走坏。</li>
+    <li><b>成交额能否重回 1.6 万亿以上</b>：11/09 只有 14946 亿（缩量 10.6%），
+      反弹要成立通常需要量能配合，<b>缩量反弹的持续性天然打折</b>。</li>
+    <li><b>涨停家数能否维持 50 以上</b>：11/09 是 54 家（前值 32）。掉回 30 家以下说明题材接力断了。</li>
+    <li><b>机器人板块上涨家数能否保持 8/8</b>：一旦出现 2 只以上下跌，就从「全面启动」退化为「抱团」。</li>
+  </ul>
+</div>
+
+<h2>七、信号质量评估与本期方法说明</h2>
+
+<div class="panel">
+  <h3 style="margin-top:0">数据来源与采集路径</h3>
+  <ul class="tight">
+    <li><b>微博</b>：weibo skill，访客模式时间线第 1 页 10 条 → 搜索接口三轮补采（49 词 / 38 词 / 68 词）→
+      合并去重 <b>16 条</b>。另跑一轮定向探针（周末 / 周日 / 下周 / 周一 / 早安 / 探低成功 / 主打反弹 等 10 词）
+      专门确认 11/08 周日<b>无遗漏</b>，探针独立命中 11/08 16:26 那条（与第三轮一致）。</li>
+    <li><b>行情</b>：Tushare Pro，11/09 收盘，个股按后复权因子前复权处理，60 根日线窗口。</li>
+    <li><b>成交额 / 涨跌家数 / 涨停跌停</b>：Tushare <code>daily</code> 全量 5573 只汇总（<code>amount</code> 单位千元 ÷1e5 → 亿元）；
+      涨停 54 / 跌停 1 取自东方财富涨停池 / 跌停池接口（<code>getTopicZTPool</code> / <code>getTopicDTPool</code>）。</li>
+    <li><b>外盘</b>：Tushare <code>index_global</code> —— 日经 225 11/09 收 58775.50（+1340.73 点 / +2.33%）；
+      美股 11/06 收 DJI −237.33 / IXIC +264.42 / SPX +23.13。</li>
+    <li><b>估值</b>：Tushare <code>daily_basic</code>（total_mv / pe_ttm / pb / turnover_rate）。</li>
+  </ul>
+</div>
+
+<div class="panel panel-2">
+  <h3 style="margin-top:0">博主数据的独立核验（三条，全部对上）</h3>
+  <table>
+  <thead><tr><th>博主语录</th><th>实测</th><th>结论</th></tr></thead>
+  <tbody>
+  <tr><td>11/09 14:19「日本股市涨 1293 点」</td>
+      <td>日经 225 收 <b>+1340.73 点（+2.33%）</b></td>
+      <td><span class="tag tag-bull">方向 / 量级一致</span><br>盘中读数 1293，收盘 1340.73</td></tr>
+  <tr><td>11/09 18:40「上纬从 C3 低点至今<b>涨了一倍多</b>」</td>
+      <td>10/19 低 102.68 → 216.02 = <b>+110.4%</b></td>
+      <td><span class="tag tag-bull">吻合</span><br>代码匹配正确（688585）</td></tr>
+  <tr><td>11/09 14:56「指数在收<b>小三角</b>」</td>
+      <td>当日振幅 <b>26.04 点 / 0.71%</b>；3 周高点降（3750.77→3701.59）、低点升（3574.27→3610.20）</td>
+      <td><span class="tag tag-bull">形态成立</span></td></tr>
+  </tbody>
+  </table>
+  <p style="margin-bottom:0"><b>未能核验的一条</b>：11/09 18:40「宇树从大盘 C3 低点时至今涨了 88%」——
+  宇树科技已于 2026-08-19 在港交所上市，本报告的行情源（Tushare A 股 + 全球指数）不含港股个股，
+  故该数字<b>未做独立核验</b>，仅照录博主原话。</p>
+</div>
+
+<div class="panel">
+  <h3 style="margin-top:0">本期评级</h3>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>信号密度</b>：★★★★☆ —— 16 条里 8 条为操盘相关（大盘判断 1、板块点名 4、操作建议 1、技术判断 1、个股点名 1），
+      且 3 个板块全部来自具名点名，不靠推断。</li>
+    <li><b>可执行度</b>：★★★★☆ —— 唯一具体指令「逢低分批布局，不要追涨」清晰；
+      技术位（3650/3700/3750）明确；板块（机器人/CPO/GPU）明确。</li>
+    <li><b>风险提示质量</b>：★★★★★ —— 11/08「泡沫破裂都极度类同」+ 11/09「缺乏持续领涨板块」两条，
+      在多头发声日主动泼冷水，这是可信度加分项。</li>
+    <li><b>需要警惕的</b>：GPU 的点名挂在热搜话题上（情绪型），且当日「上纬涨一倍多」的举例容易被读成推荐，
+      实际与他自己「不要追涨」的纲领冲突 —— <b>照纲领做，不照样例做</b>。</li>
+  </ul>
+</div>
+
+<div class="foot">
+  <p><b>免责声明</b>：本报告为公开微博内容的信息整理与技术面统计，<b>不构成任何投资建议</b>。
+  所有涨跌幅、点位、成交额、估值数据均标注来源，可独立复现（脚本见仓库 <code>scripts/</code> 目录）。
+  「最值得投资的 3 个板块 + 3 支个股」的表述是对<b>博主当日观点 + 当日板块实测强度</b>的归纳，
+  不代表对上述标的的推荐或看多看空立场。股市有风险，投资需谨慎。</p>
+  <p>
+    报告生成：2026-11-09 · 数据源 weibo skill + Tushare Pro · 图表脚本
+    <code>scripts/make_wu2198_charts_20261109.py</code> · K 线配色经
+    <code>scripts/check_kline_colors_20261109.py</code> 逐图像素校验（6/6 一致）。
+  </p>
+</div>
+
+</div>
+</body>
+</html>

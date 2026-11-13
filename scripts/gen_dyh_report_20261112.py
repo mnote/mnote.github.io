@@ -16,7 +16,7 @@ IDX, MKT, BASKET, QUOTES = D["index"], D["prev_market"], D["basket"], D["quotes"
 ZT = D.get("zt_pool", {})
 SNAP_HM = D["snapshot_time"][-5:]
 
-OUT = REPO / "duyiehua-20261112-noon.html"
+OUT = REPO / "html" / "duyiehua-20261112-noon.html"
 TITLE_SUMMARY = "算力放量临近压力，热点杂乱"
 TITLE_FULL = f"DYH 午评 - 2026-11-12（周四 {TITLE_SUMMARY}）"
 

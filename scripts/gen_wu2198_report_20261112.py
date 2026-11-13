@@ -273,6 +273,6 @@ HTML = f"""<!DOCTYPE html>
 """
 
 if __name__ == "__main__":
-    out = ROOT / "wu2198-20261112.html"
+    out = ROOT / "html" / "wu2198-20261112.html"
     out.write_text(HTML, encoding="utf-8")
     print(f"[out] {out}  ({len(HTML)} bytes)")

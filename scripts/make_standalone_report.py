@@ -5,7 +5,7 @@
 
 用法：
     python3 make_standalone_report.py <报告.html> [-o 输出.html]
-默认输出到 `~/workspace/mnote.github.io/_standalone/<原名>`。
+默认输出到 `~/workspace/mnote.github.io/_standalone/<原名>`（目录按需创建，不入库）。
 """
 import base64
 import mimetypes
@@ -36,7 +36,7 @@ def inline_images(html: str, base: Path) -> tuple[str, int, int]:
 
 
 def main() -> None:
-    src = Path(sys.argv[1]) if len(sys.argv) > 1 else REPO / "2026-11-11-wu2198-investment-report.html"
+    src = Path(sys.argv[1]) if len(sys.argv) > 1 else REPO / "html" / "wu2198-20261111.html"
     if not src.exists():
         print(f"[error] 找不到 {src}")
         sys.exit(1)

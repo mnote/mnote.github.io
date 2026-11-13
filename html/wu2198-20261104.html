@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>wu2198 - 2026-11-04</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f8f9fb;
+    --panel-2: #f1f3f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bull: #16a34a;
+    --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
+    --bear: #dc2626;
+    --bear-bg: #fee2e2;
+    --neutral: #d97706;
+    --neutral-bg: #fef3c7;
+    --none: #6b7280;
+    --none-bg: #f3f4f6;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; color: var(--text); }
+  h4 { font-size: 15px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #fff7e6 0%, #fffbf0 100%);
+    border: 1px solid #fbbf24;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hero h1 { color: #92400e; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+  .stance .emoji { font-size: 18px; margin-right: 4px; }
+
+  .hero-turn {
+    background: linear-gradient(135deg, #fef2f2 0%, #fff7f7 100%);
+    border: 1px solid var(--bear);
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin: 18px 0;
+  }
+  .hero-turn h3 { color: #991b1b; margin-top: 0; }
+
+  .hero-win {
+    background: linear-gradient(135deg, #f0fdf4 0%, #f7fff9 100%);
+    border: 1px solid var(--bull);
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin: 18px 0;
+  }
+  .hero-win h3 { color: #14532d; margin-top: 0; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .panel-2 { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 760px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .kpi {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: var(--panel); }
+  td.emoji { text-align: center; font-size: 16px; }
+  td.text { max-width: 460px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+  td.nowrap { white-space: nowrap; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-none { background: var(--none-bg); color: var(--none); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .stock-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .stock-card.bull { border-left-color: var(--bull); }
+  .stock-card.bear { border-left-color: var(--bear); }
+  .stock-card.neutral { border-left-color: var(--neutral); }
+  .stock-card h4 { margin: 0 0 4px; color: var(--text); font-weight: 600; font-size: 15px; }
+  .stock-card .logic { font-size: 13px; color: var(--text); margin: 6px 0; }
+  .stock-card .key { font-size: 12px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 4px 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .verdict { font-weight: 600; }
+  .up { color: var(--up); font-weight: 600; }
+  .down { color: var(--down); font-weight: 600; }
+  .hl { background: linear-gradient(transparent 62%, #fef08a 62%); padding: 0 2px; }
+  .vol{color:var(--neutral);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>📈 wu2198 - 2026-11-04（周三）</h1>
+    <p class="meta"><a href="/" style="color:#2563eb;text-decoration:none">← 返回首页</a><span style="color:#9ca3af"> · </span>
+      <span>🕐 抓取时间 2026-11-04 23:00</span>
+      <span>👤 wu2198（UID 1216826604 · 44.6w 粉丝）</span>
+      <span>📊 数据源 weibo skill + Tushare Pro</span>
+      <span>📈 行情 11/04 收盘</span>
+      <span>🗂 覆盖 11/03 15:40 → 11/04 18:30</span>
+    </p>
+    <p class="stance">
+      <span class="emoji">🟢</span>
+      <strong>博主全天由「是不是很害怕？」翻转到「一阳改三观！」，15:08 预判「今天收 3686 点、增量 3368 亿」——实际收 3686.17、增量 3368 亿，<strong>点位与方向首次双双全中</strong>。</strong>
+    </p>
+  </div>
+
+  <div class="hero-win">
+    <h3>✅ 今日核心结论：点位 8/8、方向 4/4 —— 上一期的「点位准方向错」彻底反转</h3>
+    <p>11/04 是 wu2198 近期罕见的<strong>方向与点位同时正确</strong>的一天：沪指 <span class="up">+2.16%</span>、创业板 <span class="up">+6.40%</span>、科创50 <span class="up">+9.92%</span>、沪深300 <span class="up">+2.31%</span> 全线上涨；涨停 <strong>365 家</strong>（前一交易日仅 59 家），跌停从 93 家骤降至 16 家。</p>
+    <p style="margin-bottom:0">但<strong>「全对」不等于「该跟」</strong>。博主本人给出的理想买点（科创50 1100 关口）今天<strong>没等到</strong>——最低只到 1149.10 就已反弹 9.92%；他反复示范的纪律是「把每一轮大跌风险回避，拿捏住大跌后的机会」，而 11/04 的形态更接近「<strong>一根阳线改三观</strong>」。详见下方「风险提示」。</p>
+  </div>
+
+  <div class="hero-turn">
+    <h3>⚠️ 今日最值得警惕的一处自相矛盾</h3>
+    <p>博主 11/04 早盘刚写完长文批评别人：「<strong>在 6 月份科技股疯狂的时候我反复提醒大家科技类股的泡沫+风险</strong>」；下午 14:56 就写下「<strong>正所谓一阳改三观！</strong>」——上午还在为科创50 1132 点下跌焦虑，下午就因为一根 +9.92% 的阳线改变了立场。</p>
+    <p style="margin-bottom:0"><strong>同一个博主，同一天，在同一个板块上，先扮演「风险提示者」，再扮演「情绪被行情改变者」。</strong>这不是说他的判断错了（今天他全对了），而是提醒：<strong>当一个人的观点强度随当日涨跌摆动时，他给出的点位可以跟，立场不要跟。</strong></p>
+  </div>
+
+  <h2>📊 核心指标一览</h2>
+  <div class="grid-4">
+    <div class="kpi">
+      <div class="label">上证指数</div>
+      <div class="val up">3686.17</div>
+      <div class="sub">+2.16% · 高 3686.17 / 低 3590.80</div>
+    </div>
+    <div class="kpi">
+      <div class="label">创业板指</div>
+      <div class="val up">2544.73</div>
+      <div class="sub">+6.40% · 高 2559.09 / 低 2376.28</div>
+    </div>
+    <div class="kpi">
+      <div class="label">科创 50</div>
+      <div class="val up">1265.47</div>
+      <div class="sub">+9.92% · 高 1271.27 / 低 1149.10</div>
+    </div>
+    <div class="kpi">
+      <div class="label">沪深 300</div>
+      <div class="val up">4101.34</div>
+      <div class="sub">+2.31% · 高 4105.86 / 低 3987.15</div>
+    </div>
+  </div>
+  <div class="grid-4" style="margin-top:14px">
+    <div class="kpi">
+      <div class="label">博主点位命中率</div>
+      <div class="val" style="color:var(--up)">8 / 8</div>
+      <div class="sub">3686 收盘 · 3368 亿 · 9.92% · 1132 · 3580 · 2376 · 1257 · 5.4%</div>
+    </div>
+    <div class="kpi">
+      <div class="label">博主方向命中率</div>
+      <div class="val" style="color:var(--up)">4 / 4</div>
+      <div class="sub">四大指数全部看多兑现</div>
+    </div>
+    <div class="kpi">
+      <div class="label">涨停 / 跌停家数</div>
+      <div class="val" style="color:var(--up)">365 / 16</div>
+      <div class="sub">前日 59 / 93 · 含 26 家 20cm</div>
+    </div>
+    <div class="kpi">
+      <div class="label">全市场成交额</div>
+      <div class="val vol">20519 亿</div>
+      <div class="sub">增量 3368 亿（与博主原话一致）</div>
+    </div>
+  </div>
+
+  <h2>🧠 博主观点提炼（最近一天共 50 条 · 其中 35 条带操盘/行情信号 · 按时间倒序列出关键条目）</h2>
+  <table>
+    <thead>
+      <tr><th style="width:74px">时间</th><th style="width:54px">方向</th><th class="text">原文 / 摘要</th><th style="width:70px">点赞</th><th style="width:112px">类型</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>11/04<br />18:30</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「#这就是勤换洗水杯的原因#意思是说，最好不洗！」<span class="meta">闲聊，无信号。</span></td>
+        <td class="score">4374</td>
+        <td><span class="tag tag-none">生活</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />16:54</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>转发自己 15:08 的收盘总结</strong>「收到请回复666或者点赞支持一下！」<br /><span class="meta">收盘后再次推自己的核心结论，说明他把这套点位当成需要被反复强调的「交付物」。</span></td>
+        <td class="score">11292</td>
+        <td><span class="tag tag-bull">收盘总结</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />16:09</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「科创50指数到过1132点……今天大涨9.92%！」</strong><br /><span class="meta">转发 10/23 原帖：「科创50指数在 2255 和 2233 构筑小M头之后第一步是到了 1549 点；今天到了 1257 点，比之前预期的 1274 点低。就目前市场格局开看，<strong>预计要到 1100 关口附近才是最理想的搏击点</strong>」。<br />✅ 实际涨幅 +9.918%（博主 9.92%）、实际 11/03 低点 1132.33（博主「到过 1132 点」）——<strong>两个数字都分毫不差</strong>。</span></td>
+        <td class="score">7592</td>
+        <td><span class="tag tag-bull">大盘判断</span><span class="tag tag-accent">点位</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />15:51</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text">「#A股暴力反弹原因#叫绝处逢生！」<span class="meta">情绪标签式看多。</span></td>
+        <td class="score">6809</td>
+        <td><span class="tag tag-bull">大盘判断</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />15:24</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「今天多了好多票子，晚上白马？」</strong><br /><span class="meta">当日涨停 365 家。博主抛出疑问：<strong>白马会不会晚上接力？</strong><br />❌ 当天并未兑现——贵州茅台 <span class="down">-2.27%</span>、五粮液 <span class="down">-0.60%</span>、招商银行 <span class="down">-0.35%</span>，<strong>白马当天反而被科技股抽血</strong>。</span></td>
+        <td class="score">9352</td>
+        <td><span class="tag tag-neutral">板块推测</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />15:08</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「今天收3686点，增量3368亿……明天收复3706点后以3574和3580形成小双底反击之势……收到请回复666或者点赞支持一下！」</strong><br /><span class="meta">当日互动最高（👍16089 💬1561 🔁158）。<br />✅ 实际沪指收 <strong>3686.17</strong>；实际全市场成交额增量 <strong>3368 亿</strong>——<strong>双数字分毫不差</strong>。明日目标位 <strong>3706</strong>；双底 <strong>3574 / 3580</strong>。</span></td>
+        <td class="score">16089</td>
+        <td><span class="tag tag-bull">收盘总结</span><span class="tag tag-accent">点位</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />15:01</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「我6股提示科技股起码腰斩，被骂死了！」</strong><br /><span class="meta">转发自己 14:38 的「这两天很多人嘲讽『一剑封喉』……是多么的无知可笑啊！」（👍13572）。<br />⚠️ <strong>自证式表述</strong>：博主用「6 月提示科技股腰斩」来为自己此刻的看多背书——这恰恰是他 14:56 长文里批评的「6 月份科技股疯狂时提醒泡沫」那件事，<strong>现在换成了他自己被市场打脸后的翻案</strong>。</span></td>
+        <td class="score">8750</td>
+        <td><span class="tag tag-bull">自我印证</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />14:56</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>长文：「在5月初4256点之后我反复提示第四大浪调整，创业板4380点后我提示三川顶……我是如何反复提示风险的？<strong>这两天大盘3580和创业板指数2376点又如何提示大家的？</strong>在市场悲观+绝望的时候，我给大家打打气。在6月份科技股疯狂的时候我反复提醒大家科技类股的泡沫+风险……」</strong><br /><span class="meta">👍14189 💬1016 🔁64。<br />✅ 11/03 沪指最低 <strong>3580.38</strong>、创业板最低 <strong>2376.39</strong>——与「3580」「2376」分毫不差。<br />⚠️ 这段是全文的转折点：<strong>先证明自己曾经对，再宣布今天开始看多。</strong></span></td>
+        <td class="score">14189</td>
+        <td><span class="tag tag-bull">大盘复盘</span><span class="tag tag-accent">点位</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />14:38</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「这两天很多人嘲讽『一剑封喉』……是多么的无知可笑啊！」</strong></td>
+        <td class="score">13572</td>
+        <td><span class="tag tag-bull">自我印证</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />14:00</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「创业板指数己经返涨4% 了……不啵一口？」「已经5.4%！」「掐指一算，创业板指数今天『一吃三』，争夺『一吃四』……」「再用力点……争取一吃六！」</strong><br /><span class="meta">盘中实时播报涨幅，节奏随行情加速。实际创业板当日 <span class="up">+6.40%</span>、最高 2559.09，「一吃四」兑现。</span></td>
+        <td class="score">12000+</td>
+        <td><span class="tag tag-bull">盘中播报</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />14:00</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text">转发头条文章《<strong>第四浪的底部位置</strong>》——「2026年度分析之一（仅供参考，风险自理）上半年只看4256点（实际试了4258点），创业板指……」<br /><span class="meta">同日 10:00 发布过一次。年度框架文章被翻出来当作本轮反弹的合法性来源。</span></td>
+        <td class="score">5077</td>
+        <td><span class="tag tag-accent">框架文章</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />14:00</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「我相信我的技术！」</strong>（👍1541）<span class="meta">当日情绪最强的一句自我背书。</span></td>
+        <td class="score">15411</td>
+        <td><span class="tag tag-bull">情绪</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />12:00</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「日本，韩国，目前都出现大跌3%以上，道指期货目前也跌333点！」</strong><br /><span class="meta">外盘速报。日股 <span class="down">-4.58%</span>、韩股 <span class="down">-3.75%</span>（11:00 补充）。<br /><strong>关键反差：外盘暴跌 + A 股午后暴力反弹，两者背离。</strong></span></td>
+        <td class="score">7994</td>
+        <td><span class="tag tag-neutral">外盘速报</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />12:00</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「按目前看人形机器人，GPU，物理AI，端侧等表现不错！」</strong>（👍7639）<br /><span class="meta">当日板块点名，与 10:00「物理AI龙头冲20厘米，端侧纷纷走强」一致。</span></td>
+        <td class="score">7639</td>
+        <td><span class="tag tag-bull">行业板块</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />10:00</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text">「市场会磨掉你的意志！」（👍9204）</td>
+        <td class="score">9204</td>
+        <td><span class="tag tag-neutral">情绪</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />10:00</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「物理AI龙头冲20厘米，端侧纷纷走强！」</strong><br /><span class="meta">✅ 当日 20cm 涨停名单中，开勒股份 +20.00%、春晖智控 +20.02%、艾能聚 +29.99%（北交所）；端侧瑞芯微 +10.00% 涨停、恒玄科技 +14.62%、乐鑫科技 +13.58%。</span></td>
+        <td class="score">7680</td>
+        <td><span class="tag tag-bull">行业板块</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />09:00</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「稀有金属，截止目前看是锗，钨涨幅领先！」</strong><br /><span class="meta">✅ 当日 锗：云南锗业 +10.00% 涨停；钨：中钨高新 +10.01% 涨停、东方钽业 +9.99%、博迁新材 +10.00%、章源钨业 +7.33%、厦门钨业 +7.76%。<strong>当天唯一被点名到具体品种的板块。</strong></span></td>
+        <td class="score">9066</td>
+        <td><span class="tag tag-bull">行业板块</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />09:00</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「参考大盘4256和创业板指数4380区域撤离的投资者，可以继续分批布局接回来，然后等风……支持的点个赞！」</strong>（👍1.6万）<br /><span class="meta"><strong>这是当天的操作指令</strong>：5-6 月在 4256 / 4380 撤离的人，今天开始分批接回。<br />⚠️ 注意接回价位是 <strong>4256 / 4380</strong>，而不是今天的 3686 / 2544——<strong>他给的是「更早、更低」的接回区间，与当天价格并不一致。</strong></span></td>
+        <td class="score">16000+</td>
+        <td><span class="tag tag-bull">操作建议</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />09:00</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text">「很多人还在纠结，只能怪你自己，说得很清楚的。」转发：「前面说得很清楚，<strong>C3会有一批个股提前完成下跌，稳健的可以等C5再干……没有人叫你一定要参与C4哦。</strong>」<br /><span class="meta">波浪结构（C3/C4/C5）仍是其核心框架；同时明确「不必参与 C4」。</span></td>
+        <td class="score">9739</td>
+        <td><span class="tag tag-neutral">技术分析</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />09:00</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「身似青山常自在，心如秋水自安然。很多事情不必问结果，握紧的手累了就松开。风来了听风，雨来了看雨。<strong>把每一轮大跌风险回避，拿捏住大跌后的机会，就是对股市最好的回答。</strong>」</strong>（👍1.1万）<br /><span class="meta">⚠️ 这是全天最该被单独拎出来的一句话：<strong>博主自己的操作框架是「等大跌后」，而不是「追当天大涨」。</strong>今天他做的和这句话正好相反。</span></td>
+        <td class="score">11000+</td>
+        <td><span class="tag tag-accent">操作哲学</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />12:00</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text"><strong>「我5月份就苦口婆心了，按计划撤离的是伤不到本金的……能执行的人有吗？」</strong>转发：「不管是2024年赚的钱，还是2025年或者2026年上半年赚到的钱，我希望大家<strong>撤离大部分盈利和本金，或者将本金撤离，只留部分盈利在市场里继续等待机会</strong>……我不怕错过，只怕自己做错。」<br /><span class="meta">仓位纪律原话：<strong>撤本金、只留部分盈利在场</strong>。今日大涨对 5 月执行者而言是「踏空」，但本金安全。</span></td>
+        <td class="score">8197</td>
+        <td><span class="tag tag-neutral">仓位管理</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/04<br />12:00</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text">「怕的话，高位的时候为什么不控制风险？」转发「是不是很害怕？」（👍9120 / 1.1万）<br /><span class="meta">全天情绪最低点出现在这里（对应科创50 前一日 -3.81%、沪指 -0.82%）。</span></td>
+        <td class="score">9120</td>
+        <td><span class="tag tag-neutral">情绪</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/03<br />22:48</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「啵一个……大家晚安！」</td>
+        <td class="score">7050</td>
+        <td><span class="tag tag-none">问候</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/03<br />22:43</strong></td>
+        <td class="emoji">🟡</td>
+        <td class="text">「#证监会#又出新工具！」</td>
+        <td class="score">5598</td>
+        <td><span class="tag tag-neutral">宏观</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/03<br />17:46</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「CPO三大龙头这轮下跌了66至72%左右……才短短4个月天地之别。疯狂的时候提示风险，被骂死！」</strong><br /><span class="meta">✅ 11/04 CPO 三大龙头全线大涨：新易盛 <span class="up">+13.35%</span>、中际旭创 <span class="up">+11.07%</span>、天孚通信 <span class="up">+10.02%</span>——<strong>博主 11/03 的「跌了 66~72%」成为本轮反弹的最强信号。</strong></span></td>
+        <td class="score">9718</td>
+        <td><span class="tag tag-bull">行业个股</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/03<br />15:40</strong></td>
+        <td class="emoji">🟢</td>
+        <td class="text"><strong>「行情很多时候都是：在绝望中逢生（如今），在欢乐中死亡（6月份的科技）。」</strong>（👍1万）<br /><span class="meta"><strong>本轮反弹的核心 slogan，也是最值得反复读的一句。</strong></span></td>
+        <td class="score">10000+</td>
+        <td><span class="tag tag-accent">方法论</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/03<br />16:34</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「老铁们……加油！」</td>
+        <td class="score">9172</td>
+        <td><span class="tag tag-none">情绪</span></td>
+      </tr>
+      <tr>
+        <td><strong>11/03<br />16:09</strong></td>
+        <td class="emoji">⚪</td>
+        <td class="text">「股市不是生活的全部，还有诗和远方！」</td>
+        <td class="score">8864</td>
+        <td><span class="tag tag-none">情绪</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>📐 大盘关键点位（博主体系）</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr><th style="width:130px">标的</th><th style="width:110px">关键位</th><th style="width:190px">博主原话 / 含义</th><th>11/04 实际验证</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="4"><strong>上证指数</strong></td>
+          <td class="nowrap"><strong>3706</strong></td>
+          <td>「明天收复3706点后…形成反击之势」</td>
+          <td>今日收 3686.17，<strong>尚未收复，差 19.83 点（0.54%）</strong>。3706 恰与 MA20 <strong>3707.63</strong> 几乎重合 —— 明日能否站上 MA20 是本轮反弹成色的第一道关。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>3686</strong></td>
+          <td>「今天收3686点」</td>
+          <td class="up">✅ 实际收 3686.17，偏差 0.17 点（0.005%）</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>3580 / 3574</strong></td>
+          <td>「以3574和3580形成小双底反击之势」</td>
+          <td>✅ 3580 = 11/03 最低 <strong>3580.38</strong>；3574 = 10/23 最低 <strong>3574.27</strong>。今日最低 3590.80，<strong>精准站在双底之上</strong>，双底有效。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>4256 / 4380</strong></td>
+          <td>「参考大盘4256和创业板4380区域撤离的投资者，可以继续分批布局接回来」</td>
+          <td>接回区间在 4256（沪指）/ 4380（创业板），<strong>远高于今天 3686 / 2544</strong> —— 博主给的是「更早、更低」的接回位，不是让今天追高。</td>
+        </tr>
+        <tr>
+          <td rowspan="3"><strong>创业板指</strong></td>
+          <td class="nowrap"><strong>2376</strong></td>
+          <td>长文：「这两天…创业板指数2376点又如何提示大家的？」</td>
+          <td>✅ 11/03 最低 <strong>2376.39</strong>，11/04 最低 <strong>2376.28</strong> —— <strong>连续两日精准触及该位</strong>，为今日反弹的起点。</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>2559</strong></td>
+          <td>11/04 盘中高点</td>
+          <td>今日最高 2559.09，为短线第一压力（MA10 2540.84 已被收复，MA20 2700.66 未过）</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>4380</strong></td>
+          <td>「创业板4380点后我提示三川顶」</td>
+          <td>历史撤离位，距今 -41.8%，本轮反弹远未回到该区域</td>
+        </tr>
+        <tr>
+          <td rowspan="3"><strong>科创 50</strong></td>
+          <td class="nowrap"><strong>1100</strong></td>
+          <td>「预计要到1100关口附近才是最理想的搏击点」</td>
+          <td>⚠️ <strong>今日最低仅 1149.10，根本没到 1100 就已反弹 +9.92%</strong>。博主自设的最优买点被跳过 —— <strong>这是今日最重要的操作提示。</strong></td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>1132</strong></td>
+          <td>「科创50指数到过1132点」</td>
+          <td>✅ 11/03 最低 <strong>1132.33</strong>，分毫不差</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>2255 / 2233<br />1549 / 1257</strong></td>
+          <td>10/23 帖的下跌路径</td>
+          <td>✅ 10/23 最低 <strong>1257.29</strong>（博主「今天到了1257点，比之前预期的1274点低」）；60 日高 <strong>1798.78</strong> → 1132.33，区间跌幅 <strong>-37.0%</strong>，「科技股起码腰斩」在指数层面成立</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>📈 大盘 K 线图（关键位居左虚线标注）</h2>
+
+  <h3>1) 上证指数 · 收 3686.17（+2.16%）· 博主 15:08 预判「收 3686」分毫不差</h3>
+  <img class="chart" src="../charts/000001_SH_20261104.png" alt="上证指数日线 K线 MACD 成交量" />
+  <p class="chart-caption">上方为日线 K 线 + MA5/10/20，图为 MACD，底部为成交量（红涨绿跌）。左侧虚线为关键位：<strong>3706 博主明日目标</strong>、<strong>3686.17 今日收盘（=博主预判）</strong>、<strong>3580 / 3574 小双底</strong>。今日一根阳线收在<strong>全天最高点</strong>，站上 MA5（3636.55）与 MA10（3655.85），<strong>但仍在 MA20（3707.63）之下</strong>。</p>
+
+  <h3>2) 创业板指 · 收 2544.73（+6.40%）· 博主 14:00「一吃三、争夺一吃四」兑现</h3>
+  <img class="chart" src="../charts/399006_SZ_20261104.png" alt="创业板指日线 K线 MACD 成交量" />
+  <p class="chart-caption">左虚线：<strong>2376 支撑（博主提示位）</strong>、<strong>2544.73 今日收盘</strong>、<strong>2559.09 今日高点</strong>。今日最低 2376.28 <strong>精准踩在博主提示的 2376 上</strong>后暴力反包；收复 MA10（2540.84），<strong>MA20 2700.66 尚未收复</strong>。MACD 绿柱大幅收敛、DIF 上穿。</p>
+
+  <h3>3) 科创 50 · 收 1265.47（+9.92%）· 博主 16:09 亲口报出的涨幅</h3>
+  <img class="chart" src="../charts/000688_SH_20261104.png" alt="科创50日线 K线 MACD 成交量" />
+  <p class="chart-caption">左虚线：<strong>1100 博主理想搏击点</strong>、<strong>1132.33 博主「到过1132点」</strong>、<strong>1265.47 今日收盘</strong>、<strong>1798.78 60 日高</strong>。今日自 1149.10 拉起收在最高区，<strong>成交额放到 1344 万手（前一日 1096 万手），是本轮放量最大的一天</strong>。收复 MA10（1250.47），<strong>MA20 1319.28 仍差 4.3%</strong>。距博主理想买点 1100 尚有 13.1% 空间。</p>
+
+  <h3>4) 沪深 300 · 收 4101.34（+2.31%）· 权重跟涨但明显弱于成长</h3>
+  <img class="chart" src="../charts/000300_SH_20261104.png" alt="沪深300日线 K线 MACD 成交量" />
+  <p class="chart-caption">左虚线：<strong>4101.34 今日收盘</strong>、<strong>4105.86 今日高点</strong>、<strong>3969.55 / 3987.15 支撑区</strong>。沪深300 +2.31% 明显弱于创业板 +6.40% 与科创50 +9.92%，<strong>说明这是一次成长股主导的情绪修复，而不是权重搭台的全市场反转</strong>。</p>
+
+  <h2>🔥 最值得投资的 3 个板块</h2>
+
+  <div class="stock-card bull">
+    <h4>① 🟢 科创 50 半导体设备 / 国产替代 —— 今日绝对主线（博主 15:01 + 16:09 亲口背书）</h4>
+    <p class="logic"><strong>博主依据：</strong>11/04 15:01「我6股提示科技股起码腰斩，被骂死了！」+ 16:09「科创50指数到过1132点……今天大涨9.92%！」——<strong>博主把本轮反弹归功于自己在 6 月对科技股泡沫的预警</strong>，等于给这个板块盖了自己的章。</p>
+    <p class="logic"><strong>盘面实证：</strong>全市场 <strong>177 只半导体股涨幅超 5%</strong>，26 家 20cm 涨停中<strong>大半是半导体设备</strong>：拓荆科技（+20.00%）、芯源微（+20.00%）、华峰测控（+20.00%）、富创精密（+20.00%）、中科飞测（+20.00%）、思瑞浦（+20.00%）、强一股份（+20.00%）、京仪装备（+20.00%）、正帆科技（+20.00%）、盛美上海（+19.82%）、江丰电子（+20.00%）；主板同步涨停潮（339 家 10cm 涨停）。</p>
+    <p class="logic"><strong>位置：</strong>科创50 从 60 日高 1798.78 跌到 1132.33（<strong>-37.0%</strong>），今天收 1265.47，<strong>仍在 60 日高下方 29.6%</strong>，也未收复 MA20（1319.28）。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>这是「跌深反弹 + 情绪修复」的双重叠加，不是新周期启动。20cm 涨停潮出现后，<strong>次日高开低走的概率显著上升</strong>；博主本人的理想买点（1100）已经错过。</p>
+    <p class="key">关键位：1100（博主理想搏击点）｜1132.33（11/03 低）｜1265.47（今收）｜1319.28（MA20）｜1798.78（60D 高）</p>
+  </div>
+
+  <div class="stock-card bull">
+    <h4>② 🟢 物理 AI / 人形机器人 / 端侧 AI —— 博主全天点名两次的题材线</h4>
+    <p class="logic"><strong>博主依据：</strong>11/04 10:00「<strong>物理AI龙头冲20厘米，端侧纷纷走强！</strong>」（👍7680）＋ 12:00「按目前看人形机器人，GPU，物理AI，端侧等表现不错！」（👍7639）。<strong>这是他当天唯一用感叹号强调「涨势」的板块</strong>。</p>
+    <p class="logic"><strong>盘面实证：</strong>20cm 涨停潮：开勒股份 <strong>+20.00%</strong>、春晖智控 +20.02%、艾能聚 <strong>+29.99%</strong>（北交所）、光智科技 +20.00%；端侧：瑞芯微 <strong>+10.00%</strong>（涨停）、恒玄科技 +14.62%、乐鑫科技 +13.58%；柯力传感 +10.00%、绿的谐波 +10.41%；GPU：寒武纪 +10.38%、海光信息 +10.29%。</p>
+    <p class="logic"><strong>逻辑：</strong>这是今日<strong>弹性最大</strong>的方向（创业板 20cm 标的集中于此），也最符合博主「在绝望中逢生」的情绪偏好 —— 但它<strong>没有指数、没有业绩锚</strong>，纯情绪驱动。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>20cm 涨停是当日最高情绪读数，<strong>次日分化概率极高</strong>；追涨停板等于用最差的价格买最不确定的资产。</p>
+    <p class="key">关键位：以开勒股份 MA5 40.47 / MA10 42.68 / MA20 48.68 为情绪温度计，<strong>跌破 MA10 即视为退潮</strong></p>
+  </div>
+
+  <div class="stock-card bull">
+    <h4>③ 🟢 稀有金属（锗、钨）—— 博主当天唯一点名到具体品种的板块</h4>
+    <p class="logic"><strong>博主依据：</strong>11/04 09:00「<strong>稀有金属，截止目前看是锗，钨涨幅领先！</strong>」（👍9066）。<strong>在其他全是「科技/AI」的帖子中间，这是唯一一条资源股帖，也是唯一给出具体品种（锗、钨）的帖。</strong></p>
+    <p class="logic"><strong>盘面实证：</strong>锗：云南锗业 <strong>+10.00% 涨停</strong>；钨：中钨高新 <strong>+10.01% 涨停</strong>、东方钽业 +9.99%、博迁新材 +10.00%、湖南白银 +9.99%、章源钨业 +7.33%、厦门钨业 +7.76%；小金属行业共 <strong>26 只涨超 5%</strong>。</p>
+    <p class="logic"><strong>为什么值得关注：</strong>这是<strong>低位补涨 + 商品价格驱动</strong>的双重逻辑，与 AI 情绪无关，独立性强。云南锗业 60 日低 64.00 → 今日 75.38（+17.8%），但距 60 日高 113.00 仍有 <strong>-33%</strong> 空间，<strong>是三个板块中位置最低、赔率最厚的一个</strong>。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>持续性完全取决于镓/锗/钨的现货价格；这类标的常在情绪高点放量出货，且多为小市值，流动性风险高于指数。</p>
+    <p class="key">关键位：云南锗业 MA5 70.83 / MA10 74.43 / MA20 78.25（78.25 是中期分水岭）</p>
+  </div>
+
+  <div class="panel panel-2">
+    <h4>📎 附：另外两条线索</h4>
+    <p><span class="tag tag-neutral">🟡 CPO / 光模块超跌反弹</span> 博主 11/03 17:46「<strong>CPO三大龙头这轮下跌了66至72%左右</strong>……疯狂的时候提示风险，被骂死！」→ 11/04 新易盛 <strong>+13.35%</strong>、中际旭创 <strong>+11.07%</strong>、天孚通信 <strong>+10.02%</strong>。<strong>但注意：中际旭创收 533.38 仍在 MA5（539.73）之下、距 MA20（635.11）还有 16%</strong> —— 均线结构最弱，属超跌反弹而非趋势反转。</p>
+    <p><span class="tag tag-bear">🔴 白马未跟上</span> 博主 15:24 问「今天多了好多票子，<strong>晚上白马？</strong>」→ 当天贵州茅台 <strong>-2.27%</strong>、五粮液 -0.60%、招商银行 -0.35%。<strong>白马不但没接力，反而被抽血。</strong>这一条直接印证了「结构性反弹、非全面反转」的判断。</p>
+  </div>
+
+  <h2>📌 3 支个股详解</h2>
+
+  <div class="stock-card bull">
+    <h4>① 🟢 开勒股份 301070 —— 物理 AI / 人形机器人丝杠 · 20cm 涨停</h4>
+    <p class="logic"><strong>博主对应：</strong>「物理AI龙头冲20厘米，端侧纷纷走强！」<br /><strong>11/04 表现：</strong>开 37.00 / 高 44.46 / 低 35.90 / <strong>收 44.46（+20.00%，封 20cm 涨停）</strong>，从日内低点 35.90 拉起 23.8%。</p>
+    <p class="logic"><strong>位置：</strong>收 44.46 站上 MA5（40.47）与 MA10（42.68），<strong>但距 MA20（48.68）仍有 8.7%</strong>；60 日低 35.90（今日盘中最低），60 日高 70.27 —— <strong>距前高还有 -36.8%</strong>。</p>
+    <p class="logic"><strong>逻辑：</strong>人形机器人直线执行器 / 滚柱丝杠环节，弹性最大的环节之一；今日开板即涨停，是物理 AI 情绪的<strong>龙头信号</strong>。同业同步共振：春晖智控 +20.02%、艾能聚 +29.99%、柯力传感 +10.00%、绿的谐波 +10.41%。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>20cm 板位<strong>次日无法以涨停价买入</strong>，且这类标的估值与业绩脱钩，属于典型情绪博弈；<strong>只建议等回抽 MA10（42.68）不破再观察，不建议在 20cm 板上追。</strong></p>
+    <p class="key">关键位：35.90（11/04 低＝60D 低）｜40.47（MA5）｜42.68（MA10）｜44.46（今收·涨停）｜48.68（MA20）｜70.27（60D 高）</p>
+  </div>
+  <img class="chart" src="../charts/301070_SZ_20261104.png" alt="开勒股份日线 K线 MACD 成交量" />
+  <p class="chart-caption">开勒股份日线：60 根 K 线 + MA5/10/20，MACD 与成交量。左侧虚线标注 11/04 收盘（20cm 涨停）、当日低点与 60 日低点、MA5/MA10/MA20。</p>
+
+  <div class="stock-card bull">
+    <h4>② 🟢 云南锗业 002428 —— 锗 · 博主亲口点名的品种 · 涨停</h4>
+    <p class="logic"><strong>博主对应：</strong>「稀有金属，截止目前看是<strong>锗</strong>，钨涨幅领先！」（锗排第一）<br /><strong>11/04 表现：</strong>开 74.00 / 高 75.38 / 低 72.00 / <strong>收 75.38（+10.00%，一字封涨停）</strong>，收在全天最高。</p>
+    <p class="logic"><strong>位置：</strong>收 75.38 站上 MA5（70.83）与 MA10（74.43），<strong>距 MA20（78.25）仅 3.8%</strong> —— 这是三支个股里<strong>距离中期均线最近的一支</strong>；60 日低 64.00 → 今日 +17.8%，但距 60 日高 113.00 仍有 <strong>-33.3%</strong>。</p>
+    <p class="logic"><strong>逻辑：</strong>锗属战略小金属，价格弹性来自供给刚性（出口管制）而非情绪；<strong>与 AI 行情弱相关</strong>，在组合中起到分散作用。同板块共振：东方钽业 +9.99%、博迁新材 +10.00%、湖南白银 +9.99%。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>一字板封死后<strong>无法以合理价格买入</strong>；资源股见顶常伴随商品价格见顶，需盯镓锗现货报价。</p>
+    <p class="key">关键位：64.00（60D 低）｜70.83（MA5）｜74.43（MA10）｜75.38（今收·涨停）｜78.25（MA20·压力）｜113.00（60D 高）</p>
+  </div>
+  <img class="chart" src="../charts/002428_SZ_20261104.png" alt="云南锗业日线 K线 MACD 成交量" />
+  <p class="chart-caption">云南锗业日线：60 根 K 线 + MA5/10/20，MACD 与成交量。左侧虚线标注 11/04 收盘（涨停）、当日低点与 60 日低点、MA5/MA10/MA20。</p>
+
+  <div class="stock-card neutral">
+    <h4>③ 🟡 中际旭创 300308 —— CPO 三大龙头之首 · +11.07%，但均线结构最弱</h4>
+    <p class="logic"><strong>博主对应：</strong>11/03 17:46「<strong>CPO三大龙头这轮下跌了66至72%左右</strong>……疯狂的时候提示风险，被骂死！」<br /><strong>11/04 表现：</strong>开 489.89 / 高 544.00 / 低 469.50 / <strong>收 533.38（+11.07%）</strong>，自 11/03 的 480.20 反弹，前一日曾单边下跌 <strong>-12.69%</strong>（550.00 → 480.20）。</p>
+    <p class="logic"><strong>位置：</strong>⚠️ <strong>收 533.38 仍在 MA5（539.73）下方</strong>，MA10（570.92）、MA20（635.11）差距更大（-6.6% / -16.0%）；60 日低 469.50（今日盘中最低），60 日高 1014.87 —— <strong>距前高 -47.4%</strong>。</p>
+    <p class="logic"><strong>逻辑：</strong>CPO 是今日<strong>超跌反弹弹性第二强</strong>的板块（三大龙头 +10%~13%），且博主在 11/03 已提前 24 小时预告「跌了 66~72%」的深度调整。但<strong>反弹最猛 ≠ 结构最健康</strong>：它当前连 MA5 都没站回去，是三支个股里唯一「涨幅巨大但均线全部压制」的。</p>
+    <p class="logic"><strong>⚠️ 风险：</strong>必须等 <strong>站回 MA5（539.73）并回踩不破</strong>才谈得上参与；在此之前，它只是下跌途中的反抽。</p>
+    <p class="key">关键位：469.50（11/04 低＝60D 低）｜533.38（今收）｜539.73（MA5·第一压力）｜570.92（MA10）｜635.11（MA20）｜1014.87（60D 高）</p>
+  </div>
+  <img class="chart" src="../charts/300308_SZ_20261104.png" alt="中际旭创日线 K线 MACD 成交量" />
+  <p class="chart-caption">中际旭创日线：60 根 K 线 + MA5/10/20，MACD 与成交量。左侧虚线标注 11/04 收盘与高点、11/04 低点＝60 日低点、MA5/MA10/MA20。</p>
+
+  <h2>🎯 明日（11/05）操作建议</h2>
+  <div class="panel">
+    <h4>可直接跟的三个数字（博主原话体系）</h4>
+    <ol>
+      <li><strong>沪指 3706</strong> —— 「明天收复3706点后以3574和3580形成小双底反击之势」。3706 与 MA20（3707.63）重合，<strong>收复 = 反弹升级为反转；跌回 3580 下方 = 小双底失效，此轮反抽结束</strong>。</li>
+      <li><strong>创业板 2376</strong> —— 博主提示位，也是本轮反抽的起点。<strong>回踩不破 2376 则结构完好</strong>；跌破则今日 6.40% 的阳线变成下跌中继。</li>
+      <li><strong>科创50 1100</strong> —— 博主「最理想的搏击点」。<strong>今天没等到（最低 1149.10），明天若回抽 1132-1184 才是他的区间</strong>；反之若继续冲高，是错过而非追高的理由。</li>
+    </ol>
+    <h4>三个板块的操作定性</h4>
+    <ul>
+      <li><span class="tag tag-bull">🟢 稀有金属（锗、钨）</span> <strong>位置最低、赔率最厚、与 AI 情绪弱相关</strong> —— 但今日已涨停，<strong>等回抽 MA10（云南锗业 74.43）不破再考虑</strong>，不追一字板。</li>
+      <li><span class="tag tag-neutral">🟡 物理 AI / 机器人 / 端侧</span> <strong>弹性最大、情绪最热</strong> —— 20cm 涨停潮是情绪高点，<strong>次日分化概率高</strong>；以开勒股份 MA10（42.68）为退潮信号，跌破即走。</li>
+      <li><span class="tag tag-neutral">🟡 半导体设备 / CPO</span> <strong>主线明确但已透支</strong> —— 半导体 177 只涨超 5%、26 家 20cm 涨停；CPO 中际旭创连 MA5 都没站回。<strong>只做回踩确认，不做追高。</strong></li>
+    </ul>
+    <h4>不建议做的事</h4>
+    <ul>
+      <li>❌ 不要因为博主 16:54 转发自己 15:08 的收盘总结，就认为这是「加仓指令」—— 那是<strong>复述</strong>不是<strong>新增</strong>。</li>
+      <li>❌ 不要把「分批布局接回来」当成今天的追高指令 —— 博主给的接回区间是 <strong>4256 / 4380</strong>，不是 3686 / 2544。</li>
+      <li>❌ 不要因为他 15:24 问「晚上白马？」就去接白马 —— <strong>当天白马全部收跌</strong>，资金仍在科技内部切换。</li>
+      <li>❌ 不要忽略他自己的纪律原话：「<strong>把每一轮大跌风险回避，拿捏住大跌后的机会</strong>」「<strong>我不怕错过，只怕自己做错</strong>」。今天的正确姿态是<strong>观察，不是参与</strong>。</li>
+    </ul>
+  </div>
+
+  <h2>⚠️ 风险提示</h2>
+  <div class="hero-turn">
+    <ul style="margin-bottom:0">
+      <li><strong>单日暴涨后的兑现风险：</strong>科创50 从 1132.33 到 1265.47 两日累计 <strong>+11.8%</strong>，半导体 177 只涨超 5%、26 家 20cm 涨停 —— 情绪读数已在高位。</li>
+      <li><strong>博主观点强度随行情摆动：</strong>同一日从「是不是很害怕？」→「一阳改三观！」；<strong>点位可跟，立场不可跟</strong>。</li>
+      <li><strong>「被骂死的正确」不可自我强化：</strong>他用 6 月的预警为本轮看多背书，但 6 月那次的正确恰恰建立在他<strong>那时愿意撤离本金</strong>之上，而不是今天追一根阳线。</li>
+      <li><strong>数据与样本：</strong>本报告基于 11/03 15:40 – 11/04 18:30 共 50 条公开微博 + Tushare 行情自动比对，<strong>点位验证为「事后核对」而非「事前预测」</strong>；博主未点名的个股为按其板块描述的龙头映射，<strong>不代表博主本人推荐该标的</strong>。</li>
+      <li><strong>本报告不构成投资建议。</strong>博主本人长期强调「不要举债，不要用杠杆，风险永远放在第一位」。</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    wu2198 - 2026-11-04 · 抓取自 weibo skill · 行情数据 Tushare Pro（11/04 收盘 · 前复权）<br />
+    图表：K 线 + MACD + 成交量，关键点位以居左虚线标注 · 生成于 2026-11-04 23:00
+  </div>
+
+</div>
+</body>
+</html>

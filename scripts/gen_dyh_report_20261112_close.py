@@ -203,12 +203,12 @@ HTML = f"""<!DOCTYPE html>
 </html>
 """
 
-OUT = REPO / "duyiehua-20261112.html"
+OUT = REPO / "html" / "duyiehua-20261112.html"
 OUT.write_text(HTML, encoding="utf-8")
 
 # 线上 URL 版：去 Jekyll 后不需要 front matter / permalink，
 # 直接把 permalink 当文件名放在仓库根目录即可（图片路径与根目录版一致，不用改 ../）
-ONLINE = REPO / "duyiehua-20261112.html"
+ONLINE = REPO / "html" / "duyiehua-20261112.html"
 ONLINE.write_text(HTML, encoding="utf-8")
 
 # 正文字数统计（含页脚，去标签、去图、去 CSS）
