@@ -42,7 +42,9 @@ RENDERED_MD = Path(os.environ.get("RENDERED_MD", "/tmp/live_2018.html"))
 
 PAGE_SIZE = 10
 SITE_TITLE = "mnote"
-SITE_DESC = "I tried to change the world, but I couldn't find the source code"
+# 2026-11-13：原副标题 “I tried to change the world, but I couldn't find the source code”
+# （GitHub Pages 主题默认文案）已从 banner 删除；这里只留 meta description 用。
+SITE_DESC = "wu2198 投资日报 · 都业华《高级班》收评纪要 · 投研报告归档"
 PAGE_TITLE = "mnote · wu2198 投资日报"
 
 # 同一日期内的排序：收评 → 午评 → 日报
@@ -179,7 +181,6 @@ def page_document(body, page, total, canonical, next_url=None, prev_url=None):
 
     <header class="page-header" role="banner">
       <h1 class="project-name">{SITE_TITLE}</h1>
-      <h2 class="project-tagline">{SITE_DESC}</h2>
     </header>
 
     <main id="content" class="main-content" role="main">
