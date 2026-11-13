@@ -29,14 +29,22 @@ DATE_COMPACT = re.compile(r"(\d{8})")
 
 
 def referenced():
-    """所有根目录页面引用到的相对路径集合。"""
+    """所有页面（根目录 + html/ 子目录）引用到的仓库根相对路径集合。
+
+    页面在 html/ 里时图片写的是 `../charts/xxx.png`，要按页面所在目录解析后再归一化。
+    """
     refs = set()
-    for p in ROOT.glob("*.html"):
+    for p in list(ROOT.glob("*.html")) + list((ROOT / "html").glob("*.html")):
         h = p.read_text(encoding="utf-8")
         for s in re.findall(r'(?:src|href)="([^"]+)"', h):
             if s.startswith(("http://", "https://", "data:", "#", "mailto:")):
                 continue
-            refs.add(os.path.normpath(s.split("?")[0].split("#")[0]))
+            raw = s.split("?")[0].split("#")[0]
+            if raw.startswith("/"):
+                rel = raw.lstrip("/")
+            else:
+                rel = os.path.relpath(os.path.normpath(os.path.join(p.parent, raw)), ROOT)
+            refs.add(os.path.normpath(rel))
     return refs
 
 
