@@ -45,6 +45,11 @@ CSS = """<style>
   .tag-bull{background:var(--bullbg);color:var(--bull)}.tag-bear{background:var(--bearbg);color:var(--bear)}
   .tag-neutral{background:var(--neutbg);color:var(--neutral)}.tag-none{background:var(--nonebg);color:var(--none)}
   .chart{width:100%;height:auto;display:block;margin:8px 0 2px;border:1px solid var(--border);border-radius:6px;background:#fff}
+  .charts4{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 4px}
+  @media(max-width:760px){.charts4{grid-template-columns:1fr}}
+  .charts4 figure{margin:0}
+  .charts4 .chart{margin:0}
+  .charts4 figcaption{font-size:11.5px;color:var(--muted);padding:3px 2px 0}
   .up{color:var(--up);font-weight:600}.down{color:var(--down);font-weight:600}
   .kn{color:var(--key);font-weight:700;font-variant-numeric:tabular-nums}
   .box{border-radius:8px;padding:8px 12px;margin:8px 0;font-size:13.5px}
@@ -60,25 +65,25 @@ CSS = """<style>
 SECTIONS = [
     ("半导体", "申万二级 801081",
      "市值前 8 有 3 只是 AI 芯片，半导体权重已被算力叙事主导；<b>长鑫 PE 19.5 且缩量</b>是唯一「便宜+回调未破位」的大票，华虹 PE 246 最贵又最弱。",
-     "长鑫科技"),
+     ["长鑫科技", "中芯国际", "北方华创", "华虹宏力"]),
     ("GPU", "AI 加速卡/图形 GPU 手工池",
      "全池均值 -0.21%，<b>唯一没被杀的方向</b>；能拿住的是有业绩的寒武纪、海光（换手 2.55%/1.22%），次新三兄弟换手 13%–22% 且亏损/PE 1171。",
-     "寒武纪"),
+     ["寒武纪", "海光信息", "摩尔线程", "燧原科技"]),
     ("算力", "申万三级 851024+850703+850822",
      "PE 只有 18–31 却距 60 日高 -37%~-62%，<b>杀拥挤度不是杀业绩</b>；但量比仍 1.1–1.5 放量下跌，抛压没出完。",
-     "中际旭创"),
+     ["中际旭创", "新易盛", "沪电股份", "中科曙光"]),
     ("CPO", "光模块/光器件/光纤 手工池",
      "<b>21 只零红盘、均值 -7.0%，七个方向最惨</b>；光模块放量跌 8%–11.8%，光纤光缆缩量跌 4%，差别就在 AI 资本开支敞口。",
-     "天孚通信"),
+     ["天孚通信", "源杰科技", "光迅科技", "长飞光纤"]),
     ("存储", "存储设计+制造+模组 手工池",
      "模块厂 PE 仅 6.5–7.7 倍，是周期底部定价而非便宜就该买；<b>全池量比 0.67–0.95 普遍缩量</b>，抛压比 CPO 轻。",
-     "江波龙"),
+     ["兆易创新", "江波龙", "澜起科技", "佰维存储"]),
     ("端侧", "端侧 SoC/AIoT/终端 手工池",
      "均值仅 -1.85%，<b>不依赖北美资本开支，是本周避风港</b>；豪威当日红盘、距高 -5.8%、PE 34.9，位置估值都在线。",
-     "瑞芯微"),
+     ["瑞芯微", "豪威集团", "歌尔股份", "安克创新"]),
     ("机器人", "申万三级 850781 + 人形核心零部件",
      "均值 -1.10% 且<b>几乎全线缩量</b>（量比 0.51–0.93），是获利了结不是恐慌；但宇树 PE 502、绿的谐波 338 属故事定价。",
-     "宇树科技"),
+     ["宇树科技", "三花智控", "拓普集团", "绿的谐波"]),
 ]
 
 
@@ -133,9 +138,16 @@ def main():
                     f'<td>{"、".join(s["best"][:2])}</td></tr>')
 
     sec_html = ""
-    for idx, (pool, cal, concl, kline_name) in enumerate(SECTIONS, 1):
-        c = CH.get(kline_name)
-        img = (f'<img class="chart" src="../charts/{c["file"]}">' if c else "")
+    for idx, (pool, cal, concl, kline_names) in enumerate(SECTIONS, 1):
+        figs = ""
+        for nm in kline_names:
+            c = CH.get(nm)
+            if not c:
+                continue
+            figs += (f'<figure><img class="chart" src="../charts/{c["file"]}">'
+                     f'<figcaption>{nm} {c["code"].split(".")[0]} · 收 {c["close"]} '
+                     f'({"+" if c["pct"] >= 0 else ""}{c["pct"]}%)</figcaption></figure>')
+        img = f'<div class="charts4">{figs}</div>' if figs else ""
         sec_html += (f'<h3>{idx}. {pool}（Top8）</h3>'
                      f'<p class="small">口径：{cal}</p>'
                      f'{build_table(pool)}'
