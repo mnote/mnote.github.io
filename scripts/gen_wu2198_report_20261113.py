@@ -5,6 +5,8 @@
 篇幅： 正文 ≤ 1500 中文字 / 表格 ≤ 4 张（cron 任务硬约束）
 """
 import json
+import sys
+import sys
 from pathlib import Path
 
 ROOT = Path("/Users/maoling/workspace/mnote.github.io")
@@ -273,7 +275,11 @@ HTML = f"""<!DOCTYPE html>
 </html>
 """
 
+# 表格移动端适配（横向滚动 + 首列粘滞 + 溢出提示）：统一由 fix_mobile_tables 注入
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fix_mobile_tables import patch_html
+
 if __name__ == "__main__":
     out = ROOT / "html" / "wu2198-20261113.html"
-    out.write_text(HTML, encoding="utf-8")
+    out.write_text(patch_html(HTML), encoding="utf-8")
     print(f"[out] {out}  ({len(HTML)} bytes)")

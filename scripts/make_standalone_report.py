@@ -2,6 +2,7 @@
 
 用途：HTML 被下载/转发/存到别处后，相对路径 `charts/xxx.png` 会解析不到 → 全部裂图。
 内嵌后无论在哪个目录、用什么方式打开都能正常显示图表。
+共享样式表 `assets/css/report-table.css`（表格移动端适配）也一并内联。
 
 用法：
     python3 make_standalone_report.py <报告.html> [-o 输出.html]
@@ -12,6 +13,9 @@ import mimetypes
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fix_mobile_tables import inline_css
 
 REPO = Path("/Users/maoling/workspace/mnote.github.io")
 OUT_DIR = REPO / "_standalone"
@@ -51,6 +55,7 @@ def main() -> None:
     print(f"[src] {src}")
     html = src.read_text(encoding="utf-8")
     html, ok, fail = inline_images(html, src.parent)
+    html = inline_css(html)
 
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")

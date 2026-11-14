@@ -2,3 +2,4 @@
 .idea
 _site/
 *.lockindex.html.bak
+__pycache__/

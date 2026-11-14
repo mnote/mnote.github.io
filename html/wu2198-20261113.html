@@ -73,6 +73,7 @@
   ul.tight li { margin: 4px 0; }
   .vol{color:var(--neutral);font-weight:600}
 </style>
+<link rel="stylesheet" href="../assets/css/report-table.css">
 </head>
 <body>
 <div class="wrap">
@@ -105,7 +106,7 @@
 </div>
 
 <h2>一、博主说了什么（8 条）</h2>
-<table>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
 <thead><tr><th>时间</th><th>信号</th><th>原文</th><th>判读 / 日线实测</th></tr></thead>
 <tbody>
 <tr><td><b>07:03</b></td><td>⚪ 外盘</td><td class="text">道指跌189点、纳指跌100点、标普跌27点</td>
@@ -125,7 +126,7 @@
 <tr><td><b>15:12 / 16:12</b></td><td>🟡 收盘定调</td><td class="text">市场属于ABC结构调整重的C杀尾段，策略偏向分批承接 / 3706、2626 点收复才有用才有空间，不要断章取义！</td>
   <td class="text"><b>两句必须连读</b>：15:12 给方向，16:12 收回买点 → <b>方向转防守、门槛不松</b>，不是「现在可以买」。</td></tr>
 </tbody>
-</table>
+</table></div><!--tw--></div>
 
 <h2>二、大盘关键点位</h2>
 <p class="meta" style="margin-bottom:6px">K 线<b>红涨绿跌</b>（按收 vs 开着色）；关键位在图<b>左侧虚线</b>。</p>
@@ -148,7 +149,7 @@
 </div>
 
 <h2>三、最值得关注的 3 个板块</h2>
-<table>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
 <thead><tr><th>板块</th><th>11/13 收盘实测</th><th>博主口径 / 打法</th></tr></thead>
 <tbody>
 <tr><td><b>① GPU / 国产算力</b><br><span class="tag tag-bull">首选 · 唯一逆势</span></td>
@@ -161,7 +162,7 @@
     <td>瑞芯微 <b>−1.32%</b>（曾冲 228.00 后回落）、芯原 −3.64%</td>
     <td>10:38 唯一盘中点名板块。<b>收盘未兑现，等次日验证</b>；PE 57.90 不低，MA20 202.94 之下不接。</td></tr>
 </tbody>
-</table>
+</table></div><!--tw--></div>
 <p class="meta" style="margin-bottom:0">
   <b>回避两个</b>：CPO/光通信 8 只<b>全跌</b>、均值 <b>−7.87%</b>（他 11:24 已定性拖累）；存储芯片 −3.75%。
   <b>另需注意</b>：唯一逆势的是<b>白酒/大消费 5/5 全涨、均值 +3.16%</b>（古井 +5.86%），
@@ -170,7 +171,7 @@
 </p>
 
 <h2>四、3 支个股</h2>
-<table>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
 <thead><tr><th>代码 名称</th><th class="score">收盘</th><th class="score">涨跌</th>
 <th class="score">成交额</th><th>关键位</th><th>实测印证 / 动作</th></tr></thead>
 <tbody>
@@ -184,7 +185,7 @@
     <td class="score">36.1 亿</td><td>MA20 <b>202.94</b> · 60 日高 <b>237.37</b></td>
     <td class="text">10:38 冲 228.00 后回落，<b>收盘未兑现他的「趋势完美无缺」</b>；量能仅 5 日均 92%。<b>破 MA20 202.94 不接。</b></td></tr>
 </tbody>
-</table>
+</table></div><!--tw--></div>
 
 <h3>寒武纪（688256）· 978.88（+0.60%）</h3>
 <img class="chart" src="../charts/688256_SH_20261113.png" alt="寒武纪 2026-11-13 K线">
@@ -208,7 +209,7 @@
 </ul>
 
 <h2>六、偏差记录</h2>
-<table>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
 <thead><tr><th>项</th><th>博主口径</th><th>实测 / 处理</th></tr></thead>
 <tbody>
 <tr><td>10:38 端侧<br><span class="tag tag-bear">收盘未兑现</span></td><td class="text">端侧再度拉起，趋势完美无缺</td>
@@ -222,7 +223,7 @@
 <tr><td>周线定性<br><span class="tag tag-neutral">需降级</span></td><td class="text">C3 低点会有一批股提前见底</td>
     <td class="text">周线 MACD 上证 DIF −86.06 / DEA −57.26、创业板 DIF −274.67 / DEA −154.51：<b>柱收窄但 DIF/DEA 双双在零轴下方下行</b> → 底部成立、<b>反转未确认</b>。</td></tr>
 </tbody>
-</table>
+</table></div><!--tw--></div>
 <p class="meta" style="margin-bottom:0">
   其余 <b>4 条核实通过</b>：外盘三数字、CPO+存储拖累、英伟达 166.19 美元、双门槛点位。
   采集：两轮词表补采 → 17 条（07:03–22:52）；行情：Tushare Pro 11/13 收盘。
@@ -238,5 +239,6 @@
 </div>
 
 </div>
+<script>(function(){var w=document.querySelectorAll(".tw");for(var i=0;i<w.length;i++){if(w[i].scrollWidth>w[i].clientWidth+2&&w[i].parentNode){w[i].parentNode.classList.add("ov");}}})();/*twOverflowHint*/</script>
 </body>
 </html>

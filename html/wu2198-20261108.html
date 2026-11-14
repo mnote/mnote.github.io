@@ -94,6 +94,7 @@
   .divider { height: 1px; background: var(--border); margin: 26px 0; }
   .vol{color:var(--neutral);font-weight:600}
 </style>
+<link rel="stylesheet" href="../assets/css/report-table.css">
 </head>
 <body>
 <div class="wrap">
@@ -140,7 +141,7 @@
 </div>
 
 <h2>一、窗口内全部微博与信号判定</h2>
-<table>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
   <thead>
     <tr><th style="width:88px">时间</th><th style="width:70px">互动</th><th style="width:52px">信号</th><th>内容与判定</th></tr>
   </thead>
@@ -221,7 +222,7 @@
         <span class="tag tag-none">生活/互动</span></td>
     </tr>
   </tbody>
-</table>
+</table></div><!--tw--></div>
 
 <div class="divider"></div>
 
@@ -399,7 +400,7 @@
 <div class="panel panel-2">
   <h3 style="margin-top:0">🔴 附加对照：CPO / 光模块 —— 博主押注两次，两次证伪</h3>
   <p>博主 11/05 14:19 押「CPO 和存储芯片尾盘资金自救，指数有望收高」—— 11/06 答案：<b class="down">-9.19%</b>。</p>
-  <table>
+  <div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
     <thead><tr><th>标的</th><th>11/05</th><th>11/06</th><th>两日累计</th><th>11/06 成交额</th></tr></thead>
     <tbody>
       <tr><td>中际旭创 300308</td><td class="down">-7.51%</td><td class="down">-9.19%</td><td class="down"><b>-16.02%</b></td><td>239.7 亿</td></tr>
@@ -407,7 +408,7 @@
       <tr><td>天孚通信 300394</td><td class="down">-4.78%</td><td class="down">-5.79%</td><td class="down"><b>-10.29%</b></td><td>63.6 亿</td></tr>
       <tr><td>源杰科技 688498</td><td class="down">-1.06%</td><td class="down">-8.43%</td><td class="down"><b>-9.40%</b></td><td>40.2 亿</td></tr>
     </tbody>
-  </table>
+  </table></div><!--tw--></div>
   <p><b>5 只样本均值 -7.24%</b> —— 全线暴跌、持续放量杀跌。这条线<b>是拖累创业板的那条线</b>，
   博主押它「自救」而它继续崩。<b>隔夜纳指反弹给了 CPO 一个反抽窗口，但两日 -16% 的放量杀跌说明抛压是真实的，不宜参与。</b></p>
 </div>
@@ -594,5 +595,6 @@
 </div>
 
 </div>
+<script>(function(){var w=document.querySelectorAll(".tw");for(var i=0;i<w.length;i++){if(w[i].scrollWidth>w[i].clientWidth+2&&w[i].parentNode){w[i].parentNode.classList.add("ov");}}})();/*twOverflowHint*/</script>
 </body>
 </html>

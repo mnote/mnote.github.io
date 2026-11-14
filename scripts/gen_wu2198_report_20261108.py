@@ -4,6 +4,7 @@
 关键新增（上期 11/06 报告未覆盖）：11/06 23:21「美国市场目前科技股出现报复性反弹，目前纳指涨425点」
 行情：Tushare Pro，11/06 收盘（周五最后交易日）
 """
+import sys
 from pathlib import Path
 
 OUT = Path("/Users/maoling/workspace/mnote.github.io/html/wu2198-20261108.html")
@@ -608,5 +609,8 @@ HTML = """<!DOCTYPE html>
 </html>
 """
 
-OUT.write_text(HTML, encoding="utf-8")
+# 表格移动端适配（横向滚动 + 首列粘滞 + 溢出提示）：统一由 fix_mobile_tables 注入
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fix_mobile_tables import patch_html
+OUT.write_text(patch_html(HTML), encoding="utf-8")
 print(f"[ok] {OUT}  ({len(HTML):,} bytes)")

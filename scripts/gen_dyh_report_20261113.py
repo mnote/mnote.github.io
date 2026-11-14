@@ -3,6 +3,7 @@
 输出：html/duyiehua-20261113.html
 """
 import json
+import sys
 from pathlib import Path
 
 REPO = Path("/Users/maoling/workspace/mnote.github.io")
@@ -191,5 +192,8 @@ html = f"""<!DOCTYPE html>
 </html>
 """
 out = REPO / "html/duyiehua-20261113.html"
-out.write_text(html, encoding="utf-8")
+# 表格移动端适配（横向滚动 + 首列粘滞 + 溢出提示）：统一由 fix_mobile_tables 注入
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fix_mobile_tables import patch_html
+out.write_text(patch_html(html), encoding="utf-8")
 print("saved", out, len(html))

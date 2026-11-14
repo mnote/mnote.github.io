@@ -1,0 +1,35 @@
+/* 报告页表格 · PC / 移动端自适应
+ *
+ * 用法：<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>…</table></div></div>
+ *  - .tw   横向滚动容器：手机上宁可左右滑动，也不把中文压成竖排单字
+ *  - 首列 sticky：横滑时「标的」列始终可见
+ *  - .ov   由页面内联 JS 标记（表格确实溢出时），才显示「左右滑动」提示
+ *
+ * 选择器统一用 .wrap 前缀提高特异性，不依赖 <link> 与内联 <style> 的先后顺序。
+ */
+
+.wrap .twx{margin:10px 0}
+.wrap .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.wrap .tw table{width:100%;border-collapse:separate;border-spacing:0;margin:0}
+.wrap .tw th,.wrap .tw td{border-bottom:1px solid var(--border)}
+.wrap .tw th{white-space:nowrap}
+.wrap .tw td:first-child,.wrap .tw th:first-child{
+  position:sticky;left:0;z-index:2;background:#fff;box-shadow:1px 0 0 var(--border);
+}
+.wrap .tw th:first-child{background:var(--panel2);z-index:4}
+.wrap .tw tr:first-child th,.wrap .tw thead th{position:sticky;top:0;z-index:3}
+.wrap .tw tr:hover td{background:var(--panel)}
+.wrap .twx.ov::before{
+  content:"← 左右滑动查看完整表格 →";display:block;font-size:11.5px;
+  color:var(--muted);margin:0 0 4px;letter-spacing:.2px;
+}
+
+@media(max-width:760px){
+  .wrap{padding:20px 12px 48px}
+  .wrap .tw{font-size:12.5px}
+  .wrap .tw th,.wrap .tw td{padding:7px 8px}
+  .wrap .tw th{min-width:84px;white-space:normal}
+  .wrap .tw td{min-width:130px;max-width:280px}
+  .wrap .tw td.num{min-width:96px}
+  .wrap .tw td:first-child{min-width:104px}
+}
