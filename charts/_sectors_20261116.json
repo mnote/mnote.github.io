@@ -1,0 +1,738 @@
+{
+  "pools": {
+    "存储/半导体/GPU": {
+      "n": 8,
+      "avg_pct": -7.83,
+      "up": 0,
+      "down": 8,
+      "amount_yi": 406.8,
+      "max_pct": -6.54,
+      "min_pct": -9.27
+    },
+    "CPO/光通信": {
+      "n": 8,
+      "avg_pct": -9.61,
+      "up": 0,
+      "down": 8,
+      "amount_yi": 611.3,
+      "max_pct": -3.65,
+      "min_pct": -12.28
+    },
+    "军工": {
+      "n": 12,
+      "avg_pct": -3.2,
+      "up": 1,
+      "down": 11,
+      "amount_yi": 66.1,
+      "max_pct": 0.09,
+      "min_pct": -6.27
+    },
+    "人形机器人/端侧": {
+      "n": 10,
+      "avg_pct": -2.62,
+      "up": 1,
+      "down": 9,
+      "amount_yi": 123.0,
+      "max_pct": 1.15,
+      "min_pct": -7.67
+    },
+    "白酒/大消费": {
+      "n": 5,
+      "avg_pct": 0.92,
+      "up": 5,
+      "down": 0,
+      "amount_yi": 104.7,
+      "max_pct": 1.3,
+      "min_pct": 0.44
+    },
+    "固态/锂电": {
+      "n": 5,
+      "avg_pct": -0.59,
+      "up": 2,
+      "down": 3,
+      "amount_yi": 112.9,
+      "max_pct": 1.53,
+      "min_pct": -4.09
+    },
+    "银行/红利": {
+      "n": 10,
+      "avg_pct": 1.97,
+      "up": 10,
+      "down": 0,
+      "amount_yi": 231.6,
+      "max_pct": 3.65,
+      "min_pct": 1.09
+    },
+    "算力租赁/IDC": {
+      "n": 8,
+      "avg_pct": -4.34,
+      "up": 0,
+      "down": 8,
+      "amount_yi": 31.2,
+      "max_pct": -2.18,
+      "min_pct": -9.87
+    }
+  },
+  "members": {
+    "存储/半导体/GPU": [
+      {
+        "code": "688041.SH",
+        "name": "海光信息",
+        "pct": -6.54,
+        "amount_yi": 49.66,
+        "close": 190.0
+      },
+      {
+        "code": "688008.SH",
+        "name": "澜起科技",
+        "pct": -7.41,
+        "amount_yi": 52.9,
+        "close": 139.79
+      },
+      {
+        "code": "301308.SZ",
+        "name": "江波龙",
+        "pct": -7.59,
+        "amount_yi": 21.85,
+        "close": 201.46
+      },
+      {
+        "code": "688525.SH",
+        "name": "佰维存储",
+        "pct": -7.62,
+        "amount_yi": 21.56,
+        "close": 125.28
+      },
+      {
+        "code": "001309.SZ",
+        "name": "德明利",
+        "pct": -7.85,
+        "amount_yi": 27.17,
+        "close": 178.65
+      },
+      {
+        "code": "300475.SZ",
+        "name": "香农芯创",
+        "pct": -8.1,
+        "amount_yi": 19.0,
+        "close": 82.98
+      },
+      {
+        "code": "688256.SH",
+        "name": "寒武纪",
+        "pct": -8.27,
+        "amount_yi": 128.22,
+        "close": 897.97
+      },
+      {
+        "code": "603986.SH",
+        "name": "兆易创新",
+        "pct": -9.27,
+        "amount_yi": 86.46,
+        "close": 223.22
+      }
+    ],
+    "CPO/光通信": [
+      {
+        "code": "002396.SZ",
+        "name": "星网锐捷",
+        "pct": -3.65,
+        "amount_yi": 20.69,
+        "close": 24.28
+      },
+      {
+        "code": "688498.SH",
+        "name": "源杰科技",
+        "pct": -7.48,
+        "amount_yi": 57.36,
+        "close": 622.76
+      },
+      {
+        "code": "002281.SZ",
+        "name": "光迅科技",
+        "pct": -9.49,
+        "amount_yi": 31.56,
+        "close": 85.55
+      },
+      {
+        "code": "601869.SH",
+        "name": "长飞光纤",
+        "pct": -9.99,
+        "amount_yi": 25.43,
+        "close": 225.49
+      },
+      {
+        "code": "300502.SZ",
+        "name": "新易盛",
+        "pct": -11.08,
+        "amount_yi": 156.07,
+        "close": 166.8
+      },
+      {
+        "code": "300570.SZ",
+        "name": "太辰光",
+        "pct": -11.09,
+        "amount_yi": 17.92,
+        "close": 101.08
+      },
+      {
+        "code": "300394.SZ",
+        "name": "天孚通信",
+        "pct": -11.83,
+        "amount_yi": 66.92,
+        "close": 110.2
+      },
+      {
+        "code": "300308.SZ",
+        "name": "中际旭创",
+        "pct": -12.28,
+        "amount_yi": 235.39,
+        "close": 408.97
+      }
+    ],
+    "军工": [
+      {
+        "code": "600150.SH",
+        "name": "中国船舶",
+        "pct": 0.09,
+        "amount_yi": 15.32,
+        "close": 34.14
+      },
+      {
+        "code": "600372.SH",
+        "name": "中航机载",
+        "pct": -0.44,
+        "amount_yi": 2.25,
+        "close": 11.2
+      },
+      {
+        "code": "600760.SH",
+        "name": "中航沈飞",
+        "pct": -1.33,
+        "amount_yi": 6.1,
+        "close": 46.79
+      },
+      {
+        "code": "002179.SZ",
+        "name": "中航光电",
+        "pct": -1.6,
+        "amount_yi": 5.06,
+        "close": 33.24
+      },
+      {
+        "code": "002625.SZ",
+        "name": "光启技术",
+        "pct": -1.79,
+        "amount_yi": 5.41,
+        "close": 18.13
+      },
+      {
+        "code": "600685.SH",
+        "name": "中船防务",
+        "pct": -2.45,
+        "amount_yi": 2.14,
+        "close": 24.26
+      },
+      {
+        "code": "000768.SZ",
+        "name": "中航西飞",
+        "pct": -3.66,
+        "amount_yi": 6.31,
+        "close": 22.09
+      },
+      {
+        "code": "002389.SZ",
+        "name": "航天彩虹",
+        "pct": -4.23,
+        "amount_yi": 3.45,
+        "close": 17.19
+      },
+      {
+        "code": "688297.SH",
+        "name": "中无人机",
+        "pct": -5.4,
+        "amount_yi": 2.74,
+        "close": 36.11
+      },
+      {
+        "code": "688776.SH",
+        "name": "国光电气",
+        "pct": -5.57,
+        "amount_yi": 0.65,
+        "close": 40.89
+      },
+      {
+        "code": "600435.SH",
+        "name": "北方导航",
+        "pct": -5.78,
+        "amount_yi": 3.1,
+        "close": 10.75
+      },
+      {
+        "code": "600893.SH",
+        "name": "航发动力",
+        "pct": -6.27,
+        "amount_yi": 13.51,
+        "close": 35.15
+      }
+    ],
+    "人形机器人/端侧": [
+      {
+        "code": "688836.SH",
+        "name": "宇树科技",
+        "pct": 1.15,
+        "amount_yi": 34.47,
+        "close": 703.99
+      },
+      {
+        "code": "300450.SZ",
+        "name": "先导智能",
+        "pct": -0.8,
+        "amount_yi": 10.7,
+        "close": 29.83
+      },
+      {
+        "code": "300124.SZ",
+        "name": "汇川技术",
+        "pct": -0.92,
+        "amount_yi": 12.56,
+        "close": 52.96
+      },
+      {
+        "code": "601689.SH",
+        "name": "拓普集团",
+        "pct": -1.25,
+        "amount_yi": 16.69,
+        "close": 49.65
+      },
+      {
+        "code": "002527.SZ",
+        "name": "新时达",
+        "pct": -2.78,
+        "amount_yi": 0.83,
+        "close": 10.15
+      },
+      {
+        "code": "603662.SH",
+        "name": "柯银科技",
+        "pct": -3.12,
+        "amount_yi": 4.31,
+        "close": 52.52
+      },
+      {
+        "code": "300718.SZ",
+        "name": "长盛轴承",
+        "pct": -3.12,
+        "amount_yi": 2.86,
+        "close": 48.8
+      },
+      {
+        "code": "002472.SZ",
+        "name": "双环传动",
+        "pct": -3.44,
+        "amount_yi": 9.75,
+        "close": 40.68
+      },
+      {
+        "code": "603893.SH",
+        "name": "瑞芯微",
+        "pct": -4.22,
+        "amount_yi": 28.08,
+        "close": 208.6
+      },
+      {
+        "code": "688332.SH",
+        "name": "芯原股份",
+        "pct": -7.67,
+        "amount_yi": 2.69,
+        "close": 61.07
+      }
+    ],
+    "白酒/大消费": [
+      {
+        "code": "600519.SH",
+        "name": "贵州茅台",
+        "pct": 1.3,
+        "amount_yi": 57.67,
+        "close": 1453.9
+      },
+      {
+        "code": "600809.SH",
+        "name": "山西汾酒",
+        "pct": 1.2,
+        "amount_yi": 9.79,
+        "close": 130.8
+      },
+      {
+        "code": "000568.SZ",
+        "name": "泸州老窖",
+        "pct": 1.04,
+        "amount_yi": 11.9,
+        "close": 80.43
+      },
+      {
+        "code": "000596.SZ",
+        "name": "古井贡酒",
+        "pct": 0.63,
+        "amount_yi": 10.81,
+        "close": 112.71
+      },
+      {
+        "code": "000858.SZ",
+        "name": "五粮液",
+        "pct": 0.44,
+        "amount_yi": 14.58,
+        "close": 73.7
+      }
+    ],
+    "固态/锂电": [
+      {
+        "code": "300014.SZ",
+        "name": "亿纬锂能",
+        "pct": 1.53,
+        "amount_yi": 16.09,
+        "close": 46.54
+      },
+      {
+        "code": "300750.SZ",
+        "name": "宁德时代",
+        "pct": 1.18,
+        "amount_yi": 86.55,
+        "close": 240.5
+      },
+      {
+        "code": "688779.SH",
+        "name": "长远锂科",
+        "pct": -0.62,
+        "amount_yi": 0.97,
+        "close": 6.38
+      },
+      {
+        "code": "002074.SZ",
+        "name": "国轩高科",
+        "pct": -0.94,
+        "amount_yi": 4.67,
+        "close": 23.1
+      },
+      {
+        "code": "300568.SZ",
+        "name": "星源材质",
+        "pct": -4.09,
+        "amount_yi": 4.65,
+        "close": 11.01
+      }
+    ],
+    "银行/红利": [
+      {
+        "code": "600000.SH",
+        "name": "浦发银行",
+        "pct": 3.65,
+        "amount_yi": 10.28,
+        "close": 10.78
+      },
+      {
+        "code": "601288.SH",
+        "name": "农业银行",
+        "pct": 2.99,
+        "amount_yi": 36.48,
+        "close": 7.59
+      },
+      {
+        "code": "601398.SH",
+        "name": "工商银行",
+        "pct": 2.26,
+        "amount_yi": 33.31,
+        "close": 9.05
+      },
+      {
+        "code": "601988.SH",
+        "name": "中国银行",
+        "pct": 1.95,
+        "amount_yi": 19.79,
+        "close": 7.32
+      },
+      {
+        "code": "000001.SZ",
+        "name": "平安银行",
+        "pct": 1.91,
+        "amount_yi": 26.46,
+        "close": 12.3
+      },
+      {
+        "code": "601328.SH",
+        "name": "交通银行",
+        "pct": 1.63,
+        "amount_yi": 16.97,
+        "close": 8.72
+      },
+      {
+        "code": "601818.SH",
+        "name": "光大银行",
+        "pct": 1.55,
+        "amount_yi": 9.9,
+        "close": 3.27
+      },
+      {
+        "code": "601166.SH",
+        "name": "兴业银行",
+        "pct": 1.41,
+        "amount_yi": 22.03,
+        "close": 20.11
+      },
+      {
+        "code": "601939.SH",
+        "name": "建设银行",
+        "pct": 1.24,
+        "amount_yi": 18.96,
+        "close": 12.26
+      },
+      {
+        "code": "600036.SH",
+        "name": "招商银行",
+        "pct": 1.09,
+        "amount_yi": 37.4,
+        "close": 43.4
+      }
+    ],
+    "算力租赁/IDC": [
+      {
+        "code": "300383.SZ",
+        "name": "光环新网",
+        "pct": -2.18,
+        "amount_yi": 2.5,
+        "close": 9.44
+      },
+      {
+        "code": "600602.SH",
+        "name": "云赛智联",
+        "pct": -3.02,
+        "amount_yi": 1.77,
+        "close": 14.14
+      },
+      {
+        "code": "603887.SH",
+        "name": "城地香江",
+        "pct": -3.11,
+        "amount_yi": 1.22,
+        "close": 7.48
+      },
+      {
+        "code": "300738.SZ",
+        "name": "奥飞数据",
+        "pct": -3.48,
+        "amount_yi": 3.39,
+        "close": 15.25
+      },
+      {
+        "code": "603881.SH",
+        "name": "数据港",
+        "pct": -3.65,
+        "amount_yi": 2.61,
+        "close": 19.28
+      },
+      {
+        "code": "002335.SZ",
+        "name": "科华数据",
+        "pct": -4.48,
+        "amount_yi": 2.73,
+        "close": 23.46
+      },
+      {
+        "code": "300846.SZ",
+        "name": "首都在线",
+        "pct": -4.96,
+        "amount_yi": 2.19,
+        "close": 16.1
+      },
+      {
+        "code": "300442.SZ",
+        "name": "润泽科技",
+        "pct": -9.87,
+        "amount_yi": 14.77,
+        "close": 51.84
+      }
+    ]
+  },
+  "top_gainers": [
+    {
+      "code": "300530.SZ",
+      "name": "300530.SZ",
+      "pct": 20.01,
+      "amount_yi": 4.61
+    },
+    {
+      "code": "300824.SZ",
+      "name": "300824.SZ",
+      "pct": 19.94,
+      "amount_yi": 2.75
+    },
+    {
+      "code": "300010.SZ",
+      "name": "300010.SZ",
+      "pct": 15.08,
+      "amount_yi": 6.13
+    },
+    {
+      "code": "301513.SZ",
+      "name": "301513.SZ",
+      "pct": 14.21,
+      "amount_yi": 6.16
+    },
+    {
+      "code": "300197.SZ",
+      "name": "300197.SZ",
+      "pct": 10.86,
+      "amount_yi": 4.51
+    },
+    {
+      "code": "920627.BJ",
+      "name": "920627.BJ",
+      "pct": 10.59,
+      "amount_yi": 1.91
+    },
+    {
+      "code": "600936.SH",
+      "name": "600936.SH",
+      "pct": 10.14,
+      "amount_yi": 1.8
+    },
+    {
+      "code": "002035.SZ",
+      "name": "002035.SZ",
+      "pct": 10.12,
+      "amount_yi": 3.23
+    },
+    {
+      "code": "600386.SH",
+      "name": "600386.SH",
+      "pct": 10.12,
+      "amount_yi": 1.32
+    },
+    {
+      "code": "002425.SZ",
+      "name": "002425.SZ",
+      "pct": 10.1,
+      "amount_yi": 8.05
+    },
+    {
+      "code": "002148.SZ",
+      "name": "002148.SZ",
+      "pct": 10.06,
+      "amount_yi": 16.53
+    },
+    {
+      "code": "600530.SH",
+      "name": "600530.SH",
+      "pct": 10.06,
+      "amount_yi": 0.72
+    },
+    {
+      "code": "000156.SZ",
+      "name": "000156.SZ",
+      "pct": 10.05,
+      "amount_yi": 8.22
+    },
+    {
+      "code": "002187.SZ",
+      "name": "002187.SZ",
+      "pct": 10.04,
+      "amount_yi": 3.29
+    },
+    {
+      "code": "002356.SZ",
+      "name": "002356.SZ",
+      "pct": 10.04,
+      "amount_yi": 2.06
+    },
+    {
+      "code": "601929.SH",
+      "name": "601929.SH",
+      "pct": 10.04,
+      "amount_yi": 14.8
+    },
+    {
+      "code": "002861.SZ",
+      "name": "002861.SZ",
+      "pct": 10.03,
+      "amount_yi": 2.35
+    },
+    {
+      "code": "002058.SZ",
+      "name": "002058.SZ",
+      "pct": 10.02,
+      "amount_yi": 3.15
+    },
+    {
+      "code": "603118.SH",
+      "name": "603118.SH",
+      "pct": 10.02,
+      "amount_yi": 21.5
+    },
+    {
+      "code": "001318.SZ",
+      "name": "001318.SZ",
+      "pct": 10.01,
+      "amount_yi": 6.2
+    },
+    {
+      "code": "002748.SZ",
+      "name": "002748.SZ",
+      "pct": 10.01,
+      "amount_yi": 4.18
+    },
+    {
+      "code": "002959.SZ",
+      "name": "002959.SZ",
+      "pct": 10.01,
+      "amount_yi": 1.85
+    },
+    {
+      "code": "600822.SH",
+      "name": "600822.SH",
+      "pct": 10.01,
+      "amount_yi": 1.52
+    },
+    {
+      "code": "000628.SZ",
+      "name": "000628.SZ",
+      "pct": 10.0,
+      "amount_yi": 7.86
+    },
+    {
+      "code": "002905.SZ",
+      "name": "002905.SZ",
+      "pct": 10.0,
+      "amount_yi": 0.49
+    },
+    {
+      "code": "600715.SH",
+      "name": "600715.SH",
+      "pct": 10.0,
+      "amount_yi": 39.57
+    },
+    {
+      "code": "601188.SH",
+      "name": "601188.SH",
+      "pct": 10.0,
+      "amount_yi": 10.12
+    },
+    {
+      "code": "603983.SH",
+      "name": "603983.SH",
+      "pct": 10.0,
+      "amount_yi": 2.12
+    },
+    {
+      "code": "605378.SH",
+      "name": "605378.SH",
+      "pct": 9.99,
+      "amount_yi": 0.93
+    },
+    {
+      "code": "000819.SZ",
+      "name": "000819.SZ",
+      "pct": 9.98,
+      "amount_yi": 8.2
+    }
+  ]
+}
