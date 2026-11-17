@@ -1,4 +1,4 @@
-"""wu2198 报告 K 线图 — 2026-11-17（周二 · 盘中版）
+"""wu2198 报告 K 线图 — 2026-11-17（周二 · 收盘版）
 
 窗口：11/17 06:07 → 13:13（11 条）
 核心：11/17 10:47「科技类股杀估值去杠杆，清洗干净之后，高成长+行业向好的科技股会走出局部行情」
@@ -6,7 +6,7 @@
       11/17 11:15「暂时看，早盘还只是探低之后的抵抗！」
       11/17 13:02/13:13「暂时还没有明朗的热点效应」「暂时没有出现大的力量」
 
-行情口径：Tushare Pro 日线（到 11/16 收盘，前复权）+ 东财 push2 实时快照（11/17 未完成 K 线）
+行情口径：东方财富日 K（前复权 fqt=1，含 11/17 收盘完整 K 线）
 配色：A 股惯例 红涨绿跌
 关键点位：K 线图居左虚线标注
 """
@@ -159,7 +159,7 @@ def plot_one(ts_code, name, levels, out_path, days=60, title_suffix="", band=Non
     ]
 
     title = (f"{name} ({ts_code.replace('.', '_')}) 日线 · K线 + MACD + 成交量{title_suffix} · "
-             f"现 {last_close:.2f} ({pct_s}) · {last_date} {STAMP} 盘中")
+             f"收 {last_close:.2f} ({pct_s}) · {last_date}")
 
     fig, axes = mpf.plot(
         df, type="candle", volume=True,
@@ -215,12 +215,6 @@ def plot_one(ts_code, name, levels, out_path, days=60, title_suffix="", band=Non
         ax_vol.patches[i].set_facecolor(c)
         ax_vol.patches[i].set_edgecolor(c)
         ax_vol.patches[i].set_alpha(0.85)
-    # 最后一根是盘中未完成 K 线 → 量柱半透明 + 橙色边框，主图加竖线标记
-    ax_vol.patches[-1].set_alpha(0.45)
-    ax_vol.patches[-1].set_edgecolor(C_LIVE)
-    ax_vol.patches[-1].set_linewidth(1.2)
-    _x = len(df) - 1
-    ax_main.axvline(_x, color=C_LIVE, linewidth=1.0, linestyle=":", alpha=0.8, zorder=3)
 
     axes[3].axhline(0, color="#9ca3af", linewidth=0.6, linestyle="-")
 
@@ -232,7 +226,7 @@ def plot_one(ts_code, name, levels, out_path, days=60, title_suffix="", band=Non
         _ax.set_position([_pos.x0 + _shift, _pos.y0, _pos.width - _shift, _pos.height])
     fig.savefig(out_path, dpi=120, facecolor=MC_FACE, bbox_inches="tight")
     plt.close(fig)
-    print(f"  [ok] {out_path.name}  ({len(df)} 根, 末根为盘中未完成 K 线, 现 {last_close:.2f} {pct_s})")
+    print(f"  [ok] {out_path.name}  ({len(df)} 根, 收 {last_close:.2f} {pct_s})")
 
     k = KPI.get(ts_code, {})
     return {
@@ -251,8 +245,8 @@ def plot_one(ts_code, name, levels, out_path, days=60, title_suffix="", band=Non
 
 if __name__ == "__main__":
     CHART_DIR.mkdir(parents=True, exist_ok=True)
-    print(f"[charts] {CHART_DIR}  快照 {STAMP}")
-    sfx = " (11/17 盘中)"
+    print(f"[charts] {CHART_DIR}  收盘版")
+    sfx = " (11/17 收)"
 
     # 关键位全部由 KPI 动态生成（盘中快照会变，避免硬编码过期）
     def lv(v, lbl, c):
@@ -265,38 +259,40 @@ if __name__ == "__main__":
 
     sh, cy = KPI["000001.SH"], KPI["399006.SZ"]
     rz, hx, zh = KPI["300442.SZ"], KPI["688256.SH"], KPI["002179.SZ"]
+    mt = KPI["600519.SH"]
 
     targets = [
         ("000001.SH", "上证指数",
          [lv(3706.00, "博主门槛 3706", C_BLOG),
           lv(sh["prev_close"], "11/16收盘", C_MA),
-          lv(sh["close"], "盘中现价", C_LIVE),
+          lv(sh["close"], "11/17收盘", C_BLOG),
           lv(3574.27, "60日低", C_EXT),
-          lv(sh["low"], "今日最低", C_LIVE)],
+          lv(sh["low"], "60日新低", C_EXT)],
          "000001_SH_20261117.png"),
         ("399006.SZ", "创业板指",
          [lv(2626.00, "博主门槛 2626", C_BLOG),
           lv(cy["high"], "今日最高", C_MA),
           lv(cy["prev_close"], "11/16收盘", C_MA),
           lv(2308.90, "11/16新低", C_EXT),
-          lv(cy["low"], "今日最低", C_LIVE)],
+          lv(cy["low"], "她的2263点", C_EXT)],
          "399006_SZ_20261117.png"),
-        ("300442.SZ", "润泽科技",
-         [lv(rz["hi60"], "60日高", C_EXT),
-          lv(rz["ma20"], "MA20", C_MA),
-          lv(rz["close"], "盘中现价", C_LIVE),
-          lv(rz["lo60"], "60日低", C_EXT)],
-         "300442_SZ_20261117.png"),
+        ("600519.SH", "贵州茅台",
+         [lv(mt["hi60"], "60日高", C_EXT),
+          lv(mt["high"], "11/17最高", C_MA),
+          lv(mt["close"], "11/17收盘", C_BLOG),
+          lv(mt["ma20"], "MA20", C_MA),
+          lv(mt["lo60"], "60日低", C_EXT)],
+         "600519_SH_20261117.png"),
         ("688256.SH", "寒武纪",
          [lv(hx["hi60"], "60日高", C_EXT),
           lv(hx["high"], "今日最高", C_MA),
-          lv(hx["close"], "盘中现价", C_LIVE),
+          lv(hx["close"], "11/17收盘", C_BLOG),
           lv(hx["ma20"], "MA20", C_MA),
           lv(hx["lo60"], "60日低", C_EXT)],
          "688256_SH_20261117.png"),
         ("002179.SZ", "中航光电",
          [lv(zh["hi60"], "60日高", C_EXT),
-          lv(zh["close"], "盘中现价", C_LIVE),
+          lv(zh["close"], "11/17收盘", C_BLOG),
           lv(zh["ma10"], "MA10", C_MA),
           lv(zh["ma20"], "MA20", C_MA),
           lv(zh["lo60"], "60日低", C_EXT)],

@@ -1,7 +1,7 @@
-"""wu2198 投资日报 2026-11-17（周二 · 盘中版）— 线上产物生成器
+"""wu2198 投资日报 2026-11-17（周二 · 收盘版）— 线上产物生成器
 
 用法： python3 scripts/gen_wu2198_report_20261117.py
-产物： html/wu2198-20261117.html
+产物： html/wu2198-20261117.html（覆盖盘中版）
 篇幅： 正文 ≤ 2000 中文字 / 表格 ≤ 4 张
 """
 import json
@@ -12,50 +12,52 @@ ROOT = Path("/Users/maoling/workspace/mnote.github.io")
 CH = ROOT / "charts"
 
 KPI = json.loads((CH / "_kpic_20261117.json").read_text(encoding="utf-8"))
+KPI_FULL = json.loads((CH / "_kpi_20261117.json").read_text(encoding="utf-8"))
 SEC = json.loads((CH / "_pools_20261117.json").read_text(encoding="utf-8"))
-INTRA = json.loads((CH / "_intraday_20261117.json").read_text(encoding="utf-8"))
-ALL = INTRA["all"]
-B16 = json.loads((CH / "_breadth_20261116.json").read_text(encoding="utf-8"))["20261116"]
-AMT = INTRA["amount_by_day"]
-CUT = INTRA["amount_cutoff"]
-EM = INTRA["em_pools"]
+CLOSE = json.loads((CH / "_close_20261117.json").read_text(encoding="utf-8"))
+SER = CLOSE["series"]
+ALL = CLOSE["all"]
+EM = CLOSE["em_pools"]
 
-SH, CY = KPI["000001.SH"], KPI["399006.SZ"]
-RZ, HX, ZH = KPI["300442.SZ"], KPI["688256.SH"], KPI["002179.SZ"]
+SH, CY = KPI_FULL["000001.SH"], KPI_FULL["399006.SZ"]
+KC, HS, KH = KPI_FULL["000300.SH"], KPI_FULL["000688.SH"], KPI_FULL["399001.SZ"]
+ZH, MT, HX = KPI_FULL["002179.SZ"], KPI_FULL["600519.SH"], KPI_FULL["688256.SH"]
+RZ = KPI_FULL["300442.SZ"]
+
 P = SEC
-p_calc, p_st, p_mil = P["算力租赁/IDC"], P["存储/半导体/GPU"], P["军工"]
-p_bank, p_cpo, p_rob = P["银行/红利"], P["CPO/光通信"], P["人形机器人/端侧"]
+p_wine, p_bank, p_mil = P["白酒/大消费"], P["银行/红利"], P["军工"]
+p_calc, p_st, p_cpo, p_rob = (P["算力租赁/IDC"], P["存储/半导体/GPU"],
+                               P["CPO/光通信"], P["人形机器人/端侧"])
 
 
 def mem(pool, n_top=2, n_bot=1):
-    """池内领涨 n 只 + 领跌 n 只，动态拼接。"""
     ms = pool["members"]
-    top = ms[:n_top]
-    bot = ms[-n_bot:] if n_bot else []
-    def f(m):
-        cls = "up" if m["pct"] >= 0 else "down"
-        return f'<b class="{cls}">{m["pct"]:+.2f}%</b>' if m["pct"] >= 0 \
-            else f'<b class="{cls}">{m["pct"]:+.2f}%</b>'
-    a = "、".join(f'{m["name"]} {f(m)}' for m in top)
+    top, bot = ms[:n_top], (ms[-n_bot:] if n_bot else [])
+    fmt = lambda m: f'<b class="{"up" if m["pct"] >= 0 else "down"}">{m["pct"]:+.2f}%</b>'
+    a = "、".join(f'{m["name"]} {fmt(m)}' for m in top)
     if bot:
-        a += " / " + "、".join(f'{m["name"]} {f(m)}' for m in bot)
+        a += " / " + "、".join(f'{m["name"]} {fmt(m)}' for m in bot)
     return a
 
-# 同时点成交额同比（沪深两市，截到同一时点）
-_today = AMT.get("2026-11-17", 0)
-_yest = AMT.get("2026-11-16", 0)
-AMT_DIFF = _today - _yest
-AMT_PCT = AMT_DIFF / _yest * 100 if _yest else 0
+
+def amt_on(code, date):
+    for r in SER.get(code, []):
+        if r["Date"] == date:
+            return r["Amount"] / 1e8
+    return None
+
+
+AMT_17 = amt_on("000001.SH", "2026-11-17") + amt_on("399001.SZ", "2026-11-17")
+AMT_16 = amt_on("000001.SH", "2026-11-16") + amt_on("399001.SZ", "2026-11-16")
+AMT_DIFF = AMT_17 - AMT_16
+AMT_PCT = AMT_DIFF / AMT_16 * 100
 
 SH_GAP = 3706 - SH["close"]
 CY_GAP = 2626 - CY["close"]
-SH_LO60 = 3574.27
-SH_LO60_GAP = SH["close"] - SH_LO60
-CY_LO_GAP = CY["close"] - 2308.90
+SH_LO60 = 3565.59          # 11/17 最低 = 60 日新低
+CY_LO60 = 2263.74          # 11/17 最低 = 60 日新低
 
-STAMP = INTRA["stamp"]
-
-TITLE = "wu2198 - 2026-11-17（周二 探低回升，主线未成）"
+TITLE = "wu2198 - 2026-11-17（周二 2263点触达，等吃肉）"
 
 HTML = f"""<!DOCTYPE html>
 <html lang="zh-CN">
@@ -140,28 +142,28 @@ HTML = f"""<!DOCTYPE html>
   <h1>📈 {TITLE}</h1>
   <div class="meta">
     <span><a href="/">← 返回首页</a></span>
-    <span>🕘 <b>盘中版 · 数据截至 {STAMP}</b></span>
-    <span>📡 weibo skill（三轮补采，11 条，06:07–13:13）</span>
-    <span>💹 Tushare Pro 日线 + 东财实时快照</span>
+    <span>🕘 截稿 2026-11-17 15:25（<b>收盘版</b>）</span>
+    <span>📡 weibo skill（三轮补采，<b>22 条</b>，06:07–14:56）</span>
+    <span>💹 东方财富日 K（前复权，11/17 收盘）</span>
   </div>
   <p class="stance">
-    <b>🟡 「探低之后的抵抗」成立，但「没有大的力量」也是真的 —— 情绪修复，主线没成。</b>
-    10:47 定性「科技类股<b>杀估值去杠杆</b>，洗干净之后，高成长+行业向好的科技股会走出局部行情」；
-    11:14 重申「有技术的可以 <b>C3 开始布局</b>，稳健的是 <b>C5 完成之后干</b>」；
-    11:15「早盘还只是探低之后的抵抗」；13:02/13:13「还没有明朗的热点效应」「暂时没有出现大的力量」。
-    <b>可做的只有一条：算力租赁（她 11/16 唯一催化方向）8/8 全涨兑现；银行昨天一日游，今天退潮。</b>
+    <b>🟢 连续两天第一次出现明确方向 —— 但方向是「位置」不是「板块」。</b>
+    10:07「<b>C 不一定是机会，但 C5 绝对是机会</b>」→ 10:31「<b>没有什么思考的余地，要么继续被干，要么干</b>」→
+    14:56「<b>本周 2263 点可以了，接下来等吃肉了</b>」—— <b>她给的 2263 点当天就被创业板指最低 {CY_LO60:.2f} 触达</b>。
+    她 13:38 也说清「<b>抵抗力量有，但未出现可扭转局面的力量</b>」——
+    <b>位置到位、方向未定</b>：只做银行 + 白酒 + 军工，科技只留高成长龙头。
   </p>
 </div>
 
 <div class="grid-4" style="margin-bottom:8px">
   <div class="kpi"><div class="label">上证指数</div><div class="val">{SH['close']:.2f}</div>
-    <div class="sub"><span class="down">{SH['pct']:+.2f}%</span> · 早盘破 60 日低后拉回</div></div>
+    <div class="sub"><span class="down">{SH['pct']:+.2f}%</span> · 最低 {SH_LO60:.2f}（<b>60 日新低</b>）</div></div>
   <div class="kpi"><div class="label">创业板指</div><div class="val">{CY['close']:.2f}</div>
-    <div class="sub"><span class="down">{CY['pct']:+.2f}%</span> · 早盘破 {2308.90:.2f} 新低后拉回</div></div>
-  <div class="kpi"><div class="label">跌停 / 涨停</div><div class="val">{ALL['limit_down']} / {ALL['limit_up']}</div>
-    <div class="sub">昨跌停 <b>{B16['limit_down']}</b> 家 → 情绪修复；涨 {ALL['up']} / 跌 {ALL['down']}</div></div>
-  <div class="kpi"><div class="label">沪深成交额（至 {CUT}）</div><div class="val">{_today:,.0f} 亿</div>
-    <div class="sub"><span class="vol">同时点同比 {AMT_DIFF:+,.0f} 亿（{AMT_PCT:+.1f}%）</span></div></div>
+    <div class="sub"><span class="down">{CY['pct']:+.2f}%</span> · 最低 <b>{CY_LO60:.2f}</b>（她的 2263 点）</div></div>
+  <div class="kpi"><div class="label">沪深成交额</div><div class="val">{AMT_17:,.0f} 亿</div>
+    <div class="sub"><span class="vol">缩量 {abs(AMT_DIFF):,.0f} 亿（{AMT_PCT:+.1f}%）</span></div></div>
+  <div class="kpi"><div class="label">涨跌家数</div><div class="val">{ALL['up']} / {ALL['down']}</div>
+    <div class="sub">涨停 {ALL['limit_up']}（昨 37）· <span class="down">跌停 {ALL['limit_down']}（昨 174）</span></div></div>
 </div>
 
 <h2>一、博主说了什么（8 条）</h2>
@@ -170,147 +172,142 @@ HTML = f"""<!DOCTYPE html>
 <tbody>
 <tr><td><b>06:07</b></td><td>⚪ 外盘</td><td class="text">昨晚美股下跌：道指跌739点、纳指跌626点、标普跌145点</td>
   <td class="text"><b>三个数字分毫不差</b>：11/16 实测 −739.38 / −626.51 / −145.08（纳指 −2.49% 最重）。</td></tr>
-<tr><td><b>09:31</b></td><td>⚪ 情绪</td><td class="text">我不投降！</td>
-  <td class="text">隔夜纳指 −2.49% 之后的情绪表态，<b>无操作信息</b>。</td></tr>
-<tr><td><b>10:47 / 11:05</b></td><td>🟢🟢 方向</td><td class="text">科技类股杀估值去杠杆，清洗干净之后，高成长+行业向好的科技股会走出局部行情。明白666</td>
-  <td class="text"><b>本期核心定性</b>：把 11/16 科技崩盘解释成「杀估值去杠杆」，不是「逻辑破坏」。
-  实测涨停池集中在电子化学 3 / 光学光电 3 / IT服务 3，大涨榜伟测科技 +20%、华虹宏力 +11.33%、影石创新 +14.96% → <b>「局部行情」成立</b>。</td></tr>
-<tr><td><b>11:14</b></td><td>🟡 操作框架</td><td class="text">有技术的可以 C3 开始布局，稳健的是 C5 完成之后干</td>
-  <td class="text"><b>重申 11/13 口径，门槛一个字没松</b>：双门槛 3706 / 2626 仍未提（沪指今差 {SH_GAP:.2f} 点、创业板差 {CY_GAP:.2f} 点）。</td></tr>
-<tr><td><b>11:15</b></td><td>🟡 盘面定性</td><td class="text">暂时看，早盘还只是探低之后的抵抗！</td>
-  <td class="text"><b>实测成立</b>：早盘创业板破 11/16 新低至 <b>{CY["low"]:.2f}</b>、上证破 60 日低 {SH_LO60:.2f} 至 <b>{SH["low"]:.2f}</b>，午后双双拉回至基本平盘。</td></tr>
-<tr><td><b>11:27 / 11:31</b></td><td>⚪ 情绪</td><td class="text">我不会鼓动大家，接下来聊风月吧！／早盘不用点评，中午加菜，吃肉！</td>
-  <td class="text">11:31 互动 <b>1.03 万</b>为当日第一，但<b>是情绪帖不是操作帖</b>；「不会鼓动大家」= 今天不给方向。</td></tr>
-<tr><td><b>13:02</b></td><td>🟡 热点</td><td class="text">暂时还没有明朗的热点效应！</td>
-  <td class="text">实测涨停 {ALL['limit_up']} 只分散在 6 个以上行业、<b>无连板主线</b>（东财涨停池 {EM.get('zt',{}).get('tc','—')} 只、炸板 {EM.get('zb',{}).get('tc','—')} 只）→ <b>口径自洽</b>。</td></tr>
-<tr><td><b>13:13</b></td><td>🟡 资金</td><td class="text">暂时没有出现大的力量！</td>
-  <td class="text">成交额同时点同比 {AMT_PCT:+.1f}%（{AMT_DIFF:+,.0f} 亿）→ <b>放量有限</b>，没有增量资金。</td></tr>
+<tr><td><b>09:39</b></td><td>🟢 板块点名</td><td class="text">GPU，半导体等目前局部走红！</td>
+  <td class="text"><b>「局部」成立、「等」不成立</b>：科创50 <b class="up">{KC['pct']:+.2f}%</b> 是五大指数唯一上涨，
+  寒武纪 {HX['pct']:+.2f}%、有研新材涨停；但存储池均值 <b class="down">{p_st['avg_pct']:+.2f}%</b>、澜起 {p_st['members'][-1]['pct']:+.2f}% → <b>只有龙头在红</b>。</td></tr>
+<tr><td><b>10:07</b></td><td>🟢🟢 位置定性</td><td class="text">以前给大家分析过 C 不一定是机会，但是 C5 绝对是机会。</td>
+  <td class="text"><b>本期最重要的一条</b>：把「等」具体化成 <b>C5</b>。11:14 再次点名「有技术的 C3 开始布局，稳健的 C5 完成之后干」——<b>比 11/13 的「分批承接」更明确</b>。</td></tr>
+<tr><td><b>10:31</b></td><td>🟢🟢 立场表态</td><td class="text">现在的位置，没有什么思考的余地。要么继续被干，要么干！</td>
+  <td class="text"><b>从观望切到主动</b>。当日沪指最低 {SH_LO60:.2f}、创业板最低 {CY_LO60:.2f}，<b>双指数创 60 日新低</b> → 她在最低位喊「干」。</td></tr>
+<tr><td><b>10:47</b></td><td>🟢 方向</td><td class="text">科技类股杀估值去杠杆，清洗干净之后，高成长+行业向好的科技股会走出局部行情。</td>
+  <td class="text">把 11/16 科技崩盘定性为<b>杀估值</b>而非逻辑破坏。涨停池有研新材、卡莱特等兑现，但<b>算力池 {p_calc['avg_pct']:+.2f}%、存储池 {p_st['avg_pct']:+.2f}%</b> → <b>清洗尚未结束</b>。</td></tr>
+<tr><td><b>13:38</b></td><td>🟡 收盘前定性</td><td class="text">市场上抵抗力量是有的，但还未见出现可扭转局面的力量。</td>
+  <td class="text"><b>当日最准的一句</b>：涨 {ALL['up']} / 跌 {ALL['down']}，<b>尾盘跌停从盘中 40 家增到 {ALL['limit_down']} 家</b>，创业板收 {CY['close']:.2f}（<b>仍低于 11/16 新低 2308.90</b>）→ <b>有抵抗、无反转</b>。</td></tr>
+<tr><td><b>14:54</b></td><td>🟡 盘面反应</td><td class="text">下砸拉起，好事！</td>
+  <td class="text">尾盘从低位回拉，创业板自 {CY_LO60:.2f} 拉回 <b>{CY['close']-CY_LO60:.2f} 点</b>，但<b>收盘仍跌 {CY['pct']:+.2f}%</b>。</td></tr>
+<tr><td><b>14:56</b></td><td>🟢🟢 关键位</td><td class="text">本周 2263 点可以了，接下来等吃肉了！</td>
+  <td class="text"><b>本期最硬的核验</b>：创业板指最低 <b>{CY_LO60:.2f}</b>，<b>与 2263 点分毫不差</b>；这是她第一次在 C 杀期间给出<b>可执行点位</b>。「等吃肉」= 位置到了，买点在 C5 之后。</td></tr>
 </tbody>
 </table>
 
 <h2>二、大盘关键点位</h2>
-<p class="meta" style="margin-bottom:6px">K 线<b>红涨绿跌</b>；关键位在图<b>左侧虚线</b>。
-<b>最右一根为 {STAMP} 盘中未完成 K 线</b>，成交量为<b>盘中累计值</b>（橙色边框标记），收盘形态待验证。</p>
+<p class="meta" style="margin-bottom:6px">K 线<b>红涨绿跌</b>；关键位在图<b>左侧虚线</b>。全部为 11/17 <b>完整收盘 K 线</b>。</p>
 
 <h3>上证指数 · {SH['close']:.2f}（{SH['pct']:+.2f}%）</h3>
-<img class="chart" src="../charts/000001_SH_20261117.png" alt="上证指数 2026-11-17 盘中 K线">
-<p class="chart-caption">开 {SH['open']:.2f} / 高 {SH['high']:.2f} / 低 <b>{SH['low']:.2f}</b> / 现 {SH['close']:.2f}。
-早盘跌破 60 日低 {SH_LO60:.2f} 后拉回，现价距 60 日低仅 {SH_LO60_GAP:.2f} 点（{SH_LO60_GAP/SH_LO60*100:.2f}%）；
-<b>3706 差 {SH_GAP:.2f} 点（{SH_GAP/3706*100:.2f}%）</b>，MA20 {SH['ma20']:.2f} 仍失守。</p>
+<img class="chart" src="../charts/000001_SH_20261117.png" alt="上证指数 2026-11-17 K线">
+<p class="chart-caption">开 {SH['open']:.2f} / 高 {SH['high']:.2f} / 低 <b>{SH['low']:.2f}</b> / 收 {SH['close']:.2f}。
+<b>最低 {SH_LO60:.2f} 是新的 60 日低点</b>（前低 3574.27 被跌破）；
+<b>3706 差 {SH_GAP:.2f} 点（{SH_GAP/3706*100:.2f}%）</b>，MA20 {SH['ma20']:.2f} 失守，量能 5 日均 {SH['vol_ratio']:.0f}%。</p>
 
 <h3>创业板指 · {CY['close']:.2f}（{CY['pct']:+.2f}%）</h3>
-<img class="chart" src="../charts/399006_SZ_20261117.png" alt="创业板指 2026-11-17 盘中 K线">
-<p class="chart-caption">开 {CY['open']:.2f} / 高 {CY['high']:.2f} / 低 <b>{CY['low']:.2f}</b> / 现 {CY['close']:.2f}。
-早盘跌穿 11/16 新低 2308.90 至 {CY['low']:.2f}，午后较日低拉回 {CY['close']-CY['low']:.2f} 点，<b>但仍低于 11/16 新低 {abs(CY_LO_GAP):.2f} 点、尚未收复</b>；
-<b>2626 差 {CY_GAP:.2f} 点（{CY_GAP/2626*100:.2f}%）</b>，MA20 {CY['ma20']:.2f} 远在头顶。</p>
+<img class="chart" src="../charts/399006_SZ_20261117.png" alt="创业板指 2026-11-17 K线">
+<p class="chart-caption">开 {CY['open']:.2f} / 高 {CY['high']:.2f} / 低 <b>{CY['low']:.2f}</b> / 收 {CY['close']:.2f}。
+<b>最低 {CY_LO60:.2f} = 她的 2263 点，也是新的 60 日低点</b>；收盘较日低拉回 {CY['close']-CY['low']:.2f} 点，
+但<b>仍低于 11/16 新低 2308.90</b>；<b>2626 差 {CY_GAP:.2f} 点（{CY_GAP/2626*100:.2f}%）</b>，MA20 {CY['ma20']:.2f} 远在头顶。</p>
 
 <div class="risk">
-  <b>⚠️ 今天最该看的不是指数，是跌停家数。</b>跌停从 11/16 的 <b>{B16['limit_down']} 家降到 {ALL['limit_down']} 家</b>，
-  涨停从 {B16['limit_up']} 家增到 <b>{ALL['limit_up']} 家</b>；但涨跌家数仍是 <b>涨 {ALL['up']} / 跌 {ALL['down']}</b>（昨日收盘 {B16['up']} / {B16['down']}）→ <b>跌停冰点在退潮，但市场仍跌多涨少</b>。
-  但沪深成交额同时点 {AMT_PCT:+.1f}%（{AMT_DIFF:+,.0f} 亿）<b>没有增量</b> → <b>缩量修复，不是反转</b>。
+  <b>⚠️ 她的 2263 点被触及了，但这不是反转。</b>双指数同日创 60 日新低（沪指 {SH_LO60:.2f} / 创业板 {CY_LO60:.2f}），跌停仍有 <b>{ALL['limit_down']} 家</b>（盘中一度只有 40 家，尾盘翻倍），涨 {ALL['up']} / 跌 {ALL['down']}；沪深成交额 {AMT_17:,.0f} 亿、<b>缩量 {abs(AMT_DIFF):,.0f} 亿（{AMT_PCT:+.1f}%）</b>。<b>位置到位 + 缩量 + 跌停未清 = 只能分批、不能满仓</b>。
 </div>
 
 <h2>三、最值得关注的 3 个板块</h2>
 <table>
-<thead><tr><th>板块</th><th>11/17 盘中实测（{STAMP}）</th><th>博主口径 / 打法</th></tr></thead>
+<thead><tr><th>板块</th><th>11/17 收盘实测</th><th>博主口径 / 打法</th></tr></thead>
 <tbody>
-<tr><td><b>① 算力租赁 / IDC</b><br><span class="tag tag-bull">首选 · 催化兑现</span></td>
-    <td>池 8 只 <b class="up">{p_calc['up']} 涨 {p_calc['down']} 跌</b>，均值 <b class="up">+{p_calc['avg_pct']:.2f}%</b>，额 {p_calc['amount_yi']:,.0f} 亿<br>
-      {mem(p_calc, 3, 0)}</td>
-    <td>11/16 12:53 唯一催化（#DeepSeek因算力不足限额#）—— <b>今天 8/8 全涨，兑现</b>。
-    但龙头润泽 {RZ['close']:.2f} <b>仍在 MA20 {RZ['ma20']:.2f} 之下</b>（差 {(RZ['ma20']-RZ['close'])/RZ['close']*100:.1f}%）→ <b>等站回 MA20，不追反抽</b>。</td></tr>
-<tr><td><b>② 存储 / 半导体 / GPU</b><br><span class="tag tag-neutral">次选 · 内部分化极大</span></td>
-    <td>池 8 只均值 <b class="{'up' if p_st['avg_pct'] >= 0 else 'down'}">{p_st['avg_pct']:+.2f}%</b>（{p_st['up']} 涨 {p_st['down']} 跌），额 {p_st['amount_yi']:,.0f} 亿<br>
-      {mem(p_st, 2, 2)}</td>
-    <td>正对应她 10:47 的「高成长+行业向好的科技股走出局部行情」。<b>只做龙头</b>：寒武纪站上 MA5/MA10/MA20（{HX['ma20']:.2f}），回踩不破可分；<b>不碰分化掉的跟风股</b>。</td></tr>
-<tr><td><b>③ 军工</b><br><span class="tag tag-neutral">观察 · 补涨</span></td>
-    <td>池 12 只均值 <b class="{'up' if p_mil['avg_pct'] >= 0 else 'down'}">{p_mil['avg_pct']:+.2f}%</b>（{p_mil['up']} 涨 {p_mil['down']} 跌），额 {p_mil['amount_yi']:,.0f} 亿<br>
+<tr><td><b>① 白酒 / 大消费</b><br><span class="tag tag-bull">首选 · 唯一正收益</span></td>
+    <td>池 5 只 <b class="up">{p_wine['up']} 涨 {p_wine['down']} 跌</b>，均值 <b class="up">+{p_wine['avg_pct']:.2f}%</b>，额 {p_wine['amount_yi']:,.0f} 亿<br>
+      {mem(p_wine, 2, 1)}</td>
+    <td><b>全市场唯一收正的池</b>。茅台收 {MT['close']:.2f}、站上 MA20 {MT['ma20']:.2f}，距 60 日高 {MT['hi60']:.2f} 仅 {MT['hi60']-MT['close']:.2f} 点。<b>只做茅台、不做扩散</b>（避险≠进攻）。</td></tr>
+<tr><td><b>② 银行 / 红利</b><br><span class="tag tag-bull">次选 · 尾盘翻红</span></td>
+    <td>池 10 只 <b class="up">{p_bank['up']} 涨 {p_bank['down']} 跌 1 平</b>，均值 <b class="up">{p_bank['avg_pct']:+.2f}%</b>，额 {p_bank['amount_yi']:,.0f} 亿<br>
+      {mem(p_bank, 2, 1)}</td>
+    <td>他 11/16 14:39 点名的方向，<b>今天没有被证伪</b>（盘中一度 9 跌 1 涨，收盘翻红 {p_bank['avg_pct']:.2f}%）。招行 43.45 站上 MA20 42.74，<b>只作底仓垫</b>。</td></tr>
+<tr><td><b>③ 军工</b><br><span class="tag tag-neutral">观察 · 池内一枝独秀</span></td>
+    <td>池 12 只均值 <b class="down">{p_mil['avg_pct']:+.2f}%</b>（{p_mil['up']} 涨 {p_mil['down']} 跌），额 {p_mil['amount_yi']:,.0f} 亿<br>
       {mem(p_mil, 2, 1)}</td>
-    <td>她 11/16 13:55「军工有五六只冲板」收盘没兑现，<b>今天补上</b>。<b>只做池内领涨</b>：中航光电 {ZH['close']:.2f} 站上 MA5/MA10/MA20（{ZH['ma10']:.2f} / {ZH['ma20']:.2f}），回踩 MA10 可分。</td></tr>
+    <td>他 11/16 13:55「军工五六只冲板」收盘没兑现、<b>今天补上</b>：中航光电 <b class="up">{ZH['pct']:+.2f}%</b> 放量 {ZH['vol_ratio']:.0f}%。<b>只做池内领涨，不做板块</b>。</td></tr>
 </tbody>
 </table>
 <p class="meta" style="margin-bottom:0">
-  <b>回避两个</b>：银行/红利 <b class="down">{p_bank['avg_pct']:+.2f}%</b>（<b>9 跌 1 涨</b>）—— 昨天唯一避险方向，今天一日游退潮；
-  人形机器人/端侧 <b class="down">{p_rob['avg_pct']:+.2f}%</b>（宇树 <b class="down">{p_rob['members'][-1]['pct']:+.2f}%</b>）；CPO/光通信 <b class="down">{p_cpo['avg_pct']:+.2f}%</b>。
-  口径：核心标的池 + 东财实时快照（{STAMP}），与 11/16 收盘口径可比。
+  <b>回避三个</b>：人形机器人/端侧 <b class="down">{p_rob['avg_pct']:+.2f}%</b>（0 涨 10 跌，宇树 {p_rob['members'][-1]['pct']:+.2f}%）；
+  CPO/光通信 <b class="down">{p_cpo['avg_pct']:+.2f}%</b>（0 涨 8 跌）；存储/半导体/GPU <b class="down">{p_st['avg_pct']:+.2f}%</b>（1 涨 7 跌）——
+  <b>「杀估值去杠杆」在科技里还没洗完</b>。
+  <b>她 13:27「光刻胶表现出色」/ 13:35「超节点+交换机拉起」</b>：涨停池里电子化学 3（西陇科学、江化微、格林达）、IT服务 3、计算机设备 2 —— <b>有涨停但高度分散，未成主线</b>。
+  口径：核心标的池收盘涨跌幅（东财快照），与 11/16 收盘口径可比。
 </p>
 
 <h2>四、3 支个股</h2>
 <table>
-<thead><tr><th>代码 名称</th><th class="score">现价</th><th class="score">涨跌</th>
+<thead><tr><th>代码 名称</th><th class="score">收盘</th><th class="score">涨跌</th>
 <th class="score">成交额</th><th>关键位</th><th>实测印证 / 动作</th></tr></thead>
 <tbody>
-<tr><td><b>300442</b> 润泽科技</td><td class="score">{RZ['close']:.2f}</td><td class="score"><span class="up">{RZ['pct']:+.2f}%</span></td>
-    <td class="score">{RZ["amount_yi"]:.1f} 亿</td><td>MA20 <b>{RZ['ma20']:.2f}</b> · 60 日低 <b>{RZ['lo60']:.2f}</b></td>
-    <td class="text">11/16 跌停后反抽 <b class="up">{RZ['pct']:+.2f}%</b>，算力租赁池 {p_calc['up']}/{p_calc['up']+p_calc['down']} 全涨 —— <b>她唯一催化方向的兑现标志</b>。
-    但 <b>MA20 {RZ['ma20']:.2f} 未收复</b>，60 日低 {RZ['lo60']:.2f} 只差 {(RZ['close']-RZ['lo60'])/RZ['close']*100:.1f}%。<b>站回 MA20 才买，不追反抽。</b></td></tr>
-<tr><td><b>688256</b> 寒武纪</td><td class="score">{HX['close']:.2f}</td><td class="score"><span class="up">{HX['pct']:+.2f}%</span></td>
-    <td class="score">{HX["amount_yi"]:.1f} 亿</td><td>MA20 <b>{HX['ma20']:.2f}</b> · 60 日高 <b>{HX['hi60']:.2f}</b></td>
-    <td class="text">存储/GPU 池领涨，站上 MA5/MA10/MA20 三线；高 {HX['high']:.2f} 回落、量能 {HX['amount_yi']:.0f} 亿为池内最大。
-    符合她「高成长」口径。<b>回踩 MA20 {HX['ma20']:.2f} 不破可分批</b>；PE 偏高，不追高。</td></tr>
 <tr><td><b>002179</b> 中航光电</td><td class="score">{ZH['close']:.2f}</td><td class="score"><span class="up">{ZH['pct']:+.2f}%</span></td>
-    <td class="score">{ZH["amount_yi"]:.1f} 亿</td><td>MA10 <b>{ZH['ma10']:.2f}</b> · 60 日高 <b>{ZH['hi60']:.2f}</b></td>
-    <td class="text">军工池领涨且<b>站上全部均线</b>（MA5 {ZH['ma5']:.2f} / MA10 {ZH['ma10']:.2f} / MA20 {ZH['ma20']:.2f}），
-    60 日高 {ZH['hi60']:.2f} 距今 {ZH['hi60']-ZH['close']:.2f} 点。<b>回踩 MA10 可分，冲高不追。</b></td></tr>
+    <td class="score">{ZH['amount_yi']:.1f} 亿</td><td>MA20 <b>{ZH['ma20']:.2f}</b> · 60 日高 <b>{ZH['hi60']:.2f}</b></td>
+    <td class="text"><b>全场最强个股</b>：放量 <b>{ZH['vol_ratio']:.0f}%</b>、收在当日最高 {ZH['high']:.2f} 附近，站上 MA5/MA10/MA20。<b>回踩 MA20 不破可分，冲高不追。</b></td></tr>
+<tr><td><b>600519</b> 贵州茅台</td><td class="score">{MT['close']:.2f}</td><td class="score"><span class="up">{MT['pct']:+.2f}%</span></td>
+    <td class="score">{MT['amount_yi']:.1f} 亿</td><td>MA20 <b>{MT['ma20']:.2f}</b> · 60 日高 <b>{MT['hi60']:.2f}</b></td>
+    <td class="text">唯一正收益池的龙头，逆势收红、站上 MA20 {MT['ma20']:.2f}，量能 {MT['vol_ratio']:.0f}% 未爆量。<b>低吸不追高</b>，破 MA20 放弃。</td></tr>
+<tr><td><b>688256</b> 寒武纪</td><td class="score">{HX['close']:.2f}</td><td class="score"><span class="up">{HX['pct']:+.2f}%</span></td>
+    <td class="score">{HX['amount_yi']:.1f} 亿</td><td>MA20 <b>{HX['ma20']:.2f}</b> · 60 日高 <b>{HX['hi60']:.2f}</b></td>
+    <td class="text">正对她 10:47「高成长+行业向好的科技股走出局部行情」—— <b>存储池 1 涨 7 跌里唯一的红</b>，收盘站上 MA20 {HX['ma20']:.2f}。<b>回踩 MA20 可分批</b>，不追高。</td></tr>
 </tbody>
 </table>
 
-<h3>润泽科技（300442）· {RZ['close']:.2f}（{RZ['pct']:+.2f}%）</h3>
-<img class="chart" src="../charts/300442_SZ_20261117.png" alt="润泽科技 2026-11-17 盘中 K线">
-<p class="chart-caption">高 {RZ['high']:.2f} / 低 {RZ['low']:.2f} / 现 {RZ['close']:.2f}，11/16 跌停后反抽；
-MA5 {RZ['ma5']:.2f}、MA20 {RZ['ma20']:.2f} 压在头上，60 日低 {RZ['lo60']:.2f} 在下方。</p>
+<h3>中航光电（002179）· {ZH['close']:.2f}（{ZH['pct']:+.2f}%）</h3>
+<img class="chart" src="../charts/002179_SZ_20261117.png" alt="中航光电 2026-11-17 K线">
+<p class="chart-caption">高 {ZH['high']:.2f} / 低 {ZH['low']:.2f} / 收 {ZH['close']:.2f}，放量阳线站上 MA20 {ZH['ma20']:.2f}；
+60 日高 {ZH['hi60']:.2f} 是第一道压制，60 日低 {ZH['lo60']:.2f} 在下方。</p>
+
+<h3>贵州茅台（600519）· {MT['close']:.2f}（{MT['pct']:+.2f}%）</h3>
+<img class="chart" src="../charts/600519_SH_20261117.png" alt="贵州茅台 2026-11-17 K线">
+<p class="chart-caption">高 {MT['high']:.2f} / 低 {MT['low']:.2f} / 收 {MT['close']:.2f}，逆势小阳；MA20 {MT['ma20']:.2f} 在下方支撑，
+60 日高 {MT['hi60']:.2f} 距今 {MT['hi60']-MT['close']:.2f} 点。</p>
 
 <h3>寒武纪（688256）· {HX['close']:.2f}（{HX['pct']:+.2f}%）</h3>
-<img class="chart" src="../charts/688256_SH_20261117.png" alt="寒武纪 2026-11-17 盘中 K线">
-<p class="chart-caption">高 {HX['high']:.2f} / 低 {HX['low']:.2f} / 现 {HX['close']:.2f}，站上 MA20 {HX['ma20']:.2f}；
+<img class="chart" src="../charts/688256_SH_20261117.png" alt="寒武纪 2026-11-17 K线">
+<p class="chart-caption">高 {HX['high']:.2f} / 低 {HX['low']:.2f} / 收 {HX['close']:.2f}，收盘站上 MA20 {HX['ma20']:.2f}；
 60 日高 {HX['hi60']:.2f} 在左上（距今 {(HX['hi60']-HX['close'])/HX['close']*100:.1f}%）。</p>
 
-<h3>中航光电（002179）· {ZH['close']:.2f}（{ZH['pct']:+.2f}%）</h3>
-<img class="chart" src="../charts/002179_SZ_20261117.png" alt="中航光电 2026-11-17 盘中 K线">
-<p class="chart-caption">高 {ZH['high']:.2f} / 低 {ZH['low']:.2f} / 现 {ZH['close']:.2f}，站上 MA10/MA20；
-60 日高 {ZH['hi60']:.2f}、60 日低 {ZH['lo60']:.2f} 在两端。</p>
-
-<h2>五、今天下午 + 明日盯什么（5 条）</h2>
+<h2>五、11/18（周三）盯什么（5 条）</h2>
 <ul class="tight">
-  <li><b>创业板 {CY["low"]:.2f} 不破</b> —— 今日最低已破 11/16 新低，破了则 2200 成下一目标。</li>
-  <li><b>跌停家数守在 50 家以内</b> —— 已从 174 降到 {ALL['limit_down']} 家，情绪修复但没增量。</li>
-  <li><b>润泽科技站回 MA20 {RZ['ma20']:.2f}</b> —— 她 11/16 唯一催化是否真兑现，就看这一根。</li>
-  <li><b>银行池不能继续绿</b> —— 昨天 +1.97% 唯一避险，今天 {p_bank['avg_pct']:+.2f}；银行翻绿 = 避险逻辑破产。</li>
-  <li><b>博主是否给出新门槛或买点</b> —— 11/16 全天未给、今天也没给；她不给之前只按「C3 分批、不追高、控仓」执行。</li>
+  <li><b>创业板 {CY_LO60:.2f}（她的 2263 点）不破</b> —— 今天已触达，破了则下一目标 2200 整数关。</li>
+  <li><b>沪指 60 日新低 {SH_LO60:.2f} 不破</b> —— 破了说明她的「位置」判断还要往下修。</li>
+  <li><b>跌停家数从 {ALL['limit_down']} 家回落</b> —— 尾盘比盘中多 60 家，情绪没修复完之前不加仓。</li>
+  <li><b>成交额回到 1.6 万亿以上</b> —— 今天 {AMT_17:,.0f} 亿、缩量 {abs(AMT_DIFF):,.0f} 亿；<b>缩量止跌不算止跌</b>。</li>
+  <li><b>她给不给 C5 的具体定义</b>（时间/空间/标的）—— 10:07 只说「C5 绝对是机会」，<b>没给买点就还是不能满仓</b>。</li>
 </ul>
 
 <h2>六、偏差记录</h2>
 <table>
-<thead><tr><th>项</th><th>博主口径 / 昨日结论</th><th>实测 / 处理</th></tr></thead>
+<thead><tr><th>项</th><th>博主口径</th><th>实测 / 处理</th></tr></thead>
 <tbody>
-<tr><td>11:15 盘面定性<br><span class="tag tag-bull">核验通过</span></td><td class="text">早盘还只是探低之后的抵抗</td>
-    <td class="text">创业板破新低至 {CY["low"]:.2f}、上证破 60 日低至 {SH["low"]:.2f}，午后双双拉回至基本平盘 → <b>「探低 + 抵抗」成立</b>。</td></tr>
-<tr><td>06:07 外盘<br><span class="tag tag-bull">核验通过</span></td><td class="text">道指跌739点、纳指跌626点、标普跌145点</td>
+<tr><td>14:56「本周 2263 点」<br><span class="tag tag-bull">分毫不差</span></td><td class="text">本周 2263 点可以了，接下来等吃肉了</td>
+    <td class="text">创业板指 11/17 最低 <b>{CY_LO60:.2f}</b>，<b>与 2263 点分毫不差</b>；收盘 {CY['close']:.2f} 较日低拉回 {CY['close']-CY['low']:.2f} 点。
+    <b>本期最硬的核验</b>——她第一次在 C 杀期间给出可执行点位。</td></tr>
+<tr><td>06:07 外盘<br><span class="tag tag-bull">分毫不差</span></td><td class="text">道指跌739点、纳指跌626点、标普跌145点</td>
     <td class="text">11/16 实测 −739.38 / −626.51 / −145.08，<b>分毫不差</b>（外盘播报继续全中）。</td></tr>
-<tr><td>11/16 结论「银行/红利首选」<br><span class="tag tag-bear">一日游被证伪</span></td><td class="text">（11/16 14:39 银行是唯一没受影响的板块，池 +1.97%）</td>
-    <td class="text">今日银行池 <b class="down">{p_bank['avg_pct']:+.2f}%</b>、<b>9 跌 1 涨</b>。避险资金一日游，<b>不能当主线</b>。</td></tr>
-<tr><td>11/16 结论「算力租赁=观察位」<br><span class="tag tag-neutral">提前兑现</span></td><td class="text">等龙头站回 MA20 {RZ['ma20']:.2f} 再谈</td>
-    <td class="text">今日池 <b class="up">8/8 全涨 +{p_calc['avg_pct']:.2f}%</b>，但润泽 {RZ['close']:.2f} <b>仍未站回 MA20</b> → <b>提前兑现但关键位未过，继续观察</b>。</td></tr>
-<tr><td>双门槛 3706 / 2626<br><span class="tag tag-neutral">继续搁置</span></td><td class="text">11/16 全天未提，11/17 也未提（11:14 只重申 C3/C5 框架）</td>
+<tr><td>13:38 收盘前定性<br><span class="tag tag-bull">成立</span></td><td class="text">抵抗力量是有的，但还未见出现可扭转局面的力量</td>
+    <td class="text">涨 {ALL['up']} / 跌 {ALL['down']}，尾盘跌停从盘中 40 家增到 <b>{ALL['limit_down']} 家</b>，
+    创业板收盘仍低于 11/16 新低 → <b>有抵抗、无反转</b>，成立。</td></tr>
+<tr><td>13:27 / 13:35 板块点名<br><span class="tag tag-neutral">零散未成主线</span></td><td class="text">光刻胶板块今天表现出色点／超节点+交换机，板块出现拉起</td>
+    <td class="text">涨停池确有电子化学 3、IT服务 3、计算机设备 2、光学光电 2，<b>但分散在 12+ 行业、最高仅 3 板</b> →
+    <b>兑现为零散涨停，不构成主线</b>（与她 13:02「还没有明朗的热点效应」自洽）。</td></tr>
+<tr><td>双门槛 3706 / 2626<br><span class="tag tag-neutral">继续搁置</span></td><td class="text">11/17 全天未提门槛，只给 2263 点与 C5 口径</td>
     <td class="text">沪指距 3706 差 <b>{SH_GAP:.2f} 点</b>、创业板距 2626 差 <b>{CY_GAP:.2f} 点</b>。
-    <b>门槛没松</b>，她只是把表达从「等收复」换成「C3 分批 / C5 干」。</td></tr>
+    <b>门槛没松、新点位出现</b>——她的框架从「等收复 3706/2626」换成「等 C5 完成」，<b>点位体系换了，纪律没换</b>。</td></tr>
 </tbody>
 </table>
 <p class="meta" style="margin-bottom:0">
-  其余口径与博主一致：10:47「杀估值去杠杆 + 局部行情」与涨停池分布（电子化学 3 / 光学光电 3 / IT服务 3）吻合；
-  13:02「无明朗热点」与涨停 {ALL['limit_up']} 只分散、无连板主线吻合。
-  采集：weibo skill 三轮词表补采 → 11 条（06:07–13:13）；行情：Tushare Pro 日线（到 11/16）+ 东财 {STAMP} 实时快照。
+  其余 <b>3 条口径自洽</b>：11:15「早盘还只是探低之后的抵抗」、13:02「无明朗热点效应」、13:13「没有出现大的力量」——
+  实测涨停 {ALL['limit_up']} 只分散、最高 3 板、成交额缩量 {abs(AMT_PCT):.1f}%，均吻合。
+  采集：weibo skill 三轮词表补采 → <b>22 条</b>（06:07–14:56）；行情：东方财富日 K（前复权，11/17 收盘）+ 收盘快照全市场宽度。
 </p>
 
 <div class="foot">
   <p><b>免责声明</b>：本报告为公开微博内容整理与技术面统计，<b>不构成投资建议</b>；
   「3 板块 + 3 个股」是博主观点 + 实测强度的归纳，不代表推荐。股市有风险，投资需谨慎。</p>
-  <p><b>盘中版说明</b>：本页数据截至 {STAMP}，最右一根 K 线为<b>未完成 K 线</b>、成交量为盘中累计值，
-  收盘形态与最终成交额可能与本页不同；收盘后如需定稿版，以同一 URL 的更新版本为准。</p>
   <p>
-    报告生成：2026-11-17 盘中版 · 数据源 weibo skill + Tushare Pro + 东方财富 ·
-    脚本 <code>collect_intraday_20261117.py</code> / <code>collect_intraday_20261117b.py</code> /
-    <code>fetch_idx_kline_20261117.py</code> / <code>build_intraday_20261117.py</code> /
+    报告生成：2026-11-17 收盘版 · 数据源 weibo skill + 东方财富（+ Tushare Pro 日线底座）·
+    脚本 <code>collect_close_20261117.py</code> / <code>build_close_20261117.py</code> /
     <code>make_wu2198_charts_20261117.py</code> / <code>gen_wu2198_report_20261117.py</code>。
   </p>
 </div>
