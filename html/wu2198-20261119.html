@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>wu2198 - 2026-11-19（周四 燧原20cm，GPU被砸）</title>
+<style>
+  :root {
+    --bg: #ffffff; --panel: #f8f9fb; --panel-2: #f1f3f6;
+    --border: #e5e7eb; --border-strong: #d1d5db;
+    --text: #1f2937; --muted: #6b7280;
+    --bull: #16a34a; --bull-bg: #dcfce7;--up:#e63946;--down:#2a9d8f;
+    --bear: #dc2626; --bear-bg: #fee2e2;
+    --neutral: #d97706; --neutral-bg: #fef3c7;
+    --none: #6b7280; --none-bg: #f3f4f6;
+    --accent: #2563eb; --accent-bg: #dbeafe;
+    --key: #7c3aed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1, h2, h3 { font-weight: 600; line-height: 1.3; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 17px; margin: 24px 0 10px; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta span { margin-right: 14px; }
+
+  .hero { background: linear-gradient(135deg, #eff6ff 0%, #f7fbff 100%); border: 1px solid #93c5fd; border-radius: 12px; padding: 24px 28px; margin-bottom: 28px; }
+  .hero h1 { color: #1e3a8a; }
+  .hero .stance { font-size: 16px; margin: 8px 0 0; }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 16px 0; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .grid-4 { grid-template-columns: 1fr; } }
+
+  .kpi { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: center; }
+  .kpi .label { font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
+  .kpi .val { font-size: 20px; font-weight: 600; margin: 4px 0; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--panel-2); font-weight: 600; color: var(--muted); font-size: 12px; }
+  tr:hover { background: var(--panel); }
+  td.text { max-width: 420px; }
+  td.score { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; margin: 0 2px; }
+  .tag-bull { background: var(--bull-bg); color: var(--bull); }
+  .tag-bear { background: var(--bear-bg); color: var(--bear); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .tag-accent { background: var(--accent-bg); color: var(--accent); }
+
+  .chart { width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+  .chart-caption { font-size: 12px; color: var(--muted); margin: -4px 0 16px; }
+
+  .quote { background: var(--panel-2); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; border-left: 3px solid var(--border-strong); }
+  .risk { background: var(--bear-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .action { background: var(--bull-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .verify { background: var(--accent-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .up { color: var(--up); font-weight: 600; }
+  .down { color: var(--down); font-weight: 600; }
+  .key-num { color: var(--key); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+  ul.tight { margin: 8px 0; padding-left: 22px; }
+  ul.tight li { margin: 4px 0; }
+  .vol{color:var(--neutral);font-weight:600}
+</style>
+<link rel="stylesheet" href="../assets/css/report-table.css">
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📈 wu2198 - 2026-11-19（周四 燧原20cm，GPU被砸）</h1>
+  <div class="meta">
+    <span><a href="/">← 返回首页</a></span>
+    <span>🕘 截稿 2026-11-19 21:05（<b>收盘版</b>）</span>
+    <span>📡 weibo skill（两轮补采，<b>12 条</b>，06:31–20:46）</span>
+    <span>💹 Tushare Pro 日线（前复权，11/19 收盘）</span>
+  </div>
+  <p class="stance">
+    <b>🟢 11:05「以后记住了，必须等C5完成之后才参与！」</b> —— 纪律写死。
+    10:55 点名<b>封装、光刻胶、半导体设备局部走红</b>（实测设备 +2.70%、光刻胶 +2.21%，全兑现）；
+    11:14「燧原 9 个交易日涨翻番，今天被砸了 20 厘米，GPU和CPU集体被砸」→ <b>两个数字分毫不差</b>。
+    <b>但今天是最差的一天</b>：沪指再创 60 日新低 3547.94、跌 4876 家、跌停 80 家、成交额 13,063 亿创年内地量。
+    → <b>昨天算力涨停潮一日游（8 家涨停今天 0 家）</b>；只做半导体设备 + 光刻胶 + CPO，回踩分批，总仓 ≤2 成。
+  </p>
+</div>
+
+<div class="grid-4" style="margin-bottom:8px">
+  <div class="kpi"><div class="label">上证指数</div><div class="val">3577.62</div>
+    <div class="sub"><span class="down">-0.28%</span> · 最低 <b>3547.94</b>（<b>60 日新低</b>）</div></div>
+  <div class="kpi"><div class="label">创业板指</div><div class="val">2293.34</div>
+    <div class="sub"><span class="down">-0.79%</span> · 最低 <b>2271.99</b>（2263 未破 ✓）</div></div>
+  <div class="kpi"><div class="label">沪深成交额</div><div class="val">13,063 亿</div>
+    <div class="sub"><span class="vol">缩量 651 亿（-4.7%）· 年内地量</span></div></div>
+  <div class="kpi"><div class="label">涨跌家数</div><div class="val">649 / 4876</div>
+    <div class="sub">涨停 25（昨 42）· <span class="down">跌停 80（昨 46）</span></div></div>
+</div>
+
+<h2>一、博主说了什么（8 条）</h2>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
+<thead><tr><th>时间</th><th>信号</th><th>原文</th><th>判读 / 日线实测</th></tr></thead>
+<tbody>
+<tr><td><b>06:31</b></td><td>⚪ 外盘</td><td class="text">昨晚美国股市分化，收盘道指下跌561点，纳指上涨101点、标普下跌17点</td>
+  <td class="text"><b>三个数字分毫不差</b>：11/18 实测道指 <b>−561.25</b>、纳指 <b>+101.51</b>、标普 <b>−16.89</b>。</td></tr>
+<tr><td><b>10:55</b></td><td>🟢🟢 板块点名</td><td class="text">按目前看，封装，光刻胶，半导体设备等局部走红。</td>
+  <td class="text"><b>全兑现</b>：设备 <b class="up">+2.70%</b>（9 涨 2 跌）、光刻胶 <b class="up">+2.21%</b>（江化微、格林达双涨停）、封装 <b class="up">+1.31%</b>（长电 +4.74%）。</td></tr>
+<tr><td><b>11:05</b></td><td>🟢🟢 纪律固化</td><td class="text">以后记住了，必须等C5完成之后才参与！</td>
+  <td class="text"><b>把 11/13 的 C5 口径写成硬纪律</b>（赞 1.3 万）。今天 C5 后第一次照做：<b>没抄被砸的 GPU，改在半导体设备找强势</b>。</td></tr>
+<tr><td><b>11:14</b></td><td>🟢🟢 自我验证</td><td class="text">燧原前面只用了9个交易日差不多涨翻番，今天被砸了20厘米。整体看，今天GPU和CPU板块集体被砸！</td>
+  <td class="text"><b>两个数字分毫不差</b>：燧原 688801 前复权 11/04 低 321.36 → 11/13 高 613.00 = <b>+90.8%</b>（<b>9 个交易日</b>）；今日开 430 即最高、最低=收盘 <b>364.33（−20.00%）</b>。GPU/CPU 池 <b class="down">-4.79%</b>。</td></tr>
+<tr><td><b>14:49</b></td><td>🟡 盘中点位</td><td class="text">早盘曾大跌17.4%，现在是小跌3.3%.......</td>
+  <td class="text"><b>标的 = 海光信息 688041</b>：最低 <b>156.05 = -17.48%</b>（她说 17.4%），发帖时约 −3.3%，收盘 180.00。<b>她没说名字，靠盘面反推</b>。</td></tr>
+<tr><td><b>14:51 / 14:55</b></td><td>⚪ 情绪</td><td class="text">20多年啦，我一直是大家最熟悉的陌生人…… / 截止目前看，是给了我一个小V.......感谢主力！</td>
+  <td class="text">情绪转暖，对应<b>尾盘从日内低点回拉</b>（沪指 3547.94→3577.62）。</td></tr>
+<tr><td><b>14:26</b></td><td>⚪ 外盘</td><td class="text">台湾金融监管机构：从周五开始实施新的卖空限制。</td>
+  <td class="text">台股卖空新规，对 A 股无直接映射，不作方向信号。</td></tr>
+<tr><td><b>20:39</b></td><td>🟢 盘后催化</td><td class="text">长鑫科技公告，回购金额增加至不低于25亿元、不超过50亿元</td>
+  <td class="text"><b>盘后催化，11/20 才交易</b>。长鑫 688825 今日 37.50（+1.60%）、Q3 营收 <b>+738.5%</b>、ROE 84.2% → 存储链支撑，<b>但不能算她提前判断对</b>。</td></tr>
+</tbody>
+</table></div><!--tw--></div>
+
+<h2>二、大盘关键点位</h2>
+<p class="meta" style="margin-bottom:6px">K 线<b>红涨绿跌</b>；关键位在图<b>左侧虚线</b>。数据源 <b>Tushare Pro 日线</b>（前复权），11/19 <b>完整收盘 K 线</b>。</p>
+
+<h3>上证指数 · 3577.62（-0.28%）</h3>
+<img class="chart" src="../charts/000001_SH_20261119.png" alt="上证指数 2026-11-19 K线">
+<p class="chart-caption">开 3583.12 / 高 3584.28 / 低 <b>3547.94</b> / 收 3577.62。
+<b>最低 3547.94 = 又是 60 日新低</b>（前低 3560.45 再破）；<b>3706 差 128.38 点（3.46%）</b>，MA20 3644.38 失守。</p>
+
+<h3>创业板指 · 2293.34（-0.79%）</h3>
+<img class="chart" src="../charts/399006_SZ_20261119.png" alt="创业板指 2026-11-19 K线">
+<p class="chart-caption">开 2290.21 / 高 2315.78 / 低 <b>2271.99</b> / 收 2293.34。
+<b>最低 2271.99 &gt; 11/17 的 2263.74 → 她的 2263 点连续第 3 天守住</b>；<b>2626 差 332.66 点（12.67%）</b>，MA20 2477.06 远在头顶。</p>
+
+<div class="risk">
+  <b>⚠️ 今天是这一轮最差的一天。</b>跌 4876 家 vs 涨 649 家、跌停 80 家（昨 46）、成交额 13,063 亿缩 651 亿创年内新低、沪指再破 60 日低、最高连板仅 2 板。
+  <b>昨天的算力涨停潮一日游：8 家涨停 → 今天 0 家</b>，鸿博股份 −10.02%、双环科技 −9.90%、泰嘉股份 −9.98% 三只跌停。
+  她 11:05 写「必须等 C5 完成之后才参与」——<b>今天 C5 到了，但力度没到，所以是「参与而不加码」。</b>
+</div>
+
+<h2>三、最值得投资的 3 个板块</h2>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
+<thead><tr><th>板块</th><th>11/19 收盘实测</th><th>博主口径 / 打法</th></tr></thead>
+<tbody>
+<tr><td><b>① 半导体设备</b><br><span class="tag tag-bull">首选 · 唯一成板块</span></td>
+    <td>池 11 只 <b class="up">9 涨 2 跌</b>，均值 <b class="up">+2.70%</b>，额 330 亿<br>
+      中微公司 <b class="up">+5.05%</b>、拓荆科技 <b class="up">+4.75%</b>、拓荆科技 <b class="up">+4.75%</b></td>
+    <td><b>她 10:55 点名，兑现</b>，<b>今天唯一形成板块的强势方向</b>。中微 +5.05%、拓荆 +4.75%、华海清科 +4.49%、北方华创 +3.13%。<b>只做龙头</b>：中微收 256.50、<b>站上 MA20 241.10</b>、放量 122%、Q3 营收 +28.1%、资产负债 21.7% → <b>回踩 MA20 不破可分批</b>。</td></tr>
+<tr><td><b>② 光刻胶 / 材料</b><br><span class="tag tag-bull">情绪主线 · 只做龙头</span></td>
+    <td>池 12 只 <b class="up">8 涨 4 跌</b>，均值 <b class="up">+2.21%</b>，额 139 亿<br>
+      格林达 <b class="up">+10.00%</b>、江化微 <b class="up">+9.99%</b>、南大光电 <b class="up">+4.78%</b></td>
+    <td><b>她 10:55 点名，兑现</b>：江化微、格林达双涨停（<b>均 2 连板</b>），南大光电 +4.78%、彤程新材 +3.00%。
+    <b>但涨停全是连板情绪票，不符合她「业绩增速」的公式</b> → 只做有业绩的南大光电（收 43.87、<b>站上 MA20 40.17</b>、放量 159%）。</td></tr>
+<tr><td><b>③ CPO / 光模块</b><br><span class="tag tag-neutral">逆势最抗跌 · 等回踩</span></td>
+    <td>池 8 只 3 涨 5 跌，均值 <b class="up">-0.07%</b>，额 433 亿<br>
+      新易盛 <b class="up">+5.59%</b>、中际旭创 <b class="up">+3.05%</b>、天孚通信 <b class="up">+0.24%</b></td>
+    <td><b>算力链里唯一没被砸的分支</b>（交换机 <b class="down">-8.07%</b>、算力租赁 <b class="down">-3.41%</b>）。新易盛 +5.59%、中际旭创 +3.05%，Q3 营收 <b>+93.0% / +178.1%</b>。
+    <b>但都在 MA20 之下（差 18.8%）→ 位置最低、趋势未转，等回踩不追高。</b></td></tr>
+</tbody>
+</table></div><!--tw--></div>
+<p class="meta" style="margin-bottom:0">
+  <b>回避</b>：GPU/CPU <b class="down">-4.79%</b>（燧原 −20.00%）、交换机 <b class="down">-8.07%</b>（0 涨 8 跌）、算力租赁 <b class="down">-3.41%</b>（0 涨停）、传媒 −4.86%、农林牧渔 −3.08%。
+  <b>底仓垫</b>：银行/红利 <b class="up">+0.16%</b>（招行 43.32 +0.46%）、白酒/食品饮料 <b class="up">+0.07%</b>（茅台 1460.21 <b class="up'+1.22%</b>）→ 今天唯一稳。
+  申万一级<b>无一行业均值正收益</b>（最好的非银 −0.50%），传媒 −4.86% 领跌。
+</p>
+
+<h2>四、3 支个股</h2>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
+<thead><tr><th>代码 名称</th><th class="score">收盘</th><th class="score">涨跌</th>
+<th class="score">成交额</th><th>关键位</th><th>实测印证 / 动作</th></tr></thead>
+<tbody>
+<tr><td><b>688012</b> 中微公司</td><td class="score">256.50</td><td class="score"><span class="up">+5.05%</span></td>
+    <td class="score">67.7 亿</td><td>MA20 <b>241.10</b> · 60 日低 <b>200.33</b> · 60 日高 <b>382.38</b></td>
+    <td class="text"><b>首选</b>：她 10:55 点名的半导体设备龙头，收盘=当日最高、放量 122%、Q3 营收 +28.1%、毛利率 40.4%、资产负债 21.7%。
+    <b>站上 MA5 243.65 与 MA20 241.10、MACD 柱 +9.11 → 逆势唯一站上 MA20 的主线龙头</b>。<b>回踩 MA20 不破可分批，破位放弃。</b></td></tr>
+<tr><td><b>300502</b> 新易盛</td><td class="score">167.06</td><td class="score"><span class="up">+5.59%</span></td>
+    <td class="score">146.3 亿</td><td>MA20 <b>198.53</b> · 60 日低 <b>152.00</b> · 60 日高 <b>475.00</b></td>
+    <td class="text"><b>今天全市场最强的大票</b>，Q3 营收 <b>+93.0%</b>、ROE <b>49.6%</b>、资产负债 36.9% → 最符合她「高成长」的公式；距 60 日高仍有 64.8%。
+    <b>但 MA20 198.53 仍压顶（差 18.8%）、MACD 柱 +6.18 → 不追，等回踩。</b></td></tr>
+<tr><td><b>688041</b> 海光信息<br><span class="tag tag-bear">等信号 · 不接</span></td><td class="score">180.00</td><td class="score"><span class="down">-4.81%</span></td>
+    <td class="score">87.2 亿</td><td>MA20 <b>188.86</b> · 60 日低 <b>156.05</b></td>
+    <td class="text"><b>她 14:49 亲自点名的那只</b>：最低 156.05 = <b>-17.48%</b>（她报 17.4%），<b>放量 164% 破位下跌</b>，MA20 188.86 失守。昨天 21:07 的「利好国产替代」今日被证伪。<b>动作：不接，等站回 MA20 或 156.05 二次不破。</b></td></tr>
+</tbody>
+</table></div><!--tw--></div>
+
+<h3>中微公司（688012）· 256.50（+5.05%）</h3>
+<img class="chart" src="../charts/688012_SH_20261119.png" alt="中微公司 2026-11-19 K线">
+<p class="chart-caption">高 259.98 = 收盘价 / 低 241.50 / 收 256.50，额 67.7 亿。
+站上 MA5 243.65 / MA10 246.85 / MA20 241.10；60 日高 382.38 在左上（距今 32.9%），60 日低 200.33 在下方。</p>
+
+<h3>新易盛（300502）· 167.06（+5.59%）</h3>
+<img class="chart" src="../charts/300502_SZ_20261119.png" alt="新易盛 2026-11-19 K线">
+<p class="chart-caption">高 171.08 / 低 152.00 / 收 167.06，额 146.3 亿（全场最大）。
+距 60 日低 152.00 仅 9.9%，但 MA20 198.53 压在头顶 —— <b>底部区域，未转势</b>。</p>
+
+<h3>海光信息（688041）· 180.00（-4.81%）—— 她 14:49 那只</h3>
+<img class="chart" src="../charts/688041_SH_20261119.png" alt="海光信息 2026-11-19 K线">
+<p class="chart-caption">开 185.00 = 最高 / 低 <b>156.05</b>（<b>60 日新低，-17.48%</b>）/ 收 180.00，额 87.2 亿。
+从 189.10 一路砸到 156.05 再收复到 180.00 —— <b>她发帖时的「小跌 3.3%」就在这段回拉里</b>。</p>
+
+<h2>五、11/20（周五）盯什么（5 条）</h2>
+<ul class="tight">
+  <li><b>燧原、海光能否止跌</b> —— 燧原 20cm 跌停收 364.33、海光收 180.00；<b>这两只不企稳，GPU 链的「杀估值」没结束</b>。</li>
+  <li><b>沪指 60 日新低 3547.94 不破</b> —— 破了说明她的 C5 判断还要下修。</li>
+  <li><b>创业板 2263.74（她的 2263 点）不破</b> —— 今日最低 2271.99，已连续 3 天守住。</li>
+  <li><b>半导体设备能否连续</b> —— 今天是唯一成板块的强势方向；<b>11/20 若缩量不跟，就是一日游</b>。</li>
+  <li><b>长鑫回购的兑现</b> —— 20:39 盘后公告 25–50 亿回购，存储链 11/20 的催化（长鑫 37.50、兆易、佰维），<b>高开不追</b>。</li>
+</ul>
+
+<h2>六、偏差记录</h2>
+<div class="twx" data-tw="1"><div class="tw" data-tw="1"><table>
+<thead><tr><th>项</th><th>博主口径</th><th>实测 / 处理</th></tr></thead>
+<tbody>
+<tr><td>06:31 外盘三数字<br><span class="tag tag-bull">分毫不差</span></td><td class="text">道指下跌561点，纳指上涨101点、标普下跌17点</td>
+    <td class="text">11/18 实测道指 <b>−561.25</b>、纳指 <b>+101.51</b>、标普 <b>−16.89</b>，<b>三个数字全部对上</b>。外盘播报仍可直接当数据源用。</td></tr>
+<tr><td>11:14 燧原 + GPU/CPU 被砸<br><span class="tag tag-bull">分毫不差</span></td><td class="text">燧原前面只用了9个交易日差不多涨翻番，今天被砸了20厘米。整体看，今天GPU和CPU板块集体被砸！</td>
+    <td class="text">燧原 688801：11/04 低 321.36 → 11/13 高 613.00 = <b>+90.8%</b>，历时 <b>9 个交易日</b>；今日开 430 即最高，最低=收盘 <b>364.33（−20.00%）</b>。GPU/CPU 池 <b>-4.79%</b>。<b>本期最硬的核验</b>。</td></tr>
+<tr><td>10:55 封装/光刻胶/设备<br><span class="tag tag-bull">兑现</span></td><td class="text">封装，光刻胶，半导体设备等局部走红</td>
+    <td class="text">设备 <b>+2.70%</b>（9涨2跌）、光刻胶 <b>+2.21%</b>（江化微、格林达双涨停）、封装 <b>+1.31%</b> —— <b>三个方向全中</b>。</td></tr>
+<tr><td>14:49「早盘曾大跌17.4%」<br><span class="tag tag-bull">分毫不差</span></td><td class="text">早盘曾大跌17.4%，现在是小跌3.3%.......</td>
+    <td class="text"><b>标的 = 海光信息 688041</b>（她没说名字，靠盘面反推）：最低 <b>156.05 = -17.48%</b>，发帖时约 −3.3%，收盘 180.00。</td></tr>
+<tr><td>11/18 21:07「利好国产替代」<br><span class="tag tag-bear">被证伪</span></td><td class="text">#英伟达停止向中国供应H200#利好国产替代！</td>
+    <td class="text"><b>今日 GPU/CPU 池 -4.79%、海光盘中 -17.48%</b> —— <b>隔夜催化不但没兑现，还成了杀跌理由</b>。
+    <b>11/19 最该记住的一条：盘后催化 ≠ 次日买点。</b></td></tr>
+</tbody>
+</table></div><!--tw--></div>
+<p class="meta" style="margin-bottom:0">
+  其余 <b>2 条无方向信号</b>：14:26 台湾卖空新规（对 A 股无映射）、14:51/14:55「给了我一个小 V」（情绪，对应尾盘回拉）。
+  采集：weibo skill 两轮补采 → <b>12 条</b>（06:31–20:46）；行情：<b>Tushare Pro 日线</b>（前复权），全市场单次全量算涨跌停、板块均值与涨停梯队。
+</p>
+
+<div class="foot">
+  <p><b>免责声明</b>：本报告为公开微博内容整理与技术面统计，<b>不构成投资建议</b>；
+  「3 板块 + 3 个股」是博主观点 + 实测强度的归纳。</p>
+  <p>
+    报告生成：2026-11-19 收盘版 · 数据源 weibo skill + Tushare Pro 日线 ·
+    脚本 <code>collect_tushare_20261119.py</code> / <code>collect_pools_20261119.py</code> /
+    <code>collect_mkt_20261119.py</code> / <code>make_wu2198_charts_20261119.py</code> /
+    <code>gen_wu2198_report_20261119.py</code>。
+  </p>
+</div>
+
+</div>
+<script>(function(){var w=document.querySelectorAll(".tw");for(var i=0;i<w.length;i++){if(w[i].scrollWidth>w[i].clientWidth+2&&w[i].parentNode){w[i].parentNode.classList.add("ov");}}})();/*twOverflowHint*/</script>
+</body>
+</html>
