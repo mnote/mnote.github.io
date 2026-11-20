@@ -45,11 +45,17 @@ def sina_sym(code):
     return ("sh" if code[0] == "6" else "sz") + code
 
 
-def tx_morning(symbol):
-    """腾讯 5 日分时 → 今日上午点位 + 11:30 累计量（手，×100 → 股）
+def tx_morning(symbol, is_index=False):
+    """腾讯 5 日分时 → 今日上午点位 + 11:30 累计量（统一换算成 股）
 
     ⚠️ 入参必须是完整交易所前缀（如 sh000001），不能由 6 位代码推前缀：
        上证指数是 sh000001，而 000001 若按深市推会取到平安银行。
+
+    ⚠️ 量纲不统一，必须自校准：
+       腾讯分时累计量，**沪市主板个股 = 手**（×100 → 股），
+       但**科创板 688 个股 = 股**（原值）；指数（沪/深）= 手（×100 → 股）。
+       个股用「累计额 ÷ 11:30 价」反推股数：比值≈0.01 → 手，≈1 → 股。
+       指数的 amount 是全市场口径、不能用价反推，直接按手 ×100。
     """
     s = symbol
     url = f"https://web.ifzq.gtimg.cn/appstock/app/day/query?code={s}"
@@ -78,9 +84,16 @@ def tx_morning(symbol):
                 if not am:
                     continue
                 cl = [px for t, px in am if t == "1130"]
+                close1130 = cl[-1] if cl else am[-1][1]
+                if is_index:
+                    factor = 100          # 指数：手 → 股
+                else:
+                    implied = (amt1130 / close1130) if (amt1130 and close1130) else 0
+                    ratio = (vol1130 / implied) if (implied and vol1130) else 0.01
+                    factor = 1 if ratio > 0.5 else 100   # 比率≈1 → 已是股；≈0.01 → 手
                 return {"o": am[0][1], "h": max(p for _, p in am), "l": min(p for _, p in am),
-                        "c": cl[-1] if cl else am[-1][1],
-                        "v": (vol1130 or 0) * 100, "amt": amt1130}
+                        "c": close1130,
+                        "v": (vol1130 or 0) * factor, "amt": amt1130, "vol_factor": factor}
         except Exception:
             time.sleep(0.6 + i)
     return None
@@ -119,7 +132,7 @@ for nm in ["药明康德", "中国船舶", "瑞芯微", "伊利股份", "海天�
 
 def to_df(name):
     rows = [dict(r) for r in SER[name][-60:]]
-    m = tx_morning(TXCODE[name])
+    m = tx_morning(TXCODE[name], is_index=name in ("上证指数", "创业板指"))
     if m:
         if rows and rows[-1]["d"] == D8:
             rows[-1].update({"o": m["o"], "h": m["h"], "l": m["l"], "c": m["c"],
