@@ -171,29 +171,8 @@ def plot_one(ts_code, name, levels, out_path, days=60, title_suffix="", band=Non
         extra = (hi_b - lo_b) * 0.045
         ax_main.set_ylim(lo_b - extra, hi_b + extra)
 
-    try:
-        _o, _c, _pc = df["Open"].iloc[-1], df["Close"].iloc[-1], df["Close"].iloc[-2]
-        _gap = (_c / _pc - 1) * 100
-        _span = df["High"].max() - df["Low"].min()
-        if _c >= _o and _c < _pc:
-            _note = f"盘中探低回升\n收>{_o:.2f} 但较昨收 {_gap:+.2f}%"
-        elif _c < _o and _c > _pc:
-            _note = f"高开回落\n收<开{_o:.2f} 但较昨收 {_gap:+.2f}%"
-        elif _c < _o and _c < _pc:
-            _note = f"低开\n现{_c:.2f} 较昨收 {_gap:+.2f}%"
-        else:
-            _note = f"盘中上涨\n现{_c:.2f} 较昨收 {_gap:+.2f}%"
-        ax_main.annotate(
-            _note,
-            xy=(len(df) - 1, df["High"].iloc[-1]),
-            xytext=(len(df) - 17, df["High"].iloc[-1] + _span * 0.13),
-            fontsize=8.5, color="#b45309",
-            bbox=dict(boxstyle="round,pad=0.32", fc="#fffbeb", ec="#f59e0b", lw=0.9),
-            arrowprops=dict(arrowstyle="->", color="#f59e0b", lw=1.0),
-            zorder=6,
-        )
-    except Exception:
-        pass
+    # 注：2026-11-21 起按用户要求移除「盘中/高开回落」黄色 Tip 标注框（annotate），
+    #     图上只保留 K 线 + 均线 + 左侧虚线关键位 + 成交量 + MACD。
 
     if band:
         lo, hi = band[0], band[1]
